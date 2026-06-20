@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grade 3 English Test – Bright EngMath</title>
+  <style>
+    :root {
+      --blue:    #1F4E79;
+      --blue-lt: #D6E4F0;
+      --accent:  #2E86C1;
+      --green:   #1E8449;
+      --red:     #C0392B;
+      --gray:    #F4F6F8;
+      --border:  #CDD6E0;
+      --text:    #1a1a2e;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #EBF5FB;
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── TOP BAR ── */
+    header {
+      background: var(--blue);
+      color: #fff;
+      text-align: center;
+      padding: 32px 20px 24px;
+    }
+    header h1 { font-size: 2rem; letter-spacing: .5px; }
+    header p  { font-size: .95rem; opacity: .85; margin-top: 6px; }
+    .subtitle { font-size: 1.05rem; margin-top: 10px; color: #AED6F1; }
+
+    /* ── STUDENT INFO ── */
+    .info-bar {
+      background: #fff;
+      border-bottom: 3px solid var(--blue-lt);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      padding: 16px 24px;
+    }
+    .info-bar label { font-size: .9rem; font-weight: 600; color: var(--blue); }
+    .info-bar input {
+      border: none; border-bottom: 2px solid var(--accent);
+      outline: none; font-size: .95rem; padding: 2px 6px;
+      background: transparent; width: 180px;
+    }
+
+    /* ── MAIN WRAPPER ── */
+    main {
+      max-width: 860px;
+      margin: 28px auto;
+      padding: 0 16px 60px;
+    }
+
+    /* ── INSTRUCTIONS ── */
+    .instructions {
+      background: #fff;
+      border-left: 5px solid var(--accent);
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin-bottom: 28px;
+      font-size: .95rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,.06);
+    }
+    .instructions strong { color: var(--blue); }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      background: var(--blue);
+      color: #fff;
+      border-radius: 8px 8px 0 0;
+      padding: 13px 20px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-top: 32px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-header span.badge {
+      background: rgba(255,255,255,.2);
+      border-radius: 20px;
+      padding: 2px 12px;
+      font-size: .82rem;
+      font-weight: 600;
+    }
+
+    /* ── QUESTION CARD ── */
+    .question-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-top: none;
+      padding: 18px 22px 16px;
+      transition: background .15s;
+    }
+    .question-card:last-child { border-radius: 0 0 8px 8px; }
+    .question-card:nth-child(even) { background: #FAFCFE; }
+
+    .q-text {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    .q-num {
+      display: inline-block;
+      background: var(--blue);
+      color: #fff;
+      border-radius: 50%;
+      width: 26px; height: 26px;
+      text-align: center;
+      line-height: 26px;
+      font-size: .82rem;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+
+    /* ── OPTIONS ── */
+    .options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    @media(max-width:540px){ .options { grid-template-columns: 1fr; } }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all .18s;
+      font-size: .94rem;
+      user-select: none;
+      background: #fff;
+    }
+    .option:hover { border-color: var(--accent); background: #EAF4FB; }
+    .option.selected { border-color: var(--accent); background: #D6EAF8; font-weight: 600; }
+    .option.correct  { border-color: var(--green);  background: #D5F5E3; font-weight: 600; }
+    .option.wrong    { border-color: var(--red);    background: #FADBD8; }
+
+    .option-letter {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--gray);
+      color: var(--blue);
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem;
+      flex-shrink: 0;
+      transition: background .18s, color .18s;
+    }
+    .option.selected .option-letter { background: var(--accent); color: #fff; }
+    .option.correct  .option-letter { background: var(--green);  color: #fff; }
+    .option.wrong    .option-letter { background: var(--red);    color: #fff; }
+
+    /* ── PASSAGE BOX ── */
+    .passage-box {
+      background: #EBF5FB;
+      border: 1.5px solid #AED6F1;
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: .97rem;
+      line-height: 1.75;
+      margin-bottom: 16px;
+      font-style: italic;
+      color: #1a3a5c;
+    }
+    .passage-label {
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      font-style: normal;
+    }
+
+    /* ── SUBMIT BUTTON ── */
+    .btn-wrap { text-align: center; margin-top: 36px; }
+    #submitBtn {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 48px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: .5px;
+      transition: background .2s, transform .1s;
+      box-shadow: 0 4px 12px rgba(31,78,121,.25);
+    }
+    #submitBtn:hover  { background: var(--accent); transform: translateY(-1px); }
+    #submitBtn:active { transform: translateY(0); }
+
+    /* ── SCORE PANEL ── */
+    #scorePanel {
+      display: none;
+      background: #fff;
+      border: 3px solid var(--blue);
+      border-radius: 12px;
+      padding: 28px 32px;
+      text-align: center;
+      margin-top: 32px;
+      box-shadow: 0 6px 24px rgba(31,78,121,.15);
+    }
+    #scorePanel h2 { color: var(--blue); font-size: 1.6rem; margin-bottom: 8px; }
+    #scoreFraction { font-size: 3rem; font-weight: 900; color: var(--accent); }
+    #scoreMsg { font-size: 1.05rem; margin-top: 10px; color: #555; }
+    .score-breakdown {
+      display: flex; justify-content: center; gap: 24px; margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .score-box {
+      background: var(--gray);
+      border-radius: 8px;
+      padding: 10px 20px;
+      text-align: center;
+      min-width: 130px;
+    }
+    .score-box .sb-label { font-size: .78rem; font-weight: 700; color: #777; text-transform: uppercase; }
+    .score-box .sb-val   { font-size: 1.5rem; font-weight: 900; color: var(--blue); }
+
+    /* ── ANSWER KEY ── */
+    #answerKey {
+      display: none;
+      margin-top: 32px;
+    }
+    .ak-header {
+      background: var(--blue);
+      color: #fff;
+      border-radius: 8px 8px 0 0;
+      padding: 13px 20px;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+    .ak-section-label {
+      background: var(--blue-lt);
+      color: var(--blue);
+      font-weight: 700;
+      font-size: .88rem;
+      padding: 8px 20px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    .ak-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 20px;
+      border-bottom: 1px solid var(--border);
+      background: #fff;
+      font-size: .92rem;
+      line-height: 1.5;
+    }
+    .ak-row:last-child { border-radius: 0 0 8px 8px; }
+    .ak-num { font-weight: 700; width: 28px; flex-shrink: 0; color: #888; }
+    .ak-letter { font-weight: 900; color: var(--red); width: 22px; flex-shrink: 0; }
+    .ak-dash { color: #bbb; }
+    .ak-exp { color: #333; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: .82rem;
+      color: #888;
+      border-top: 1px solid var(--border);
+      background: #fff;
+      margin-top: 48px;
+    }
+    footer strong { color: var(--blue); }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Grade 3 English Test</h1>
+  <div class="subtitle">Grammar &nbsp;•&nbsp; Daily Conversation &nbsp;•&nbsp; Reading Comprehension</div>
+  <p>Total: 30 Questions &nbsp;|&nbsp; Time: 45 minutes</p>
+</header>
+
+<div class="info-bar">
+  <div><label>Name:&nbsp;</label><input type="text" placeholder="Your name" /></div>
+  <div><label>Date:&nbsp;</label><input type="text" placeholder="DD/MM/YYYY" style="width:130px" /></div>
+  <div><label>Score:&nbsp;</label><span id="liveScore" style="font-weight:700;color:var(--blue)">0 / 30</span></div>
+</div>
+
+<main>
+  <div class="instructions">
+    <strong>Instructions:</strong> Choose the best answer (A, B, C, or D) for each question. Click an option to select it. Press <strong>"Check My Answers"</strong> when you are done.
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SECTION A – GRAMMAR
+  ═══════════════════════════════════════ -->
+  <div class="section-header">
+    📝 Section A: Grammar
+    <span class="badge">Questions 1–15</span>
+  </div>
+
+  <!-- Q1 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">1</span>She ___ to school every day.</div>
+    <div class="options" data-q="1" data-answer="B">
+      <div class="option" data-val="A"><span class="option-letter">A</span> go</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> goes</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> going</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> went</div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">2</span>They ___ breakfast at 7 a.m.</div>
+    <div class="options" data-q="2" data-answer="C">
+      <div class="option" data-val="A"><span class="option-letter">A</span> eats</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> eating</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> eat</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> ate</div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">3</span>Look! The dog ___ in the garden right now.</div>
+    <div class="options" data-q="3" data-answer="C">
+      <div class="option" data-val="A"><span class="option-letter">A</span> run</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> runs</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> is running</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> ran</div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">4</span>We ___ a movie right now. Please be quiet.</div>
+    <div class="options" data-q="4" data-answer="C">
+      <div class="option" data-val="A"><span class="option-letter">A</span> watch</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> watches</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> are watching</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> watched</div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">5</span>Last night, I ___ a very good book.</div>
+    <div class="options" data-q="5" data-answer="A">
+      <div class="option" data-val="A"><span class="option-letter">A</span> read</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> reads</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> reading</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> am reading</div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">6</span>She ___ to the park with her mom yesterday.</div>
+    <div class="options" data-q="6" data-answer="C">
+      <div class="option" data-val="A"><span class="option-letter">A</span> go</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> goes</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> went</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> going</div>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">7</span>I ___ a student at Green Apple School.</div>
+    <div class="options" data-q="7" data-answer="C">
+      <div class="option" data-val="A"><span class="option-letter">A</span> are</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> is</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> am</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> was</div>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">8</span>They ___ very happy at the party last Saturday.</div>
+    <div class="options" data-q="8" data-answer="D">
+      <div class="option" data-val="A"><span class="option-letter">A</span> is</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> are</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> was</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> were</div>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">9</span>Tom and I go to school together. ___ are best friends.</div>
+    <div class="options" data-q="9" data-answer="B">
+      <div class="option" data-val="A"><span class="option-letter">A</span> They</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> We</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> He</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> She</div>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">10</span>This is my dog. ___ name is Buddy.</div>
+    <div class="options" data-q="10" data-answer="B">
+      <div class="option" data-val="A"><span class="option-letter">A</span> My</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> Its</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> His</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> Her</div>
+    </div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">11</span>The cat is hiding ___ the table. (It cannot be seen.)</div>
+    <div class="options" data-q="11" data-answer="C">
+      <div class="option" data-val="A"><span class="option-letter">A</span> on</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> in</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> under</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> next to</div>
+    </div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">12</span>I have two ___ in my bag.</div>
+    <div class="options" data-q="12" data-answer="C">
+      <div class="option" data-val="A"><span class="option-letter">A</span> box</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> boxs</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> boxes</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> boxies</div>
+    </div>
+  </div>
+
+  <!-- Q13 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">13</span>I saw ___ elephant at the zoo. It was very big!</div>
+    <div class="options" data-q="13" data-answer="B">
+      <div class="option" data-val="A"><span class="option-letter">A</span> a</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> an</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> the</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> some</div>
+    </div>
+  </div>
+
+  <!-- Q14 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">14</span>Can you please close ___ door? It is very noisy outside.</div>
+    <div class="options" data-q="14" data-answer="D">
+      <div class="option" data-val="A"><span class="option-letter">A</span> a</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> an</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> some</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> the</div>
+    </div>
+  </div>
+
+  <!-- Q15 -->
+  <div class="question-card" style="border-radius:0 0 8px 8px">
+    <div class="q-text"><span class="q-num">15</span>___ did you go after school yesterday?</div>
+    <div class="options" data-q="15" data-answer="C">
+      <div class="option" data-val="A"><span class="option-letter">A</span> Who</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> What</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> Where</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> How</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SECTION B – DAILY CONVERSATION
+  ═══════════════════════════════════════ -->
+  <div class="section-header">
+    💬 Section B: Daily Conversation
+    <span class="badge">Questions 16–23</span>
+  </div>
+  <div class="question-card" style="background:#FEF9E7;border:1px solid #F9E79F;border-top:none;font-size:.88rem;padding:10px 22px;">
+    <em>Choose the best reply or the missing word to complete each conversation.</em>
+  </div>
+
+  <!-- Q16 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">16</span>"Good morning! How are you?"</div>
+    <div class="options" data-q="16" data-answer="C">
+      <div class="option" data-val="A"><span class="option-letter">A</span> I am ten years old.</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> My name is Tom.</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> I am fine, thank you!</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> I like apples.</div>
+    </div>
+  </div>
+
+  <!-- Q17 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">17</span>"What is your name?"</div>
+    <div class="options" data-q="17" data-answer="B">
+      <div class="option" data-val="A"><span class="option-letter">A</span> I am 8 years old.</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> My name is Lisa.</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> I like the color blue.</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> I am good.</div>
+    </div>
+  </div>
+
+  <!-- Q18 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">18</span>"How old are you?"</div>
+    <div class="options" data-q="18" data-answer="C">
+      <div class="option" data-val="A"><span class="option-letter">A</span> I am from Thailand.</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> I am feeling great.</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> I am 9 years old.</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> My name is Tom.</div>
+    </div>
+  </div>
+
+  <!-- Q19 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">19</span>"You look sad today. What is wrong?"</div>
+    <div class="options" data-q="19" data-answer="C">
+      <div class="option" data-val="A"><span class="option-letter">A</span> I like cats very much.</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> My favorite color is red.</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> I lost my pencil case.</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> I am 8 years old.</div>
+    </div>
+  </div>
+
+  <!-- Q20 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">20</span>"What is your favorite food?"</div>
+    <div class="options" data-q="20" data-answer="A">
+      <div class="option" data-val="A"><span class="option-letter">A</span> I love pizza!</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> I go to school by bus.</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> I have a pet cat.</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> I am very happy.</div>
+    </div>
+  </div>
+
+  <!-- Q21 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">21</span>"May I borrow your eraser, please?"</div>
+    <div class="options" data-q="21" data-answer="A">
+      <div class="option" data-val="A"><span class="option-letter">A</span> Yes, here you go!</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> No, I do not.</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> I am okay.</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> Thank you very much.</div>
+    </div>
+  </div>
+
+  <!-- Q22 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">22</span>"Excuse me, can you help me find my classroom?"</div>
+    <div class="options" data-q="22" data-answer="B">
+      <div class="option" data-val="A"><span class="option-letter">A</span> Sorry, I am too busy.</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> Yes, of course! Follow me.</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> No, go away.</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> I like dogs.</div>
+    </div>
+  </div>
+
+  <!-- Q23 -->
+  <div class="question-card" style="border-radius:0 0 8px 8px">
+    <div class="q-text"><span class="q-num">23</span>"Thank you for helping me!" &nbsp; "___"</div>
+    <div class="options" data-q="23" data-answer="B">
+      <div class="option" data-val="A"><span class="option-letter">A</span> Sorry, I cannot.</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> You are welcome!</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> I do not know.</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> See you later.</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SECTION C – READING COMPREHENSION
+  ═══════════════════════════════════════ -->
+  <div class="section-header">
+    📖 Section C: Reading Comprehension
+    <span class="badge">Questions 24–30</span>
+  </div>
+  <div class="question-card" style="background:#FEF9E7;border:1px solid #F9E79F;border-top:none;font-size:.88rem;padding:10px 22px;">
+    <em>Read each passage carefully. Then choose the best answer.</em>
+  </div>
+
+  <!-- PASSAGE 1 -->
+  <div class="question-card">
+    <div class="passage-box">
+      <div class="passage-label">📄 Passage 1 — Read and Answer Questions 24–27</div>
+      My name is Sam. I am 8 years old. I go to Green Apple School. My favorite subject is Math. I have two best friends. Their names are Lily and Tom. We play together every day after school.
+    </div>
+  </div>
+
+  <!-- Q24 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">24</span>What is the boy's name?</div>
+    <div class="options" data-q="24" data-answer="C">
+      <div class="option" data-val="A"><span class="option-letter">A</span> Lily</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> Tom</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> Sam</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> Green</div>
+    </div>
+  </div>
+
+  <!-- Q25 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">25</span>How old is Sam?</div>
+    <div class="options" data-q="25" data-answer="C">
+      <div class="option" data-val="A"><span class="option-letter">A</span> 6 years old</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> 7 years old</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> 8 years old</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> 9 years old</div>
+    </div>
+  </div>
+
+  <!-- Q26 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">26</span>What is Sam's favorite subject?</div>
+    <div class="options" data-q="26" data-answer="D">
+      <div class="option" data-val="A"><span class="option-letter">A</span> English</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> Science</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> Art</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> Math</div>
+    </div>
+  </div>
+
+  <!-- Q27 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">27</span>Who are Sam's best friends?</div>
+    <div class="options" data-q="27" data-answer="A">
+      <div class="option" data-val="A"><span class="option-letter">A</span> Lily and Tom</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> Sam and Lily</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> Tom and Green</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> Sam and Tom</div>
+    </div>
+  </div>
+
+  <!-- PASSAGE 2 -->
+  <div class="question-card">
+    <div class="passage-box">
+      <div class="passage-label">📄 Passage 2 — Read and Answer Questions 28–30</div>
+      Today is Saturday. The weather is sunny. Anna and her family are at the park. Her mom is reading a book. Her dad is playing football. Anna and her little brother are feeding the ducks. They are all very happy.
+    </div>
+  </div>
+
+  <!-- Q28 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">28</span>Where are Anna and her family today?</div>
+    <div class="options" data-q="28" data-answer="B">
+      <div class="option" data-val="A"><span class="option-letter">A</span> At school</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> At the park</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> At home</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> At the zoo</div>
+    </div>
+  </div>
+
+  <!-- Q29 -->
+  <div class="question-card">
+    <div class="q-text"><span class="q-num">29</span>What is Anna's mom doing?</div>
+    <div class="options" data-q="29" data-answer="C">
+      <div class="option" data-val="A"><span class="option-letter">A</span> Playing football</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> Feeding the ducks</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> Reading a book</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> Swimming</div>
+    </div>
+  </div>
+
+  <!-- Q30 -->
+  <div class="question-card" style="border-radius:0 0 8px 8px">
+    <div class="q-text"><span class="q-num">30</span>The word "sunny" in the passage means ___</div>
+    <div class="options" data-q="30" data-answer="C">
+      <div class="option" data-val="A"><span class="option-letter">A</span> cold and windy</div>
+      <div class="option" data-val="B"><span class="option-letter">B</span> rainy and cloudy</div>
+      <div class="option" data-val="C"><span class="option-letter">C</span> bright and warm</div>
+      <div class="option" data-val="D"><span class="option-letter">D</span> dark and stormy</div>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="btn-wrap">
+    <button id="submitBtn" onclick="checkAnswers()">✅ Check My Answers</button>
+  </div>
+
+  <!-- SCORE -->
+  <div id="scorePanel">
+    <h2>🎉 Your Result</h2>
+    <div id="scoreFraction"></div>
+    <div id="scoreMsg"></div>
+    <div class="score-breakdown">
+      <div class="score-box">
+        <div class="sb-label">Section A – Grammar</div>
+        <div class="sb-val" id="scoreA">–</div>
+      </div>
+      <div class="score-box">
+        <div class="sb-label">Section B – Conversation</div>
+        <div class="sb-val" id="scoreB">–</div>
+      </div>
+      <div class="score-box">
+        <div class="sb-label">Section C – Reading</div>
+        <div class="sb-val" id="scoreC">–</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANSWER KEY -->
+  <div id="answerKey">
+    <div class="ak-header">📋 Answer Key &nbsp;–&nbsp; With Explanations</div>
+
+    <div class="ak-section-label">Section A: Grammar (Q1–15)</div>
+    <div class="ak-row"><span class="ak-num">1.</span><span class="ak-letter">B</span><span class="ak-dash">—</span><span class="ak-exp">"goes" is correct because with "she" (third person singular), we add -s to the verb in the Present Simple.</span></div>
+    <div class="ak-row"><span class="ak-num">2.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">"eat" is correct because "they" is plural and does not need -s in the Present Simple.</span></div>
+    <div class="ak-row"><span class="ak-num">3.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">"is running" is correct because the action is happening right now (Present Continuous = is/am/are + verb-ing).</span></div>
+    <div class="ak-row"><span class="ak-num">4.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">"are watching" is correct because "we" uses "are" in Present Continuous, and the action is happening right now.</span></div>
+    <div class="ak-row"><span class="ak-num">5.</span><span class="ak-letter">A</span><span class="ak-dash">—</span><span class="ak-exp">"read" is correct. "Read" is an irregular verb — past tense is also "read" (pronounced "red"). The sentence happened last night.</span></div>
+    <div class="ak-row"><span class="ak-num">6.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">"went" is correct because the sentence happened yesterday. "Go" is irregular — past tense is "went."</span></div>
+    <div class="ak-row"><span class="ak-num">7.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">"am" is used with "I" in the verb "to be."</span></div>
+    <div class="ak-row"><span class="ak-num">8.</span><span class="ak-letter">D</span><span class="ak-dash">—</span><span class="ak-exp">"were" is correct because "they" takes "were" in the past tense of "to be."</span></div>
+    <div class="ak-row"><span class="ak-num">9.</span><span class="ak-letter">B</span><span class="ak-dash">—</span><span class="ak-exp">"We" is correct because the subject is "Tom and I," which equals "we."</span></div>
+    <div class="ak-row"><span class="ak-num">10.</span><span class="ak-letter">B</span><span class="ak-dash">—</span><span class="ak-exp">"Its" is correct because we use "its" for animals when the gender is not stated.</span></div>
+    <div class="ak-row"><span class="ak-num">11.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">"Under" means below something. The cat is hiding below the table.</span></div>
+    <div class="ak-row"><span class="ak-num">12.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">"Boxes" is correct. Nouns ending in -x form their plural by adding -es.</span></div>
+    <div class="ak-row"><span class="ak-num">13.</span><span class="ak-letter">B</span><span class="ak-dash">—</span><span class="ak-exp">"An" is used before a word starting with a vowel sound. "Elephant" starts with "e."</span></div>
+    <div class="ak-row"><span class="ak-num">14.</span><span class="ak-letter">D</span><span class="ak-dash">—</span><span class="ak-exp">"The" is used when both speaker and listener know which specific thing is meant — the door in front of them.</span></div>
+    <div class="ak-row"><span class="ak-num">15.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">"Where" asks about a place. The answer would be a location, such as "I went to the park."</span></div>
+
+    <div class="ak-section-label">Section B: Daily Conversation (Q16–23)</div>
+    <div class="ak-row"><span class="ak-num">16.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">"I am fine, thank you!" is the correct and polite reply to "How are you?"</span></div>
+    <div class="ak-row"><span class="ak-num">17.</span><span class="ak-letter">B</span><span class="ak-dash">—</span><span class="ak-exp">"My name is Lisa." correctly answers "What is your name?"</span></div>
+    <div class="ak-row"><span class="ak-num">18.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">"I am 9 years old." correctly answers "How old are you?" — it tells someone your age.</span></div>
+    <div class="ak-row"><span class="ak-num">19.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">"I lost my pencil case." is a reason for feeling sad — it answers "What is wrong?"</span></div>
+    <div class="ak-row"><span class="ak-num">20.</span><span class="ak-letter">A</span><span class="ak-dash">—</span><span class="ak-exp">"I love pizza!" correctly answers a question about favorite food.</span></div>
+    <div class="ak-row"><span class="ak-num">21.</span><span class="ak-letter">A</span><span class="ak-dash">—</span><span class="ak-exp">"Yes, here you go!" is the natural and polite way to agree to lend something.</span></div>
+    <div class="ak-row"><span class="ak-num">22.</span><span class="ak-letter">B</span><span class="ak-dash">—</span><span class="ak-exp">"Yes, of course! Follow me." is the best and most helpful reply when someone asks for directions.</span></div>
+    <div class="ak-row"><span class="ak-num">23.</span><span class="ak-letter">B</span><span class="ak-dash">—</span><span class="ak-exp">"You are welcome!" is the correct polite response when someone says "Thank you."</span></div>
+
+    <div class="ak-section-label">Section C: Reading Comprehension (Q24–30)</div>
+    <div class="ak-row"><span class="ak-num">24.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">"Sam" — the passage starts with "My name is Sam."</span></div>
+    <div class="ak-row"><span class="ak-num">25.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">"8 years old" — the passage says "I am 8 years old."</span></div>
+    <div class="ak-row"><span class="ak-num">26.</span><span class="ak-letter">D</span><span class="ak-dash">—</span><span class="ak-exp">"Math" — the passage says "My favorite subject is Math."</span></div>
+    <div class="ak-row"><span class="ak-num">27.</span><span class="ak-letter">A</span><span class="ak-dash">—</span><span class="ak-exp">"Lily and Tom" — the passage says "Their names are Lily and Tom."</span></div>
+    <div class="ak-row"><span class="ak-num">28.</span><span class="ak-letter">B</span><span class="ak-dash">—</span><span class="ak-exp">"At the park" — the passage says "Anna and her family are at the park."</span></div>
+    <div class="ak-row"><span class="ak-num">29.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">"Reading a book" — the passage says "Her mom is reading a book."</span></div>
+    <div class="ak-row"><span class="ak-num">30.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">"Bright and warm" — "sunny" weather means the sun is shining, so it is bright and warm outside.</span></div>
+  </div>
+
+</main>
+
+<footer>
+  &copy; 2026 &nbsp;<strong>Bright EngMath</strong> &nbsp;|&nbsp; Grade 3 English Test &nbsp;|&nbsp; All rights reserved.
+</footer>
+
+<script>
+  const answers = {};
+
+  // Count live score
+  function updateLiveScore() {
+    const correct = Object.entries(answers).filter(([q, v]) => {
+      const group = document.querySelector(`.options[data-q="${q}"]`);
+      return group && v === group.dataset.answer;
+    }).length;
+    document.getElementById('liveScore').textContent = correct + ' / 30';
+  }
+
+  // Attach click handlers
+  document.querySelectorAll('.options').forEach(group => {
+    group.querySelectorAll('.option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        if (group.dataset.checked) return; // locked after submit
+        group.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        answers[group.dataset.q] = opt.dataset.val;
+        updateLiveScore();
+      });
+    });
+  });
+
+  function checkAnswers() {
+    let total = 0, secA = 0, secB = 0, secC = 0;
+
+    document.querySelectorAll('.options').forEach(group => {
+      const q   = parseInt(group.dataset.q);
+      const ans = group.dataset.answer;
+      const sel = answers[group.dataset.q];
+
+      group.dataset.checked = 'true';
+      group.querySelectorAll('.option').forEach(opt => {
+        opt.classList.remove('selected', 'correct', 'wrong');
+        if (opt.dataset.val === ans) opt.classList.add('correct');
+        else if (opt.dataset.val === sel) opt.classList.add('wrong');
+      });
+
+      const isRight = sel === ans;
+      if (isRight) {
+        total++;
+        if (q <= 15) secA++;
+        else if (q <= 23) secB++;
+        else secC++;
+      }
+    });
+
+    // Show score panel
+    const panel = document.getElementById('scorePanel');
+    panel.style.display = 'block';
+    document.getElementById('scoreFraction').textContent = total + ' / 30';
+    document.getElementById('scoreA').textContent = secA + ' / 15';
+    document.getElementById('scoreB').textContent = secB + ' / 8';
+    document.getElementById('scoreC').textContent = secC + ' / 7';
+
+    const pct = Math.round(total / 30 * 100);
+    let msg = '';
+    if (pct === 100) msg = '🌟 Perfect score! Amazing work!';
+    else if (pct >= 80) msg = '🎉 Great job! Keep it up!';
+    else if (pct >= 60) msg = '😊 Good effort! Review your mistakes and try again.';
+    else msg = '📚 Keep practising! You can do it!';
+    document.getElementById('scoreMsg').textContent = msg;
+
+    // Show answer key & scroll
+    document.getElementById('answerKey').style.display = 'block';
+    document.getElementById('submitBtn').disabled = true;
+    document.getElementById('submitBtn').textContent = '✅ Submitted';
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Update live score display
+    document.getElementById('liveScore').textContent = total + ' / 30';
+  }
+</script>
+</body>
+</html>
