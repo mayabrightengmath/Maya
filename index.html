@@ -1,853 +1,668 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>M.1 English Entrance Exam – Bright EngMath</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bright EngMath – Test & Worksheet Hub</title>
   <style>
     :root {
-      --navy:    #0D2137;
-      --blue:    #1A4F82;
-      --accent:  #C0392B;
-      --gold:    #D4A017;
-      --green:   #1E8449;
-      --red:     #C0392B;
-      --gray:    #F2F4F7;
-      --border:  #CBD5E0;
-      --text:    #1a1a2e;
+      --orange:   #FF6B2B;
+      --orange2:  #FF8C42;
+      --yellow:   #FFD166;
+      --dark:     #1A1A2E;
+      --navy:     #16213E;
+      --white:    #FFFFFF;
+      --gray:     #F7F7F7;
+      --gray2:    #ECECEC;
+      --text:     #2D2D2D;
+      --muted:    #888;
+      --green:    #06D6A0;
+      --blue:     #118AB2;
+      --red:      #EF476F;
+      --shadow:   0 4px 20px rgba(0,0,0,.10);
+      --shadow2:  0 8px 32px rgba(255,107,43,.18);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #E8EEF4;
-      color: var(--text);
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--gray); color: var(--text); min-height: 100vh; }
+
+    /* ── NAVBAR ── */
+    nav {
+      background: var(--dark);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px; height: 60px; position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,.3);
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--white);
+    }
+    .nav-brand .logo {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--orange), var(--yellow));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 900; color: var(--dark);
+    }
+    .nav-brand span { font-weight: 800; font-size: 1.05rem; }
+    .nav-brand span em { color: var(--orange2); font-style: normal; }
+
+    .nav-right { display: flex; gap: 10px; align-items: center; }
+    .nav-btn {
+      padding: 7px 18px; border-radius: 8px; font-size: .85rem;
+      font-weight: 700; cursor: pointer; border: none; transition: all .18s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-home  { background: rgba(255,255,255,.1); color: #fff; }
+    .btn-home:hover  { background: rgba(255,255,255,.2); }
+    .btn-admin { background: var(--orange); color: #fff; }
+    .btn-admin:hover { background: var(--orange2); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--dark) 0%, #2C3E6B 60%, #1A4F82 100%);
+      padding: 52px 28px 44px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 280px; height: 280px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,107,43,.25), transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -80px; left: -40px;
+      width: 220px; height: 220px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,209,102,.15), transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,107,43,.2); border: 1px solid rgba(255,107,43,.4);
+      color: var(--orange2); font-size: .75rem; font-weight: 800;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 5px 16px; border-radius: 20px; margin-bottom: 16px;
+    }
+    .hero h1 { color: #fff; font-size: 2rem; font-weight: 900; line-height: 1.2; }
+    .hero h1 span { color: var(--yellow); }
+    .hero p { color: #AED6F1; font-size: .95rem; margin-top: 10px; }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      display: flex; justify-content: center; gap: 0;
+      background: var(--white); border-bottom: 2px solid var(--gray2);
+      flex-wrap: wrap;
+    }
+    .stat-item {
+      padding: 14px 28px; text-align: center;
+      border-right: 1px solid var(--gray2);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-size: 1.4rem; font-weight: 900; color: var(--orange); }
+    .stat-label { font-size: .72rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+
+    /* ── FILTER BAR ── */
+    .filter-wrap {
+      background: var(--white);
+      padding: 18px 28px;
+      display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+      border-bottom: 2px solid var(--gray2);
+      position: sticky; top: 60px; z-index: 90;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+    .filter-group { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .filter-label { font-size: .75rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-right: 4px; }
+    .filter-btn {
+      padding: 6px 14px; border-radius: 20px; border: 2px solid var(--gray2);
+      font-size: .82rem; font-weight: 700; cursor: pointer;
+      background: var(--white); color: var(--text); transition: all .15s;
+    }
+    .filter-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .filter-btn.active { background: var(--orange); border-color: var(--orange); color: #fff; }
+    .filter-btn.math-active  { background: var(--blue);  border-color: var(--blue);  color: #fff; }
+    .filter-btn.eng-active   { background: var(--green); border-color: var(--green); color: #fff; }
+
+    .filter-divider { width: 1px; height: 28px; background: var(--gray2); }
+    .search-box {
+      margin-left: auto;
+      display: flex; align-items: center; gap: 8px;
+      background: var(--gray); border-radius: 8px; padding: 7px 14px;
+    }
+    .search-box input {
+      border: none; background: transparent; outline: none;
+      font-size: .88rem; width: 160px; color: var(--text);
+    }
+    .search-box span { color: var(--muted); font-size: .9rem; }
+
+    /* ── MAIN CONTENT ── */
+    main { max-width: 1100px; margin: 0 auto; padding: 28px 20px 60px; }
+
+    .section-title {
+      font-size: .8rem; font-weight: 800; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-title::after {
+      content: ''; flex: 1; height: 1px; background: var(--gray2);
     }
 
-    /* ── HEADER ── */
-    header {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
-      color: #fff;
-      text-align: center;
-      padding: 36px 20px 28px;
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform .18s, box-shadow .18s;
+      text-decoration: none; color: inherit;
+      display: flex; flex-direction: column;
       position: relative;
     }
-    .exam-badge {
-      display: inline-block;
-      background: var(--gold);
-      color: var(--navy);
-      font-weight: 800;
-      font-size: .78rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      padding: 4px 16px;
-      border-radius: 20px;
-      margin-bottom: 12px;
-    }
-    header h1 { font-size: 1.9rem; letter-spacing: .3px; }
-    header .sub { font-size: .95rem; color: #AED6F1; margin-top: 8px; }
-    header .meta { font-size: .85rem; color: #ccc; margin-top: 6px; }
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow2); }
 
-    /* ── INFO BAR ── */
-    .info-bar {
-      background: #fff;
-      border-bottom: 3px solid #DDEAF7;
-      display: flex; flex-wrap: wrap; gap: 16px;
-      justify-content: center; align-items: center;
-      padding: 14px 24px;
+    .card-top {
+      height: 8px;
     }
-    .info-bar label { font-size: .88rem; font-weight: 700; color: var(--blue); }
-    .info-bar input {
-      border: none; border-bottom: 2px solid var(--blue);
-      outline: none; font-size: .93rem; padding: 2px 6px;
-      background: transparent; min-width: 160px;
+    .card-top.eng  { background: linear-gradient(90deg, var(--green), #04A97A); }
+    .card-top.math { background: linear-gradient(90deg, var(--blue), #0D6E8C); }
+    .card-top.all  { background: linear-gradient(90deg, var(--orange), var(--yellow)); }
+
+    .card-body { padding: 18px 20px 14px; flex: 1; }
+    .card-tags { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+    .tag {
+      font-size: .7rem; font-weight: 800; padding: 3px 10px;
+      border-radius: 20px; text-transform: uppercase; letter-spacing: .5px;
     }
-    #liveScore { font-weight: 800; color: var(--blue); font-size: 1rem; }
+    .tag-eng  { background: #D5F5EE; color: #06A07A; }
+    .tag-math { background: #D6EAF8; color: #0D6E8C; }
+    .tag-grade { background: #FFF0E5; color: var(--orange); }
+    .tag-test  { background: #FFF9E5; color: #C8960A; }
+    .tag-ws    { background: #F0E5FF; color: #7B2FBE; }
 
-    /* ── MAIN ── */
-    main { max-width: 900px; margin: 28px auto; padding: 0 16px 72px; }
-
-    /* ── INSTRUCTIONS ── */
-    .instructions {
-      background: #fff;
-      border-left: 5px solid var(--gold);
-      border-radius: 6px;
-      padding: 14px 20px;
-      margin-bottom: 28px;
-      font-size: .93rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,.07);
-      line-height: 1.6;
-    }
-    .instructions strong { color: var(--navy); }
-
-    /* ── SECTION HEADER ── */
-    .section-header {
-      background: var(--navy);
-      color: #fff;
-      border-radius: 10px 10px 0 0;
-      padding: 14px 22px;
-      font-size: 1rem;
-      font-weight: 800;
-      margin-top: 36px;
+    .card-title { font-size: 1rem; font-weight: 800; color: var(--dark); margin-bottom: 6px; line-height: 1.4; }
+    .card-desc  { font-size: .82rem; color: var(--muted); line-height: 1.5; }
+    .card-meta  {
       display: flex; align-items: center; justify-content: space-between;
-      letter-spacing: .3px;
+      padding: 12px 20px; border-top: 1px solid var(--gray2);
     }
-    .section-header .s-right {
-      background: rgba(255,255,255,.15);
-      border-radius: 20px;
-      padding: 3px 14px;
-      font-size: .8rem;
-      font-weight: 600;
+    .card-info { font-size: .75rem; color: var(--muted); }
+    .card-btn {
+      background: var(--orange); color: #fff;
+      padding: 7px 16px; border-radius: 8px;
+      font-size: .8rem; font-weight: 700; border: none; cursor: pointer;
+      transition: background .15s; text-decoration: none; display: inline-block;
     }
-    .section-note {
-      background: #FFFBEA;
-      border: 1px solid #F9E79F;
-      border-top: none;
-      font-size: .86rem;
-      padding: 10px 22px;
-      font-style: italic;
-      color: #7D6608;
-    }
+    .card-btn:hover { background: var(--orange2); }
+    .card-btn.math-btn { background: var(--blue); }
+    .card-btn.math-btn:hover { background: #0D6E8C; }
+    .card-btn.eng-btn  { background: var(--green); }
+    .card-btn.eng-btn:hover  { background: #04A97A; }
 
-    /* ── QUESTION CARD ── */
-    .question-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-top: none;
-      padding: 18px 22px 16px;
-    }
-    .question-card:last-of-type,
-    .section-last { border-radius: 0 0 10px 10px; }
-
-    .q-text {
-      font-size: .97rem;
-      font-weight: 600;
-      margin-bottom: 14px;
-      line-height: 1.6;
-      display: flex; align-items: flex-start; gap: 10px;
-    }
-    .q-num {
-      display: inline-flex; align-items: center; justify-content: center;
-      background: var(--blue); color: #fff;
-      border-radius: 50%; min-width: 28px; height: 28px;
-      font-size: .8rem; font-weight: 700; flex-shrink: 0; margin-top: 1px;
-    }
-
-    /* ── OPTIONS ── */
-    .options { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
-    @media(max-width:540px){ .options { grid-template-columns: 1fr; } }
-
-    .option {
-      display: flex; align-items: flex-start; gap: 10px;
-      padding: 9px 14px;
-      border: 2px solid var(--border);
-      border-radius: 8px; cursor: pointer;
-      transition: all .15s; font-size: .91rem;
-      user-select: none; background: #fff; line-height: 1.5;
-    }
-    .option:hover { border-color: var(--blue); background: #EBF5FB; }
-    .option.selected { border-color: var(--blue); background: #D6EAF8; font-weight: 600; }
-    .option.correct  { border-color: var(--green); background: #D5F5E3; font-weight: 600; }
-    .option.wrong    { border-color: var(--red);   background: #FADBD8; }
-    .option-letter {
-      min-width: 26px; height: 26px; border-radius: 50%;
-      background: var(--gray); color: var(--blue);
-      font-weight: 800; font-size: .8rem;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; transition: all .15s;
-    }
-    .option.selected .option-letter { background: var(--blue);  color: #fff; }
-    .option.correct  .option-letter { background: var(--green); color: #fff; }
-    .option.wrong    .option-letter { background: var(--red);   color: #fff; }
-
-    /* ── ERROR CORRECTION SPECIAL ── */
-    .error-sentence {
-      background: #F8F9FA;
-      border: 1.5px solid var(--border);
-      border-radius: 6px;
-      padding: 10px 16px;
-      font-size: .97rem;
-      margin-bottom: 12px;
-      line-height: 2;
-    }
-    .err-label {
-      font-size: .75rem; font-weight: 700; color: #888;
-      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
-    }
-    .underlined { text-decoration: underline; font-weight: 700; color: var(--navy); }
-
-    /* ── PASSAGE BOX ── */
-    .passage-card {
-      background: #F0F4FA;
-      border: 1.5px solid #AED6F1;
-      border-top: none;
-      padding: 18px 22px;
-    }
-    .passage-label {
-      font-size: .78rem; font-weight: 800; color: var(--blue);
-      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;
-    }
-    .passage-text {
-      font-size: .95rem; line-height: 1.85;
-      color: #1a2a40; font-style: italic;
-    }
-
-    /* ── SUBMIT ── */
-    .btn-wrap { text-align: center; margin-top: 40px; }
-    #submitBtn {
-      background: var(--navy);
-      color: #fff; border: none; border-radius: 8px;
-      padding: 15px 54px; font-size: 1.05rem; font-weight: 800;
-      cursor: pointer; letter-spacing: .5px;
-      box-shadow: 0 4px 14px rgba(13,33,55,.3);
-      transition: background .2s, transform .1s;
-    }
-    #submitBtn:hover  { background: var(--blue); transform: translateY(-2px); }
-    #submitBtn:active { transform: translateY(0); }
-    #submitBtn:disabled { background: #aaa; cursor: default; transform: none; }
-
-    /* ── SCORE PANEL ── */
-    #scorePanel {
+    .card-admin-btns {
       display: none;
-      background: #fff;
-      border: 3px solid var(--navy);
-      border-radius: 14px;
-      padding: 32px 28px;
-      text-align: center;
-      margin-top: 36px;
-      box-shadow: 0 8px 28px rgba(13,33,55,.15);
+      position: absolute; top: 12px; right: 12px;
+      gap: 6px;
     }
-    #scorePanel h2 { color: var(--navy); font-size: 1.5rem; }
-    #scoreFraction { font-size: 3.2rem; font-weight: 900; color: var(--blue); margin: 8px 0; }
-    #scoreMsg { font-size: 1rem; color: #555; }
-    .score-breakdown {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 22px;
+    body.admin-mode .card-admin-btns { display: flex; }
+    .admin-edit, .admin-del {
+      width: 28px; height: 28px; border-radius: 8px; border: none;
+      cursor: pointer; font-size: .85rem; display: flex;
+      align-items: center; justify-content: center; font-weight: 700;
     }
-    .score-box {
-      background: var(--gray); border-radius: 10px;
-      padding: 12px 18px; min-width: 140px; text-align: center;
-    }
-    .score-box .sb-label { font-size: .74rem; font-weight: 800; color: #888; text-transform: uppercase; letter-spacing: .5px; }
-    .score-box .sb-val   { font-size: 1.6rem; font-weight: 900; color: var(--navy); }
+    .admin-edit { background: var(--yellow); color: var(--dark); }
+    .admin-del  { background: var(--red);    color: #fff; }
 
-    /* ── ANSWER KEY ── */
-    #answerKey { display: none; margin-top: 36px; }
-    .ak-header {
-      background: var(--navy); color: #fff;
-      border-radius: 10px 10px 0 0;
-      padding: 14px 22px; font-size: 1rem; font-weight: 800;
-    }
-    .ak-section-label {
-      background: #DDEAF7; color: var(--navy);
-      font-weight: 800; font-size: .85rem;
-      padding: 8px 22px; text-transform: uppercase; letter-spacing: .5px;
-    }
-    .ak-row {
-      display: flex; align-items: flex-start; gap: 10px;
-      padding: 10px 22px; border-bottom: 1px solid var(--border);
-      background: #fff; font-size: .91rem; line-height: 1.55;
-    }
-    .ak-row:last-child { border-radius: 0 0 10px 10px; border-bottom: none; }
-    .ak-num    { font-weight: 700; min-width: 30px; color: #999; flex-shrink: 0; }
-    .ak-letter { font-weight: 900; color: var(--red); min-width: 20px; flex-shrink: 0; }
-    .ak-dash   { color: #bbb; flex-shrink: 0; }
-    .ak-exp    { color: #333; }
+    /* ── EMPTY STATE ── */
+    .empty { text-align: center; padding: 60px 20px; color: var(--muted); }
+    .empty .e-icon { font-size: 3rem; margin-bottom: 12px; }
+    .empty p { font-size: .95rem; }
 
-    /* ── FOOTER ── */
-    footer {
-      text-align: center; padding: 20px;
-      font-size: .82rem; color: #888;
-      background: #fff; border-top: 1px solid var(--border); margin-top: 56px;
+    /* ── ADMIN PANEL ── */
+    #adminPanel {
+      display: none;
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,.5); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 20px;
     }
-    footer strong { color: var(--navy); }
+    #adminPanel.open { display: flex; }
+    .admin-box {
+      background: var(--white); border-radius: 20px;
+      width: 100%; max-width: 520px; max-height: 90vh;
+      overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,.3);
+    }
+    .admin-header {
+      background: linear-gradient(135deg, var(--dark), #2C3E6B);
+      padding: 20px 24px; border-radius: 20px 20px 0 0;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .admin-header h2 { color: #fff; font-size: 1.05rem; }
+    .admin-close {
+      background: rgba(255,255,255,.15); border: none; color: #fff;
+      width: 30px; height: 30px; border-radius: 8px; cursor: pointer;
+      font-size: 1rem; font-weight: 700;
+    }
+    .admin-body { padding: 24px; }
+
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: .8rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 10px 14px; border: 2px solid var(--gray2);
+      border-radius: 10px; font-size: .9rem; outline: none;
+      transition: border-color .15s; font-family: inherit;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--orange);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .form-btns { display: flex; gap: 10px; margin-top: 20px; }
+    .btn-save {
+      flex: 1; background: var(--orange); color: #fff; border: none;
+      padding: 12px; border-radius: 10px; font-size: .95rem;
+      font-weight: 800; cursor: pointer; transition: background .15s;
+    }
+    .btn-save:hover { background: var(--orange2); }
+    .btn-cancel {
+      padding: 12px 20px; border-radius: 10px; border: 2px solid var(--gray2);
+      background: var(--white); font-size: .9rem; font-weight: 700;
+      cursor: pointer; color: var(--muted);
+    }
+
+    .admin-divider { border: none; border-top: 2px solid var(--gray2); margin: 20px 0; }
+    .admin-toggle-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px; background: var(--gray); border-radius: 10px;
+      margin-bottom: 16px;
+    }
+    .admin-toggle-bar span { font-size: .85rem; font-weight: 700; color: var(--dark); }
+    .toggle {
+      width: 42px; height: 24px; border-radius: 12px; border: none; cursor: pointer;
+      background: var(--gray2); position: relative; transition: background .2s;
+    }
+    .toggle::after {
+      content: ''; position: absolute; top: 3px; left: 3px;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: #fff; transition: transform .2s;
+      box-shadow: 0 1px 4px rgba(0,0,0,.2);
+    }
+    .toggle.on { background: var(--green); }
+    .toggle.on::after { transform: translateX(18px); }
+
+    /* ── FAB ── */
+    #fab {
+      display: none;
+      position: fixed; bottom: 28px; right: 28px;
+      width: 52px; height: 52px; border-radius: 50%;
+      background: var(--orange); color: #fff; border: none;
+      font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 20px rgba(255,107,43,.4);
+      align-items: center; justify-content: center;
+      z-index: 150; transition: background .15s, transform .15s;
+    }
+    #fab:hover { background: var(--orange2); transform: scale(1.08); }
+    body.admin-mode #fab { display: flex; }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:600px){
+      .hero h1 { font-size: 1.5rem; }
+      .filter-wrap { padding: 14px 16px; }
+      .search-box { margin-left: 0; width: 100%; }
+      .search-box input { width: 100%; }
+      .stats-bar { justify-content: flex-start; overflow-x: auto; }
+      .form-row { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="exam-badge">M.1 Entrance Examination</div>
-  <h1>English Proficiency Test</h1>
-  <div class="sub">Grammar &nbsp;•&nbsp; Vocabulary &nbsp;•&nbsp; Error Correction &nbsp;•&nbsp; Reading Comprehension</div>
-  <div class="meta">Total: 30 Questions &nbsp;|&nbsp; Time: 60 minutes &nbsp;|&nbsp; Level: Grade 6 / M.1 Entrance</div>
-</header>
+<!-- ── NAVBAR ── -->
+<nav>
+  <a class="nav-brand" href="#">
+    <div class="logo">B</div>
+    <span>Bright <em>EngMath</em></span>
+  </a>
+  <div class="nav-right">
+    <a class="nav-btn btn-home" href="#">🏠 Home</a>
+    <button class="nav-btn btn-admin" onclick="toggleAdmin()">⚙️ Admin</button>
+  </div>
+</nav>
 
-<div class="info-bar">
-  <div><label>Name:&nbsp;</label><input type="text" placeholder="Full name" /></div>
-  <div><label>School:&nbsp;</label><input type="text" placeholder="School name" style="min-width:180px"/></div>
-  <div><label>Score:&nbsp;</label><span id="liveScore">0 / 30</span></div>
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-badge">✨ Bright EngMath Learning Hub</div>
+  <h1>Test & Worksheet <span>Collection</span></h1>
+  <p>รวมข้อสอบ แบบฝึกหัด English & Math ทุกระดับชั้น</p>
 </div>
 
+<!-- ── STATS ── -->
+<div class="stats-bar" id="statsBar">
+  <div class="stat-item"><div class="stat-num" id="statTotal">0</div><div class="stat-label">Total</div></div>
+  <div class="stat-item"><div class="stat-num" id="statEng">0</div><div class="stat-label">English</div></div>
+  <div class="stat-item"><div class="stat-num" id="statMath">0</div><div class="stat-label">Math</div></div>
+  <div class="stat-item"><div class="stat-num" id="statTest">0</div><div class="stat-label">Tests</div></div>
+  <div class="stat-item"><div class="stat-num" id="statWS">0</div><div class="stat-label">Worksheets</div></div>
+</div>
+
+<!-- ── FILTER BAR ── -->
+<div class="filter-wrap">
+  <div class="filter-group">
+    <span class="filter-label">วิชา</span>
+    <button class="filter-btn active" onclick="setSubject('all',this)">ทั้งหมด</button>
+    <button class="filter-btn" onclick="setSubject('eng',this)">🇬🇧 English</button>
+    <button class="filter-btn" onclick="setSubject('math',this)">🔢 Math</button>
+  </div>
+  <div class="filter-divider"></div>
+  <div class="filter-group">
+    <span class="filter-label">ระดับ</span>
+    <button class="filter-btn active" onclick="setGrade('all',this)">ทั้งหมด</button>
+    <button class="filter-btn" onclick="setGrade('p1',this)">ป.1</button>
+    <button class="filter-btn" onclick="setGrade('p2',this)">ป.2</button>
+    <button class="filter-btn" onclick="setGrade('p3',this)">ป.3</button>
+    <button class="filter-btn" onclick="setGrade('p4',this)">ป.4</button>
+    <button class="filter-btn" onclick="setGrade('p5',this)">ป.5</button>
+    <button class="filter-btn" onclick="setGrade('p6',this)">ป.6</button>
+    <button class="filter-btn" onclick="setGrade('m1',this)">ม.1</button>
+    <button class="filter-btn" onclick="setGrade('m2',this)">ม.2</button>
+    <button class="filter-btn" onclick="setGrade('m3',this)">ม.3</button>
+  </div>
+  <div class="filter-divider"></div>
+  <div class="filter-group">
+    <span class="filter-label">ประเภท</span>
+    <button class="filter-btn active" onclick="setType('all',this)">ทั้งหมด</button>
+    <button class="filter-btn" onclick="setType('test',this)">📝 Test</button>
+    <button class="filter-btn" onclick="setType('worksheet',this)">📄 Worksheet</button>
+  </div>
+  <div class="search-box">
+    <span>🔍</span>
+    <input type="text" id="searchInput" placeholder="ค้นหา..." oninput="renderCards()"/>
+  </div>
+</div>
+
+<!-- ── MAIN ── -->
 <main>
-  <div class="instructions">
-    <strong>Instructions:</strong> This exam has <strong>4 sections</strong> and <strong>30 questions</strong>. Choose the best answer (A, B, C, or D) for each question. Click an option to select it. When finished, press <strong>"Submit Exam"</strong> to see your score and the answer key.<br><br>
-    <strong>Note:</strong> In Section C (Error Correction), find the <strong>underlined word or phrase</strong> that is grammatically incorrect.
+  <div class="section-title" id="sectionTitle">All Materials</div>
+  <div class="cards-grid" id="cardsGrid"></div>
+  <div class="empty" id="emptyState" style="display:none">
+    <div class="e-icon">📭</div>
+    <p>ยังไม่มีรายการ — กด Admin เพื่อเพิ่มค่ะ</p>
   </div>
-
-  <!-- ══════════════════════════════════════════
-       SECTION A — GRAMMAR  (Q 1–10)
-  ══════════════════════════════════════════ -->
-  <div class="section-header">
-    📝 Section A: Grammar
-    <span class="s-right">Questions 1–10 &nbsp;|&nbsp; 10 pts</span>
-  </div>
-  <div class="section-note">Choose the word or phrase that best completes each sentence.</div>
-
-  <!-- Q1 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">1</span>I _____ never visited Paris, but I hope to go there someday.</div>
-    <div class="options" data-q="1" data-answer="B">
-      <div class="option" data-val="A"><span class="option-letter">A</span> did</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> have</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> had</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> was</div>
-    </div>
-  </div>
-
-  <!-- Q2 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">2</span>By the time we arrived at the cinema, the movie _____ already.</div>
-    <div class="options" data-q="2" data-answer="C">
-      <div class="option" data-val="A"><span class="option-letter">A</span> starts</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> has started</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> had started</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> was starting</div>
-    </div>
-  </div>
-
-  <!-- Q3 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">3</span>This bridge _____ in 1985 and is still used today.</div>
-    <div class="options" data-q="3" data-answer="B">
-      <div class="option" data-val="A"><span class="option-letter">A</span> built</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> was built</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> has been built</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> builds</div>
-    </div>
-  </div>
-
-  <!-- Q4 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">4</span>If you _____ harder, you will pass the exam.</div>
-    <div class="options" data-q="4" data-answer="A">
-      <div class="option" data-val="A"><span class="option-letter">A</span> study</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> studied</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> will study</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> would study</div>
-    </div>
-  </div>
-
-  <!-- Q5 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">5</span>She is the girl _____ won first prize in the science competition.</div>
-    <div class="options" data-q="5" data-answer="A">
-      <div class="option" data-val="A"><span class="option-letter">A</span> who</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> which</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> whose</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> where</div>
-    </div>
-  </div>
-
-  <!-- Q6 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">6</span>You _____ bring your phone into the exam room. It is strictly prohibited.</div>
-    <div class="options" data-q="6" data-answer="C">
-      <div class="option" data-val="A"><span class="option-letter">A</span> should</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> can</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> must not</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> might</div>
-    </div>
-  </div>
-
-  <!-- Q7 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">7</span>He works very hard _____ he doesn't earn much money.</div>
-    <div class="options" data-q="7" data-answer="B">
-      <div class="option" data-val="A"><span class="option-letter">A</span> so</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> but</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> because</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> and</div>
-    </div>
-  </div>
-
-  <!-- Q8 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">8</span>This is _____ mountain I have ever climbed. I was exhausted!</div>
-    <div class="options" data-q="8" data-answer="D">
-      <div class="option" data-val="A"><span class="option-letter">A</span> higher</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> more high</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> very highest</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> the highest</div>
-    </div>
-  </div>
-
-  <!-- Q9 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">9</span>At 9 o'clock tomorrow morning, the students _____ their final exam.</div>
-    <div class="options" data-q="9" data-answer="C">
-      <div class="option" data-val="A"><span class="option-letter">A</span> take</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> will take</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> will be taking</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> have taken</div>
-    </div>
-  </div>
-
-  <!-- Q10 -->
-  <div class="question-card section-last">
-    <div class="q-text"><span class="q-num">10</span>Neither Tom nor his brothers _____ interested in playing football.</div>
-    <div class="options" data-q="10" data-answer="A">
-      <div class="option" data-val="A"><span class="option-letter">A</span> are</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> is</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> was</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> were</div>
-    </div>
-  </div>
-
-
-  <!-- ══════════════════════════════════════════
-       SECTION B — VOCABULARY  (Q 11–15)
-  ══════════════════════════════════════════ -->
-  <div class="section-header">
-    📚 Section B: Vocabulary
-    <span class="s-right">Questions 11–15 &nbsp;|&nbsp; 5 pts</span>
-  </div>
-  <div class="section-note">Choose the word or phrase closest in meaning, or that best fits the context.</div>
-
-  <!-- Q11 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">11</span>The scientist made an <em>enormous</em> discovery that changed the world of medicine.</div>
-    <div class="options" data-q="11" data-answer="C">
-      <div class="option" data-val="A"><span class="option-letter">A</span> tiny</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> ordinary</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> very large / great</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> dangerous</div>
-    </div>
-  </div>
-
-  <!-- Q12 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">12</span>Choose the word that is the OPPOSITE of "generous."</div>
-    <div class="options" data-q="12" data-answer="B">
-      <div class="option" data-val="A"><span class="option-letter">A</span> kind</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> selfish</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> helpful</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> cheerful</div>
-    </div>
-  </div>
-
-  <!-- Q13 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">13</span>The weather forecast _____ heavy rain and strong winds for this weekend.</div>
-    <div class="options" data-q="13" data-answer="A">
-      <div class="option" data-val="A"><span class="option-letter">A</span> predicts</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> prevents</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> produces</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> protects</div>
-    </div>
-  </div>
-
-  <!-- Q14 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">14</span>The ruins of the temple are believed to be _____, dating back over 2,000 years.</div>
-    <div class="options" data-q="14" data-answer="D">
-      <div class="option" data-val="A"><span class="option-letter">A</span> modern</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> recent</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> temporary</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> ancient</div>
-    </div>
-  </div>
-
-  <!-- Q15 -->
-  <div class="question-card section-last">
-    <div class="q-text"><span class="q-num">15</span>The teacher _____ the students to check their answers before handing in the paper.</div>
-    <div class="options" data-q="15" data-answer="C">
-      <div class="option" data-val="A"><span class="option-letter">A</span> forced</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> ordered</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> reminded</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> warned</div>
-    </div>
-  </div>
-
-
-  <!-- ══════════════════════════════════════════
-       SECTION C — ERROR CORRECTION  (Q 16–20)
-  ══════════════════════════════════════════ -->
-  <div class="section-header">
-    🔍 Section C: Error Correction
-    <span class="s-right">Questions 16–20 &nbsp;|&nbsp; 5 pts</span>
-  </div>
-  <div class="section-note">Each sentence has four underlined parts (A–D). Choose the ONE that is grammatically incorrect.</div>
-
-  <!-- Q16 -->
-  <div class="question-card">
-    <div class="err-label">Find the error</div>
-    <div class="error-sentence">
-      She <span class="underlined">(A) have</span> been working at this company
-      <span class="underlined">(B) since</span> she <span class="underlined">(C) graduated</span>
-      from university <span class="underlined">(D) in 2022.</span>
-    </div>
-    <div class="options" data-q="16" data-answer="A">
-      <div class="option" data-val="A"><span class="option-letter">A</span> have</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> since</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> graduated</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> in 2022</div>
-    </div>
-  </div>
-
-  <!-- Q17 -->
-  <div class="question-card">
-    <div class="err-label">Find the error</div>
-    <div class="error-sentence">
-      The children <span class="underlined">(A) was playing</span> in the park
-      <span class="underlined">(B) when</span> it suddenly
-      <span class="underlined">(C) started</span> to
-      <span class="underlined">(D) rain.</span>
-    </div>
-    <div class="options" data-q="17" data-answer="A">
-      <div class="option" data-val="A"><span class="option-letter">A</span> was playing</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> when</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> started</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> rain</div>
-    </div>
-  </div>
-
-  <!-- Q18 -->
-  <div class="question-card">
-    <div class="err-label">Find the error</div>
-    <div class="error-sentence">
-      He is <span class="underlined">(A) the most tallest</span> student
-      <span class="underlined">(B) in</span> our class,
-      <span class="underlined">(C) even taller</span> than
-      <span class="underlined">(D) the teacher.</span>
-    </div>
-    <div class="options" data-q="18" data-answer="A">
-      <div class="option" data-val="A"><span class="option-letter">A</span> the most tallest</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> in</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> even taller</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> the teacher</div>
-    </div>
-  </div>
-
-  <!-- Q19 -->
-  <div class="question-card">
-    <div class="err-label">Find the error</div>
-    <div class="error-sentence">
-      If I <span class="underlined">(A) will have</span> enough money,
-      <span class="underlined">(B) I will</span> buy a new laptop
-      <span class="underlined">(C) for</span> my
-      <span class="underlined">(D) studies.</span>
-    </div>
-    <div class="options" data-q="19" data-answer="A">
-      <div class="option" data-val="A"><span class="option-letter">A</span> will have</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> I will</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> for</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> studies</div>
-    </div>
-  </div>
-
-  <!-- Q20 -->
-  <div class="question-card section-last">
-    <div class="err-label">Find the error</div>
-    <div class="error-sentence">
-      My family <span class="underlined">(A) enjoyed</span>
-      <span class="underlined">(B) to visit</span> the ancient temple
-      <span class="underlined">(C) during</span> our holiday
-      <span class="underlined">(D) last summer.</span>
-    </div>
-    <div class="options" data-q="20" data-answer="B">
-      <div class="option" data-val="A"><span class="option-letter">A</span> enjoyed</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> to visit</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> during</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> last summer</div>
-    </div>
-  </div>
-
-
-  <!-- ══════════════════════════════════════════
-       SECTION D — READING COMPREHENSION  (Q 21–30)
-  ══════════════════════════════════════════ -->
-  <div class="section-header">
-    📖 Section D: Reading Comprehension
-    <span class="s-right">Questions 21–30 &nbsp;|&nbsp; 10 pts</span>
-  </div>
-  <div class="section-note">Read each passage carefully. Then choose the best answer for each question.</div>
-
-  <!-- ── PASSAGE 1 ── -->
-  <div class="passage-card">
-    <div class="passage-label">📄 Passage 1 — Questions 21–25</div>
-    <div class="passage-text">
-      Technology has transformed the way people communicate. In the past, people relied on handwritten letters, and a reply could take days or even weeks to arrive. Today, smartphones and the internet allow people to exchange messages within seconds. Social media platforms connect millions of users across the globe, making it possible to share ideas and experiences instantly. However, experts warn that excessive screen time can disrupt sleep patterns, reduce attention spans, and weaken face-to-face relationships. While technology brings many benefits, it is essential to use it wisely and maintain a healthy balance between the digital and offline worlds.
-    </div>
-  </div>
-
-  <!-- Q21 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">21</span>What is the MAIN idea of Passage 1?</div>
-    <div class="options" data-q="21" data-answer="B">
-      <div class="option" data-val="A"><span class="option-letter">A</span> Handwritten letters are better than text messages.</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> Technology has changed communication, but it must be used wisely.</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> Social media is dangerous and should be avoided.</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> People should stop using smartphones.</div>
-    </div>
-  </div>
-
-  <!-- Q22 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">22</span>According to the passage, which is a NEGATIVE effect of too much screen time?</div>
-    <div class="options" data-q="22" data-answer="C">
-      <div class="option" data-val="A"><span class="option-letter">A</span> Better concentration</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> Stronger friendships</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> Disrupted sleep patterns</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> Faster internet speed</div>
-    </div>
-  </div>
-
-  <!-- Q23 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">23</span>The word "excessive" in the passage most closely means ___.</div>
-    <div class="options" data-q="23" data-answer="D">
-      <div class="option" data-val="A"><span class="option-letter">A</span> very little</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> useful</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> regular</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> too much</div>
-    </div>
-  </div>
-
-  <!-- Q24 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">24</span>In the past, how long could it take to receive a reply to a letter?</div>
-    <div class="options" data-q="24" data-answer="B">
-      <div class="option" data-val="A"><span class="option-letter">A</span> Within seconds</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> Days or even weeks</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> A few minutes</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> One hour</div>
-    </div>
-  </div>
-
-  <!-- Q25 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">25</span>What does the writer suggest people should do with technology?</div>
-    <div class="options" data-q="25" data-answer="C">
-      <div class="option" data-val="A"><span class="option-letter">A</span> Stop using it completely.</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> Use it only for studying.</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> Use it wisely and keep a healthy balance.</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> Share it with friends on social media.</div>
-    </div>
-  </div>
-
-  <!-- ── PASSAGE 2 ── -->
-  <div class="passage-card">
-    <div class="passage-label">📄 Passage 2 — Questions 26–30</div>
-    <div class="passage-text">
-      The Amazon Rainforest, often called the "lungs of the Earth," is one of the most vital ecosystems on our planet. Spanning more than 5.5 million square kilometres across South America, it is home to an estimated 10% of all species on Earth. The rainforest plays a critical role in regulating the global climate by absorbing carbon dioxide and releasing oxygen. Unfortunately, large areas are being destroyed every year through deforestation — the clearing of forests for farming, logging, and urban development. Scientists warn that if deforestation continues at its current rate, significant portions of the Amazon could be lost within a few decades. Since the health of the Amazon affects rainfall patterns and temperatures worldwide, its destruction is not only a local tragedy but a global crisis.
-    </div>
-  </div>
-
-  <!-- Q26 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">26</span>Why is the Amazon Rainforest called the "lungs of the Earth"?</div>
-    <div class="options" data-q="26" data-answer="B">
-      <div class="option" data-val="A"><span class="option-letter">A</span> It covers a very large area of South America.</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> It absorbs carbon dioxide and produces oxygen.</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> It is home to millions of animals.</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> It is being destroyed by farming and logging.</div>
-    </div>
-  </div>
-
-  <!-- Q27 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">27</span>According to the passage, what does "deforestation" involve?</div>
-    <div class="options" data-q="27" data-answer="D">
-      <div class="option" data-val="A"><span class="option-letter">A</span> Planting new trees</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> Protecting wildlife</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> Studying ecosystems</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> Clearing forests for farming, logging, and development</div>
-    </div>
-  </div>
-
-  <!-- Q28 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">28</span>The word "vital" in the passage is closest in meaning to ___.</div>
-    <div class="options" data-q="28" data-answer="A">
-      <div class="option" data-val="A"><span class="option-letter">A</span> extremely important</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> very dangerous</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> quite large</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> quite old</div>
-    </div>
-  </div>
-
-  <!-- Q29 -->
-  <div class="question-card">
-    <div class="q-text"><span class="q-num">29</span>What can be INFERRED from the passage about the Amazon's destruction?</div>
-    <div class="options" data-q="29" data-answer="D">
-      <div class="option" data-val="A"><span class="option-letter">A</span> It only affects South America.</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> It will improve global temperatures.</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> Scientists are not concerned about it.</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> It could cause serious climate problems worldwide.</div>
-    </div>
-  </div>
-
-  <!-- Q30 -->
-  <div class="question-card section-last">
-    <div class="q-text"><span class="q-num">30</span>Which statement BEST summarises the writer's view in this passage?</div>
-    <div class="options" data-q="30" data-answer="C">
-      <div class="option" data-val="A"><span class="option-letter">A</span> The Amazon is too big to be seriously damaged.</div>
-      <div class="option" data-val="B"><span class="option-letter">B</span> Farming and logging are more important than forests.</div>
-      <div class="option" data-val="C"><span class="option-letter">C</span> Protecting the Amazon is a global responsibility that cannot be ignored.</div>
-      <div class="option" data-val="D"><span class="option-letter">D</span> The Amazon has already recovered from deforestation.</div>
-    </div>
-  </div>
-
-  <!-- SUBMIT -->
-  <div class="btn-wrap">
-    <button id="submitBtn" onclick="checkAnswers()">📩 Submit Exam</button>
-  </div>
-
-  <!-- SCORE PANEL -->
-  <div id="scorePanel">
-    <h2>📊 Your Exam Result</h2>
-    <div id="scoreFraction"></div>
-    <div id="scoreMsg"></div>
-    <div class="score-breakdown">
-      <div class="score-box">
-        <div class="sb-label">Section A — Grammar</div>
-        <div class="sb-val" id="scoreA">–</div>
-      </div>
-      <div class="score-box">
-        <div class="sb-label">Section B — Vocabulary</div>
-        <div class="sb-val" id="scoreB">–</div>
-      </div>
-      <div class="score-box">
-        <div class="sb-label">Section C — Error</div>
-        <div class="sb-val" id="scoreC">–</div>
-      </div>
-      <div class="score-box">
-        <div class="sb-label">Section D — Reading</div>
-        <div class="sb-val" id="scoreD">–</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ANSWER KEY -->
-  <div id="answerKey">
-    <div class="ak-header">📋 Answer Key — With Explanations (For Teachers &amp; Students)</div>
-
-    <div class="ak-section-label">Section A: Grammar (Q1–10)</div>
-    <div class="ak-row"><span class="ak-num">1.</span><span class="ak-letter">B</span><span class="ak-dash">—</span><span class="ak-exp">"have" — Present Perfect is used with "never" to talk about life experience up to now. "I have never visited…"</span></div>
-    <div class="ak-row"><span class="ak-num">2.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">"had started" — Past Perfect is used for an action that was already completed before another past action ("by the time we arrived").</span></div>
-    <div class="ak-row"><span class="ak-num">3.</span><span class="ak-letter">B</span><span class="ak-dash">—</span><span class="ak-exp">"was built" — Passive Voice (Past Simple). The subject "bridge" did not build itself; it was built by someone.</span></div>
-    <div class="ak-row"><span class="ak-num">4.</span><span class="ak-letter">A</span><span class="ak-dash">—</span><span class="ak-exp">"study" — First Conditional: If + Present Simple, … will + base verb. The if-clause must use the present tense, not "will."</span></div>
-    <div class="ak-row"><span class="ak-num">5.</span><span class="ak-letter">A</span><span class="ak-dash">—</span><span class="ak-exp">"who" — Use "who" as a relative pronoun when referring to a person who is the subject of the relative clause.</span></div>
-    <div class="ak-row"><span class="ak-num">6.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">"must not" — "Must not" expresses a strong prohibition (it is not allowed). "Should not" is weaker advice.</span></div>
-    <div class="ak-row"><span class="ak-num">7.</span><span class="ak-letter">B</span><span class="ak-dash">—</span><span class="ak-exp">"but" — "But" is a conjunction showing contrast between two opposite ideas: he works hard, yet earns little.</span></div>
-    <div class="ak-row"><span class="ak-num">8.</span><span class="ak-letter">D</span><span class="ak-dash">—</span><span class="ak-exp">"the highest" — Superlative form requires "the" + adjective + -est. "Most tallest" is incorrect (double superlative).</span></div>
-    <div class="ak-row"><span class="ak-num">9.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">"will be taking" — Future Continuous describes an action in progress at a specific time in the future ("at 9 o'clock tomorrow").</span></div>
-    <div class="ak-row"><span class="ak-num">10.</span><span class="ak-letter">A</span><span class="ak-dash">—</span><span class="ak-exp">"are" — With "Neither … nor …," the verb agrees with the subject closest to it. "brothers" is plural → use "are."</span></div>
-
-    <div class="ak-section-label">Section B: Vocabulary (Q11–15)</div>
-    <div class="ak-row"><span class="ak-num">11.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">"very large / great" — "Enormous" means extremely large or great in size or importance.</span></div>
-    <div class="ak-row"><span class="ak-num">12.</span><span class="ak-letter">B</span><span class="ak-dash">—</span><span class="ak-exp">"selfish" — "Generous" means willing to give freely; the opposite is "selfish" (caring only about oneself).</span></div>
-    <div class="ak-row"><span class="ak-num">13.</span><span class="ak-letter">A</span><span class="ak-dash">—</span><span class="ak-exp">"predicts" — A weather forecast "predicts" (says what will happen in the future). "Prevents" means to stop something.</span></div>
-    <div class="ak-row"><span class="ak-num">14.</span><span class="ak-letter">D</span><span class="ak-dash">—</span><span class="ak-exp">"ancient" — "Dating back over 2,000 years" tells us the ruins are very old. "Ancient" means belonging to the very distant past.</span></div>
-    <div class="ak-row"><span class="ak-num">15.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">"reminded" — To "remind" someone means to cause them to remember something they might forget. It fits the context best.</span></div>
-
-    <div class="ak-section-label">Section C: Error Correction (Q16–20)</div>
-    <div class="ak-row"><span class="ak-num">16.</span><span class="ak-letter">A</span><span class="ak-dash">—</span><span class="ak-exp">"have" should be "has." With the subject "She" (third person singular), Present Perfect uses "has been working," not "have."</span></div>
-    <div class="ak-row"><span class="ak-num">17.</span><span class="ak-letter">A</span><span class="ak-dash">—</span><span class="ak-exp">"was playing" should be "were playing." The subject "The children" is plural, so the verb must be "were," not "was."</span></div>
-    <div class="ak-row"><span class="ak-num">18.</span><span class="ak-letter">A</span><span class="ak-dash">—</span><span class="ak-exp">"the most tallest" is incorrect — double superlative. "Tall" is a one-syllable adjective, so the correct form is simply "the tallest."</span></div>
-    <div class="ak-row"><span class="ak-num">19.</span><span class="ak-letter">A</span><span class="ak-dash">—</span><span class="ak-exp">"will have" should be "have." In a First Conditional if-clause, use Present Simple (not will). → "If I have enough money…"</span></div>
-    <div class="ak-row"><span class="ak-num">20.</span><span class="ak-letter">B</span><span class="ak-dash">—</span><span class="ak-exp">"to visit" should be "visiting." The verb "enjoy" is always followed by a gerund (verb + -ing), not an infinitive.</span></div>
-
-    <div class="ak-section-label">Section D: Reading Comprehension — Passage 1 (Q21–25)</div>
-    <div class="ak-row"><span class="ak-num">21.</span><span class="ak-letter">B</span><span class="ak-dash">—</span><span class="ak-exp">The passage discusses how technology has changed communication while also warning about its downsides — use it wisely.</span></div>
-    <div class="ak-row"><span class="ak-num">22.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">The passage states that excessive screen time can "disrupt sleep patterns" — this is a negative effect mentioned directly.</span></div>
-    <div class="ak-row"><span class="ak-num">23.</span><span class="ak-letter">D</span><span class="ak-dash">—</span><span class="ak-exp">"Excessive" means more than is reasonable or necessary — in other words, "too much."</span></div>
-    <div class="ak-row"><span class="ak-num">24.</span><span class="ak-letter">B</span><span class="ak-dash">—</span><span class="ak-exp">The passage says "a reply could take days or even weeks to arrive" when people used handwritten letters.</span></div>
-    <div class="ak-row"><span class="ak-num">25.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">The passage concludes: "it is essential to use it wisely and maintain a healthy balance between the digital and offline worlds."</span></div>
-
-    <div class="ak-section-label">Section D: Reading Comprehension — Passage 2 (Q26–30)</div>
-    <div class="ak-row"><span class="ak-num">26.</span><span class="ak-letter">B</span><span class="ak-dash">—</span><span class="ak-exp">The passage explains the Amazon is called "lungs of the Earth" because it "absorbs carbon dioxide and releases oxygen" — like lungs breathing.</span></div>
-    <div class="ak-row"><span class="ak-num">27.</span><span class="ak-letter">D</span><span class="ak-dash">—</span><span class="ak-exp">The passage defines deforestation as "the clearing of forests for farming, logging, and urban development."</span></div>
-    <div class="ak-row"><span class="ak-num">28.</span><span class="ak-letter">A</span><span class="ak-dash">—</span><span class="ak-exp">"Vital" means absolutely necessary or extremely important. The Amazon plays a "critical role" — so "extremely important" fits perfectly.</span></div>
-    <div class="ak-row"><span class="ak-num">29.</span><span class="ak-letter">D</span><span class="ak-dash">—</span><span class="ak-exp">The passage says the Amazon "affects rainfall patterns and temperatures worldwide" — so its destruction could cause serious climate problems globally.</span></div>
-    <div class="ak-row"><span class="ak-num">30.</span><span class="ak-letter">C</span><span class="ak-dash">—</span><span class="ak-exp">The last sentence calls Amazon's destruction "not only a local tragedy but a global crisis" — the writer believes everyone must take responsibility.</span></div>
-  </div>
-
 </main>
 
-<footer>
-  &copy; 2026 &nbsp;<strong>Bright EngMath</strong> &nbsp;|&nbsp; M.1 English Entrance Examination &nbsp;|&nbsp; All rights reserved.
-</footer>
+<!-- ── FAB ── -->
+<button id="fab" title="เพิ่มรายการ" onclick="openForm()">＋</button>
+
+<!-- ── ADMIN PANEL ── -->
+<div id="adminPanel">
+  <div class="admin-box">
+    <div class="admin-header">
+      <h2 id="panelTitle">⚙️ Admin Panel</h2>
+      <button class="admin-close" onclick="closePanel()">✕</button>
+    </div>
+    <div class="admin-body">
+
+      <!-- Edit mode toggle -->
+      <div class="admin-toggle-bar">
+        <span>🔧 Edit Mode</span>
+        <button class="toggle" id="editToggle" onclick="toggleEditMode()"></button>
+      </div>
+
+      <hr class="admin-divider"/>
+
+      <!-- Add / Edit Form -->
+      <div id="addForm">
+        <div style="font-size:.9rem;font-weight:800;color:var(--dark);margin-bottom:14px;" id="formTitle">➕ เพิ่มรายการใหม่</div>
+        <div class="form-group">
+          <label>ชื่อข้อสอบ / แบบฝึกหัด *</label>
+          <input type="text" id="fTitle" placeholder="เช่น Grade 3 English Test"/>
+        </div>
+        <div class="form-group">
+          <label>คำอธิบาย</label>
+          <input type="text" id="fDesc" placeholder="เช่น Grammar · Reading · 30 ข้อ · 45 นาที"/>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>วิชา *</label>
+            <select id="fSubject">
+              <option value="eng">🇬🇧 English</option>
+              <option value="math">🔢 Math</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>ประเภท *</label>
+            <select id="fType">
+              <option value="test">📝 Test</option>
+              <option value="worksheet">📄 Worksheet</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>ระดับชั้น *</label>
+            <select id="fGrade">
+              <option value="p1">ป.1</option>
+              <option value="p2">ป.2</option>
+              <option value="p3" selected>ป.3</option>
+              <option value="p4">ป.4</option>
+              <option value="p5">ป.5</option>
+              <option value="p6">ป.6</option>
+              <option value="m1">ม.1</option>
+              <option value="m2">ม.2</option>
+              <option value="m3">ม.3</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>จำนวนข้อ</label>
+            <input type="text" id="fQty" placeholder="เช่น 30 ข้อ"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Link URL *</label>
+          <input type="text" id="fUrl" placeholder="เช่น Grade3_English_Test.html หรือ https://..."/>
+        </div>
+        <input type="hidden" id="fEditId"/>
+        <div class="form-btns">
+          <button class="btn-cancel" onclick="closePanel()">ยกเลิก</button>
+          <button class="btn-save" onclick="saveCard()">💾 บันทึก</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <script>
-  const userAnswers = {};
+// ── DATA ──
+const STORAGE_KEY = 'brightengmath_cards';
+let cards = [];
+let filterSubject = 'all';
+let filterGrade   = 'all';
+let filterType    = 'all';
+let editMode      = false;
+let editingId     = null;
 
-  function updateLiveScore() {
-    const correct = Object.entries(userAnswers).filter(([q, v]) => {
-      const g = document.querySelector(`.options[data-q="${q}"]`);
-      return g && v === g.dataset.answer;
-    }).length;
-    document.getElementById('liveScore').textContent = correct + ' / 30';
+const gradeLabel = { p1:'ป.1',p2:'ป.2',p3:'ป.3',p4:'ป.4',p5:'ป.5',p6:'ป.6',m1:'ม.1',m2:'ม.2',m3:'ม.3' };
+const typeLabel  = { test:'Test', worksheet:'Worksheet' };
+
+// ── LOAD / SAVE ──
+function load() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (raw) { cards = JSON.parse(raw); }
+  else {
+    // Default seed data
+    cards = [
+      { id:1, title:'Grade 3 English Test',       desc:'Grammar · Daily Conversation · Reading Comprehension', subject:'eng',  type:'test',      grade:'p3', qty:'30 ข้อ', url:'Grade3_English_Test.html' },
+      { id:2, title:'M.1 English Entrance Exam',  desc:'Grammar · Vocabulary · Error Correction · Reading',    subject:'eng',  type:'test',      grade:'m1', qty:'30 ข้อ', url:'M1_Entrance_English_Test.html' },
+    ];
+    save();
   }
+}
+function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(cards)); }
 
-  document.querySelectorAll('.options').forEach(group => {
-    group.querySelectorAll('.option').forEach(opt => {
-      opt.addEventListener('click', () => {
-        if (group.dataset.checked) return;
-        group.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
-        opt.classList.add('selected');
-        userAnswers[group.dataset.q] = opt.dataset.val;
-        updateLiveScore();
-      });
-    });
+// ── FILTER ──
+function setSubject(v, btn) {
+  filterSubject = v;
+  document.querySelectorAll('.filter-group:nth-child(1) .filter-btn').forEach(b => { b.className='filter-btn'; });
+  btn.classList.add('active');
+  renderCards();
+}
+function setGrade(v, btn) {
+  filterGrade = v;
+  document.querySelectorAll('.filter-group:nth-child(3) .filter-btn').forEach(b => { b.className='filter-btn'; });
+  btn.classList.add('active');
+  renderCards();
+}
+function setType(v, btn) {
+  filterType = v;
+  document.querySelectorAll('.filter-group:nth-child(5) .filter-btn').forEach(b => { b.className='filter-btn'; });
+  btn.classList.add('active');
+  renderCards();
+}
+
+// ── RENDER ──
+function renderCards() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const filtered = cards.filter(c => {
+    if (filterSubject !== 'all' && c.subject !== filterSubject) return false;
+    if (filterGrade   !== 'all' && c.grade   !== filterGrade)   return false;
+    if (filterType    !== 'all' && c.type    !== filterType)     return false;
+    if (q && !c.title.toLowerCase().includes(q) && !c.desc.toLowerCase().includes(q)) return false;
+    return true;
   });
 
-  function checkAnswers() {
-    let total = 0, sA = 0, sB = 0, sC = 0, sD = 0;
+  updateStats();
 
-    document.querySelectorAll('.options').forEach(group => {
-      const q   = parseInt(group.dataset.q);
-      const ans = group.dataset.answer;
-      const sel = userAnswers[group.dataset.q];
-      group.dataset.checked = 'true';
+  const grid  = document.getElementById('cardsGrid');
+  const empty = document.getElementById('emptyState');
+  if (!filtered.length) { grid.innerHTML = ''; empty.style.display='block'; return; }
+  empty.style.display = 'none';
 
-      group.querySelectorAll('.option').forEach(opt => {
-        opt.classList.remove('selected', 'correct', 'wrong');
-        if (opt.dataset.val === ans)       opt.classList.add('correct');
-        else if (opt.dataset.val === sel)  opt.classList.add('wrong');
-      });
+  grid.innerHTML = filtered.map(c => {
+    const subColor = c.subject === 'eng' ? 'eng' : 'math';
+    const btnClass = c.subject === 'eng' ? 'eng-btn' : 'math-btn';
+    const link = c.url.startsWith('http') ? c.url : c.url;
+    return `
+    <div class="card" id="card-${c.id}">
+      <div class="card-top ${subColor}"></div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="tag tag-${c.subject === 'eng' ? 'eng':'math'}">${c.subject === 'eng' ? '🇬🇧 English':'🔢 Math'}</span>
+          <span class="tag tag-grade">${gradeLabel[c.grade]||c.grade}</span>
+          <span class="tag tag-${c.type === 'test' ? 'test':'ws'}">${c.type === 'test' ? '📝 Test':'📄 Worksheet'}</span>
+        </div>
+        <div class="card-title">${c.title}</div>
+        <div class="card-desc">${c.desc}</div>
+      </div>
+      <div class="card-meta">
+        <div class="card-info">${c.qty || ''}</div>
+        <a class="card-btn ${btnClass}" href="${link}" target="_blank">เปิดดู →</a>
+      </div>
+      <div class="card-admin-btns">
+        <button class="admin-edit" onclick="editCard(${c.id})">✏️</button>
+        <button class="admin-del"  onclick="deleteCard(${c.id})">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+}
 
-      if (sel === ans) {
-        total++;
-        if      (q <= 10) sA++;
-        else if (q <= 15) sB++;
-        else if (q <= 20) sC++;
-        else               sD++;
-      }
-    });
+function updateStats() {
+  document.getElementById('statTotal').textContent = cards.length;
+  document.getElementById('statEng').textContent   = cards.filter(c=>c.subject==='eng').length;
+  document.getElementById('statMath').textContent  = cards.filter(c=>c.subject==='math').length;
+  document.getElementById('statTest').textContent  = cards.filter(c=>c.type==='test').length;
+  document.getElementById('statWS').textContent    = cards.filter(c=>c.type==='worksheet').length;
+}
 
-    const panel = document.getElementById('scorePanel');
-    panel.style.display = 'block';
-    document.getElementById('scoreFraction').textContent = total + ' / 30';
-    document.getElementById('scoreA').textContent = sA + ' / 10';
-    document.getElementById('scoreB').textContent = sB + ' / 5';
-    document.getElementById('scoreC').textContent = sC + ' / 5';
-    document.getElementById('scoreD').textContent = sD + ' / 10';
-
-    const pct = Math.round(total / 30 * 100);
-    let msg = '';
-    if      (pct >= 90) msg = '🏆 Excellent! Outstanding performance!';
-    else if (pct >= 75) msg = '🎉 Very good! Well done!';
-    else if (pct >= 60) msg = '😊 Good effort — review the sections you missed.';
-    else if (pct >= 50) msg = '📚 Keep practising — you are almost there!';
-    else                msg = '💪 Don\'t give up! Study the answer key and try again.';
-    document.getElementById('scoreMsg').textContent = msg;
-
-    document.getElementById('answerKey').style.display = 'block';
-    const btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.textContent = '✅ Submitted';
-    document.getElementById('liveScore').textContent = total + ' / 30';
-    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+// ── ADMIN ──
+let adminOpen = false;
+function toggleAdmin() {
+  document.body.classList.toggle('admin-mode');
+  if (document.body.classList.contains('admin-mode')) {
+    document.getElementById('adminPanel').classList.add('open');
+    adminOpen = true;
+  } else {
+    closePanel();
   }
+}
+function closePanel() {
+  document.getElementById('adminPanel').classList.remove('open');
+  resetForm();
+}
+function openForm(id) {
+  document.getElementById('adminPanel').classList.add('open');
+  if (!id) {
+    document.getElementById('formTitle').textContent = '➕ เพิ่มรายการใหม่';
+    resetForm();
+  }
+}
+function resetForm() {
+  ['fTitle','fDesc','fQty','fUrl'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('fSubject').value = 'eng';
+  document.getElementById('fType').value    = 'test';
+  document.getElementById('fGrade').value   = 'p3';
+  document.getElementById('fEditId').value  = '';
+  editingId = null;
+}
+function toggleEditMode() {
+  editMode = !editMode;
+  const t = document.getElementById('editToggle');
+  t.classList.toggle('on', editMode);
+  renderCards();
+}
+function saveCard() {
+  const title = document.getElementById('fTitle').value.trim();
+  const url   = document.getElementById('fUrl').value.trim();
+  if (!title || !url) { alert('กรุณากรอกชื่อและ Link ค่ะ'); return; }
+  const obj = {
+    id:      editingId || Date.now(),
+    title,
+    desc:    document.getElementById('fDesc').value.trim(),
+    subject: document.getElementById('fSubject').value,
+    type:    document.getElementById('fType').value,
+    grade:   document.getElementById('fGrade').value,
+    qty:     document.getElementById('fQty').value.trim(),
+    url
+  };
+  if (editingId) {
+    const idx = cards.findIndex(c => c.id === editingId);
+    if (idx > -1) cards[idx] = obj;
+  } else {
+    cards.push(obj);
+  }
+  save(); renderCards(); closePanel();
+}
+function editCard(id) {
+  const c = cards.find(c => c.id === id);
+  if (!c) return;
+  editingId = id;
+  document.getElementById('fTitle').value   = c.title;
+  document.getElementById('fDesc').value    = c.desc;
+  document.getElementById('fSubject').value = c.subject;
+  document.getElementById('fType').value    = c.type;
+  document.getElementById('fGrade').value   = c.grade;
+  document.getElementById('fQty').value     = c.qty || '';
+  document.getElementById('fUrl').value     = c.url;
+  document.getElementById('formTitle').textContent = '✏️ แก้ไขรายการ';
+  document.getElementById('adminPanel').classList.add('open');
+}
+function deleteCard(id) {
+  if (!confirm('ลบรายการนี้?')) return;
+  cards = cards.filter(c => c.id !== id);
+  save(); renderCards();
+}
+
+// Close panel on backdrop click
+document.getElementById('adminPanel').addEventListener('click', function(e) {
+  if (e.target === this) closePanel();
+});
+
+// ── INIT ──
+load();
+renderCards();
 </script>
 </body>
 </html>
