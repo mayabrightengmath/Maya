@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Grammar Worksheet – Grade 3</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+  :root {
+    --pr-color: #2ecc71;   /* Present Simple – green */
+    --pc-color: #3498db;   /* Present Continuous – blue */
+    --ps-color: #e74c3c;   /* Past Simple – red */
+    --pr-light: #eafaf1;
+    --pc-light: #ebf5fb;
+    --ps-light: #fdedec;
+    --yellow:  #f9ca24;
+    --orange:  #f0932b;
+    --purple:  #6c5ce7;
+    --bg:      #fff9f0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 10% 10%, #ffe0f0 0%, transparent 40%),
+      radial-gradient(circle at 90% 5%,  #e0f0ff 0%, transparent 35%),
+      radial-gradient(circle at 80% 90%, #e0ffe8 0%, transparent 35%),
+      radial-gradient(circle at 5%  85%, #fff0e0 0%, transparent 35%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #2d3436;
+  }
+
+  /* ── HEADER ─────────────────────────────────────────── */
+  .header {
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 50%, #fd79a8 100%);
+    border-radius: 28px;
+    padding: 28px 32px 22px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(108,92,231,.3);
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .header-stars { font-size: 28px; letter-spacing: 4px; margin-bottom: 6px; }
+  .header h1 {
+    font-size: 2.2rem; font-weight: 900; color: #fff;
+    text-shadow: 0 3px 10px rgba(0,0,0,.25);
+    line-height: 1.2; margin-bottom: 4px;
+  }
+  .header .subtitle {
+    font-size: 1.05rem; color: rgba(255,255,255,.92); font-weight: 600;
+    letter-spacing: .5px; margin-bottom: 10px;
+  }
+  .badge-row {
+    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 10px;
+  }
+  .badge {
+    background: rgba(255,255,255,.22); border: 2px solid rgba(255,255,255,.5);
+    border-radius: 50px; padding: 4px 16px;
+    color: #fff; font-size: .88rem; font-weight: 700; backdrop-filter: blur(4px);
+  }
+
+  /* ── DECO BANNER ─────────────────────────────────────── */
+  .deco-row {
+    display: flex; gap: 12px; justify-content: center;
+    font-size: 2.2rem; margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .deco-row span { animation: bounce 2s infinite; display: inline-block; }
+  .deco-row span:nth-child(2) { animation-delay: .15s; }
+  .deco-row span:nth-child(3) { animation-delay: .30s; }
+  .deco-row span:nth-child(4) { animation-delay: .45s; }
+  .deco-row span:nth-child(5) { animation-delay: .60s; }
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+  }
+
+  /* ── INFO FORM ───────────────────────────────────────── */
+  .info-card {
+    background: #fff; border-radius: 20px; padding: 18px 24px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.08);
+    display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 22px;
+    align-items: center;
+  }
+  .info-field { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 160px; }
+  .info-field label { font-weight: 700; font-size: .92rem; color: #6c5ce7; white-space: nowrap; }
+  .info-field input {
+    border: none; border-bottom: 2.5px solid #dfe6e9;
+    font-family: 'Nunito', sans-serif; font-size: .95rem; font-weight: 600;
+    width: 100%; padding: 2px 4px; background: transparent; outline: none;
+    transition: border-color .2s;
+  }
+  .info-field input:focus { border-color: #6c5ce7; }
+
+  /* ── INSTRUCTIONS ────────────────────────────────────── */
+  .instructions {
+    background: linear-gradient(135deg, #f9ca24 0%, #f0932b 100%);
+    border-radius: 18px; padding: 16px 22px; margin-bottom: 24px;
+    box-shadow: 0 4px 14px rgba(240,147,43,.3);
+    display: flex; align-items: flex-start; gap: 14px;
+  }
+  .instructions .icon { font-size: 2rem; flex-shrink: 0; }
+  .instructions p { color: #fff; font-size: 1rem; font-weight: 700; line-height: 1.6; }
+  .instructions p span { font-weight: 900; }
+
+  /* ── LEGEND ──────────────────────────────────────────── */
+  .legend {
+    display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+    margin-bottom: 24px;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 8px;
+    background: #fff; border-radius: 50px; padding: 8px 18px;
+    box-shadow: 0 3px 10px rgba(0,0,0,.08); font-weight: 700; font-size: .9rem;
+  }
+  .legend-dot {
+    width: 14px; height: 14px; border-radius: 50%;
+  }
+
+  /* ── SECTION TITLE ───────────────────────────────────── */
+  .section-title {
+    font-size: 1.3rem; font-weight: 900; color: #6c5ce7;
+    margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+  }
+  .section-title::before, .section-title::after {
+    content: ""; flex: 1; height: 3px;
+    background: linear-gradient(90deg, #a29bfe, transparent);
+    border-radius: 3px;
+  }
+  .section-title::after {
+    background: linear-gradient(90deg, transparent, #a29bfe);
+  }
+
+  /* ── QUESTION CARD ───────────────────────────────────── */
+  .q-card {
+    background: #fff; border-radius: 20px; padding: 18px 22px 14px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.07);
+    border-left: 6px solid #dfe6e9;
+    transition: box-shadow .2s, transform .15s;
+    position: relative;
+  }
+  .q-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,.12); transform: translateY(-2px); }
+  .q-card.pr { border-left-color: var(--pr-color); }
+  .q-card.pc { border-left-color: var(--pc-color); }
+  .q-card.ps { border-left-color: var(--ps-color); }
+
+  .q-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .q-num {
+    width: 38px; height: 38px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; font-weight: 900; color: #fff; flex-shrink: 0;
+  }
+  .pr .q-num { background: var(--pr-color); }
+  .pc .q-num { background: var(--pc-color); }
+  .ps .q-num { background: var(--ps-color); }
+
+  .q-tense-tag {
+    font-size: .72rem; font-weight: 800; padding: 3px 10px; border-radius: 50px;
+    text-transform: uppercase; letter-spacing: .5px;
+  }
+  .pr .q-tense-tag { background: var(--pr-light); color: var(--pr-color); }
+  .pc .q-tense-tag { background: var(--pc-light); color: var(--pc-color); }
+  .ps .q-tense-tag { background: var(--ps-light); color: var(--ps-color); }
+
+  .q-text { font-size: 1.08rem; font-weight: 700; flex: 1; line-height: 1.5; }
+
+  .q-emoji { font-size: 1.5rem; margin-left: auto; flex-shrink: 0; }
+
+  /* ── OPTIONS ──────────────────────────────────────────── */
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .option {
+    display: flex; align-items: center; gap: 12px;
+    padding: 9px 14px; border-radius: 12px; cursor: pointer;
+    border: 2.5px solid #f0f0f0; transition: all .18s;
+    user-select: none; font-size: 1rem; font-weight: 600;
+  }
+  .option:hover { border-color: #a29bfe; background: #f5f3ff; }
+  .option.selected { border-color: #6c5ce7; background: #f0edff; }
+  .option.correct  { border-color: var(--pr-color) !important; background: var(--pr-light) !important; }
+  .option.wrong    { border-color: var(--ps-color) !important; background: var(--ps-light) !important; }
+
+  .opt-letter {
+    width: 30px; height: 30px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: .9rem; flex-shrink: 0;
+    background: #f0f0f0; color: #636e72; transition: all .18s;
+  }
+  .option:hover   .opt-letter { background: #a29bfe; color: #fff; }
+  .option.selected .opt-letter { background: #6c5ce7; color: #fff; }
+  .option.correct  .opt-letter { background: var(--pr-color); color: #fff; }
+  .option.wrong    .opt-letter { background: var(--ps-color); color: #fff; }
+  .opt-text { flex: 1; }
+  .opt-icon { font-size: 1.1rem; }
+
+  /* ── ANSWER BOX ───────────────────────────────────────── */
+  .answer-box {
+    position: absolute; top: 16px; right: 18px;
+    width: 36px; height: 36px; border: 2.5px dashed #ccc;
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 1.1rem; color: #6c5ce7; background: #fafafa;
+  }
+
+  /* ── PROGRESS BAR ─────────────────────────────────────── */
+  .progress-wrap {
+    background: #fff; border-radius: 16px; padding: 14px 20px;
+    margin-bottom: 22px; box-shadow: 0 4px 14px rgba(0,0,0,.07);
+  }
+  .progress-label { display: flex; justify-content: space-between; font-weight: 700; font-size: .9rem; margin-bottom: 8px; color: #636e72; }
+  .progress-bar-bg { background: #f0f0f0; border-radius: 50px; height: 14px; overflow: hidden; }
+  .progress-bar-fill {
+    height: 100%; background: linear-gradient(90deg, #6c5ce7, #fd79a8);
+    border-radius: 50px; transition: width .4s ease; width: 0%;
+  }
+
+  /* ── BTN ROW ─────────────────────────────────────────── */
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 28px; }
+  .btn {
+    padding: 12px 28px; border-radius: 50px; border: none; cursor: pointer;
+    font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800;
+    transition: all .2s; box-shadow: 0 4px 14px rgba(0,0,0,.15);
+  }
+  .btn-check {
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    color: #fff;
+  }
+  .btn-check:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(108,92,231,.4); }
+  .btn-reset {
+    background: linear-gradient(135deg, #fd79a8, #e84393);
+    color: #fff;
+  }
+  .btn-reset:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(232,67,147,.35); }
+  .btn-key {
+    background: linear-gradient(135deg, #00b894, #00cec9);
+    color: #fff;
+  }
+  .btn-key:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,184,148,.35); }
+
+  /* ── SCORE MODAL ─────────────────────────────────────── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,.45); backdrop-filter: blur(6px);
+    z-index: 100; align-items: center; justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: #fff; border-radius: 28px; padding: 36px 40px;
+    max-width: 440px; width: 90%; text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    animation: popIn .35s cubic-bezier(.175,.885,.32,1.275);
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(.7); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  .modal-emoji { font-size: 4rem; margin-bottom: 10px; }
+  .modal-title { font-size: 1.8rem; font-weight: 900; margin-bottom: 6px; }
+  .modal-score { font-size: 3.5rem; font-weight: 900; color: #6c5ce7; margin-bottom: 10px; }
+  .modal-msg { font-size: 1rem; font-weight: 600; color: #636e72; margin-bottom: 24px; line-height: 1.6; }
+  .modal-close {
+    background: linear-gradient(135deg, #6c5ce7, #fd79a8);
+    color: #fff; border: none; border-radius: 50px;
+    padding: 11px 32px; font-family: 'Nunito', sans-serif;
+    font-size: 1rem; font-weight: 800; cursor: pointer;
+    box-shadow: 0 4px 14px rgba(108,92,231,.35);
+  }
+  .modal-close:hover { transform: translateY(-2px); }
+
+  /* ── ANSWER KEY SECTION ──────────────────────────────── */
+  #answer-key {
+    display: none; background: #fff; border-radius: 24px;
+    padding: 28px 30px; margin-top: 10px; margin-bottom: 28px;
+    box-shadow: 0 6px 24px rgba(0,0,0,.09);
+  }
+  #answer-key.show { display: block; }
+  .key-title {
+    font-size: 1.4rem; font-weight: 900; color: #00b894;
+    margin-bottom: 20px; text-align: center;
+  }
+  .key-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 10px;
+  }
+  .key-item {
+    background: #f8f9fa; border-radius: 12px; padding: 10px 12px;
+    display: flex; align-items: center; gap: 8px; font-weight: 700;
+  }
+  .key-num { color: #636e72; font-size: .9rem; }
+  .key-ans {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 1rem; color: #fff;
+  }
+  .key-ans.a { background: #e17055; }
+  .key-ans.b { background: #6c5ce7; }
+  .key-ans.c { background: #00b894; }
+
+  /* ── FOOTER ──────────────────────────────────────────── */
+  .footer {
+    text-align: center; font-size: .85rem; font-weight: 600;
+    color: #b2bec3; padding: 10px 0 24px;
+  }
+
+  /* ── CONFETTI ─────────────────────────────────────────── */
+  .confetti-piece {
+    position: fixed; width: 10px; height: 10px; border-radius: 2px;
+    animation: confettiFall 3s ease-in forwards;
+    pointer-events: none; z-index: 200;
+  }
+  @keyframes confettiFall {
+    0%   { transform: translateY(-20px) rotate(0deg);   opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* ── PRINT STYLES ────────────────────────────────────── */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .btn-row, .progress-wrap, .modal-overlay { display: none !important; }
+    .q-card { break-inside: avoid; box-shadow: none; border: 1px solid #eee; margin-bottom: 8px; }
+    .option { cursor: default; }
+    #answer-key { display: block !important; break-before: page; }
+  }
+
+  @media (max-width: 600px) {
+    .header h1 { font-size: 1.5rem; }
+    .q-text { font-size: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ────────────────────────────────────────────────── -->
+<div class="header">
+  <div class="header-stars">⭐ 📚 ✏️ 📖 ⭐</div>
+  <h1>🎓 English Grammar Worksheet</h1>
+  <div class="subtitle">Present Simple &nbsp;|&nbsp; Present Continuous &nbsp;|&nbsp; Past Simple</div>
+  <div class="badge-row">
+    <span class="badge">📅 Grade 3</span>
+    <span class="badge">📝 30 Questions</span>
+    <span class="badge">⏱ 30 Minutes</span>
+    <span class="badge">🏫 Primary School</span>
+  </div>
+</div>
+
+<!-- ── DECO ROW ──────────────────────────────────────────────── -->
+<div class="deco-row">
+  <span>🐱</span><span>🌈</span><span>🍎</span><span>🐶</span><span>⚽</span>
+  <span>🦋</span><span>🌻</span><span>🎨</span><span>🐰</span><span>🌟</span>
+</div>
+
+<!-- ── INFO FORM ─────────────────────────────────────────────── -->
+<div class="info-card">
+  <div class="info-field"><label>👤 Name:</label><input type="text" placeholder="Your name"></div>
+  <div class="info-field"><label>🏫 Class:</label><input type="text" placeholder="Class"></div>
+  <div class="info-field"><label>📅 Date:</label><input type="text" placeholder="Date"></div>
+  <div class="info-field"><label>🏆 Score:</label><input type="text" id="score-display" placeholder="__ / 30" readonly style="color:#6c5ce7;font-weight:900;"></div>
+</div>
+
+<!-- ── INSTRUCTIONS ──────────────────────────────────────────── -->
+<div class="instructions">
+  <div class="icon">📋</div>
+  <p>
+    <span>Instructions:</span> Choose the best answer — <span>a</span>, <span>b</span>, or <span>c</span> — to complete each sentence.
+    Click your answer on screen, or write the letter in the box. Good luck! 🍀
+  </p>
+</div>
+
+<!-- ── LEGEND ────────────────────────────────────────────────── -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--pr-color)"></div>Present Simple</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--pc-color)"></div>Present Continuous</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--ps-color)"></div>Past Simple</div>
+</div>
+
+<!-- ── PROGRESS BAR ──────────────────────────────────────────── -->
+<div class="progress-wrap">
+  <div class="progress-label">
+    <span>📊 Progress</span>
+    <span id="progress-text">0 / 30 answered</span>
+  </div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill"></div></div>
+</div>
+
+<!-- ── QUESTIONS ─────────────────────────────────────────────── -->
+<div class="section-title">✏️ Questions</div>
+<div id="questions-container"></div>
+
+<!-- ── BUTTONS ───────────────────────────────────────────────── -->
+<div class="btn-row">
+  <button class="btn btn-check" onclick="checkAnswers()">✅ Check My Answers</button>
+  <button class="btn btn-reset" onclick="resetAll()">🔄 Start Over</button>
+  <button class="btn btn-key"   onclick="toggleKey()">🔑 Show Answer Key</button>
+</div>
+
+<!-- ── ANSWER KEY ─────────────────────────────────────────────── -->
+<div id="answer-key">
+  <div class="key-title">🔑 Answer Key — Teacher Use Only</div>
+  <div class="key-grid" id="key-grid"></div>
+</div>
+
+<!-- ── FOOTER ────────────────────────────────────────────────── -->
+<div class="footer">🌟 Keep learning and never give up! You are amazing! 🌟</div>
+
+<!-- ── SCORE MODAL ────────────────────────────────────────────── -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-emoji" id="modal-emoji">🎉</div>
+    <div class="modal-title" id="modal-title">Great Job!</div>
+    <div class="modal-score" id="modal-score">0 / 30</div>
+    <div class="modal-msg" id="modal-msg">Keep practising!</div>
+    <button class="modal-close" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [
+  { n:1,  tag:"pc", tense:"Present Continuous", emoji:"🐦",
+    text:"Look! The bird _____ in the tree right now.",
+    opts:["sings","is singing","sang"], ans:"b" },
+  { n:2,  tag:"ps", tense:"Past Simple", emoji:"🎂",
+    text:"She _____ a cake for her mom last weekend.",
+    opts:["bakes","is baking","baked"], ans:"c" },
+  { n:3,  tag:"pr", tense:"Present Simple", emoji:"🐱",
+    text:"My cat _____ milk every morning.",
+    opts:["drink","drinks","drank"], ans:"b" },
+  { n:4,  tag:"pc", tense:"Present Continuous", emoji:"🌻",
+    text:"The children _____ in the garden at the moment.",
+    opts:["play","played","are playing"], ans:"c" },
+  { n:5,  tag:"ps", tense:"Past Simple", emoji:"🦁",
+    text:"We _____ to the zoo last Sunday.",
+    opts:["go","are going","went"], ans:"c" },
+  { n:6,  tag:"pr", tense:"Present Simple", emoji:"🐶",
+    text:"Dogs _____ to run and play outside.",
+    opts:["liked","like","are liking"], ans:"b" },
+  { n:7,  tag:"ps", tense:"Past Simple", emoji:"📚",
+    text:"Tom _____ his homework after dinner yesterday.",
+    opts:["finishes","is finishing","finished"], ans:"c" },
+  { n:8,  tag:"pc", tense:"Present Continuous", emoji:"🎵",
+    text:"Listen! She _____ a beautiful song.",
+    opts:["sings","sang","is singing"], ans:"c" },
+  { n:9,  tag:"pr", tense:"Present Simple", emoji:"☀️",
+    text:"The sun _____ in the east every day.",
+    opts:["rose","rise","rises"], ans:"c" },
+  { n:10, tag:"ps", tense:"Past Simple", emoji:"🍕",
+    text:"My family _____ pizza for dinner last night.",
+    opts:["eats","ate","is eating"], ans:"b" },
+  { n:11, tag:"pc", tense:"Present Continuous", emoji:"🧹",
+    text:"He _____ his room at the moment.",
+    opts:["cleans","cleaned","is cleaning"], ans:"c" },
+  { n:12, tag:"pr", tense:"Present Simple", emoji:"🏫",
+    text:"My teacher _____ English at our school.",
+    opts:["teach","teaches","taught"], ans:"b" },
+  { n:13, tag:"ps", tense:"Past Simple", emoji:"👶",
+    text:"The baby _____ a lot when she was sick.",
+    opts:["cries","is crying","cried"], ans:"c" },
+  { n:14, tag:"pr", tense:"Present Simple", emoji:"🐟",
+    text:"Fish _____ in water.",
+    opts:["lived","live","are living"], ans:"b" },
+  { n:15, tag:"pc", tense:"Present Continuous", emoji:"🍳",
+    text:"Mom _____ dinner in the kitchen right now.",
+    opts:["cooks","cooked","is cooking"], ans:"c" },
+  { n:16, tag:"ps", tense:"Past Simple", emoji:"📖",
+    text:"I _____ a new book at the library last week.",
+    opts:["find","am finding","found"], ans:"c" },
+  { n:17, tag:"pr", tense:"Present Simple", emoji:"🪥",
+    text:"He _____ his teeth twice a day.",
+    opts:["brush","brushes","brushed"], ans:"b" },
+  { n:18, tag:"ps", tense:"Past Simple", emoji:"⚽",
+    text:"They _____ football at school yesterday.",
+    opts:["play","are playing","played"], ans:"c" },
+  { n:19, tag:"pc", tense:"Present Continuous", emoji:"🌧️",
+    text:"Look! It _____ outside!",
+    opts:["rains","rained","is raining"], ans:"c" },
+  { n:20, tag:"pr", tense:"Present Simple", emoji:"🎒",
+    text:"We _____ to school five days a week.",
+    opts:["went","go","are going"], ans:"b" },
+  { n:21, tag:"ps", tense:"Past Simple", emoji:"✉️",
+    text:"She _____ a letter to her friend last Monday.",
+    opts:["writes","wrote","is writing"], ans:"b" },
+  { n:22, tag:"pc", tense:"Present Continuous", emoji:"🐕",
+    text:"The dog _____ in the yard right now.",
+    opts:["ran","runs","is running"], ans:"c" },
+  { n:23, tag:"pr", tense:"Present Simple", emoji:"🚗",
+    text:"My father _____ to work by car every day.",
+    opts:["drive","drove","drives"], ans:"c" },
+  { n:24, tag:"ps", tense:"Past Simple", emoji:"🎉",
+    text:"The children _____ a fun game at the party yesterday.",
+    opts:["play","are playing","played"], ans:"c" },
+  { n:25, tag:"pc", tense:"Present Continuous", emoji:"💇",
+    text:"She _____ her hair right now.",
+    opts:["brushes","is brushing","brushed"], ans:"b" },
+  { n:26, tag:"pr", tense:"Present Simple", emoji:"🐰",
+    text:"Rabbits _____ carrots and lettuce.",
+    opts:["ate","are eating","eat"], ans:"c" },
+  { n:27, tag:"ps", tense:"Past Simple", emoji:"🎁",
+    text:"He _____ very happy when he got a new toy.",
+    opts:["is","was","will be"], ans:"b" },
+  { n:28, tag:"pc", tense:"Present Continuous", emoji:"🎨",
+    text:"They _____ a picture in art class right now.",
+    opts:["drew","draw","are drawing"], ans:"c" },
+  { n:29, tag:"pr", tense:"Present Simple", emoji:"🦅",
+    text:"Birds _____ south in winter.",
+    opts:["flew","fly","are flying"], ans:"b" },
+  { n:30, tag:"ps", tense:"Past Simple", emoji:"🎤",
+    text:"My sister _____ a beautiful song at the school show last week.",
+    opts:["sings","is singing","sang"], ans:"c" },
+];
+
+const LABELS = ["a","b","c"];
+const selected = {}; // { questionN: letter }
+
+function buildQuestions() {
+  const container = document.getElementById("questions-container");
+  container.innerHTML = "";
+  QUESTIONS.forEach(q => {
+    const card = document.createElement("div");
+    card.className = `q-card ${q.tag}`;
+    card.id = `card-${q.n}`;
+
+    const header = document.createElement("div");
+    header.className = "q-header";
+    header.innerHTML = `
+      <div class="q-num">${q.n}</div>
+      <div class="q-tense-tag">${q.tense}</div>
+      <div class="q-text">${q.text}</div>
+      <div class="q-emoji">${q.emoji}</div>
+    `;
+    card.appendChild(header);
+
+    const opts = document.createElement("div");
+    opts.className = "options";
+    q.opts.forEach((opt, i) => {
+      const lbl = LABELS[i];
+      const div = document.createElement("div");
+      div.className = "option";
+      div.id = `opt-${q.n}-${lbl}`;
+      div.innerHTML = `
+        <div class="opt-letter">${lbl}</div>
+        <div class="opt-text">${opt}</div>
+        <div class="opt-icon"></div>
+      `;
+      div.addEventListener("click", () => selectOption(q.n, lbl));
+      opts.appendChild(div);
+    });
+    card.appendChild(opts);
+
+    const box = document.createElement("div");
+    box.className = "answer-box"; box.id = `box-${q.n}`; box.textContent = "";
+    card.appendChild(box);
+
+    container.appendChild(card);
+  });
+
+  buildKey();
+}
+
+function selectOption(qn, letter) {
+  // Clear all options for this question
+  LABELS.forEach(l => {
+    const el = document.getElementById(`opt-${qn}-${l}`);
+    if (el) el.classList.remove("selected","correct","wrong");
+  });
+  selected[qn] = letter;
+  document.getElementById(`opt-${qn}-${letter}`).classList.add("selected");
+  document.getElementById(`box-${qn}`).textContent = letter;
+  updateProgress();
+}
+
+function updateProgress() {
+  const count = Object.keys(selected).length;
+  document.getElementById("progress-text").textContent = `${count} / 30 answered`;
+  document.getElementById("progress-fill").style.width = `${(count/30)*100}%`;
+}
+
+function checkAnswers() {
+  let score = 0;
+  QUESTIONS.forEach(q => {
+    const chosen = selected[q.n];
+    if (!chosen) return;
+    LABELS.forEach(l => {
+      const el = document.getElementById(`opt-${q.n}-${l}`);
+      el.classList.remove("selected","correct","wrong");
+    });
+    const chosenEl = document.getElementById(`opt-${q.n}-${chosen}`);
+    const correctEl = document.getElementById(`opt-${q.n}-${q.ans}`);
+    if (chosen === q.ans) {
+      chosenEl.classList.add("correct");
+      chosenEl.querySelector(".opt-icon").textContent = "✅";
+      score++;
+    } else {
+      chosenEl.classList.add("wrong");
+      chosenEl.querySelector(".opt-icon").textContent = "❌";
+      correctEl.classList.add("correct");
+      correctEl.querySelector(".opt-icon").textContent = "✅";
+    }
+  });
+  document.getElementById("score-display").value = `${score} / 30`;
+  showModal(score);
+}
+
+function showModal(score) {
+  let emoji, title, msg;
+  const pct = score / 30;
+  if      (pct === 1)   { emoji="🏆"; title="PERFECT SCORE!";  msg="WOW! You got everything right! You are a grammar superstar! 🌟"; }
+  else if (pct >= .8)   { emoji="🎉"; title="Excellent!";       msg="Amazing work! You know your tenses really well! Keep it up! 🚀"; }
+  else if (pct >= .6)   { emoji="😊"; title="Good Job!";        msg="Well done! A little more practice and you'll be perfect! 💪"; }
+  else if (pct >= .4)   { emoji="🌱"; title="Keep Trying!";     msg="Good effort! Review the tenses and try again — you can do it! 📖"; }
+  else                  { emoji="💙"; title="Don't Give Up!";   msg="Every mistake helps you learn. Study the tenses and come back! 🌈"; }
+  document.getElementById("modal-emoji").textContent = emoji;
+  document.getElementById("modal-title").textContent = title;
+  document.getElementById("modal-score").textContent = `${score} / 30`;
+  document.getElementById("modal-msg").textContent = msg;
+  document.getElementById("modal").classList.add("show");
+  if (pct >= .8) launchConfetti();
+}
+
+function closeModal() {
+  document.getElementById("modal").classList.remove("show");
+}
+
+function resetAll() {
+  Object.keys(selected).forEach(k => delete selected[k]);
+  document.getElementById("score-display").value = "";
+  QUESTIONS.forEach(q => {
+    LABELS.forEach(l => {
+      const el = document.getElementById(`opt-${q.n}-${l}`);
+      el.classList.remove("selected","correct","wrong");
+      el.querySelector(".opt-icon").textContent = "";
+    });
+    document.getElementById(`box-${q.n}`).textContent = "";
+  });
+  updateProgress();
+}
+
+function toggleKey() {
+  const el = document.getElementById("answer-key");
+  el.classList.toggle("show");
+  const btn = document.querySelector(".btn-key");
+  btn.textContent = el.classList.contains("show") ? "🔑 Hide Answer Key" : "🔑 Show Answer Key";
+  if (el.classList.contains("show")) el.scrollIntoView({ behavior:"smooth", block:"start" });
+}
+
+function buildKey() {
+  const grid = document.getElementById("key-grid");
+  grid.innerHTML = "";
+  QUESTIONS.forEach(q => {
+    const item = document.createElement("div");
+    item.className = "key-item";
+    item.innerHTML = `<span class="key-num">Q${q.n}</span><div class="key-ans ${q.ans}">${q.ans}</div>`;
+    grid.appendChild(item);
+  });
+}
+
+function launchConfetti() {
+  const colors = ["#6c5ce7","#fd79a8","#f9ca24","#00b894","#e17055","#0984e3","#a29bfe"];
+  for (let i = 0; i < 80; i++) {
+    const el = document.createElement("div");
+    el.className = "confetti-piece";
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.top  = "-20px";
+    el.style.background = colors[Math.floor(Math.random() * colors.length)];
+    el.style.width  = (Math.random() * 8 + 6) + "px";
+    el.style.height = (Math.random() * 8 + 6) + "px";
+    el.style.animationDelay    = Math.random() * 2 + "s";
+    el.style.animationDuration = (Math.random() * 2 + 2) + "s";
+    el.style.borderRadius = Math.random() > .5 ? "50%" : "2px";
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 4500);
+  }
+}
+
+buildQuestions();
+</script>
+</body>
+</html>
