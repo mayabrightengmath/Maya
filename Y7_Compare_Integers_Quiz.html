@@ -435,7 +435,7 @@ const QB=[
 ];
 
 /* ════ ENGINE ════ */
-let pool=[],cur=0,score=0,res=[],tmr=null,tl=25,done=false,t0=0,totalT=0;
+let pool=[],cur=0,score=0,res=[],tmr=null,tl=25,done=false,t0=0,totalT=0,clickReady=false;
 
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
   document.getElementById(id).classList.add('on');}
@@ -463,7 +463,8 @@ function renderNL(cfg){
 }
 
 function loadQ(){
-  done=false;
+  done=false; clickReady=false;
+  setTimeout(()=>{clickReady=true;},450);
   const q=pool[cur],tot=pool.length;
   document.getElementById('qnum').textContent=`Q${cur+1} / ${tot}`;
   document.getElementById('pfill').style.width=`${(cur/tot)*100}%`;
@@ -505,7 +506,7 @@ function updT(){
 }
 
 function pick(i){
-  if(done)return; done=true; clearInterval(tmr);
+  if(done||!clickReady)return; done=true; clearInterval(tmr);
   const q=pool[cur],el=Math.round((Date.now()-t0)/1000); totalT+=el;
   const btns=document.querySelectorAll('.choice');
   btns.forEach(b=>b.disabled=true);
