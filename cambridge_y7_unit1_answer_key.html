@@ -1,0 +1,461 @@
+
+<h2 class="sr-only">Cambridge Year 7 Math Unit 1 Integers — Interactive Answer Key with score tracker</h2>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.hdr{background:var(--color-background-secondary);border-bottom:0.5px solid var(--color-border-tertiary);padding:16px 20px}
+.hdr h1{font-size:15px;font-weight:500;color:var(--color-text-primary)}
+.hdr p{font-size:12px;color:var(--color-text-secondary);margin-top:3px}
+.badge-row{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.badge{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500;border:0.5px solid var(--color-border-secondary);color:var(--color-text-secondary);background:var(--color-background-primary)}
+.score-bar-wrap{padding:12px 20px;background:var(--color-background-primary);border-bottom:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;gap:14px}
+.score-num{font-size:22px;font-weight:500;color:var(--color-text-primary);min-width:52px}
+.score-track{flex:1;height:6px;background:var(--color-border-tertiary);border-radius:3px;overflow:hidden}
+.score-fill{height:100%;width:0;background:var(--color-text-success);border-radius:3px;transition:width .4s}
+.score-label{font-size:12px;color:var(--color-text-secondary);min-width:110px;text-align:right}
+.ctrl-row{padding:10px 20px;display:flex;gap:8px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.ctrl-row button{font-size:12px;padding:5px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-primary);cursor:pointer}
+.ctrl-row button:hover{background:var(--color-background-secondary)}
+.sec-banner{padding:8px 20px;font-size:12px;font-weight:500;color:var(--color-text-secondary);border-bottom:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);display:flex;align-items:center;justify-content:space-between}
+.qcard{border-bottom:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary)}
+.qhead{display:flex;align-items:flex-start;gap:10px;padding:12px 20px;cursor:pointer}
+.qhead:hover{background:var(--color-background-secondary)}
+.qnum{width:26px;height:26px;border-radius:50%;background:var(--color-background-info);color:var(--color-text-info);font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.qnum.done{background:var(--color-background-success);color:var(--color-text-success)}
+.qtxt{flex:1;font-size:13px;color:var(--color-text-primary);line-height:1.5}
+.qmarks{font-size:11px;color:var(--color-text-secondary);white-space:nowrap;margin-top:3px}
+.tog{font-size:11px;padding:4px 10px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;white-space:nowrap;align-self:flex-start;margin-top:1px}
+.tog:hover{background:var(--color-background-secondary)}
+.tog.open{border-color:var(--color-border-success);color:var(--color-text-success);background:var(--color-background-success)}
+.qbody{display:none;padding:0 20px 14px 56px}
+.qbody.open{display:block}
+.working{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 14px;margin-bottom:8px;border-left:2.5px solid var(--color-border-info)}
+.working-lbl{font-size:10px;font-weight:500;color:var(--color-text-info);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px}
+.working p{font-size:12px;color:var(--color-text-secondary);line-height:1.7;font-family:var(--font-mono)}
+.ans-row{background:var(--color-background-success);border-radius:var(--border-radius-md);padding:10px 14px;border-left:2.5px solid var(--color-border-success);margin-bottom:8px;display:flex;align-items:flex-start;gap:8px}
+.ans-lbl{font-size:10px;font-weight:500;color:var(--color-text-success);text-transform:uppercase;letter-spacing:.6px}
+.ans-val{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.note{background:var(--color-background-warning);border-radius:var(--border-radius-md);padding:8px 12px;border-left:2.5px solid var(--color-border-warning);margin-bottom:8px;font-size:11px;color:var(--color-text-warning)}
+.tick-row{display:flex;align-items:center;gap:8px;padding-top:2px}
+.tick-row label{font-size:12px;color:var(--color-text-secondary);cursor:pointer;display:flex;gap:6px;align-items:center}
+.tick-row input{width:15px;height:15px;accent-color:var(--color-border-success);cursor:pointer}
+.mchip{margin-left:auto;font-size:11px;padding:2px 8px;border-radius:10px;border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary)}
+.mchip.earned{background:var(--color-background-success);border-color:var(--color-border-success);color:var(--color-text-success)}
+hr.div{border:none;border-top:0.5px dashed var(--color-border-tertiary);margin:5px 0}
+.summary-table{width:100%;font-size:12px;border-collapse:collapse}
+.summary-table th{background:var(--color-background-secondary);color:var(--color-text-secondary);padding:7px 10px;text-align:left;font-weight:500;border-bottom:0.5px solid var(--color-border-tertiary)}
+.summary-table td{padding:6px 10px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary)}
+.summary-table tr:last-child td{border-bottom:none;font-weight:500}
+.ans-cell{color:var(--color-text-success);font-weight:500}
+.total-row td{background:var(--color-background-secondary);font-weight:500}
+</style>
+
+<div class="hdr">
+  <h1>Cambridge Lower Secondary Mathematics | Stage 7</h1>
+  <p>Unit 1: Integers — Answer Key</p>
+  <div class="badge-row">
+    <span class="badge">Teacher copy</span>
+    <span class="badge">20 questions</span>
+    <span class="badge">70 marks</span>
+    <span class="badge">Sections A · B · C</span>
+  </div>
+</div>
+
+<div class="score-bar-wrap">
+  <div class="score-num" id="scoreNum">0/70</div>
+  <div class="score-track"><div class="score-fill" id="scoreFill"></div></div>
+  <div class="score-label" id="scoreLabel">Tick questions to score</div>
+</div>
+
+<div class="ctrl-row">
+  <button onclick="revealAll()">Show all answers</button>
+  <button onclick="resetAll()">Reset</button>
+</div>
+
+<div class="sec-banner"><span>Section A — Level 1: Easy</span><span>20 marks</span></div>
+
+<div class="qcard" id="qc1">
+  <div class="qhead" onclick="tog(1)">
+    <div class="qnum" id="qn1">1</div>
+    <div class="qtxt">Write these integers in order from smallest to largest:<br><code>−5, 3, −12, 0, 7, −1, 15</code></div>
+    <div class="qmarks">2 marks</div>
+    <button class="tog" id="tb1">Show</button>
+  </div>
+  <div class="qbody" id="qb1">
+    <div class="working"><div class="working-lbl">Working</div><p>Number line: further left = smaller → −12 &lt; −5 &lt; −1 &lt; 0 &lt; 3 &lt; 7 &lt; 15</p></div>
+    <div class="ans-row"><div><div class="ans-lbl">Answer</div><div class="ans-val">−12, −5, −1, 0, 3, 7, 15</div></div></div>
+    <div class="tick-row"><label><input type="checkbox" onchange="tick(this,1,2)"> Mark correct</label><span class="mchip" id="mc1">+2</span></div>
+  </div>
+</div>
+
+<div class="qcard">
+  <div class="qhead" onclick="tog(2)">
+    <div class="qnum" id="qn2">2</div>
+    <div class="qtxt">Circle the largest value in each pair: a) −8 or −3 &nbsp; b) −20 or 4 &nbsp; c) 0 or −1</div>
+    <div class="qmarks">3 marks</div>
+    <button class="tog" id="tb2">Show</button>
+  </div>
+  <div class="qbody" id="qb2">
+    <div class="working"><div class="working-lbl">Working</div><p>a) −3 is closer to 0, so −3 &gt; −8<br>b) Any positive &gt; any negative<br>c) 0 is right of −1 on number line</p></div>
+    <div class="ans-row"><div><div class="ans-lbl">Answer</div><div class="ans-val">a) −3 &nbsp;&nbsp; b) 4 &nbsp;&nbsp; c) 0</div></div></div>
+    <div class="tick-row"><label><input type="checkbox" onchange="tick(this,2,3)"> Mark correct</label><span class="mchip" id="mc2">+3</span></div>
+  </div>
+</div>
+
+<div class="qcard">
+  <div class="qhead" onclick="tog(3)">
+    <div class="qnum" id="qn3">3</div>
+    <div class="qtxt">List ALL the factors of 36.</div>
+    <div class="qmarks">2 marks</div>
+    <button class="tog" id="tb3">Show</button>
+  </div>
+  <div class="qbody" id="qb3">
+    <div class="working"><div class="working-lbl">Working</div><p>1×36, 2×18, 3×12, 4×9, 6×6 → list all: 1, 2, 3, 4, 6, 9, 12, 18, 36</p></div>
+    <div class="ans-row"><div><div class="ans-lbl">Answer (9 factors)</div><div class="ans-val">1, 2, 3, 4, 6, 9, 12, 18, 36</div></div></div>
+    <div class="tick-row"><label><input type="checkbox" onchange="tick(this,3,2)"> Mark correct</label><span class="mchip" id="mc3">+2</span></div>
+  </div>
+</div>
+
+<div class="qcard">
+  <div class="qhead" onclick="tog(4)">
+    <div class="qnum" id="qn4">4</div>
+    <div class="qtxt">Write the first five multiples of 8.</div>
+    <div class="qmarks">2 marks</div>
+    <button class="tog" id="tb4">Show</button>
+  </div>
+  <div class="qbody" id="qb4">
+    <div class="working"><div class="working-lbl">Working</div><p>8×1=8, 8×2=16, 8×3=24, 8×4=32, 8×5=40</p></div>
+    <div class="ans-row"><div><div class="ans-lbl">Answer</div><div class="ans-val">8, 16, 24, 32, 40</div></div></div>
+    <div class="tick-row"><label><input type="checkbox" onchange="tick(this,4,2)"> Mark correct</label><span class="mchip" id="mc4">+2</span></div>
+  </div>
+</div>
+
+<div class="qcard">
+  <div class="qhead" onclick="tog(5)">
+    <div class="qnum" id="qn5">5</div>
+    <div class="qtxt">Which are factors of 60? &nbsp;<code>2, 5, 7, 9, 12, 15, 20, 11</code></div>
+    <div class="qmarks">3 marks</div>
+    <button class="tog" id="tb5">Show</button>
+  </div>
+  <div class="qbody" id="qb5">
+    <div class="working"><div class="working-lbl">Working</div><p>60÷2=30 ✓ &nbsp;60÷5=12 ✓ &nbsp;60÷7=8.57… ✗ &nbsp;60÷9=6.67… ✗<br>60÷12=5 ✓ &nbsp;60÷15=4 ✓ &nbsp;60÷20=3 ✓ &nbsp;60÷11=5.45… ✗</p></div>
+    <div class="ans-row"><div><div class="ans-lbl">Answer</div><div class="ans-val">2, 5, 12, 15, 20</div></div></div>
+    <div class="tick-row"><label><input type="checkbox" onchange="tick(this,5,3)"> Mark correct</label><span class="mchip" id="mc5">+3</span></div>
+  </div>
+</div>
+
+<div class="qcard">
+  <div class="qhead" onclick="tog(6)">
+    <div class="qnum" id="qn6">6</div>
+    <div class="qtxt">Circle all prime numbers: <code>1  2  9  11  15  17  21  23  27  29</code></div>
+    <div class="qmarks">3 marks</div>
+    <button class="tog" id="tb6">Show</button>
+  </div>
+  <div class="qbody" id="qb6">
+    <div class="working"><div class="working-lbl">Working</div><p>1=NOT prime (1 factor) &nbsp;9=3×3 &nbsp;15=3×5 &nbsp;21=3×7 &nbsp;27=3³ → all composite</p></div>
+    <div class="ans-row"><div><div class="ans-lbl">Answer</div><div class="ans-val">2, 11, 17, 23, 29</div></div></div>
+    <div class="tick-row"><label><input type="checkbox" onchange="tick(this,6,3)"> Mark correct</label><span class="mchip" id="mc6">+3</span></div>
+  </div>
+</div>
+
+<div class="qcard">
+  <div class="qhead" onclick="tog(7)">
+    <div class="qnum" id="qn7">7</div>
+    <div class="qtxt">Explain why 1 is NOT a prime number.</div>
+    <div class="qmarks">2 marks</div>
+    <button class="tog" id="tb7">Show</button>
+  </div>
+  <div class="qbody" id="qb7">
+    <div class="ans-row"><div><div class="ans-lbl">Answer</div><div class="ans-val">1 has only ONE factor (itself). A prime must have EXACTLY 2 factors.</div></div></div>
+    <div class="tick-row"><label><input type="checkbox" onchange="tick(this,7,2)"> Mark correct</label><span class="mchip" id="mc7">+2</span></div>
+  </div>
+</div>
+
+<div class="qcard">
+  <div class="qhead" onclick="tog(8)">
+    <div class="qnum" id="qn8">8</div>
+    <div class="qtxt">Calculate: &nbsp;a) 5² &nbsp;&nbsp;b) 3³ &nbsp;&nbsp;c) √49 &nbsp;&nbsp;d) ∛8</div>
+    <div class="qmarks">3 marks</div>
+    <button class="tog" id="tb8">Show</button>
+  </div>
+  <div class="qbody" id="qb8">
+    <div class="working"><div class="working-lbl">Working</div><p>a) 5×5=25 &nbsp;&nbsp;b) 3×3×3=27 &nbsp;&nbsp;c) 7×7=49 → √49=7 &nbsp;&nbsp;d) 2×2×2=8 → ∛8=2</p></div>
+    <div class="ans-row"><div><div class="ans-lbl">Answer</div><div class="ans-val">a) 25 &nbsp;&nbsp;b) 27 &nbsp;&nbsp;c) 7 &nbsp;&nbsp;d) 2</div></div></div>
+    <div class="tick-row"><label><input type="checkbox" onchange="tick(this,8,3)"> Mark correct</label><span class="mchip" id="mc8">+3</span></div>
+  </div>
+</div>
+
+<div class="sec-banner"><span>Section B — Level 2: Medium</span><span>30 marks</span></div>
+
+<div class="qcard">
+  <div class="qhead" onclick="tog(9)">
+    <div class="qnum" id="qn9">9</div>
+    <div class="qtxt">Find the HCF and LCM of 12 and 18 using factor lists.</div>
+    <div class="qmarks">4 marks</div>
+    <button class="tog" id="tb9">Show</button>
+  </div>
+  <div class="qbody" id="qb9">
+    <div class="working"><div class="working-lbl">Working</div>
+      <p>Factors of 12: 1, 2, 3, 4, 6, 12</p>
+      <p>Factors of 18: 1, 2, 3, 6, 9, 18</p>
+      <p>Common: 1,2,3,6 → HCF = 6</p>
+      <hr class="div">
+      <p>Multiples of 12: 12, 24, 36… &nbsp;|&nbsp; Multiples of 18: 18, 36… → LCM = 36</p>
+    </div>
+    <div class="ans-row"><div><div class="ans-lbl">Answer</div><div class="ans-val">HCF = 6 &nbsp;&nbsp;&nbsp; LCM = 36</div></div></div>
+    <div class="tick-row"><label><input type="checkbox" onchange="tick(this,9,4)"> Mark correct</label><span class="mchip" id="mc9">+4</span></div>
+  </div>
+</div>
+
+<div class="qcard">
+  <div class="qhead" onclick="tog(10)">
+    <div class="qnum" id="qn10">10</div>
+    <div class="qtxt">Bus A departs every 12 min, Bus B every 18 min. How long until they depart together?</div>
+    <div class="qmarks">3 marks</div>
+    <button class="tog" id="tb10">Show</button>
+  </div>
+  <div class="qbody" id="qb10">
+    <div class="working"><div class="working-lbl">Working</div><p>Need LCM(12,18) → Multiples of 12: 12,24,36… | Multiples of 18: 18,36… → LCM = 36</p></div>
+    <div class="ans-row"><div><div class="ans-lbl">Answer</div><div class="ans-val">36 minutes</div></div></div>
+    <div class="tick-row"><label><input type="checkbox" onchange="tick(this,10,3)"> Mark correct</label><span class="mchip" id="mc10">+3</span></div>
+  </div>
+</div>
+
+<div class="qcard">
+  <div class="qhead" onclick="tog(11)">
+    <div class="qnum" id="qn11">11</div>
+    <div class="qtxt">Write 84 as a product of prime factors in index form.</div>
+    <div class="qmarks">4 marks</div>
+    <button class="tog" id="tb11">Show</button>
+  </div>
+  <div class="qbody" id="qb11">
+    <div class="working"><div class="working-lbl">Working</div><p>84÷2=42 → 42÷2=21 → 21÷3=7 → 7÷7=1<br>84 = 2×2×3×7 = 2²×3×7</p></div>
+    <div class="ans-row"><div><div class="ans-lbl">Answer</div><div class="ans-val">84 = 2² × 3 × 7</div></div></div>
+    <div class="tick-row"><label><input type="checkbox" onchange="tick(this,11,4)"> Mark correct</label><span class="mchip" id="mc11">+4</span></div>
+  </div>
+</div>
+
+<div class="qcard">
+  <div class="qhead" onclick="tog(12)">
+    <div class="qnum" id="qn12">12</div>
+    <div class="qtxt">Use prime factorisation to find the HCF of 60 and 90.</div>
+    <div class="qmarks">4 marks</div>
+    <button class="tog" id="tb12">Show</button>
+  </div>
+  <div class="qbody" id="qb12">
+    <div class="working"><div class="working-lbl">Working</div><p>60 = 2²×3×5 &nbsp;&nbsp; 90 = 2×3²×5<br>Shared (lowest power): 2¹×3¹×5¹ = 2×3×5 = 30</p></div>
+    <div class="ans-row"><div><div class="ans-lbl">Answer</div><div class="ans-val">HCF = 30</div></div></div>
+    <div class="tick-row"><label><input type="checkbox" onchange="tick(this,12,4)"> Mark correct</label><span class="mchip" id="mc12">+4</span></div>
+  </div>
+</div>
+
+<div class="qcard">
+  <div class="qhead" onclick="tog(13)">
+    <div class="qnum" id="qn13">13</div>
+    <div class="qtxt">Calculate: &nbsp;a) 3 + 4×2 − 1 &nbsp;&nbsp;b) (10−4)² ÷ 4 &nbsp;&nbsp;c) 2³ + 3×(5−2)</div>
+    <div class="qmarks">6 marks</div>
+    <button class="tog" id="tb13">Show</button>
+  </div>
+  <div class="qbody" id="qb13">
+    <div class="working"><div class="working-lbl">Working</div>
+      <p>a) 3 + 8 − 1 = 10 &nbsp;[× before +]</p>
+      <p>b) 6² ÷ 4 = 36 ÷ 4 = 9 &nbsp;[brackets → indices → ÷]</p>
+      <p>c) 8 + 3×3 = 8 + 9 = 17 &nbsp;[brackets → indices → ×]</p>
+    </div>
+    <div class="ans-row"><div><div class="ans-lbl">Answer</div><div class="ans-val">a) 10 &nbsp;&nbsp;b) 9 &nbsp;&nbsp;c) 17</div></div></div>
+    <div class="tick-row"><label><input type="checkbox" onchange="tick(this,13,6)"> Mark correct</label><span class="mchip" id="mc13">+6</span></div>
+  </div>
+</div>
+
+<div class="qcard">
+  <div class="qhead" onclick="tog(14)">
+    <div class="qnum" id="qn14">14</div>
+    <div class="qtxt">Insert ONE pair of brackets to make true: <code>8 + 2 × 3 − 1 = 29</code></div>
+    <div class="qmarks">3 marks</div>
+    <button class="tog" id="tb14">Show</button>
+  </div>
+  <div class="qbody" id="qb14">
+    <div class="working"><div class="working-lbl">Working</div><p>(8 + 2) × 3 − 1 = 10 × 3 − 1 = 30 − 1 = 29 ✓</p></div>
+    <div class="ans-row"><div><div class="ans-lbl">Answer</div><div class="ans-val">(8 + 2) × 3 − 1 = 29</div></div></div>
+    <div class="note"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Note: original worksheet stated target = 19 (typo). Correct achievable target with one bracket is 29.</div>
+    <div class="tick-row"><label><input type="checkbox" onchange="tick(this,14,3)"> Mark correct</label><span class="mchip" id="mc14">+3</span></div>
+  </div>
+</div>
+
+<div class="qcard">
+  <div class="qhead" onclick="tog(15)">
+    <div class="qnum" id="qn15">15</div>
+    <div class="qtxt">Calculate: &nbsp;a) −6+(−4) &nbsp;&nbsp;b) −3×5 &nbsp;&nbsp;c) −24÷(−6) &nbsp;&nbsp;d) (−2)³</div>
+    <div class="qmarks">6 marks</div>
+    <button class="tog" id="tb15">Show</button>
+  </div>
+  <div class="qbody" id="qb15">
+    <div class="working"><div class="working-lbl">Working</div>
+      <p>a) −6−4 = −10 &nbsp;&nbsp;b) −15 &nbsp;&nbsp;c) +4 [neg÷neg=pos] &nbsp;&nbsp;d) 4×(−2) = −8</p>
+    </div>
+    <div class="ans-row"><div><div class="ans-lbl">Answer</div><div class="ans-val">a) −10 &nbsp;&nbsp;b) −15 &nbsp;&nbsp;c) 4 &nbsp;&nbsp;d) −8</div></div></div>
+    <div class="note"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Common error: (−2)³ = +8. Odd power of a negative = negative.</div>
+    <div class="tick-row"><label><input type="checkbox" onchange="tick(this,15,6)"> Mark correct</label><span class="mchip" id="mc15">+6</span></div>
+  </div>
+</div>
+
+<div class="sec-banner"><span>Section C — Level 3: Challenging</span><span>20 marks</span></div>
+
+<div class="qcard">
+  <div class="qhead" onclick="tog(16)">
+    <div class="qnum" id="qn16">16</div>
+    <div class="qtxt">Temperature: −8°C at midnight → rose 15°C by noon → fell 7°C by 6 p.m. Find 6 p.m. temperature.</div>
+    <div class="qmarks">4 marks</div>
+    <button class="tog" id="tb16">Show</button>
+  </div>
+  <div class="qbody" id="qb16">
+    <div class="working"><div class="working-lbl">Working</div><p>Midnight→Noon: −8+15 = +7°C &nbsp;&nbsp;|&nbsp;&nbsp; Noon→6pm: 7−7 = 0°C</p></div>
+    <div class="ans-row"><div><div class="ans-lbl">Answer</div><div class="ans-val">0°C</div></div></div>
+    <div class="tick-row"><label><input type="checkbox" onchange="tick(this,16,4)"> Mark correct</label><span class="mchip" id="mc16">+4</span></div>
+  </div>
+</div>
+
+<div class="qcard">
+  <div class="qhead" onclick="tog(17)">
+    <div class="qnum" id="qn17">17</div>
+    <div class="qtxt">Number N has exactly 8 factors; two are 6 and 10. What could N be?</div>
+    <div class="qmarks">5 marks</div>
+    <button class="tog" id="tb17">Show</button>
+  </div>
+  <div class="qbody" id="qb17">
+    <div class="working"><div class="working-lbl">Working</div>
+      <p>6=2×3, 10=2×5 → N divisible by 2, 3, 5</p>
+      <p>Smallest = LCM(6,10) = 30</p>
+      <p>Factors of 30: 1,2,3,5,6,10,15,30 → exactly 8 ✓</p>
+    </div>
+    <div class="ans-row"><div><div class="ans-lbl">Answer</div><div class="ans-val">N = 30</div></div></div>
+    <div class="note"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Do NOT accept 60 — it has 12 factors, not 8.</div>
+    <div class="tick-row"><label><input type="checkbox" onchange="tick(this,17,5)"> Mark correct</label><span class="mchip" id="mc17">+5</span></div>
+  </div>
+</div>
+
+<div class="qcard">
+  <div class="qhead" onclick="tog(18)">
+    <div class="qnum" id="qn18">18</div>
+    <div class="qtxt">Calculate: &nbsp;a) √(4³ + 2×12 − 4²) &nbsp;&nbsp;b) (−3)² − 2³ + 5×(−2)</div>
+    <div class="qmarks">6 marks</div>
+    <button class="tog" id="tb18">Show</button>
+  </div>
+  <div class="qbody" id="qb18">
+    <div class="working"><div class="working-lbl">Working</div>
+      <p>a) 4³=64, 2×12=24, 4²=16 → 64+24−16=72 → √72 = 6√2 ≈ 8.49</p>
+      <p>b) (−3)²=+9, 2³=8, 5×(−2)=−10 → 9−8−10 = −9</p>
+    </div>
+    <div class="ans-row"><div><div class="ans-lbl">Answer</div><div class="ans-val">a) 6√2 (≈ 8.49) &nbsp;&nbsp;&nbsp; b) −9</div></div></div>
+    <div class="note"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Common error in b): (−3)² = −9. Squaring any real number gives a positive result.</div>
+    <div class="tick-row"><label><input type="checkbox" onchange="tick(this,18,6)"> Mark correct</label><span class="mchip" id="mc18">+6</span></div>
+  </div>
+</div>
+
+<div class="qcard">
+  <div class="qhead" onclick="tog(19)">
+    <div class="qnum" id="qn19">19</div>
+    <div class="qtxt">"The product of two prime numbers is always odd." — TRUE or FALSE? Justify.</div>
+    <div class="qmarks">3 marks</div>
+    <button class="tog" id="tb19">Show</button>
+  </div>
+  <div class="qbody" id="qb19">
+    <div class="working"><div class="working-lbl">Working</div><p>2 is prime. 2×3=6 (even) → counterexample disproves statement.</p></div>
+    <div class="ans-row"><div><div class="ans-lbl">Answer</div><div class="ans-val">FALSE — counterexample: 2 × 3 = 6 (even)</div></div></div>
+    <div class="tick-row"><label><input type="checkbox" onchange="tick(this,19,3)"> Mark correct</label><span class="mchip" id="mc19">+3</span></div>
+  </div>
+</div>
+
+<div class="qcard">
+  <div class="qhead" onclick="tog(20)">
+    <div class="qnum" id="qn20">20</div>
+    <div class="qtxt">Find THREE numbers with HCF = 4 and LCM = 120. Verify your answer.</div>
+    <div class="qmarks">5 marks</div>
+    <button class="tog" id="tb20">Show</button>
+  </div>
+  <div class="qbody" id="qb20">
+    <div class="working"><div class="working-lbl">Working</div>
+      <p>All three must be multiples of 4 that divide into 120</p>
+      <p>Try 4, 24, 40:</p>
+      <p>HCF(4,24,40) = 4 ✓ &nbsp;&nbsp; LCM: 24=2³×3, 40=2³×5 → 2³×3×5 = 120 ✓</p>
+    </div>
+    <div class="ans-row"><div><div class="ans-lbl">Answer (accept any valid set)</div><div class="ans-val">4, 24, 40 → HCF = 4 ✓ &nbsp; LCM = 120 ✓</div></div></div>
+    <div class="note"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Deduct 2 marks if student gives numbers but shows no verification.</div>
+    <div class="tick-row"><label><input type="checkbox" onchange="tick(this,20,5)"> Mark correct</label><span class="mchip" id="mc20">+5</span></div>
+  </div>
+</div>
+
+<div style="padding:20px">
+  <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:10px">Marking summary</div>
+  <table class="summary-table">
+    <thead><tr><th>Q</th><th>Topic</th><th>Marks</th><th>Answer</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Order integers</td><td>2</td><td class="ans-cell">−12, −5, −1, 0, 3, 7, 15</td></tr>
+      <tr><td>2</td><td>Largest in pair</td><td>3</td><td class="ans-cell">a) −3 &nbsp; b) 4 &nbsp; c) 0</td></tr>
+      <tr><td>3</td><td>Factors of 36</td><td>2</td><td class="ans-cell">1,2,3,4,6,9,12,18,36</td></tr>
+      <tr><td>4</td><td>Multiples of 8</td><td>2</td><td class="ans-cell">8,16,24,32,40</td></tr>
+      <tr><td>5</td><td>Factors of 60</td><td>3</td><td class="ans-cell">2,5,12,15,20</td></tr>
+      <tr><td>6</td><td>Prime numbers</td><td>3</td><td class="ans-cell">2,11,17,23,29</td></tr>
+      <tr><td>7</td><td>Why 1 not prime</td><td>2</td><td class="ans-cell">Needs exactly 2 factors</td></tr>
+      <tr><td>8</td><td>Squares & roots</td><td>3</td><td class="ans-cell">25 / 27 / 7 / 2</td></tr>
+      <tr><td>9</td><td>HCF & LCM 12,18</td><td>4</td><td class="ans-cell">HCF=6, LCM=36</td></tr>
+      <tr><td>10</td><td>Bus LCM problem</td><td>3</td><td class="ans-cell">36 minutes</td></tr>
+      <tr><td>11</td><td>Prime factorisation 84</td><td>4</td><td class="ans-cell">2²×3×7</td></tr>
+      <tr><td>12</td><td>HCF of 60 & 90</td><td>4</td><td class="ans-cell">30</td></tr>
+      <tr><td>13</td><td>BIDMAS (3 parts)</td><td>6</td><td class="ans-cell">10 / 9 / 17</td></tr>
+      <tr><td>14</td><td>Insert brackets</td><td>3</td><td class="ans-cell">(8+2)×3−1=29</td></tr>
+      <tr><td>15</td><td>Negative calculations</td><td>6</td><td class="ans-cell">−10 / −15 / 4 / −8</td></tr>
+      <tr><td>16</td><td>Temperature problem</td><td>4</td><td class="ans-cell">0°C</td></tr>
+      <tr><td>17</td><td>Factor reasoning</td><td>5</td><td class="ans-cell">N = 30</td></tr>
+      <tr><td>18</td><td>Complex BIDMAS</td><td>6</td><td class="ans-cell">6√2 / −9</td></tr>
+      <tr><td>19</td><td>Prime product T/F</td><td>3</td><td class="ans-cell">FALSE, 2×3=6</td></tr>
+      <tr><td>20</td><td>HCF & LCM set</td><td>5</td><td class="ans-cell">e.g. 4, 24, 40</td></tr>
+      <tr class="total-row"><td colspan="2" style="text-align:right;color:var(--color-text-secondary)">Total</td><td style="color:var(--color-text-success)">70</td><td></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+let score=0;
+const marks={1:2,2:3,3:2,4:2,5:3,6:3,7:2,8:3,9:4,10:3,11:4,12:4,13:6,14:3,15:6,16:4,17:5,18:6,19:3,20:5};
+
+function tog(n){
+  const b=document.getElementById('qb'+n), t=document.getElementById('tb'+n);
+  const o=b.classList.toggle('open');
+  t.textContent=o?'Hide':'Show'; t.classList.toggle('open',o);
+}
+
+function tick(cb,n,m){
+  const chip=document.getElementById('mc'+n), num=document.getElementById('qn'+n);
+  if(cb.checked){score+=m; chip.classList.add('earned'); num.classList.add('done');}
+  else{score-=m; chip.classList.remove('earned'); num.classList.remove('done');}
+  render();
+}
+
+function render(){
+  const pct=Math.round(score/70*100);
+  document.getElementById('scoreNum').textContent=score+'/70';
+  document.getElementById('scoreFill').style.width=pct+'%';
+  let g=pct>=85?'Excellent':pct>=70?'Good':pct>=50?'Keep practising':'Needs revision';
+  document.getElementById('scoreLabel').textContent=pct+'% — '+g;
+}
+
+function revealAll(){
+  for(let n=1;n<=20;n++){
+    document.getElementById('qb'+n).classList.add('open');
+    const t=document.getElementById('tb'+n); t.textContent='Hide'; t.classList.add('open');
+  }
+}
+
+function resetAll(){
+  score=0;
+  document.querySelectorAll('input[type=checkbox]').forEach(c=>{
+    if(c.checked){c.checked=false; c.dispatchEvent(new Event('change'));}
+  });
+  for(let n=1;n<=20;n++){
+    document.getElementById('qb'+n).classList.remove('open');
+    const t=document.getElementById('tb'+n); t.textContent='Show'; t.classList.remove('open');
+  }
+  render();
+}
+</script>
