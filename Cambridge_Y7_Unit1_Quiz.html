@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cambridge Year 7 Math – Unit 1: Integers Quiz</title>
+<style>
+  :root {
+    --navy:#1A3557; --blue:#2E86AB; --green:#1B7A4B; --red:#B03A2E;
+    --orange:#E07B00; --purple:#6C3483;
+    --lb:#D6EAF8; --lg:#D5F5E3; --lr:#FADBD8; --lo:#FDEBD0;
+    --grey:#F4F6F7; --white:#fff; --text:#1a1a2e;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#eef2f7;color:var(--text);min-height:100vh}
+
+  /* ── Screens ── */
+  .screen{display:none;min-height:100vh}
+  .screen.active{display:flex;flex-direction:column}
+
+  /* ══ START SCREEN ══ */
+  #startScreen{align-items:center;justify-content:center;padding:30px 20px}
+  .start-card{background:#fff;border-radius:20px;padding:40px 36px;max-width:520px;width:100%;
+              box-shadow:0 8px 32px rgba(0,0,0,.12);text-align:center}
+  .start-icon{font-size:3.5rem;margin-bottom:16px}
+  .start-card h1{font-size:1.6rem;font-weight:800;color:var(--navy);margin-bottom:6px}
+  .start-card p{color:#555;font-size:.95rem;line-height:1.6;margin-bottom:24px}
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
+  .info-box{background:var(--grey);border-radius:12px;padding:14px;text-align:center}
+  .info-box .val{font-size:1.5rem;font-weight:800;color:var(--navy)}
+  .info-box .lbl{font-size:.75rem;color:#777;margin-top:3px}
+  .level-select{display:flex;gap:10px;justify-content:center;margin-bottom:28px;flex-wrap:wrap}
+  .lvl-btn{padding:8px 18px;border-radius:20px;border:2px solid var(--blue);
+           background:#fff;color:var(--blue);font-weight:700;font-size:.88rem;cursor:pointer;transition:.2s}
+  .lvl-btn.active,.lvl-btn:hover{background:var(--blue);color:#fff}
+  .btn-start{width:100%;padding:16px;border-radius:12px;border:none;
+             background:linear-gradient(135deg,var(--blue),var(--navy));
+             color:#fff;font-size:1.1rem;font-weight:800;cursor:pointer;
+             transition:.2s;letter-spacing:.5px}
+  .btn-start:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(42,82,152,.3)}
+
+  /* ══ QUIZ SCREEN ══ */
+  #quizScreen{background:#eef2f7}
+  .quiz-top{background:#fff;padding:16px 24px;display:flex;align-items:center;gap:16px;
+            box-shadow:0 2px 8px rgba(0,0,0,.08)}
+  .q-counter{font-size:.85rem;font-weight:700;color:var(--navy)}
+  .prog-track{flex:1;height:8px;background:#e0e0e0;border-radius:4px;overflow:hidden}
+  .prog-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--green));
+             border-radius:4px;transition:width .4s ease}
+  .timer-box{display:flex;align-items:center;gap:6px;font-weight:800;font-size:1rem;
+             color:var(--navy);min-width:52px}
+  .timer-box.warn{color:var(--red)}
+  .score-live{font-size:.85rem;font-weight:700;color:var(--green)}
+
+  .quiz-body{flex:1;padding:24px 20px;display:flex;flex-direction:column;align-items:center}
+  .section-tag{font-size:.75rem;font-weight:700;padding:4px 14px;border-radius:20px;
+               color:#fff;margin-bottom:14px;align-self:flex-start;max-width:560px;width:100%}
+  .q-card{background:#fff;border-radius:16px;padding:28px 28px 22px;
+          max-width:560px;width:100%;box-shadow:0 4px 16px rgba(0,0,0,.1);margin-bottom:18px}
+  .q-card h2{font-size:1.1rem;font-weight:700;color:var(--navy);line-height:1.55;margin-bottom:6px}
+  .q-card .hint{font-size:.82rem;color:#888;margin-bottom:20px;font-style:italic}
+  .choices{display:flex;flex-direction:column;gap:10px}
+  .choice{padding:13px 18px;border-radius:10px;border:2px solid #e0e0e0;
+          background:#fff;text-align:left;font-size:.95rem;cursor:pointer;
+          transition:.18s;font-weight:500;color:var(--text)}
+  .choice:hover:not(:disabled){border-color:var(--blue);background:var(--lb);color:var(--navy)}
+  .choice.selected{border-color:var(--blue);background:var(--lb);color:var(--navy)}
+  .choice.correct{border-color:var(--green)!important;background:var(--lg)!important;color:var(--green)!important}
+  .choice.wrong{border-color:var(--red)!important;background:var(--lr)!important;color:var(--red)!important}
+  .choice:disabled{cursor:default}
+
+  .feedback-box{max-width:560px;width:100%;border-radius:12px;padding:14px 18px;
+                margin-bottom:14px;display:none}
+  .feedback-box.correct{background:var(--lg);border:2px solid #a8dfbf;display:block}
+  .feedback-box.wrong{background:var(--lr);border:2px solid #f5b8b0;display:block}
+  .fb-title{font-weight:800;font-size:.95rem;margin-bottom:4px}
+  .fb-exp{font-size:.88rem;line-height:1.55;color:#333}
+
+  .btn-next{max-width:560px;width:100%;padding:14px;border-radius:12px;border:none;
+            background:var(--navy);color:#fff;font-size:1rem;font-weight:800;
+            cursor:pointer;display:none;transition:.2s}
+  .btn-next:hover{background:var(--blue)}
+  .btn-next.show{display:block}
+
+  /* ══ RESULT SCREEN ══ */
+  #resultScreen{align-items:center;justify-content:center;padding:30px 20px;background:#eef2f7}
+  .result-card{background:#fff;border-radius:20px;padding:36px 32px;max-width:520px;
+               width:100%;box-shadow:0 8px 32px rgba(0,0,0,.12);text-align:center}
+  .result-emoji{font-size:4rem;margin-bottom:12px}
+  .result-card h2{font-size:1.6rem;font-weight:800;color:var(--navy);margin-bottom:6px}
+  .result-card p{color:#555;font-size:.95rem;margin-bottom:20px}
+  .result-score{font-size:3.5rem;font-weight:900;color:var(--navy);margin:16px 0 4px}
+  .result-pct{font-size:1.1rem;color:#777;margin-bottom:20px}
+  .grade-badge{display:inline-block;padding:8px 24px;border-radius:20px;
+               font-weight:800;font-size:1rem;margin-bottom:24px}
+  .stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:24px}
+  .stat-box{background:var(--grey);border-radius:12px;padding:14px 8px}
+  .stat-box .sv{font-size:1.4rem;font-weight:800}
+  .stat-box .sl{font-size:.72rem;color:#777;margin-top:2px}
+  .review-list{text-align:left;max-height:260px;overflow-y:auto;margin-bottom:22px}
+  .review-item{padding:10px 14px;border-radius:8px;margin-bottom:6px;font-size:.87rem;display:flex;gap:10px;align-items:flex-start}
+  .review-item.ok{background:var(--lg)}
+  .review-item.ng{background:var(--lr)}
+  .review-icon{font-size:1rem;flex-shrink:0}
+  .review-text{flex:1}
+  .review-text .rt{font-weight:700;margin-bottom:2px}
+  .review-text .ra{color:#555}
+  .btn-row{display:flex;gap:10px}
+  .btn-retry{flex:1;padding:13px;border-radius:10px;border:2px solid var(--navy);
+             background:#fff;color:var(--navy);font-weight:800;font-size:.95rem;cursor:pointer}
+  .btn-retry:hover{background:var(--navy);color:#fff}
+  .btn-new{flex:1;padding:13px;border-radius:10px;border:none;
+           background:var(--navy);color:#fff;font-weight:800;font-size:.95rem;cursor:pointer}
+  .btn-new:hover{background:var(--blue)}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     START SCREEN
+══════════════════════════════════════════════ -->
+<div id="startScreen" class="screen active">
+  <div class="start-card">
+    <div class="start-icon">🧮</div>
+    <h1>Unit 1: Integers Quiz</h1>
+    <p>Cambridge Lower Secondary Mathematics · Stage 7<br>Test your knowledge of integers, primes, BIDMAS & more!</p>
+
+    <div class="info-grid">
+      <div class="info-box"><div class="val" id="qCount">15</div><div class="lbl">Questions</div></div>
+      <div class="info-box"><div class="val" id="tCount">30s</div><div class="lbl">Per question</div></div>
+    </div>
+
+    <p style="font-size:.85rem;font-weight:700;color:var(--navy);margin-bottom:10px">Choose level:</p>
+    <div class="level-select">
+      <button class="lvl-btn" onclick="setLevel('A')">⭐ Easy (A)</button>
+      <button class="lvl-btn active" onclick="setLevel('ALL')">⭐⭐ Mixed</button>
+      <button class="lvl-btn" onclick="setLevel('BC')">⭐⭐⭐ Hard (B+C)</button>
+    </div>
+    <button class="btn-start" onclick="startQuiz()">Start Quiz →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     QUIZ SCREEN
+══════════════════════════════════════════════ -->
+<div id="quizScreen" class="screen">
+  <div class="quiz-top">
+    <div class="q-counter" id="qCounter">1 / 15</div>
+    <div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="timer-box" id="timerBox">⏱ 30</div>
+    <div class="score-live" id="scoreLive">✅ 0</div>
+  </div>
+
+  <div class="quiz-body">
+    <div class="section-tag" id="sectionTag"></div>
+    <div class="q-card">
+      <h2 id="qText"></h2>
+      <div class="hint" id="qHint"></div>
+      <div class="choices" id="choices"></div>
+    </div>
+    <div class="feedback-box" id="feedbackBox">
+      <div class="fb-title" id="fbTitle"></div>
+      <div class="fb-exp" id="fbExp"></div>
+    </div>
+    <button class="btn-next" id="btnNext" onclick="nextQuestion()">Next →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     RESULT SCREEN
+══════════════════════════════════════════════ -->
+<div id="resultScreen" class="screen">
+  <div class="result-card">
+    <div class="result-emoji" id="resEmoji">🎉</div>
+    <h2 id="resTitle">Quiz Complete!</h2>
+    <p id="resSubtitle"></p>
+    <div class="result-score" id="resScore">0/15</div>
+    <div class="result-pct" id="resPct">0%</div>
+    <div class="grade-badge" id="resBadge"></div>
+    <div class="stats-grid">
+      <div class="stat-box"><div class="sv" id="stCorrect" style="color:var(--green)">0</div><div class="sl">Correct</div></div>
+      <div class="stat-box"><div class="sv" id="stWrong" style="color:var(--red)">0</div><div class="sl">Wrong</div></div>
+      <div class="stat-box"><div class="sv" id="stTime" style="color:var(--blue)">0s</div><div class="sl">Avg time</div></div>
+    </div>
+    <div class="review-list" id="reviewList"></div>
+    <div class="btn-row">
+      <button class="btn-retry" onclick="retryQuiz()">🔄 Retry</button>
+      <button class="btn-new" onclick="newQuiz()">🏠 Home</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════
+//  QUESTION BANK
+// ══════════════════════════════════════════════════
+const ALL_QUESTIONS = [
+  // ── SECTION A: EASY ──
+  {
+    section:"A", tag:"⭐ Section A — Easy",tagColor:"#2E86AB",
+    q:"Which of the following is NOT an integer?",
+    hint:"Integers are whole numbers only.",
+    choices:["−7","0","3.5","15"],
+    answer:2,
+    exp:"3.5 is a decimal — not a whole number. Integers include negatives, zero, and positive whole numbers."
+  },
+  {
+    section:"A", tag:"⭐ Section A — Easy",tagColor:"#2E86AB",
+    q:"Put these integers in order from smallest to largest:\n−5,  3,  −12,  0,  7",
+    hint:"Think of the number line — left is smaller.",
+    choices:["−5, −12, 0, 3, 7","−12, −5, 0, 3, 7","0, −5, −12, 3, 7","−12, 0, −5, 3, 7"],
+    answer:1,
+    exp:"On the number line: −12 is furthest left (smallest), then −5, 0, 3, 7 (largest)."
+  },
+  {
+    section:"A", tag:"⭐ Section A — Easy",tagColor:"#2E86AB",
+    q:"Which is the largest value?",
+    hint:"Remember: on a number line, right = larger.",
+    choices:["−8","−3","−20","−15"],
+    answer:1,
+    exp:"−3 is closest to zero, so it is the largest. All other values are further left (more negative)."
+  },
+  {
+    section:"A", tag:"⭐ Section A — Easy",tagColor:"#2E86AB",
+    q:"How many factors does 36 have?",
+    hint:"Factors of 36: 1, 2, 3, 4, 6, 9, 12, 18, 36",
+    choices:["6","7","8","9"],
+    answer:3,
+    exp:"Factors of 36: 1, 2, 3, 4, 6, 9, 12, 18, 36 — that's 9 factors."
+  },
+  {
+    section:"A", tag:"⭐ Section A — Easy",tagColor:"#2E86AB",
+    q:"Which number is a factor of 60?",
+    hint:"A factor divides exactly into 60 with no remainder.",
+    choices:["7","9","11","15"],
+    answer:3,
+    exp:"60 ÷ 15 = 4 exactly. The others don't divide evenly into 60."
+  },
+  {
+    section:"A", tag:"⭐ Section A — Easy",tagColor:"#2E86AB",
+    q:"Which of these is a prime number?",
+    hint:"A prime has exactly 2 factors: 1 and itself.",
+    choices:["1","9","17","21"],
+    answer:2,
+    exp:"17 has exactly 2 factors (1 and 17). 1 has only 1 factor. 9=3×3, 21=3×7 — both composite."
+  },
+  {
+    section:"A", tag:"⭐ Section A — Easy",tagColor:"#2E86AB",
+    q:"What is 4²?",
+    hint:"4² means 4 × 4",
+    choices:["8","12","16","64"],
+    answer:2,
+    exp:"4² = 4 × 4 = 16. It is NOT 4×2=8."
+  },
+  {
+    section:"A", tag:"⭐ Section A — Easy",tagColor:"#2E86AB",
+    q:"What is √49?",
+    hint:"Which number multiplied by itself gives 49?",
+    choices:["6","7","8","9"],
+    answer:1,
+    exp:"7 × 7 = 49, so √49 = 7."
+  },
+  // ── SECTION B: MEDIUM ──
+  {
+    section:"B", tag:"⭐⭐ Section B — Medium",tagColor:"#E07B00",
+    q:"What is the HCF (Highest Common Factor) of 12 and 18?",
+    hint:"List factors of both numbers and find the largest shared one.",
+    choices:["2","3","6","9"],
+    answer:2,
+    exp:"Factors of 12: 1,2,3,4,6,12. Factors of 18: 1,2,3,6,9,18. Largest common factor = 6."
+  },
+  {
+    section:"B", tag:"⭐⭐ Section B — Medium",tagColor:"#E07B00",
+    q:"What is the LCM (Lowest Common Multiple) of 4 and 6?",
+    hint:"List multiples of each and find the first match.",
+    choices:["8","10","12","24"],
+    answer:2,
+    exp:"Multiples of 4: 4,8,12… Multiples of 6: 6,12… First match = 12. So LCM = 12."
+  },
+  {
+    section:"B", tag:"⭐⭐ Section B — Medium",tagColor:"#E07B00",
+    q:"84 written as a product of prime factors is:",
+    hint:"Divide by 2, then 3, then continue with primes.",
+    choices:["2 × 42","2² × 3 × 7","2 × 3 × 14","4 × 21"],
+    answer:1,
+    exp:"84÷2=42, 42÷2=21, 21÷3=7. So 84 = 2×2×3×7 = 2²×3×7."
+  },
+  {
+    section:"B", tag:"⭐⭐ Section B — Medium",tagColor:"#E07B00",
+    q:"Calculate: &nbsp; 3 + 4 × 2 − 1",
+    hint:"BIDMAS: multiplication before addition/subtraction.",
+    choices:["9","10","13","14"],
+    answer:1,
+    exp:"BIDMAS: multiply first → 4×2=8. Then: 3+8−1 = 10."
+  },
+  {
+    section:"B", tag:"⭐⭐ Section B — Medium",tagColor:"#E07B00",
+    q:"Calculate: &nbsp; (10 − 4)² ÷ 4",
+    hint:"Brackets first, then indices, then division.",
+    choices:["4","6","9","16"],
+    answer:2,
+    exp:"Brackets: 10−4=6. Indices: 6²=36. Division: 36÷4=9."
+  },
+  {
+    section:"B", tag:"⭐⭐ Section B — Medium",tagColor:"#E07B00",
+    q:"Calculate: &nbsp; −6 + (−4)",
+    hint:"Adding a negative means subtracting.",
+    choices:["10","2","−2","−10"],
+    answer:3,
+    exp:"−6 + (−4) = −6 − 4 = −10. Adding a negative is the same as subtracting."
+  },
+  {
+    section:"B", tag:"⭐⭐ Section B — Medium",tagColor:"#E07B00",
+    q:"Calculate: &nbsp; −24 ÷ (−6)",
+    hint:"Two negatives divided = positive.",
+    choices:["−4","4","−18","18"],
+    answer:1,
+    exp:"Negative ÷ negative = positive. −24 ÷ (−6) = +4."
+  },
+  {
+    section:"B", tag:"⭐⭐ Section B — Medium",tagColor:"#E07B00",
+    q:"Bus A leaves every 12 minutes, Bus B every 18 minutes. They leave together now. How many minutes until they leave together again?",
+    hint:"This is a Lowest Common Multiple problem.",
+    choices:["6","24","30","36"],
+    answer:3,
+    exp:"LCM(12,18) = 36. They will next depart together in 36 minutes."
+  },
+  // ── SECTION C: CHALLENGING ──
+  {
+    section:"C", tag:"⭐⭐⭐ Section C — Challenging",tagColor:"#B03A2E",
+    q:"Calculate: &nbsp; (−2)³",
+    hint:"(−2)³ = (−2) × (−2) × (−2). Count the negative signs!",
+    choices:["8","−8","6","−6"],
+    answer:1,
+    exp:"(−2)³ = (−2)×(−2)×(−2) = 4×(−2) = −8. Odd power of a negative = negative."
+  },
+  {
+    section:"C", tag:"⭐⭐⭐ Section C — Challenging",tagColor:"#B03A2E",
+    q:"The temperature was −8°C at midnight. By noon it rose by 15°C. By 6 p.m. it fell 7°C. What was the temperature at 6 p.m.?",
+    hint:"Calculate step by step: midnight → noon → 6 p.m.",
+    choices:["0°C","7°C","−7°C","8°C"],
+    answer:0,
+    exp:"Midnight→Noon: −8+15 = +7°C. Noon→6pm: 7−7 = 0°C."
+  },
+  {
+    section:"C", tag:"⭐⭐⭐ Section C — Challenging",tagColor:"#B03A2E",
+    q:"'The product of two prime numbers is always odd.' Is this TRUE or FALSE?",
+    hint:"Think: is 2 a prime number? What happens when you multiply by 2?",
+    choices:["TRUE — both primes are odd","FALSE — 2 × 3 = 6 (even)","TRUE — primes are never even","FALSE — primes cannot be multiplied"],
+    answer:1,
+    exp:"FALSE. 2 is a prime number. 2 × 3 = 6, which is even. So the statement is false."
+  },
+  {
+    section:"C", tag:"⭐⭐⭐ Section C — Challenging",tagColor:"#B03A2E",
+    q:"Calculate: &nbsp; (−3)² − 2³ + 5 × (−2)",
+    hint:"BIDMAS: indices first, then ×, then + and −.",
+    choices:["−9","9","1","−1"],
+    answer:0,
+    exp:"(−3)²=9, 2³=8, 5×(−2)=−10. Then: 9−8+(−10) = 9−8−10 = −9."
+  },
+  {
+    section:"C", tag:"⭐⭐⭐ Section C — Challenging",tagColor:"#B03A2E",
+    q:"A number N has exactly 8 factors and is divisible by both 6 and 10. What is N?",
+    hint:"Find LCM(6,10) first, then check factor count.",
+    choices:["20","24","30","60"],
+    answer:2,
+    exp:"LCM(6,10)=30. Factors of 30: 1,2,3,5,6,10,15,30 — exactly 8 ✓. 60 has 12 factors, not 8."
+  },
+];
+
+// ══════════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════════
+let selectedLevel = 'ALL';
+let questions = [];
+let current = 0;
+let score = 0;
+let timer = null;
+let timeLeft = 30;
+let timePerQ = 30;
+let results = [];
+let questionStartTime = 0;
+let totalTime = 0;
+let answered = false;
+
+// ══════════════════════════════════════════════════
+//  SETUP
+// ══════════════════════════════════════════════════
+function setLevel(l) {
+  selectedLevel = l;
+  document.querySelectorAll('.lvl-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  let pool = filterQuestions(l);
+  document.getElementById('qCount').textContent = Math.min(pool.length, 15);
+}
+
+function filterQuestions(l) {
+  if (l === 'A') return ALL_QUESTIONS.filter(q => q.section === 'A');
+  if (l === 'BC') return ALL_QUESTIONS.filter(q => q.section !== 'A');
+  return ALL_QUESTIONS;
+}
+
+function shuffle(arr) {
+  let a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startQuiz() {
+  let pool = shuffle(filterQuestions(selectedLevel));
+  questions = pool.slice(0, Math.min(15, pool.length));
+  current = 0; score = 0; results = []; totalTime = 0; answered = false;
+  showScreen('quizScreen');
+  loadQuestion();
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// ══════════════════════════════════════════════════
+//  QUIZ LOGIC
+// ══════════════════════════════════════════════════
+function loadQuestion() {
+  answered = false;
+  const q = questions[current];
+  const total = questions.length;
+
+  // Header
+  document.getElementById('qCounter').textContent = `${current + 1} / ${total}`;
+  document.getElementById('progFill').style.width = `${(current / total) * 100}%`;
+  document.getElementById('scoreLive').textContent = `✅ ${score}`;
+
+  // Section tag
+  const tag = document.getElementById('sectionTag');
+  tag.textContent = q.tag;
+  tag.style.background = q.tagColor;
+
+  // Question
+  document.getElementById('qText').innerHTML = q.q.replace(/\n/g, '<br>');
+  document.getElementById('qHint').textContent = '💡 Hint: ' + q.hint;
+
+  // Choices
+  const cDiv = document.getElementById('choices');
+  cDiv.innerHTML = '';
+  q.choices.forEach((c, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice';
+    btn.innerHTML = `<span style="font-weight:800;margin-right:10px;color:#aaa">${['A','B','C','D'][i]}</span>${c}`;
+    btn.onclick = () => selectAnswer(i);
+    cDiv.appendChild(btn);
+  });
+
+  // Feedback
+  document.getElementById('feedbackBox').className = 'feedback-box';
+  document.getElementById('btnNext').classList.remove('show');
+
+  // Timer
+  clearInterval(timer);
+  timeLeft = timePerQ;
+  updateTimerDisplay();
+  questionStartTime = Date.now();
+  timer = setInterval(() => {
+    timeLeft--;
+    updateTimerDisplay();
+    if (timeLeft <= 0) { clearInterval(timer); timeOut(); }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const box = document.getElementById('timerBox');
+  box.textContent = `⏱ ${timeLeft}`;
+  box.className = timeLeft <= 8 ? 'timer-box warn' : 'timer-box';
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  clearInterval(timer);
+
+  const q = questions[current];
+  const elapsed = Math.round((Date.now() - questionStartTime) / 1000);
+  totalTime += elapsed;
+
+  const btns = document.querySelectorAll('.choice');
+  btns.forEach(b => b.disabled = true);
+  btns[idx].classList.add(idx === q.answer ? 'correct' : 'wrong');
+  if (idx !== q.answer) btns[q.answer].classList.add('correct');
+
+  const correct = idx === q.answer;
+  if (correct) score++;
+
+  results.push({ q: q.q, correct, userIdx: idx, ansIdx: q.answer,
+                 userAns: q.choices[idx], correctAns: q.choices[q.answer],
+                 exp: q.exp });
+
+  const fb = document.getElementById('feedbackBox');
+  fb.className = `feedback-box ${correct ? 'correct' : 'wrong'}`;
+  document.getElementById('fbTitle').textContent = correct ? '✅ Correct!' : '❌ Incorrect';
+  document.getElementById('fbExp').textContent = q.exp;
+
+  document.getElementById('scoreLive').textContent = `✅ ${score}`;
+  document.getElementById('btnNext').classList.add('show');
+  document.getElementById('btnNext').textContent =
+    current + 1 < questions.length ? 'Next Question →' : 'See Results →';
+}
+
+function timeOut() {
+  if (answered) return;
+  answered = true;
+  const q = questions[current];
+  const btns = document.querySelectorAll('.choice');
+  btns.forEach(b => b.disabled = true);
+  btns[q.answer].classList.add('correct');
+  results.push({ q: q.q, correct: false, userIdx: -1, ansIdx: q.answer,
+                 userAns: 'Time out!', correctAns: q.choices[q.answer], exp: q.exp });
+  const fb = document.getElementById('feedbackBox');
+  fb.className = 'feedback-box wrong';
+  document.getElementById('fbTitle').textContent = '⏱ Time\'s up!';
+  document.getElementById('fbExp').textContent = q.exp;
+  document.getElementById('btnNext').classList.add('show');
+  document.getElementById('btnNext').textContent =
+    current + 1 < questions.length ? 'Next Question →' : 'See Results →';
+}
+
+function nextQuestion() {
+  current++;
+  if (current < questions.length) {
+    loadQuestion();
+  } else {
+    showResults();
+  }
+}
+
+// ══════════════════════════════════════════════════
+//  RESULTS
+// ══════════════════════════════════════════════════
+function showResults() {
+  showScreen('resultScreen');
+  const total = questions.length;
+  const pct = Math.round(score / total * 100);
+  const wrong = total - score;
+  const avgTime = total > 0 ? Math.round(totalTime / total) : 0;
+
+  let emoji, title, badge, badgeColor, badgeBg;
+  if (pct >= 90) { emoji='🏆'; title='Outstanding!'; badge='A+ Excellent'; badgeColor='#0a5931'; badgeBg='#D5F5E3'; }
+  else if (pct >= 75) { emoji='🎉'; title='Great job!'; badge='A Good'; badgeColor='#1B5E20'; badgeBg='#E8F5E9'; }
+  else if (pct >= 60) { emoji='👍'; title='Well done!'; badge='B Keep going'; badgeColor='#E07B00'; badgeBg='#FDEBD0'; }
+  else if (pct >= 40) { emoji='📚'; title='Keep practising!'; badge='C Needs work'; badgeColor='#7B341E'; badgeBg='#FADBD8'; }
+  else { emoji='💡'; title='Let\'s review!'; badge='Study more'; badgeColor='#4A235A'; badgeBg='#E8DAEF'; }
+
+  document.getElementById('resEmoji').textContent = emoji;
+  document.getElementById('resTitle').textContent = title;
+  document.getElementById('resSubtitle').textContent = `Cambridge Year 7 — Unit 1: Integers`;
+  document.getElementById('resScore').textContent = `${score}/${total}`;
+  document.getElementById('resPct').textContent = `${pct}%`;
+  const badgeEl = document.getElementById('resBadge');
+  badgeEl.textContent = badge;
+  badgeEl.style.background = badgeBg;
+  badgeEl.style.color = badgeColor;
+
+  document.getElementById('stCorrect').textContent = score;
+  document.getElementById('stWrong').textContent = wrong;
+  document.getElementById('stTime').textContent = avgTime + 's';
+
+  const rl = document.getElementById('reviewList');
+  rl.innerHTML = '<div style="font-size:.8rem;font-weight:700;color:#888;margin-bottom:8px;text-transform:uppercase;letter-spacing:.6px">Review</div>';
+  results.forEach((r, i) => {
+    const d = document.createElement('div');
+    d.className = `review-item ${r.correct ? 'ok' : 'ng'}`;
+    const qShort = r.q.replace(/<br>/g, ' ').length > 55
+      ? r.q.replace(/<br>/g, ' ').substring(0, 55) + '…'
+      : r.q.replace(/<br>/g, ' ');
+    d.innerHTML = `
+      <div class="review-icon">${r.correct ? '✅' : '❌'}</div>
+      <div class="review-text">
+        <div class="rt">Q${i+1}: ${qShort}</div>
+        <div class="ra">${r.correct ? 'Correct: ' + r.correctAns : 'Your answer: ' + r.userAns + ' → Correct: ' + r.correctAns}</div>
+      </div>`;
+    rl.appendChild(d);
+  });
+}
+
+function retryQuiz() { startQuiz(); }
+function newQuiz() {
+  clearInterval(timer);
+  document.querySelectorAll('.lvl-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.lvl-btn:nth-child(2)').classList.add('active');
+  selectedLevel = 'ALL';
+  document.getElementById('qCount').textContent = '15';
+  showScreen('startScreen');
+}
+
+// Init
+document.getElementById('qCount').textContent = Math.min(ALL_QUESTIONS.length, 15);
+</script>
+</body>
+</html>
