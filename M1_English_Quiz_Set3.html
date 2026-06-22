@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M.1 English Entrance Exam — Set 3 | Bright EngMath</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1B3A6B;
+    --navy-light: #2A5298;
+    --blue: #3B82F6;
+    --blue-bg: #EFF6FF;
+    --green: #15803D;
+    --green-bg: #F0FDF4;
+    --red: #B91C1C;
+    --red-bg: #FEF2F2;
+    --gold: #92400E;
+    --gold-bg: #FFFBEB;
+    --gray-50: #F9FAFB;
+    --gray-100: #F3F4F6;
+    --gray-200: #E5E7EB;
+    --gray-400: #9CA3AF;
+    --gray-600: #4B5563;
+    --gray-800: #1F2937;
+    --white: #FFFFFF;
+    --radius: 10px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.05);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; }
+  body { font-family: 'Inter', sans-serif; background: #F0F4F8; color: var(--gray-800); min-height: 100vh; }
+  .app { max-width: 780px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+
+  /* Header */
+  .site-header { text-align: center; margin-bottom: 1.75rem; }
+  .site-header .brand { font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin-bottom: .35rem; }
+  .site-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 4vw, 2.1rem); color: var(--navy); line-height: 1.2; margin-bottom: .35rem; }
+  .site-header .sub { font-size: 13px; color: var(--gray-600); }
+  .site-header .badge { display: inline-block; margin-top: .5rem; background: var(--navy); color: var(--white); font-size: 11px; font-weight: 600; letter-spacing: .08em; padding: .25rem .9rem; border-radius: 99px; }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 1.25rem; }
+  .stat-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: .75rem; text-align: center; box-shadow: var(--shadow); }
+  .stat-n { font-size: 22px; font-weight: 600; color: var(--navy); line-height: 1; margin-bottom: 3px; }
+  .stat-n.green { color: var(--green); }
+  .stat-n.red { color: var(--red); }
+  .stat-l { font-size: 11px; color: var(--gray-400); font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+
+  /* Progress */
+  .prog-wrap { background: var(--gray-200); border-radius: 99px; height: 5px; margin-bottom: 1.5rem; overflow: hidden; }
+  .prog-fill { height: 100%; background: linear-gradient(90deg, var(--navy-light), var(--blue)); border-radius: 99px; transition: width .4s cubic-bezier(.4,0,.2,1); }
+
+  /* Section label */
+  .sec-label { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--navy-light); margin-bottom: .6rem; }
+
+  /* Dots */
+  .q-dots { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 1.25rem; }
+  .dot { width: 28px; height: 28px; border-radius: 6px; border: 1.5px solid var(--gray-200); background: var(--white); cursor: pointer; font-size: 11px; font-weight: 600; color: var(--gray-400); display: flex; align-items: center; justify-content: center; transition: all .12s; }
+  .dot:hover { border-color: var(--navy-light); color: var(--navy); }
+  .dot.active { border-color: var(--navy); background: var(--navy); color: var(--white); }
+  .dot.answered-correct { background: var(--green-bg); border-color: #86EFAC; color: var(--green); }
+  .dot.answered-wrong { background: var(--red-bg); border-color: #FCA5A5; color: var(--red); }
+
+  /* Question card */
+  .q-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.25rem; box-shadow: var(--shadow); }
+  .q-meta { font-size: 12px; color: var(--gray-400); margin-bottom: .75rem; font-weight: 500; }
+
+  /* Passage embedded in question */
+  .passage-inline { background: var(--gray-50); border-left: 3px solid var(--navy); border-radius: 0 var(--radius) var(--radius) 0; padding: 1rem 1.25rem; margin-bottom: 1rem; font-size: 13.5px; line-height: 1.85; color: var(--gray-700, #374151); font-style: italic; }
+  .passage-inline .passage-label { font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--navy); margin-bottom: .5rem; display: block; }
+
+  /* Notice box */
+  .notice-inline { background: #FFFBEB; border: 1px solid #FDE68A; border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1rem; font-size: 13.5px; line-height: 1.85; color: var(--gray-800); }
+  .notice-inline .notice-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin-bottom: .5rem; display: block; }
+  .notice-inline ul { padding-left: 1.25rem; margin-top: .4rem; }
+  .notice-inline li { margin-bottom: .2rem; }
+
+  /* Dialogue */
+  .dialogue { background: var(--blue-bg); border: 1px solid #BFDBFE; border-radius: var(--radius); padding: .75rem 1rem; margin-bottom: .75rem; font-size: 13.5px; line-height: 1.7; color: var(--navy); font-style: italic; }
+
+  /* Question text */
+  .q-text { font-size: 15px; line-height: 1.65; color: var(--gray-800); margin-bottom: 1rem; font-weight: 500; }
+
+  /* Options */
+  .opts { display: flex; flex-direction: column; gap: 8px; }
+  .opt { display: flex; align-items: flex-start; gap: 12px; padding: .7rem 1rem; border: 1.5px solid var(--gray-200); border-radius: var(--radius); cursor: pointer; transition: border-color .12s, background .12s; background: var(--white); }
+  .opt:hover { border-color: var(--navy-light); background: var(--blue-bg); }
+  .opt.correct { border-color: var(--green); background: var(--green-bg); pointer-events: none; }
+  .opt.wrong { border-color: var(--red); background: var(--red-bg); pointer-events: none; }
+  .opt.revealed { pointer-events: none; }
+  .opt-letter { font-size: 12px; font-weight: 700; color: var(--navy-light); background: var(--blue-bg); border: 1px solid #BFDBFE; border-radius: 6px; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .opt.correct .opt-letter { color: var(--green); background: #DCFCE7; border-color: #86EFAC; }
+  .opt.wrong .opt-letter { color: var(--red); background: #FEE2E2; border-color: #FCA5A5; }
+  .opt-text { font-size: 14px; color: var(--gray-800); line-height: 1.5; }
+
+  /* Explanation */
+  .exp { margin-top: .9rem; padding: .7rem 1rem; background: var(--green-bg); border: 1px solid #86EFAC; border-radius: var(--radius); font-size: 13px; color: #166534; line-height: 1.6; display: none; }
+  .exp.show { display: block; }
+
+  /* Nav */
+  .nav { display: flex; gap: 10px; align-items: center; }
+  .nav-btn { padding: 10px 20px; border: 1.5px solid var(--gray-200); border-radius: var(--radius); background: var(--white); cursor: pointer; font-size: 14px; font-weight: 500; color: var(--gray-800); transition: all .12s; font-family: 'Inter', sans-serif; }
+  .nav-btn:hover { border-color: var(--navy-light); color: var(--navy); }
+  .nav-btn:disabled { opacity: .4; cursor: not-allowed; }
+  .nav-btn.primary { background: var(--navy); border-color: var(--navy); color: var(--white); }
+  .nav-btn.primary:hover { background: var(--navy-light); }
+  .nav-info { flex: 1; text-align: center; font-size: 13px; color: var(--gray-400); font-weight: 500; }
+
+  /* Result */
+  .result-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 2.5rem 2rem; text-align: center; box-shadow: var(--shadow-md); margin-bottom: 1.25rem; }
+  .result-score { font-family: 'Playfair Display', serif; font-size: 56px; color: var(--navy); line-height: 1; margin-bottom: .25rem; }
+  .result-pct { font-size: 15px; color: var(--gray-400); margin-bottom: 1.25rem; }
+  .grade { display: inline-block; padding: .4rem 1.5rem; border-radius: 99px; font-size: 13px; font-weight: 600; margin-bottom: 1.5rem; }
+  .grade-a { background: var(--green-bg); color: var(--green); }
+  .grade-b { background: var(--blue-bg); color: var(--navy); }
+  .grade-c { background: var(--gold-bg); color: var(--gold); }
+  .grade-d { background: var(--red-bg); color: var(--red); }
+  .result-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+  /* Footer */
+  .footer { text-align: center; margin-top: 3rem; font-size: 11px; color: var(--gray-400); line-height: 1.8; }
+  .footer strong { color: var(--navy-light); }
+
+  .hidden { display: none !important; }
+
+  @media (max-width: 480px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .app { padding: 1rem .75rem 3rem; }
+    .q-card { padding: 1.1rem 1rem; }
+    .result-score { font-size: 44px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="site-header">
+    <div class="brand">Bright EngMath</div>
+    <h1>English Entrance Examination</h1>
+    <p class="sub">Matthayom 1 · Grade 7 · Advanced Level</p>
+    <span class="badge">Set 3 — 30 Questions · 50 Minutes</span>
+  </header>
+
+  <div class="stats">
+    <div class="stat-card"><div class="stat-n" id="s-total">30</div><div class="stat-l">Total</div></div>
+    <div class="stat-card"><div class="stat-n" id="s-done">0</div><div class="stat-l">Answered</div></div>
+    <div class="stat-card"><div class="stat-n green" id="s-correct">0</div><div class="stat-l">Correct</div></div>
+    <div class="stat-card"><div class="stat-n red" id="s-wrong">0</div><div class="stat-l">Wrong</div></div>
+  </div>
+
+  <div class="prog-wrap"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+  <div class="q-dots" id="dots"></div>
+
+  <div id="quiz-area">
+    <div class="sec-label" id="sec-label"></div>
+    <div class="q-card" id="q-card"></div>
+    <div class="nav">
+      <button class="nav-btn" id="btn-prev" onclick="go(-1)">← Prev</button>
+      <div class="nav-info" id="nav-info"></div>
+      <button class="nav-btn primary" id="btn-next" onclick="go(1)">Next →</button>
+    </div>
+  </div>
+
+  <div id="result-area" class="hidden">
+    <div class="result-card">
+      <div class="result-score" id="r-score"></div>
+      <div class="result-pct" id="r-pct"></div>
+      <div class="grade" id="r-grade"></div>
+      <br>
+      <div class="result-btns">
+        <button class="nav-btn primary" onclick="restart()">Try again</button>
+        <button class="nav-btn" onclick="reviewAll()">Review answers</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <strong>Bright EngMath</strong> · Educational Materials for Thai Students<br>
+    © Bright EngMath. All rights reserved. Unauthorized reproduction is prohibited.
+  </footer>
+</div>
+
+<script>
+const LETTERS = ['A','B','C','D'];
+const TOTAL = 30;
+
+const PASSAGE_A = `Mangrove forests are one of the most important ecosystems in the world, yet they are disappearing at an alarming rate. Found along tropical and subtropical coastlines, mangroves protect shorelines from erosion, absorb carbon dioxide from the atmosphere, and provide nursery habitats for a wide variety of marine life, including fish and prawns that local communities depend on for food and income. Despite their enormous value, mangrove forests have been destroyed to make way for shrimp farms, hotels, and coastal development. Scientists estimate that more than a third of the world's mangrove forests have been lost in the past fifty years. Conservation efforts are now underway in many countries, including Thailand, where local communities and government agencies are working together to replant and protect what remains.`;
+
+const NOTICE_LINES = [
+  `<strong>INTER-SCHOOL ENGLISH DEBATE COMPETITION</strong>`,
+  `Hosted by Prasert Witthaya School`,
+  ``,
+  `Topic: <em>"Social media does more harm than good."</em>`,
+  `Date: Saturday, 12th October — Main Auditorium`,
+  ``,
+  `Rules and requirements:`,
+];
+const NOTICE_ITEMS = [
+  `Teams must consist of exactly three members.`,
+  `Each school may enter a maximum of two teams.`,
+  `All participants must be currently enrolled students in Matthayom 1–3.`,
+  `Each speaker will have four minutes to present their argument.`,
+  `A panel of three judges will evaluate teams on content, language, and delivery.`,
+  `Registration deadline: Friday, 4th October.`,
+  `Late registrations will not be accepted under any circumstances.`,
+];
+
+const QUESTIONS = [
+  // ── SECTION I: GRAMMAR ──────────────────────────────────────────────
+  {sec:"Section I — Grammar",q:"By the time the teacher arrived, the students _______ all the questions.",opts:["finish","finished","have finished","had finished"],ans:3,exp:"Past perfect 'had finished' describes an action completed BEFORE another past action ('arrived')."},
+  {sec:"Section I — Grammar",q:"Neither the manager nor the employees _______ aware of the new policy.",opts:["was","were","is","be"],ans:1,exp:"With 'neither…nor', the verb agrees with the noun closest to it: 'the employees' (plural) → were."},
+  {sec:"Section I — Grammar",q:"She asked me where _______ the previous night.",opts:["did I go","I had gone","I went","have I gone"],ans:1,exp:"Reported speech shifts tense back one step: 'where did I go?' → 'where I had gone'."},
+  {sec:"Section I — Grammar",q:"The harder you study, _______ you will become.",opts:["the more smarter","more smarter","the smarter","smarter"],ans:2,exp:"Double comparative structure: 'The + comparative… the + comparative'. → 'The smarter'."},
+  {sec:"Section I — Grammar",q:"_______ the heavy rain, the football match continued.",opts:["Although","Despite","Because of","However"],ans:1,exp:"'Despite' + noun/gerund shows contrast without needing a full clause. 'Although' needs a subject + verb."},
+  {sec:"Section I — Grammar",q:"This is the village _______ my grandmother was born.",opts:["which","that","where","when"],ans:2,exp:"'Where' is the relative adverb for places. Using 'which' would require a preposition: 'in which'."},
+  {sec:"Section I — Grammar",q:"I wish I _______ taller. Then I could join the basketball team.",opts:["am","was","were","will be"],ans:2,exp:"'I wish' + past subjunctive → 'were' is used for all subjects (including I) to express an unreal wish."},
+  {sec:"Section I — Grammar",q:"The report must _______ before Friday.",opts:["submit","be submitted","submitted","have submit"],ans:1,exp:"Passive voice with a modal verb: must + be + past participle → 'be submitted'."},
+  {sec:"Section I — Grammar",q:"She has been living in Bangkok _______ she was twelve years old.",opts:["for","since","during","while"],ans:1,exp:"'Since' + a specific point in time. 'For' is used with a period of time (e.g. for ten years)."},
+  {sec:"Section I — Grammar",q:"_______ is no point in worrying about things you cannot change.",opts:["It","There","That","This"],ans:1,exp:"'There is no point in + gerund' is a fixed expression meaning it is useless to do something."},
+  {sec:"Section I — Grammar",q:"The students are looking forward _______ on the school trip next month.",opts:["to go","going","to going","for going"],ans:2,exp:"'Look forward to' + gerund (-ing). The 'to' here is a preposition, NOT an infinitive marker."},
+  {sec:"Section I — Grammar",q:"He speaks English so fluently that people often mistake him _______ a native speaker.",opts:["as","for","like","with"],ans:1,exp:"Fixed phrase: 'mistake someone FOR someone else'. This is the correct preposition in this expression."},
+
+  // ── SECTION II: CONVERSATION ─────────────────────────────────────────
+  {sec:"Section II — Conversation",dialogue:`Doctor: "You need to cut down on sugar and exercise more regularly."`,q:"Patient: _______",opts:["Sugar is very sweet.","I understand, Doctor. I'll try my best to follow your advice.","Exercise is good for everyone.","Can I have some medicine, please?"],ans:1,exp:"The only response that directly acknowledges the doctor's advice and commits to following it."},
+  {sec:"Section II — Conversation",dialogue:`A: "I've been offered a job in Singapore, but I'm not sure whether to take it."`,q:"B: _______",opts:["Singapore is a very small country.","Jobs are important for everyone.","That's a big decision. What are the pros and cons?","You should look for another job."],ans:2,exp:"Engages thoughtfully with the dilemma by asking about pros and cons — the most supportive and logical response."},
+  {sec:"Section II — Conversation",dialogue:`A: "Excuse me, I think you've given me the wrong change."`,q:"Cashier: _______",opts:["Money is very important.","I'm so sorry about that. Let me check the receipt.","Please count your money carefully.","The price is clearly on the label."],ans:1,exp:"Professional response: apologises immediately and offers to verify — neither defensive nor dismissive."},
+  {sec:"Section II — Conversation",dialogue:`A: "I'm absolutely exhausted. I've been studying for ten hours straight."`,q:"B: _______",opts:["Studying is very important for your future.","Ten hours is a very long time.","You really should take a break. You can't study effectively when you're this tired.","I study for many hours too."],ans:2,exp:"Directly addresses the problem with practical, caring advice rather than a general statement."},
+  {sec:"Section II — Conversation",dialogue:`A: "Do you mind if I open the window? It's a bit stuffy in here."`,q:"B: _______",opts:["The window is very clean.","Not at all. Please go ahead.","I don't have a window.","Windows are important in buildings."],ans:1,exp:"'Not at all. Please go ahead.' is the correct response to 'Do you mind if…?' when giving permission."},
+  {sec:"Section II — Conversation",dialogue:`A: "I'm calling to complain about the food that was delivered to my house. It was completely cold."`,q:"Restaurant manager: _______",opts:["Our food is always freshly cooked.","You should have eaten it faster.","I sincerely apologise for that. We'll send a replacement immediately.","Delivery takes a long time sometimes."],ans:2,exp:"A sincere apology combined with an immediate solution — the only appropriate customer service response."},
+  {sec:"Section II — Conversation",dialogue:`A: "What would you recommend for someone visiting Thailand for the first time?"`,q:"B: _______",opts:["Thailand is in Southeast Asia.","There are many tourists in Thailand.","I'd suggest starting with Bangkok — the temples and street food are truly unforgettable.","Thailand has a lot of nice places."],ans:2,exp:"Gives a specific, enthusiastic recommendation with detail — genuinely helpful, unlike the vague options."},
+  {sec:"Section II — Conversation",dialogue:`A: "I can't believe I failed the exam. I studied so hard."`,q:"B: _______",opts:["Exams are very difficult sometimes.","Don't be too hard on yourself. One exam doesn't define you — you can always retake it.","You should have studied harder.","I also failed an exam before."],ans:1,exp:"Offers empathy and a constructive perspective — supportive without being critical."},
+  {sec:"Section II — Conversation",dialogue:`A: "Could you possibly cover my shift on Saturday? Something urgent has come up."`,q:"B: _______",opts:["Saturday is a holiday.","Shifts are very tiring.","I'm sorry, I already have plans. Have you tried asking Nong?","Something urgent always happens."],ans:2,exp:"Politely declines with a reason and helpfully suggests an alternative person."},
+  {sec:"Section II — Conversation",dialogue:`Professor: "This essay shows real promise, but the argument in the third paragraph needs strengthening."`,q:"Student: _______",opts:["Thank you for reading my essay.","Thank you for the feedback. Could you give me some specific suggestions on how to improve it?","I worked very hard on this essay.","The third paragraph is about the economy."],ans:1,exp:"Accepts feedback graciously and asks a focused follow-up question — shows academic maturity and initiative."},
+
+  // ── SECTION III: READING COMPREHENSION ──────────────────────────────
+  // Passage A questions (Q23–27) — passage embedded in each
+  {
+    sec:"Section III — Reading Comprehension",
+    passageType:"text",
+    passageLabel:"Passage A — Read and answer",
+    passageText: PASSAGE_A,
+    q:"Where are mangrove forests typically found?",
+    opts:["In cold mountain regions","Along tropical and subtropical coastlines","In freshwater lakes and rivers","In the middle of large deserts"],
+    ans:1,
+    exp:"The passage states they are 'found along tropical and subtropical coastlines'."
+  },
+  {
+    sec:"Section III — Reading Comprehension",
+    passageType:"text",
+    passageLabel:"Passage A — Read and answer",
+    passageText: PASSAGE_A,
+    q:"Which of the following is NOT mentioned as a benefit of mangrove forests?",
+    opts:["Protecting coastlines from erosion","Absorbing carbon dioxide","Providing timber for construction","Providing habitat for marine life"],
+    ans:2,
+    exp:"Providing timber is never mentioned. The passage lists erosion protection, CO₂ absorption, and marine habitat as benefits."
+  },
+  {
+    sec:"Section III — Reading Comprehension",
+    passageType:"text",
+    passageLabel:"Passage A — Read and answer",
+    passageText: PASSAGE_A,
+    q:"What is one reason why mangrove forests are being destroyed?",
+    opts:["They are being replanted elsewhere.","They are dying from natural disease.","They are being cleared for shrimp farms and development.","They are flooded by rising sea levels."],
+    ans:2,
+    exp:"'Destroyed to make way for shrimp farms, hotels, and coastal development' — stated directly."
+  },
+  {
+    sec:"Section III — Reading Comprehension",
+    passageType:"text",
+    passageLabel:"Passage A — Read and answer",
+    passageText: PASSAGE_A,
+    q:"What does the word 'underway' most likely mean in the final sentence?",
+    opts:["Finished","In progress","Planned for the future","Cancelled"],
+    ans:1,
+    exp:"'Underway' = currently happening / in progress. The conservation efforts are happening now, not yet finished or just planned."
+  },
+  {
+    sec:"Section III — Reading Comprehension",
+    passageType:"text",
+    passageLabel:"Passage A — Read and answer",
+    passageText: PASSAGE_A,
+    q:"What is the main purpose of this passage?",
+    opts:["To encourage people to eat less seafood","To describe the beauty of tropical coastlines","To inform readers about the importance and loss of mangrove forests","To explain how shrimp farms operate"],
+    ans:2,
+    exp:"The passage describes what mangroves do and how they are being lost — its purpose is to inform and raise awareness."
+  },
+  // Passage B questions (Q28–30) — notice embedded in each
+  {
+    sec:"Section III — Reading Comprehension",
+    passageType:"notice",
+    passageLabel:"Passage B — Read and answer",
+    q:"How many members must each debate team have?",
+    opts:["Two","Three","Four","Five"],
+    ans:1,
+    exp:"'Teams must consist of exactly three members.' — stated clearly in the rules."
+  },
+  {
+    sec:"Section III — Reading Comprehension",
+    passageType:"notice",
+    passageLabel:"Passage B — Read and answer",
+    q:"Which students are eligible to join the competition?",
+    opts:["All students from any school in Thailand","Students currently in Matthayom 1–3 at partner schools","Only Matthayom 3 students","Students who have won a debate competition before"],
+    ans:1,
+    exp:"'All participants must be currently enrolled students in Matthayom 1–3' at partner schools."
+  },
+  {
+    sec:"Section III — Reading Comprehension",
+    passageType:"notice",
+    passageLabel:"Passage B — Read and answer",
+    q:"What will happen if a school submits its registration after 4th October?",
+    opts:["The team will be placed on a waiting list.","The team must pay an additional fee.","The registration will not be accepted.","The team may still compete with permission."],
+    ans:2,
+    exp:"'Late registrations will not be accepted under any circumstances.' — no exceptions stated."
+  },
+];
+
+let curQ = 0;
+let answers = Array(TOTAL).fill(null);
+
+function go(dir) {
+  if (dir === 1) {
+    const allDone = answers.every(a => a !== null);
+    if (curQ === TOTAL - 1 && allDone) { showResult(); return; }
+    if (curQ < TOTAL - 1) curQ++;
+    else {
+      const first = answers.findIndex(a => a === null);
+      if (first >= 0) curQ = first;
+    }
+  } else {
+    if (curQ > 0) curQ--;
+  }
+  renderQ(); renderDots();
+}
+
+function jumpTo(i) { curQ = i; renderQ(); renderDots(); }
+
+function select(i) {
+  if (answers[curQ] !== null) return;
+  answers[curQ] = i;
+  updateStats(); renderDots(); renderQ();
+}
+
+function updateStats() {
+  const done = answers.filter(a => a !== null).length;
+  const correct = answers.filter((a, i) => a !== null && a === QUESTIONS[i].ans).length;
+  document.getElementById('s-done').textContent = done;
+  document.getElementById('s-correct').textContent = correct;
+  document.getElementById('s-wrong').textContent = done - correct;
+  document.getElementById('prog').style.width = Math.round(done / TOTAL * 100) + '%';
+}
+
+function renderDots() {
+  let html = '';
+  for (let i = 0; i < TOTAL; i++) {
+    let cls = 'dot';
+    if (i === curQ) cls += ' active';
+    else if (answers[i] !== null) {
+      cls += answers[i] === QUESTIONS[i].ans ? ' answered-correct' : ' answered-wrong';
+    }
+    html += `<div class="${cls}" onclick="jumpTo(${i})">${i + 1}</div>`;
+  }
+  document.getElementById('dots').innerHTML = html;
+}
+
+function buildNoticeHTML() {
+  let h = '';
+  NOTICE_LINES.forEach(line => {
+    if (line === '') { h += '<br>'; }
+    else if (line === 'Rules and requirements:') { h += `<strong>${line}</strong>`; }
+    else { h += `<p style="margin:.15rem 0">${line}</p>`; }
+  });
+  h += '<ul>';
+  NOTICE_ITEMS.forEach(item => { h += `<li>${item}</li>`; });
+  h += '</ul>';
+  return h;
+}
+
+function renderQ() {
+  const qi = QUESTIONS[curQ];
+  const userAns = answers[curQ];
+  const revealed = userAns !== null;
+
+  document.getElementById('sec-label').textContent = qi.sec + ' · Question ' + (curQ + 1);
+  document.getElementById('nav-info').textContent = `${curQ + 1} / ${TOTAL}`;
+  document.getElementById('btn-prev').disabled = curQ === 0;
+  const allDone = answers.every(a => a !== null);
+  document.getElementById('btn-next').textContent = (curQ === TOTAL - 1 && allDone) ? 'See results →' : 'Next →';
+
+  let html = `<div class="q-meta">Question ${curQ + 1} of ${TOTAL}</div>`;
+
+  // Embedded passage
+  if (qi.passageType === 'text') {
+    html += `<div class="passage-inline"><span class="passage-label">${qi.passageLabel}</span>${qi.passageText}</div>`;
+  } else if (qi.passageType === 'notice') {
+    html += `<div class="notice-inline"><span class="notice-label">${qi.passageLabel}</span>${buildNoticeHTML()}</div>`;
+  }
+
+  // Dialogue
+  if (qi.dialogue) {
+    html += `<div class="dialogue">${qi.dialogue}</div>`;
+  }
+
+  html += `<div class="q-text">${qi.q}</div>`;
+  html += `<div class="opts">`;
+  qi.opts.forEach((o, i) => {
+    let cls = 'opt';
+    if (revealed) { cls += i === qi.ans ? ' correct' : i === userAns ? ' wrong' : ' revealed'; }
+    html += `<div class="${cls}" onclick="select(${i})">
+      <span class="opt-letter">${LETTERS[i]}</span>
+      <span class="opt-text">${o}</span>
+    </div>`;
+  });
+  html += `</div>`;
+  if (revealed) {
+    html += `<div class="exp show">✓ ${qi.exp}</div>`;
+  }
+
+  document.getElementById('q-card').innerHTML = html;
+}
+
+function showResult() {
+  document.getElementById('quiz-area').classList.add('hidden');
+  document.getElementById('result-area').classList.remove('hidden');
+  const correct = answers.filter((a, i) => a === QUESTIONS[i].ans).length;
+  const pct = Math.round(correct / TOTAL * 100);
+  document.getElementById('r-score').textContent = correct + ' / ' + TOTAL;
+  document.getElementById('r-pct').textContent = pct + '% · Set 3 (Advanced)';
+  const gb = document.getElementById('r-grade');
+  let grade, gcls;
+  if (pct >= 80) { grade = 'Excellent — Grade A'; gcls = 'grade-a'; }
+  else if (pct >= 60) { grade = 'Good — Grade B'; gcls = 'grade-b'; }
+  else if (pct >= 40) { grade = 'Fair — Grade C'; gcls = 'grade-c'; }
+  else { grade = 'Needs improvement — Grade D'; gcls = 'grade-d'; }
+  gb.textContent = grade; gb.className = 'grade ' + gcls;
+}
+
+function restart() {
+  answers = Array(TOTAL).fill(null);
+  curQ = 0;
+  updateStats(); renderDots();
+  document.getElementById('quiz-area').classList.remove('hidden');
+  document.getElementById('result-area').classList.add('hidden');
+  renderQ();
+}
+
+function reviewAll() {
+  document.getElementById('quiz-area').classList.remove('hidden');
+  document.getElementById('result-area').classList.add('hidden');
+  curQ = 0; renderQ(); renderDots();
+}
+
+// Init
+updateStats(); renderDots(); renderQ();
+</script>
+</body>
+</html>
