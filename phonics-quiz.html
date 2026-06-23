@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Phonics Quiz</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Nunito', Arial, sans-serif;
+  background: #F0F4FF;
+  color: #1a1a2e;
+  min-height: 100vh;
+}
+
+.screen { display: none; }
+.screen.active { display: flex; }
+
+/* ══════════════════════════════
+   INTRO
+══════════════════════════════ */
+#intro {
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  gap: 22px;
+  text-align: center;
+  background: linear-gradient(160deg, #667eea 0%, #764ba2 100%);
+}
+
+.intro-title {
+  font-size: 50px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
+}
+.intro-sub {
+  font-size: 20px;
+  font-weight: 700;
+  color: rgba(255,255,255,.85);
+}
+
+.intro-emoji-row { font-size: 46px; letter-spacing: 8px; }
+
+.sound-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+.sound-tag {
+  background: rgba(255,255,255,.2);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 800;
+  padding: 7px 20px;
+  border-radius: 40px;
+  border: 2px solid rgba(255,255,255,.4);
+  backdrop-filter: blur(4px);
+}
+
+.intro-note {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255,255,255,.7);
+}
+
+.start-btn {
+  background: #fff;
+  color: #667eea;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  border: none;
+  border-radius: 50px;
+  padding: 18px 56px;
+  cursor: pointer;
+  box-shadow: 0 8px 30px rgba(0,0,0,.2);
+  transition: transform .15s, box-shadow .15s;
+}
+.start-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px rgba(0,0,0,.25);
+}
+
+/* ══════════════════════════════
+   QUIZ
+══════════════════════════════ */
+#quiz {
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  background: #F0F4FF;
+  padding: 20px 16px 48px;
+}
+
+/* top bar */
+.top-bar {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.bar-wrap { flex: 1; }
+.bar-label {
+  font-size: 14px;
+  font-weight: 800;
+  color: #666;
+  margin-bottom: 6px;
+}
+.bar-bg {
+  background: #D6DEFF;
+  border-radius: 12px;
+  height: 12px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  transition: width .5s cubic-bezier(.22,1,.36,1);
+}
+.score-pill {
+  background: #fff;
+  border-radius: 30px;
+  padding: 9px 18px;
+  font-size: 18px;
+  font-weight: 900;
+  color: #1a1a2e;
+  white-space: nowrap;
+  box-shadow: 0 2px 12px rgba(102,126,234,.2);
+}
+
+/* card */
+.q-card {
+  width: 100%;
+  max-width: 600px;
+  background: #fff;
+  border-radius: 28px;
+  padding: 30px 26px;
+  box-shadow: 0 8px 32px rgba(102,126,234,.15);
+  animation: cardIn .3s cubic-bezier(.22,1,.36,1);
+}
+@keyframes cardIn {
+  from { opacity:0; transform:translateY(24px) scale(.97); }
+  to   { opacity:1; transform:translateY(0) scale(1); }
+}
+
+/* part badge */
+.part-badge {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 900;
+  color: #fff;
+  padding: 5px 16px;
+  border-radius: 30px;
+  margin-bottom: 14px;
+  letter-spacing: .5px;
+}
+.p1 { background: linear-gradient(90deg,#3B82F6,#6366F1); }
+.p2 { background: linear-gradient(90deg,#8B5CF6,#EC4899); }
+.p3 { background: linear-gradient(90deg,#F59E0B,#EF4444); }
+
+/* instruction */
+.q-instr {
+  font-size: 22px;
+  font-weight: 900;
+  color: #1a1a2e;
+  margin-bottom: 20px;
+}
+
+/* emoji */
+.q-emoji {
+  font-size: 96px;
+  text-align: center;
+  margin-bottom: 16px;
+  line-height: 1;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,.12));
+  animation: bounce .5s ease;
+}
+@keyframes bounce {
+  0%  { transform:scale(.7); opacity:0; }
+  60% { transform:scale(1.08); }
+  100%{ transform:scale(1); opacity:1; }
+}
+
+/* ── MULTIPLE CHOICE ── */
+.mc-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 12px;
+}
+
+.mc-btn {
+  background: #F7F8FF;
+  border: 2.5px solid #D6DEFF;
+  border-radius: 16px;
+  padding: 18px 10px;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: #1a1a2e;
+  cursor: pointer;
+  transition: all .15s;
+  text-align: center;
+}
+.mc-btn:hover:not(:disabled) {
+  background: #EEF2FF;
+  border-color: #6366F1;
+  color: #4F46E5;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(99,102,241,.25);
+}
+.mc-btn.correct {
+  background: #ECFDF5; border-color: #10B981; color: #059669;
+  box-shadow: 0 4px 14px rgba(16,185,129,.25);
+}
+.mc-btn.wrong {
+  background: #FEF2F2; border-color: #EF4444; color: #DC2626;
+  box-shadow: 0 4px 14px rgba(239,68,68,.2);
+}
+.mc-btn.reveal {
+  background: #ECFDF5; border-color: #10B981; color: #059669;
+}
+.mc-btn:disabled { cursor: default; }
+
+/* ── FILL-IN-BLANK ── */
+.fib-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 22px;
+}
+.fib-letter {
+  font-size: 52px;
+  font-weight: 900;
+  color: #1a1a2e;
+  line-height: 1.1;
+}
+.fib-slot {
+  font-size: 52px;
+  font-weight: 900;
+  color: #8B5CF6;
+  border-bottom: 4px solid #C4B5FD;
+  min-width: 76px;
+  text-align: center;
+  padding: 0 6px;
+  line-height: 1.1;
+  transition: all .25s;
+}
+.fib-slot.filled        { border-color: #8B5CF6; }
+.fib-slot.correct-fill  {
+  color: #059669; border-color: #10B981;
+  background: #ECFDF5; border-radius: 12px 12px 0 0;
+}
+.fib-slot.wrong-fill    {
+  color: #DC2626; border-color: #EF4444;
+  background: #FEF2F2; border-radius: 12px 12px 0 0;
+}
+
+.tile-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+
+.tile-btn {
+  background: #FAF5FF;
+  border: 2.5px solid #DDD6FE;
+  border-radius: 16px;
+  padding: 18px 10px;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  color: #1a1a2e;
+  cursor: pointer;
+  transition: all .15s;
+  text-align: center;
+}
+.tile-btn:hover:not(:disabled) {
+  background: #EDE9FE;
+  border-color: #8B5CF6;
+  color: #7C3AED;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(139,92,246,.25);
+}
+.tile-btn.correct { background:#ECFDF5; border-color:#10B981; color:#059669; box-shadow:0 4px 14px rgba(16,185,129,.25); }
+.tile-btn.wrong   { background:#FEF2F2; border-color:#EF4444; color:#DC2626; }
+.tile-btn.reveal  { background:#ECFDF5; border-color:#10B981; color:#059669; }
+.tile-btn:disabled { cursor: default; }
+
+/* ── WHICH SOUND ── */
+.word-show {
+  font-size: 54px;
+  font-weight: 900;
+  text-align: center;
+  color: #1a1a2e;
+  margin-bottom: 22px;
+  letter-spacing: 2px;
+}
+.word-show .hl {
+  color: #F59E0B;
+  background: #FEF3C7;
+  border-radius: 10px;
+  padding: 0 8px;
+}
+
+/* feedback */
+.feedback {
+  margin-top: 14px;
+  border-radius: 14px;
+  padding: 14px 20px;
+  font-size: 20px;
+  font-weight: 800;
+  text-align: center;
+  display: none;
+  animation: fbIn .2s ease;
+}
+@keyframes fbIn { from{opacity:0;transform:scale(.95)} to{opacity:1;transform:scale(1)} }
+.feedback.show { display: block; }
+.feedback.ok { background: #ECFDF5; color: #059669; border: 2px solid #A7F3D0; }
+.feedback.no { background: #FEF2F2; color: #DC2626; border: 2px solid #FECACA; }
+
+/* next btn */
+.next-btn {
+  display: none;
+  width: 100%;
+  margin-top: 14px;
+  padding: 17px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  color: #fff;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: 19px;
+  font-weight: 900;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(102,126,234,.4);
+  transition: transform .15s, box-shadow .15s;
+}
+.next-btn.show { display: block; }
+.next-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(102,126,234,.5);
+}
+
+/* ══════════════════════════════
+   RESULT
+══════════════════════════════ */
+#result {
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  gap: 18px;
+  background: linear-gradient(160deg,#667eea 0%,#764ba2 100%);
+  text-align: center;
+}
+
+.r-emoji { font-size: 80px; }
+.r-label { font-size: 16px; font-weight: 800; color: rgba(255,255,255,.75); letter-spacing: 2px; text-transform: uppercase; }
+.r-score { font-size: 96px; font-weight: 900; color: #fff; line-height: 1; }
+.r-of    { font-size: 20px; font-weight: 700; color: rgba(255,255,255,.75); }
+
+.r-bar-bg {
+  width: min(380px,88vw);
+  background: rgba(255,255,255,.25);
+  border-radius: 12px;
+  height: 14px;
+  overflow: hidden;
+}
+.r-bar-fill {
+  height: 100%;
+  background: #fff;
+  border-radius: 12px;
+  transition: width 1.2s cubic-bezier(.22,1,.36,1);
+}
+
+.r-msg {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  background: rgba(255,255,255,.18);
+  border-radius: 18px;
+  padding: 16px 28px;
+  max-width: 380px;
+  backdrop-filter: blur(4px);
+}
+
+.r-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(54px,1fr));
+  gap: 8px;
+  width: min(420px,92vw);
+}
+.r-item {
+  border-radius: 12px;
+  padding: 10px 6px;
+  font-size: 17px;
+  font-weight: 900;
+  text-align: center;
+  border: 2px solid;
+}
+.r-item .rn { font-size: 10px; font-weight: 700; margin-bottom: 2px; opacity:.7; }
+.r-item.ok { background: #ECFDF5; border-color: #6EE7B7; color: #059669; }
+.r-item.no { background: #FEF2F2; border-color: #FCA5A5; color: #DC2626; }
+
+.replay-btn {
+  background: #fff;
+  color: #667eea;
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  border: none;
+  border-radius: 50px;
+  padding: 16px 48px;
+  cursor: pointer;
+  box-shadow: 0 8px 28px rgba(0,0,0,.15);
+  transition: transform .15s;
+}
+.replay-btn:hover { transform: translateY(-3px); }
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div id="intro" class="screen active">
+  <div class="intro-emoji-row">🚗 🌽 🐦 🐢 🐯 🧸 🪙</div>
+  <div class="intro-title">🎯 Phonics Quiz!</div>
+  <div class="intro-sub">ar · or · ir · ur · er · oy · oi</div>
+
+  <div class="sound-row">
+    <span class="sound-tag">ar</span>
+    <span class="sound-tag">or</span>
+    <span class="sound-tag">ir</span>
+    <span class="sound-tag">ur</span>
+    <span class="sound-tag">er</span>
+    <span class="sound-tag">oy</span>
+    <span class="sound-tag">oi</span>
+  </div>
+
+  <div class="intro-note">⭐ 20 Questions · 3 Parts · Kindergarten</div>
+  <button class="start-btn" onclick="startQuiz()">▶ Start Now!</button>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="screen"></div>
+
+<!-- RESULT -->
+<div id="result" class="screen">
+  <div class="r-emoji" id="rEmoji">🏆</div>
+  <div class="r-label">Your Score</div>
+  <div class="r-score" id="rScore">0</div>
+  <div class="r-of">out of 20</div>
+  <div class="r-bar-bg"><div class="r-bar-fill" id="rFill" style="width:0%"></div></div>
+  <div class="r-msg" id="rMsg"></div>
+  <div class="r-grid" id="rGrid"></div>
+  <button class="replay-btn" onclick="restartQuiz()">🔄 Play Again!</button>
+</div>
+
+<script>
+const QS = [
+  // PART 1 — Choose the Word
+  { part:1, type:'mc', instr:'Look and choose the correct word.',    emoji:'🚗', choices:['car','star','farm'], answer:'car' },
+  { part:1, type:'mc', instr:'Look and choose the correct word.',    emoji:'⭐', choices:['arm','star','jar'], answer:'star' },
+  { part:1, type:'mc', instr:'Look and choose the correct word.',    emoji:'🌽', choices:['storm','fork','corn'], answer:'corn' },
+  { part:1, type:'mc', instr:'Look and choose the correct word.',    emoji:'🍴', choices:['corn','fork','horse'], answer:'fork' },
+  { part:1, type:'mc', instr:'Look and choose the correct word.',    emoji:'🐦', choices:['girl','bird','shirt'], answer:'bird' },
+  { part:1, type:'mc', instr:'Look and choose the correct word.',    emoji:'👩‍⚕️', choices:['fur','turtle','nurse'], answer:'nurse' },
+  { part:1, type:'mc', instr:'Look and choose the correct word.',    emoji:'🧸', choices:['boy','toy','joy'], answer:'toy' },
+  { part:1, type:'mc', instr:'Look and choose the correct word.',    emoji:'🪙', choices:['point','soil','coin'], answer:'coin' },
+
+  // PART 2 — Fill in the Sound
+  { part:2, type:'fib', instr:'Click the missing sound!',    emoji:'🚗', before:'c', after:'', blank:'ar', tiles:['ar','or','ir'], answer:'ar' },
+  { part:2, type:'fib', instr:'Click the missing sound!',    emoji:'🌽', before:'c', after:'n', blank:'or', tiles:['ar','or','ur'], answer:'or' },
+  { part:2, type:'fib', instr:'Click the missing sound!',    emoji:'🐦', before:'b', after:'d', blank:'ir', tiles:['ar','ir','er'], answer:'ir' },
+  { part:2, type:'fib', instr:'Click the missing sound!',    emoji:'🐢', before:'t', after:'tle', blank:'ur', tiles:['ur','ir','or'], answer:'ur' },
+  { part:2, type:'fib', instr:'Click the missing sound!',    emoji:'🐯', before:'tig', after:'', blank:'er', tiles:['ar','er','ir'], answer:'er' },
+  { part:2, type:'fib', instr:'Click the missing sound!',    emoji:'👦', before:'b', after:'', blank:'oy', tiles:['oy','oi','or'], answer:'oy' },
+  { part:2, type:'fib', instr:'Click the missing sound!',    emoji:'🌱', before:'s', after:'l', blank:'oi', tiles:['oy','oi','or'], answer:'oi' },
+  { part:2, type:'fib', instr:'Click the missing sound!',    emoji:'⭐', before:'st', after:'', blank:'ar', tiles:['ar','er','ir'], answer:'ar' },
+
+  // PART 3 — Which Sound?
+  { part:3, type:'which', instr:'Which sound is inside the word?',    emoji:'👧', before:'g', sound:'ir', after:'l', tiles:['ar','ir','ur'], answer:'ir' },
+  { part:3, type:'which', instr:'Which sound is inside the word?',    emoji:'⛈️', before:'st', sound:'or', after:'m', tiles:['ar','or','oi'], answer:'or' },
+  { part:3, type:'which', instr:'Which sound is inside the word?',    emoji:'👩', before:'moth', sound:'er', after:'', tiles:['ar','or','er'], answer:'er' },
+  { part:3, type:'which', instr:'Which sound is inside the word?',    emoji:'😄', before:'j', sound:'oy', after:'', tiles:['oy','oi','or'], answer:'oy' },
+];
+
+const PART_LABEL = { 1:'Part 1 — Choose the Word', 2:'Part 2 — Fill in the Sound', 3:'Part 3 — Which Sound?' };
+const PART_CLS   = { 1:'p1', 2:'p2', 3:'p3' };
+const OK_MSG     = ['⭐ Correct!','🎉 Excellent!','✅ Great job!','🌟 Amazing!','👏 Well done!'];
+
+let cur=0, score=0, results=[], answered=false;
+
+function show(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+function buildShell(){
+  document.getElementById('quiz').innerHTML=`
+    <div class="top-bar">
+      <div class="bar-wrap">
+        <div class="bar-label" id="barLabel">Question 1 of 20</div>
+        <div class="bar-bg"><div class="bar-fill" id="barFill" style="width:5%"></div></div>
+      </div>
+      <div class="score-pill">⭐ <span id="scoreTxt">0</span></div>
+    </div>
+    <div class="q-card" id="qCard"></div>`;
+}
+
+function render(){
+  const q=QS[cur]; answered=false;
+  const pct=Math.max(Math.round((cur/20)*100),4);
+  document.getElementById('barLabel').textContent=`Question ${cur+1} of 20`;
+  document.getElementById('barFill').style.width=pct+'%';
+  document.getElementById('scoreTxt').textContent=score;
+  const card=document.getElementById('qCard');
+  let html=`
+    <div class="part-badge ${PART_CLS[q.part]}">${PART_LABEL[q.part]}</div>
+    <div class="q-instr">${q.instr}</div>
+    <div class="q-emoji">${q.emoji}</div>`;
+  if(q.type==='mc')    html+=mc(q);
+  if(q.type==='fib')   html+=fib(q);
+  if(q.type==='which') html+=which(q);
+  html+=`
+    <div class="feedback" id="fb"></div>
+    <button class="next-btn" id="nBtn" onclick="next()">
+      ${cur<19?'Next Question →':'🏆 See My Score!'}
+    </button>`;
+  card.innerHTML=html;
+  card.style.animation='none';
+  requestAnimationFrame(()=>{ card.style.animation='cardIn .3s cubic-bezier(.22,1,.36,1)'; });
+}
+
+function mc(q){
+  return `<div class="mc-grid">${q.choices.map(c=>`<button class="mc-btn" onclick="checkMC(this,'${c}','${q.answer}')">${c}</button>`).join('')}</div>`;
+}
+function fib(q){
+  return `<div class="fib-row"><span class="fib-letter">${q.before}</span><span class="fib-slot" id="slot">___</span><span class="fib-letter">${q.after}</span></div>
+  <div class="tile-grid">${q.tiles.map(t=>`<button class="tile-btn" onclick="checkFIB(this,'${t}','${q.answer}')">${t}</button>`).join('')}</div>`;
+}
+function which(q){
+  return `<div class="word-show">${q.before}<span class="hl">${q.sound}</span>${q.after}</div>
+  <div class="tile-grid">${q.tiles.map(t=>`<button class="tile-btn" onclick="checkWhich(this,'${t}','${q.answer}')">${t}</button>`).join('')}</div>`;
+}
+
+function lock(sel){ document.querySelectorAll(sel).forEach(b=>b.disabled=true); }
+function showFB(ok,label){
+  const fb=document.getElementById('fb');
+  fb.className='feedback show '+(ok?'ok':'no');
+  fb.innerHTML=ok?rand(OK_MSG):`✗ The answer is: <strong>${label}</strong>`;
+  document.getElementById('nBtn').className='next-btn show';
+}
+function rec(ok){ results.push(ok); if(ok) score++; document.getElementById('scoreTxt').textContent=score; }
+
+function checkMC(btn,chosen,answer){
+  if(answered)return; answered=true; lock('.mc-btn');
+  const ok=chosen===answer; rec(ok);
+  btn.classList.add(ok?'correct':'wrong');
+  if(!ok) document.querySelectorAll('.mc-btn').forEach(b=>{ if(b.textContent.trim()===answer) b.classList.add('reveal'); });
+  showFB(ok,answer);
+}
+function checkFIB(btn,chosen,answer){
+  if(answered)return; answered=true; lock('.tile-btn');
+  const ok=chosen===answer; rec(ok);
+  const s=document.getElementById('slot');
+  s.textContent=chosen; s.classList.add('filled',ok?'correct-fill':'wrong-fill');
+  btn.classList.add(ok?'correct':'wrong');
+  if(!ok) document.querySelectorAll('.tile-btn').forEach(b=>{ if(b.textContent.trim()===answer) b.classList.add('reveal'); });
+  showFB(ok,answer);
+}
+function checkWhich(btn,chosen,answer){
+  if(answered)return; answered=true; lock('.tile-btn');
+  const ok=chosen===answer; rec(ok);
+  btn.classList.add(ok?'correct':'wrong');
+  if(!ok) document.querySelectorAll('.tile-btn').forEach(b=>{ if(b.textContent.trim()===answer) b.classList.add('reveal'); });
+  showFB(ok,answer);
+}
+
+function next(){ cur++; if(cur>=QS.length) showResult(); else render(); }
+
+function showResult(){
+  show('result');
+  const pct=Math.round((score/20)*100);
+  document.getElementById('rScore').textContent=score;
+  setTimeout(()=>{ document.getElementById('rFill').style.width=pct+'%'; },80);
+  let emoji,msg;
+  if(score===20)     {emoji='🏆';msg='Perfect score! You are a Phonics Star! ⭐';}
+  else if(score>=16) {emoji='🎉';msg='Excellent! Almost perfect!';}
+  else if(score>=12) {emoji='😊';msg='Good job! Keep practising!';}
+  else if(score>=8)  {emoji='💪';msg='Nice try! Review and try again!';}
+  else               {emoji='🌱';msg='Keep going! You can do it!';}
+  document.getElementById('rEmoji').textContent=emoji;
+  document.getElementById('rMsg').textContent=msg;
+  document.getElementById('rGrid').innerHTML=results.map((ok,i)=>`
+    <div class="r-item ${ok?'ok':'no'}"><div class="rn">Q${i+1}</div>${ok?'✓':'✗'}</div>`).join('');
+}
+
+function startQuiz(){ cur=0;score=0;results=[];answered=false; show('quiz'); buildShell(); render(); }
+function restartQuiz(){ startQuiz(); }
+</script>
+</body>
+</html>
