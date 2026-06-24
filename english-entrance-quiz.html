@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English Entrance Quiz | Bright EngMath</title>
+  <style>
+    /* =============================================
+       GLOBAL RESET & BASE STYLES
+    ============================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary:       #2C5F8A;
+      --primary-light: #4A89C5;
+      --primary-dark:  #1A3F5F;
+      --accent:        #F0A500;
+      --accent-light:  #FFD166;
+      --bg:            #F0F4F8;
+      --card:          #FFFFFF;
+      --text:          #1E2D3D;
+      --text-muted:    #6B7F94;
+      --correct:       #2ECC71;
+      --wrong:         #E74C3C;
+      --border:        #D6E4F0;
+      --shadow:        0 4px 20px rgba(44, 95, 138, 0.12);
+      --radius:        12px;
+      --radius-sm:     8px;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 16px 40px;
+    }
+
+    /* =============================================
+       HEADER / BRANDING
+    ============================================= */
+    .site-header {
+      text-align: center;
+      margin-bottom: 24px;
+      width: 100%;
+      max-width: 760px;
+    }
+
+    .site-header .logo-icon {
+      font-size: 2.4rem;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .site-header h1 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      letter-spacing: -0.5px;
+    }
+
+    .site-header .subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    .credit {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* =============================================
+       MAIN CARD CONTAINER
+    ============================================= */
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 760px;
+      padding: 32px 36px;
+      border: 1px solid var(--border);
+    }
+
+    @media (max-width: 560px) {
+      .card { padding: 22px 18px; }
+    }
+
+    /* =============================================
+       START SCREEN
+    ============================================= */
+    #start-screen { text-align: center; }
+
+    #start-screen .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    #start-screen h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+    }
+
+    #start-screen .intro-text {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.65;
+      max-width: 520px;
+      margin: 0 auto 24px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .info-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px 10px;
+    }
+
+    .info-box .info-num {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      display: block;
+    }
+
+    .info-box .info-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .instructions {
+      background: #EBF4FF;
+      border-left: 4px solid var(--primary-light);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 14px 18px;
+      text-align: left;
+      margin-bottom: 28px;
+    }
+
+    .instructions h3 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .instructions ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .instructions ul li {
+      font-size: 0.875rem;
+      color: var(--text);
+      padding: 3px 0 3px 20px;
+      position: relative;
+    }
+
+    .instructions ul li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--primary-light);
+      font-weight: 700;
+    }
+
+    /* =============================================
+       BUTTONS
+    ============================================= */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 32px;
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(44, 95, 138, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(44, 95, 138, 0.45);
+    }
+
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-accent {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: var(--primary-dark);
+      box-shadow: 0 4px 14px rgba(240, 165, 0, 0.3);
+    }
+
+    .btn-accent:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(240, 165, 0, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-sm { padding: 9px 20px; font-size: 0.875rem; }
+
+    /* =============================================
+       QUIZ SCREEN — PROGRESS
+    ============================================= */
+    #quiz-screen { display: none; }
+
+    .progress-bar-wrap {
+      margin-bottom: 20px;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 7px;
+      font-size: 0.82rem;
+    }
+
+    .progress-label { color: var(--text-muted); font-weight: 600; }
+    .progress-count { color: var(--primary); font-weight: 700; font-size: 0.9rem; }
+
+    .progress-track {
+      height: 8px;
+      background: var(--bg);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+      border-radius: 20px;
+      transition: width 0.4s ease;
+    }
+
+    /* =============================================
+       QUIZ SCREEN — CATEGORY TAG & QUESTION
+    ============================================= */
+    .q-category {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: var(--primary-dark);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+
+    .question-text {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .question-number {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    /* Reading passage box */
+    .passage-box {
+      background: #F7F9FC;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary-light);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .passage-box .passage-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--primary-light);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    /* =============================================
+       ANSWER CHOICES
+    ============================================= */
+    .choices-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .choice-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 13px 16px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.18s ease;
+      background: #fff;
+    }
+
+    .choice-item:hover {
+      border-color: var(--primary-light);
+      background: #EBF4FF;
+    }
+
+    .choice-item.selected {
+      border-color: var(--primary);
+      background: #EBF4FF;
+    }
+
+    .choice-item.correct {
+      border-color: var(--correct);
+      background: #EAFAF1;
+    }
+
+    .choice-item.wrong {
+      border-color: var(--wrong);
+      background: #FDEDEC;
+    }
+
+    .choice-letter {
+      min-width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      margin-top: 1px;
+      transition: all 0.18s;
+    }
+
+    .choice-item:hover .choice-letter { border-color: var(--primary-light); color: var(--primary); }
+    .choice-item.selected .choice-letter { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .choice-item.correct .choice-letter { background: var(--correct); border-color: var(--correct); color: #fff; }
+    .choice-item.wrong .choice-letter { background: var(--wrong); border-color: var(--wrong); color: #fff; }
+
+    .choice-text {
+      font-size: 0.935rem;
+      color: var(--text);
+      line-height: 1.5;
+      padding-top: 3px;
+    }
+
+    /* =============================================
+       QUIZ NAV
+    ============================================= */
+    .quiz-nav {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* =============================================
+       RESULT SCREEN
+    ============================================= */
+    #result-screen { display: none; text-align: center; }
+
+    .score-circle-wrap {
+      margin: 0 auto 24px;
+      width: 140px;
+      height: 140px;
+      position: relative;
+    }
+
+    .score-circle-wrap svg { width: 140px; height: 140px; transform: rotate(-90deg); }
+
+    .score-circle-wrap .circle-bg { fill: none; stroke: var(--border); stroke-width: 12; }
+
+    .score-circle-wrap .circle-progress {
+      fill: none;
+      stroke-width: 12;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1s ease;
+    }
+
+    .score-center-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .score-center-text .score-pct {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      display: block;
+    }
+
+    .score-center-text .score-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .result-feedback {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+
+    .result-detail {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
+
+    .score-stats {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .stat-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 22px;
+      min-width: 100px;
+    }
+
+    .stat-box .stat-num {
+      font-size: 1.4rem;
+      font-weight: 800;
+      display: block;
+    }
+
+    .stat-box .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .stat-box.correct-stat .stat-num { color: var(--correct); }
+    .stat-box.wrong-stat .stat-num   { color: var(--wrong); }
+
+    .result-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    /* =============================================
+       REVIEW SECTION
+    ============================================= */
+    #review-section { display: none; margin-top: 8px; }
+
+    .review-header {
+      text-align: center;
+      padding: 20px 0 12px;
+      border-top: 2px solid var(--border);
+    }
+
+    .review-header h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+    }
+
+    .review-header p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .review-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-top: 14px;
+      overflow: hidden;
+    }
+
+    .review-item-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: var(--bg);
+    }
+
+    .review-item-header .q-status-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .review-item-header .q-num-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .review-item-header .q-cat-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: var(--primary-light);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin-left: auto;
+    }
+
+    .review-item-body { padding: 14px 16px; }
+
+    .review-question-text {
+      font-size: 0.93rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .review-passage {
+      background: #F7F9FC;
+      border-left: 3px solid var(--primary-light);
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+      line-height: 1.65;
+      border-radius: 0 4px 4px 0;
+      color: var(--text);
+    }
+
+    .review-choices { display: flex; flex-direction: column; gap: 7px; margin-bottom: 12px; }
+
+    .review-choice {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+    }
+
+    .review-choice.rc-correct { background: #EAFAF1; color: #1D7A4A; font-weight: 600; }
+    .review-choice.rc-wrong   { background: #FDEDEC; color: #922B21; text-decoration: line-through; }
+    .review-choice.rc-neutral { background: #F7F9FC; color: var(--text-muted); }
+
+    .review-choice .rc-letter {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .rc-correct .rc-letter { background: var(--correct); color: #fff; }
+    .rc-wrong   .rc-letter { background: var(--wrong);   color: #fff; }
+    .rc-neutral .rc-letter { background: var(--border);  color: var(--text-muted); }
+
+    .review-explanation {
+      background: #FFF8E7;
+      border: 1px solid #FFE4A0;
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      color: #7A5800;
+      line-height: 1.55;
+    }
+
+    .review-explanation strong { color: #5A3E00; }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .site-footer {
+      margin-top: 28px;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* =============================================
+       UTILITIES
+    ============================================= */
+    .hidden { display: none !important; }
+    .mt-8  { margin-top: 8px; }
+    .mt-16 { margin-top: 16px; }
+  </style>
+</head>
+<body>
+
+  <!-- ============ SITE HEADER ============ -->
+  <header class="site-header">
+    <span class="logo-icon">📚</span>
+    <h1>English Entrance Quiz</h1>
+    <p class="subtitle">Grade 6 → Grade 7 / Mathayom 1 Practice Test</p>
+    <p class="credit">by Bright EngMath</p>
+  </header>
+
+  <!-- ============ START SCREEN ============ -->
+  <div class="card" id="start-screen">
+    <span class="hero-badge">🎯 Entrance Exam Practice</span>
+    <h2>Ready to Test Your English?</h2>
+    <p class="intro-text">
+      This quiz covers key English skills tested in Grade 7 entrance exams — vocabulary, grammar, reading, and conversation. Take your time, read carefully, and do your best!
+    </p>
+
+    <div class="info-grid">
+      <div class="info-box">
+        <span class="info-num">30</span>
+        <div class="info-label">Questions</div>
+      </div>
+      <div class="info-box">
+        <span class="info-num">4</span>
+        <div class="info-label">Choices Each</div>
+      </div>
+      <div class="info-box">
+        <span class="info-num">6</span>
+        <div class="info-label">Topics Covered</div>
+      </div>
+      <div class="info-box">
+        <span class="info-num">No</span>
+        <div class="info-label">Time Limit</div>
+      </div>
+    </div>
+
+    <div class="instructions">
+      <h3>How to Use This Quiz</h3>
+      <ul>
+        <li>Read each question carefully before choosing an answer.</li>
+        <li>Click on A, B, C, or D to select your answer.</li>
+        <li>Press <strong>Next Question</strong> to move forward.</li>
+        <li>You cannot go back once you press Next.</li>
+        <li>At the end, review your answers and explanations.</li>
+      </ul>
+    </div>
+
+    <button class="btn btn-primary" onclick="startQuiz()">
+      ▶&nbsp; Start Quiz Now
+    </button>
+  </div>
+
+  <!-- ============ QUIZ SCREEN ============ -->
+  <div class="card" id="quiz-screen">
+    <!-- Progress -->
+    <div class="progress-bar-wrap">
+      <div class="progress-meta">
+        <span class="progress-label">Your Progress</span>
+        <span class="progress-count" id="progress-count">Question 1 of 30</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill" style="width: 3.3%"></div>
+      </div>
+    </div>
+
+    <!-- Category tag -->
+    <span class="q-category" id="q-category">Vocabulary</span>
+
+    <!-- Question number + text -->
+    <p class="question-number" id="q-number">Question 1</p>
+
+    <!-- Optional reading passage (hidden by default) -->
+    <div class="passage-box hidden" id="passage-box">
+      <span class="passage-label">📖 Read the passage, then answer:</span>
+      <span id="passage-text"></span>
+    </div>
+
+    <p class="question-text" id="question-text">Loading...</p>
+
+    <!-- Choices -->
+    <ul class="choices-list" id="choices-list"></ul>
+
+    <!-- Navigation -->
+    <div class="quiz-nav">
+      <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()" disabled>
+        Next Question →
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ RESULT SCREEN ============ -->
+  <div class="card" id="result-screen">
+    <div class="score-circle-wrap">
+      <svg viewBox="0 0 140 140">
+        <circle class="circle-bg"       cx="70" cy="70" r="57" />
+        <circle class="circle-progress" cx="70" cy="70" r="57"
+                id="circle-progress"
+                stroke-dasharray="358"
+                stroke-dashoffset="358"
+                stroke="var(--primary)" />
+      </svg>
+      <div class="score-center-text">
+        <span class="score-pct" id="score-pct">0%</span>
+        <span class="score-sub">Score</span>
+      </div>
+    </div>
+
+    <h2 class="result-feedback" id="result-feedback">Well done!</h2>
+    <p class="result-detail" id="result-detail">You answered 0 out of 30 correctly.</p>
+
+    <div class="score-stats">
+      <div class="stat-box correct-stat">
+        <span class="stat-num" id="correct-count">0</span>
+        <div class="stat-label">Correct</div>
+      </div>
+      <div class="stat-box wrong-stat">
+        <span class="stat-num" id="wrong-count">0</span>
+        <div class="stat-label">Incorrect</div>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num" id="total-count">30</span>
+        <div class="stat-label">Total</div>
+      </div>
+    </div>
+
+    <div class="result-actions">
+      <button class="btn btn-primary" onclick="restartQuiz()">🔄&nbsp; Restart Quiz</button>
+      <button class="btn btn-outline" onclick="toggleReview()">📋&nbsp; Review Answers</button>
+    </div>
+
+    <!-- REVIEW SECTION — injected by JS -->
+    <div id="review-section">
+      <div class="review-header">
+        <h3>📋 Answer Review</h3>
+        <p>Check the correct answers and explanations for each question.</p>
+      </div>
+      <div id="review-items"></div>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <p>English Entrance Quiz &mdash; Grade 6 to Grade 7 Practice Test &mdash; <strong>by Bright EngMath</strong></p>
+    <p class="mt-8">© 2025 Bright EngMath. All rights reserved.</p>
+  </footer>
+
+<script>
+/* =====================================================================
+   QUESTIONS ARRAY
+   Each object has:
+     category  : displayed as a label tag
+     passage   : (optional) a reading/dialogue block before the question
+     question  : the question text
+     choices   : array of 4 strings [A, B, C, D]
+     answer    : index 0-3 (correct choice)
+     explanation: short explanation of the correct answer
+   ===================================================================== */
+
+const questions = [
+
+  /* ─────────────────────────────────────────────
+     Q1–Q5 : VOCABULARY IN CONTEXT
+  ───────────────────────────────────────────── */
+  {
+    category: "Vocabulary",
+    question: "The weather was absolutely __________ yesterday. It was cold, windy, and rainy all day.",
+    choices: [
+      "pleasant",
+      "miserable",
+      "cheerful",
+      "magnificent"
+    ],
+    answer: 1,
+    explanation: "'Miserable' means very unpleasant or uncomfortable — perfect for describing bad weather."
+  },
+  {
+    category: "Vocabulary",
+    question: "She is very __________ about her health. She exercises every day and eats plenty of vegetables.",
+    choices: [
+      "careless",
+      "lazy",
+      "conscious",
+      "anxious"
+    ],
+    answer: 2,
+    explanation: "'Health-conscious' means being very aware of and careful about one's health. 'Conscious' fits best in this context."
+  },
+  {
+    category: "Vocabulary",
+    question: "The teacher gave a __________ explanation that helped every student understand the difficult topic.",
+    choices: [
+      "confusing",
+      "vague",
+      "clear",
+      "dull"
+    ],
+    answer: 2,
+    explanation: "'Clear' means easy to understand. The clue is that every student understood — which matches a clear explanation."
+  },
+  {
+    category: "Vocabulary",
+    question: "He was so __________ after running the marathon that he fell asleep immediately.",
+    choices: [
+      "energetic",
+      "exhausted",
+      "excited",
+      "bored"
+    ],
+    answer: 1,
+    explanation: "'Exhausted' means extremely tired. Falling asleep immediately after running a marathon shows extreme tiredness."
+  },
+  {
+    category: "Vocabulary",
+    question: "The scientist made a remarkable __________ that changed our understanding of the universe.",
+    choices: [
+      "mistake",
+      "disaster",
+      "discovery",
+      "schedule"
+    ],
+    answer: 2,
+    explanation: "'Discovery' means finding something new. A remarkable discovery that changes understanding is a scientific breakthrough."
+  },
+
+  /* ─────────────────────────────────────────────
+     Q6–Q12 : GRAMMAR & SENTENCE COMPLETION
+  ───────────────────────────────────────────── */
+  {
+    category: "Grammar",
+    question: "My parents __________ in Bangkok for twenty years before they moved to Chiang Mai.",
+    choices: [
+      "live",
+      "have lived",
+      "had lived",
+      "were living"
+    ],
+    answer: 2,
+    explanation: "'Had lived' (Past Perfect) is correct because the action happened over a period before another past action (moving to Chiang Mai)."
+  },
+  {
+    category: "Grammar",
+    question: "Neither of the students __________ done the homework yet.",
+    choices: [
+      "have",
+      "has",
+      "were",
+      "are"
+    ],
+    answer: 1,
+    explanation: "'Neither' is a singular pronoun, so it takes a singular verb. 'Has' is correct here."
+  },
+  {
+    category: "Grammar",
+    question: "She plays the piano __________ than anyone else in the school.",
+    choices: [
+      "more beautifully",
+      "most beautifully",
+      "beautifuller",
+      "much beautiful"
+    ],
+    answer: 0,
+    explanation: "For comparison between two things (she vs. everyone else), use the comparative form: 'more beautifully' (adverb)."
+  },
+  {
+    category: "Grammar",
+    question: "The letter __________ by the secretary last Friday.",
+    choices: [
+      "sent",
+      "was sent",
+      "has sent",
+      "is sending"
+    ],
+    answer: 1,
+    explanation: "This sentence uses the passive voice in simple past: 'was sent'. The subject (the letter) receives the action."
+  },
+  {
+    category: "Grammar",
+    question: "If it __________ tomorrow, we will cancel the field trip.",
+    choices: [
+      "rains",
+      "rained",
+      "will rain",
+      "would rain"
+    ],
+    answer: 0,
+    explanation: "For real conditional sentences (First Conditional), use 'If + present simple + will'. 'If it rains' is correct."
+  },
+  {
+    category: "Grammar",
+    question: "The book __________ on the table belongs to my teacher.",
+    choices: [
+      "lying",
+      "which is lying",
+      "lies",
+      "lay"
+    ],
+    answer: 1,
+    explanation: "'Which is lying' is a relative clause correctly modifying 'the book'. It describes which book we mean."
+  },
+  {
+    category: "Grammar",
+    question: "He asked me __________ I had finished reading the report.",
+    choices: [
+      "that",
+      "which",
+      "whether",
+      "what"
+    ],
+    answer: 2,
+    explanation: "'Whether' is used in indirect questions to report a yes/no question. 'He asked whether...' is correct reported speech."
+  },
+
+  /* ─────────────────────────────────────────────
+     Q13–Q17 : CONVERSATION COMPLETION
+  ───────────────────────────────────────────── */
+  {
+    category: "Conversation",
+    passage: "Anna: I'm not sure which laptop to buy. There are so many options!\nBen: __________ I bought one there last month and the prices were really good.",
+    question: "Choose the best response for Ben.",
+    choices: [
+      "Why don't you try the technology store downtown?",
+      "I think computers are very expensive these days.",
+      "You should stop using laptops.",
+      "Maybe you should ask your parents what food to eat."
+    ],
+    answer: 0,
+    explanation: "Ben's response should be helpful and relevant. Suggesting a store and mentioning good prices is the most natural reply."
+  },
+  {
+    category: "Conversation",
+    passage: "Teacher: You didn't hand in your project on time, Tom.\nTom: __________",
+    question: "Choose the most appropriate response from Tom.",
+    choices: [
+      "Yes, that's correct. I will do it later.",
+      "I'm very sorry. I was ill and couldn't finish it. May I submit it tomorrow?",
+      "I don't care about projects.",
+      "You should give me more time because I was busy."
+    ],
+    answer: 1,
+    explanation: "The most polite and appropriate response is to apologize, give a reason, and ask permission to submit it late."
+  },
+  {
+    category: "Conversation",
+    passage: "Mark: Have you ever been to Japan?\nLisa: __________",
+    question: "Choose the best reply from Lisa.",
+    choices: [
+      "No, I never been there before.",
+      "Yes, I have visited Japan twice. It was amazing!",
+      "Yes, I am go to Japan next week.",
+      "No, I didn't never go there."
+    ],
+    answer: 1,
+    explanation: "The question uses Present Perfect ('Have you ever been'). The correct reply uses 'have visited' — a Present Perfect response."
+  },
+  {
+    category: "Conversation",
+    passage: "Receptionist: Good morning. How can I help you?\nPatient: __________",
+    question: "Choose the most suitable thing for the patient to say.",
+    choices: [
+      "I need to see a doctor. I have a bad stomachache.",
+      "I'd like to order a pizza, please.",
+      "I want to buy some medicine from you.",
+      "Can you tell me where the park is?"
+    ],
+    answer: 0,
+    explanation: "In a medical clinic, the correct and appropriate thing for a patient to say is that they need to see a doctor and state their problem."
+  },
+  {
+    category: "Conversation",
+    passage: "Sam: Thanks so much for helping me study last night!\nJen: __________",
+    question: "Choose the best response from Jen.",
+    choices: [
+      "I don't know why you came.",
+      "You're very tired, I know.",
+      "Not at all! I was happy to help. Good luck on your exam!",
+      "Please don't thank me. I am busy now."
+    ],
+    answer: 2,
+    explanation: "'Not at all' is a natural, warm response to 'Thank you'. Wishing good luck adds an appropriate, friendly touch."
+  },
+
+  /* ─────────────────────────────────────────────
+     Q18–Q22 : ERROR CORRECTION
+  ───────────────────────────────────────────── */
+  {
+    category: "Error Correction",
+    question: "Find the sentence with the CORRECT grammar.",
+    choices: [
+      "She don't like spicy food at all.",
+      "She doesn't likes spicy food at all.",
+      "She doesn't like spicy food at all.",
+      "She not like spicy food at all."
+    ],
+    answer: 2,
+    explanation: "With third-person singular (she/he/it), use 'doesn't' + base verb. 'She doesn't like' is the only correct form."
+  },
+  {
+    category: "Error Correction",
+    question: "Which sentence contains a grammar mistake?",
+    choices: [
+      "We have been waiting for the bus for an hour.",
+      "The children is playing in the garden.",
+      "My brother works at a hospital.",
+      "I will call you as soon as I arrive."
+    ],
+    answer: 1,
+    explanation: "'The children is playing' is wrong. 'Children' is plural, so it takes 'are': 'The children are playing.'"
+  },
+  {
+    category: "Error Correction",
+    question: "Choose the sentence that has NO mistake.",
+    choices: [
+      "He has went to the library already.",
+      "They was very happy to see each other.",
+      "She has never eaten sushi before.",
+      "I seen him at the market yesterday."
+    ],
+    answer: 2,
+    explanation: "'Has never eaten' is the correct Present Perfect form. The others misuse past participles or have wrong subject-verb agreement."
+  },
+  {
+    category: "Error Correction",
+    question: "Find the mistake in the sentence: 'My mother cook dinner every evening after coming home from work.'",
+    choices: [
+      "The verb 'cook' should be 'cooks' (third-person singular present).",
+      "The word 'every' should be 'each of'.",
+      "'after coming' should be 'after to come'.",
+      "The sentence is correct."
+    ],
+    answer: 0,
+    explanation: "'My mother' is third-person singular, so the verb must be 'cooks', not 'cook'."
+  },
+  {
+    category: "Error Correction",
+    question: "Which underlined word contains the mistake?\n'Yesterday, (A) we go (B) to the cinema and (C) watched an (D) exciting film.'",
+    choices: [
+      "A — 'we'",
+      "B — 'go' (should be 'went')",
+      "C — 'watched'",
+      "D — 'exciting'"
+    ],
+    answer: 1,
+    explanation: "'Yesterday' signals simple past tense. 'Go' must become 'went'. 'We went to the cinema' is correct."
+  },
+
+  /* ─────────────────────────────────────────────
+     Q23–Q30 : READING COMPREHENSION
+     (Two passages, four questions each)
+  ───────────────────────────────────────────── */
+  {
+    category: "Reading",
+    passage: "The blue whale is the largest animal ever known to have lived on Earth. An adult blue whale can grow up to 30 metres in length and weigh as much as 200,000 kilograms. Despite their enormous size, blue whales feed mainly on tiny shrimp-like creatures called krill. A single blue whale can eat up to four tonnes of krill in a single day during feeding season. Blue whales are currently classified as an endangered species, mainly because of historical commercial whaling and, more recently, threats from climate change and ship strikes.",
+    question: "What is the main food source of the blue whale?",
+    choices: [
+      "Large fish such as tuna and salmon",
+      "Tiny shrimp-like creatures called krill",
+      "Seaweed and underwater plants",
+      "Dolphins and smaller whales"
+    ],
+    answer: 1,
+    explanation: "The passage clearly states: 'blue whales feed mainly on tiny shrimp-like creatures called krill.'"
+  },
+  {
+    category: "Reading",
+    passage: "The blue whale is the largest animal ever known to have lived on Earth. An adult blue whale can grow up to 30 metres in length and weigh as much as 200,000 kilograms. Despite their enormous size, blue whales feed mainly on tiny shrimp-like creatures called krill. A single blue whale can eat up to four tonnes of krill in a single day during feeding season. Blue whales are currently classified as an endangered species, mainly because of historical commercial whaling and, more recently, threats from climate change and ship strikes.",
+    question: "Why are blue whales considered an endangered species? Choose the BEST answer.",
+    choices: [
+      "Because they eat too much krill and damage the ocean",
+      "Due to their large size, they have difficulty finding food",
+      "Because of commercial whaling, climate change, and ship strikes",
+      "They are not endangered; the population is growing quickly"
+    ],
+    answer: 2,
+    explanation: "The passage states the main reasons are 'historical commercial whaling and, more recently, threats from climate change and ship strikes.'"
+  },
+  {
+    category: "Reading",
+    passage: "The blue whale is the largest animal ever known to have lived on Earth. An adult blue whale can grow up to 30 metres in length and weigh as much as 200,000 kilograms. Despite their enormous size, blue whales feed mainly on tiny shrimp-like creatures called krill. A single blue whale can eat up to four tonnes of krill in a single day during feeding season. Blue whales are currently classified as an endangered species, mainly because of historical commercial whaling and, more recently, threats from climate change and ship strikes.",
+    question: "The word 'enormous' in the passage is closest in meaning to ________.",
+    choices: [
+      "very small",
+      "very old",
+      "very fast",
+      "very large"
+    ],
+    answer: 3,
+    explanation: "'Enormous' means extremely large or huge — the opposite of small."
+  },
+  {
+    category: "Reading",
+    passage: "The blue whale is the largest animal ever known to have lived on Earth. An adult blue whale can grow up to 30 metres in length and weigh as much as 200,000 kilograms. Despite their enormous size, blue whales feed mainly on tiny shrimp-like creatures called krill. A single blue whale can eat up to four tonnes of krill in a single day during feeding season. Blue whales are currently classified as an endangered species, mainly because of historical commercial whaling and, more recently, threats from climate change and ship strikes.",
+    question: "Which sentence BEST describes the contrast in the passage?",
+    choices: [
+      "Blue whales are fast swimmers despite their heavy weight.",
+      "Although blue whales are extremely large, they eat very small creatures.",
+      "Blue whales are endangered, but their numbers are recovering.",
+      "Krill are small but they are dangerous to other sea animals."
+    ],
+    answer: 1,
+    explanation: "The key contrast is: blue whales are enormous (largest animal), yet they eat krill — tiny creatures. The word 'despite' signals this contrast."
+  },
+  {
+    category: "Reading",
+    passage: "Sara moved to a new city at the start of the school year. She felt nervous and shy because she didn't know anyone. On her first day, she sat alone at lunch. Then a girl named Mia came over, smiled, and said, 'Hi! I'm Mia. Do you want to sit with us?' Sara felt relieved and grateful. By the end of the week, the two girls had become close friends. Sara realised that a small act of kindness can make a huge difference to someone who is feeling lonely.",
+    question: "How did Sara feel on her first day at the new school?",
+    choices: [
+      "Excited and confident",
+      "Nervous and shy",
+      "Happy and relaxed",
+      "Angry and confused"
+    ],
+    answer: 1,
+    explanation: "The passage states directly: 'She felt nervous and shy because she didn't know anyone.'"
+  },
+  {
+    category: "Reading",
+    passage: "Sara moved to a new city at the start of the school year. She felt nervous and shy because she didn't know anyone. On her first day, she sat alone at lunch. Then a girl named Mia came over, smiled, and said, 'Hi! I'm Mia. Do you want to sit with us?' Sara felt relieved and grateful. By the end of the week, the two girls had become close friends. Sara realised that a small act of kindness can make a huge difference to someone who is feeling lonely.",
+    question: "What did Mia do when she saw Sara sitting alone?",
+    choices: [
+      "She ignored Sara and walked away.",
+      "She told the teacher that Sara had no friends.",
+      "She came over, smiled, and invited Sara to sit with her group.",
+      "She asked Sara why she moved to the new city."
+    ],
+    answer: 2,
+    explanation: "The passage says: 'a girl named Mia came over, smiled, and said, Hi! I'm Mia. Do you want to sit with us?'"
+  },
+  {
+    category: "Reading",
+    passage: "Sara moved to a new city at the start of the school year. She felt nervous and shy because she didn't know anyone. On her first day, she sat alone at lunch. Then a girl named Mia came over, smiled, and said, 'Hi! I'm Mia. Do you want to sit with us?' Sara felt relieved and grateful. By the end of the week, the two girls had become close friends. Sara realised that a small act of kindness can make a huge difference to someone who is feeling lonely.",
+    question: "What is the main message (theme) of this passage?",
+    choices: [
+      "Moving to a new city is always a very bad experience.",
+      "Students should never sit alone at lunch.",
+      "A small act of kindness can have a big impact on others.",
+      "It takes many years to make a true friend."
+    ],
+    answer: 2,
+    explanation: "The story concludes: 'Sara realised that a small act of kindness can make a huge difference to someone who is feeling lonely.' This is the central message."
+  },
+  {
+    category: "Reading",
+    passage: "Sara moved to a new city at the start of the school year. She felt nervous and shy because she didn't know anyone. On her first day, she sat alone at lunch. Then a girl named Mia came over, smiled, and said, 'Hi! I'm Mia. Do you want to sit with us?' Sara felt relieved and grateful. By the end of the week, the two girls had become close friends. Sara realised that a small act of kindness can make a huge difference to someone who is feeling lonely.",
+    question: "The word 'relieved' in the passage means ________.",
+    choices: [
+      "Feeling more happy and less worried",
+      "Feeling very angry and upset",
+      "Feeling confused and surprised",
+      "Feeling disappointed and sad"
+    ],
+    answer: 0,
+    explanation: "'Relieved' means feeling happier because a worry or problem is gone. Sara was nervous and then felt relieved when Mia was friendly."
+  }
+
+]; // ← end of questions array
+
+
+/* =====================================================================
+   QUIZ STATE
+===================================================================== */
+let currentQ   = 0;
+let userAnswers = new Array(questions.length).fill(null);
+let quizStarted = false;
+let reviewOpen  = false;
+
+
+/* =====================================================================
+   START / RESTART
+===================================================================== */
+function startQuiz() {
+  currentQ    = 0;
+  userAnswers = new Array(questions.length).fill(null);
+  quizStarted = true;
+  reviewOpen  = false;
+
+  document.getElementById('start-screen').style.display  = 'none';
+  document.getElementById('result-screen').style.display = 'none';
+  document.getElementById('quiz-screen').style.display   = 'block';
+
+  renderQuestion();
+}
+
+function restartQuiz() {
+  document.getElementById('result-screen').style.display = 'none';
+  document.getElementById('review-section').style.display = 'none';
+  reviewOpen = false;
+  startQuiz();
+}
+
+
+/* =====================================================================
+   RENDER CURRENT QUESTION
+===================================================================== */
+function renderQuestion() {
+  const q = questions[currentQ];
+  const total = questions.length;
+
+  // Progress bar
+  const pct = ((currentQ) / total) * 100;
+  document.getElementById('progress-fill').style.width = Math.max(pct, 2) + '%';
+  document.getElementById('progress-count').textContent =
+    `Question ${currentQ + 1} of ${total}`;
+
+  // Category & question text
+  document.getElementById('q-category').textContent = q.category;
+  document.getElementById('q-number').textContent   = `Question ${currentQ + 1}`;
+  document.getElementById('question-text').textContent = q.question;
+
+  // Passage (if any)
+  const passageBox  = document.getElementById('passage-box');
+  const passageText = document.getElementById('passage-text');
+  if (q.passage) {
+    passageText.innerHTML = q.passage.replace(/\n/g, '<br>');
+    passageBox.classList.remove('hidden');
+  } else {
+    passageBox.classList.add('hidden');
+  }
+
+  // Build choices
+  const list = document.getElementById('choices-list');
+  list.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+
+  q.choices.forEach((text, i) => {
+    const li = document.createElement('li');
+    li.className = 'choice-item';
+    li.setAttribute('data-index', i);
+    li.innerHTML = `
+      <span class="choice-letter">${letters[i]}</span>
+      <span class="choice-text">${text}</span>
+    `;
+    li.addEventListener('click', () => selectChoice(i));
+    list.appendChild(li);
+  });
+
+  // If already answered (going back scenario — disabled in this quiz, but safe)
+  if (userAnswers[currentQ] !== null) {
+    markChoice(userAnswers[currentQ], q.answer);
+  }
+
+  // Next button state
+  const nextBtn = document.getElementById('next-btn');
+  nextBtn.disabled = userAnswers[currentQ] === null;
+
+  // Last question label
+  if (currentQ === total - 1) {
+    nextBtn.textContent = 'Submit Quiz ✓';
+  } else {
+    nextBtn.textContent = 'Next Question →';
+  }
+}
+
+
+/* =====================================================================
+   SELECT CHOICE
+===================================================================== */
+function selectChoice(index) {
+  // If already answered, ignore
+  if (userAnswers[currentQ] !== null) return;
+
+  userAnswers[currentQ] = index;
+  markChoice(index, questions[currentQ].answer);
+  document.getElementById('next-btn').disabled = false;
+}
+
+function markChoice(selected, correct) {
+  const items = document.querySelectorAll('.choice-item');
+  items.forEach((item, i) => {
+    item.style.pointerEvents = 'none'; // lock choices
+    if (i === correct) {
+      item.classList.add('correct');
+    } else if (i === selected && selected !== correct) {
+      item.classList.add('wrong');
+    }
+  });
+}
+
+
+/* =====================================================================
+   NEXT QUESTION / FINISH
+===================================================================== */
+function nextQuestion() {
+  if (userAnswers[currentQ] === null) return;
+
+  if (currentQ < questions.length - 1) {
+    currentQ++;
+    renderQuestion();
+  } else {
+    showResults();
+  }
+}
+
+
+/* =====================================================================
+   SHOW RESULTS
+===================================================================== */
+function showResults() {
+  document.getElementById('quiz-screen').style.display   = 'none';
+  document.getElementById('result-screen').style.display = 'block';
+
+  const total   = questions.length;
+  const correct = userAnswers.filter((ans, i) => ans === questions[i].answer).length;
+  const wrong   = total - correct;
+  const pct     = Math.round((correct / total) * 100);
+
+  // Score circle animation
+  const circle = document.getElementById('circle-progress');
+  const circumference = 2 * Math.PI * 57; // r=57
+  const offset = circumference - (pct / 100) * circumference;
+
+  // Set color based on score
+  let color = '#E74C3C';
+  if (pct >= 80) color = '#2ECC71';
+  else if (pct >= 60) color = '#F0A500';
+  circle.style.stroke = color;
+
+  setTimeout(() => {
+    circle.style.strokeDashoffset = offset;
+  }, 100);
+
+  // Percentage text
+  document.getElementById('score-pct').textContent = pct + '%';
+
+  // Stats
+  document.getElementById('correct-count').textContent = correct;
+  document.getElementById('wrong-count').textContent   = wrong;
+  document.getElementById('total-count').textContent   = total;
+
+  // Feedback
+  let feedback, detail;
+  if (pct >= 80) {
+    feedback = '🌟 Excellent Work!';
+    detail   = `You scored ${correct} out of ${total}. Outstanding performance — you're ready for the exam!`;
+  } else if (pct >= 60) {
+    feedback = '👍 Good Job! Keep Practising.';
+    detail   = `You scored ${correct} out of ${total}. Great effort — review the questions you missed and try again.`;
+  } else {
+    feedback = '💪 Keep Trying!';
+    detail   = `You scored ${correct} out of ${total}. Review the lessons and practise again — you can do it!`;
+  }
+
+  document.getElementById('result-feedback').textContent = feedback;
+  document.getElementById('result-detail').textContent   = detail;
+
+  // Build review items
+  buildReview();
+}
+
+
+/* =====================================================================
+   TOGGLE REVIEW
+===================================================================== */
+function toggleReview() {
+  const section = document.getElementById('review-section');
+  reviewOpen = !reviewOpen;
+  section.style.display = reviewOpen ? 'block' : 'none';
+
+  const btn = document.querySelector('.result-actions .btn-outline');
+  btn.textContent = reviewOpen ? '✕  Hide Answers' : '📋  Review Answers';
+}
+
+
+/* =====================================================================
+   BUILD REVIEW ITEMS
+===================================================================== */
+function buildReview() {
+  const container = document.getElementById('review-items');
+  container.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+
+  questions.forEach((q, i) => {
+    const userAns    = userAnswers[i];
+    const isCorrect  = userAns === q.answer;
+    const statusIcon = isCorrect ? '✅' : '❌';
+
+    const item = document.createElement('div');
+    item.className = 'review-item';
+
+    // Header
+    const header = document.createElement('div');
+    header.className = 'review-item-header';
+    header.innerHTML = `
+      <span class="q-status-icon">${statusIcon}</span>
+      <span class="q-num-label">Question ${i + 1}</span>
+      <span class="q-cat-tag">${q.category}</span>
+    `;
+
+    // Body
+    const body = document.createElement('div');
+    body.className = 'review-item-body';
+
+    // Passage
+    let passageHTML = '';
+    if (q.passage) {
+      passageHTML = `<div class="review-passage">${q.passage.replace(/\n/g, '<br>')}</div>`;
+    }
+
+    // Question
+    const qText = `<p class="review-question-text">${q.question}</p>`;
+
+    // Choices
+    let choicesHTML = '<div class="review-choices">';
+    q.choices.forEach((text, ci) => {
+      let cls = 'rc-neutral';
+      let icon = '';
+      if (ci === q.answer) {
+        cls  = 'rc-correct';
+        icon = '✔';
+      } else if (ci === userAns && !isCorrect) {
+        cls  = 'rc-wrong';
+        icon = '✘';
+      }
+      choicesHTML += `
+        <div class="review-choice ${cls}">
+          <span class="rc-letter">${icon || letters[ci]}</span>
+          <span>${text}</span>
+        </div>`;
+    });
+    choicesHTML += '</div>';
+
+    // Explanation
+    const expHTML = `
+      <div class="review-explanation">
+        <strong>💡 Explanation:</strong> ${q.explanation}
+      </div>`;
+
+    body.innerHTML = passageHTML + qText + choicesHTML + expHTML;
+    item.appendChild(header);
+    item.appendChild(body);
+    container.appendChild(item);
+  });
+}
+
+</script>
+</body>
+</html>
