@@ -411,6 +411,151 @@
     }
 
     /* =============================================
+       INLINE EXPLANATION (shown after answering)
+    ============================================= */
+    .inline-explanation {
+      display: none;
+      margin-top: 14px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      animation: slideDown 0.25s ease;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .inline-explanation.correct-exp {
+      border: 1px solid #A9DFBF;
+      background: #EAFAF1;
+    }
+
+    .inline-explanation.wrong-exp {
+      border: 1px solid #F5B7B1;
+      background: #FDEDEC;
+    }
+
+    .inline-exp-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .correct-exp .inline-exp-header { background: #D5F5E3; color: #1D7A4A; }
+    .wrong-exp   .inline-exp-header { background: #FADBD8; color: #922B21; }
+
+    .inline-exp-body {
+      padding: 10px 14px;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .correct-exp .inline-exp-body { color: #1D5432; }
+    .wrong-exp   .inline-exp-body { color: #7B241C; }
+
+    /* =============================================
+       TIP BUTTON & VOCABULARY PANEL
+    ============================================= */
+    .q-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .btn-tip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 13px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 2px solid var(--accent);
+      background: #FFF8E7;
+      color: #7A5800;
+      transition: all 0.18s;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+
+    .btn-tip:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-tip.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .tip-panel {
+      display: none;
+      background: #FFFBF0;
+      border: 1px solid #FFE4A0;
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      animation: slideDown 0.2s ease;
+    }
+
+    .tip-panel-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #7A5800;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tip-vocab-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .tip-vocab-item {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      font-size: 0.875rem;
+      padding: 5px 0;
+      border-bottom: 1px dashed #FFD166;
+    }
+
+    .tip-vocab-item:last-child { border-bottom: none; }
+
+    .tip-word {
+      font-weight: 700;
+      color: var(--primary-dark);
+      min-width: 110px;
+      font-style: italic;
+    }
+
+    .tip-arrow { color: var(--accent); font-size: 0.8rem; }
+
+    .tip-meaning { color: var(--text); flex: 1; }
+
+    .tip-thai {
+      font-size: 0.82rem;
+      color: #A0522D;
+      font-weight: 600;
+    }
+
+    /* =============================================
        QUIZ NAV
     ============================================= */
     .quiz-nav {
@@ -724,8 +869,19 @@
       </div>
     </div>
 
-    <!-- Category tag -->
-    <span class="q-category" id="q-category">Vocabulary</span>
+    <!-- Top row: category tag + tip button -->
+    <div class="q-top-row">
+      <span class="q-category" id="q-category">Vocabulary</span>
+      <button class="btn-tip" id="tip-btn" onclick="toggleTip()">
+        💡 Tip — คำศัพท์น่ารู้
+      </button>
+    </div>
+
+    <!-- Tip / Vocabulary panel (hidden by default) -->
+    <div class="tip-panel" id="tip-panel">
+      <div class="tip-panel-title">📖 คำศัพท์ที่ควรรู้ในข้อนี้</div>
+      <div class="tip-vocab-list" id="tip-vocab-list"></div>
+    </div>
 
     <!-- Question number + text -->
     <p class="question-number" id="q-number">Question 1</p>
@@ -740,6 +896,12 @@
 
     <!-- Choices -->
     <ul class="choices-list" id="choices-list"></ul>
+
+    <!-- Inline explanation (shown after answering) -->
+    <div class="inline-explanation" id="inline-explanation">
+      <div class="inline-exp-header" id="inline-exp-header"></div>
+      <div class="inline-exp-body" id="inline-exp-body"></div>
+    </div>
 
     <!-- Navigation -->
     <div class="quiz-nav">
@@ -825,62 +987,67 @@ const questions = [
   {
     category: "Vocabulary",
     question: "The weather was absolutely __________ yesterday. It was cold, windy, and rainy all day.",
-    choices: [
-      "pleasant",
-      "miserable",
-      "cheerful",
-      "magnificent"
-    ],
+    choices: ["pleasant","miserable","cheerful","magnificent"],
     answer: 1,
-    explanation: "'Miserable' means very unpleasant or uncomfortable — perfect for describing bad weather."
+    explanation: "'Miserable' means very unpleasant or uncomfortable — perfect for describing bad weather.",
+    tip: [
+      { word: "miserable",   meaning: "very unpleasant / unhappy",   thai: "น่าสังเวช, เลวร้ายมาก" },
+      { word: "pleasant",    meaning: "enjoyable, nice",              thai: "น่าพอใจ, น่ารื่นรมย์" },
+      { word: "cheerful",    meaning: "happy and positive",           thai: "ร่าเริง, สดชื่น" },
+      { word: "magnificent", meaning: "very impressive, wonderful",   thai: "งดงามอย่างยิ่ง, ยอดเยี่ยม" }
+    ]
   },
   {
     category: "Vocabulary",
     question: "She is very __________ about her health. She exercises every day and eats plenty of vegetables.",
-    choices: [
-      "careless",
-      "lazy",
-      "conscious",
-      "anxious"
-    ],
+    choices: ["careless","lazy","conscious","anxious"],
     answer: 2,
-    explanation: "'Health-conscious' means being very aware of and careful about one's health. 'Conscious' fits best in this context."
+    explanation: "'Health-conscious' means being very aware of and careful about one's health. 'Conscious' fits best in this context.",
+    tip: [
+      { word: "conscious",   meaning: "aware of / paying attention to", thai: "ตระหนักถึง, รู้ตัว" },
+      { word: "careless",    meaning: "not careful, making mistakes",   thai: "สะเพร่า, ไม่ระมัดระวัง" },
+      { word: "anxious",     meaning: "worried, nervous",               thai: "วิตกกังวล" },
+      { word: "plenty of",   meaning: "a lot of, more than enough",     thai: "มากมาย, เยอะแยะ" }
+    ]
   },
   {
     category: "Vocabulary",
     question: "The teacher gave a __________ explanation that helped every student understand the difficult topic.",
-    choices: [
-      "confusing",
-      "vague",
-      "clear",
-      "dull"
-    ],
+    choices: ["confusing","vague","clear","dull"],
     answer: 2,
-    explanation: "'Clear' means easy to understand. The clue is that every student understood — which matches a clear explanation."
+    explanation: "'Clear' means easy to understand. The clue is that every student understood — which matches a clear explanation.",
+    tip: [
+      { word: "explanation", meaning: "a statement that makes something clear", thai: "คำอธิบาย" },
+      { word: "confusing",   meaning: "hard to understand",                     thai: "ทำให้สับสน" },
+      { word: "vague",       meaning: "not clear, not specific",                thai: "คลุมเครือ, ไม่ชัดเจน" },
+      { word: "dull",        meaning: "boring / not interesting",               thai: "น่าเบื่อ, ไม่น่าสนใจ" }
+    ]
   },
   {
     category: "Vocabulary",
     question: "He was so __________ after running the marathon that he fell asleep immediately.",
-    choices: [
-      "energetic",
-      "exhausted",
-      "excited",
-      "bored"
-    ],
+    choices: ["energetic","exhausted","excited","bored"],
     answer: 1,
-    explanation: "'Exhausted' means extremely tired. Falling asleep immediately after running a marathon shows extreme tiredness."
+    explanation: "'Exhausted' means extremely tired. Falling asleep immediately after running a marathon shows extreme tiredness.",
+    tip: [
+      { word: "exhausted",   meaning: "extremely tired",               thai: "เหนื่อยล้ามาก, หมดแรง" },
+      { word: "marathon",    meaning: "a running race of 42 km",       thai: "การวิ่งมาราธอน" },
+      { word: "immediately", meaning: "right away, at once",           thai: "ทันที" },
+      { word: "energetic",   meaning: "full of energy, lively",        thai: "มีพลังงานสูง, กระฉับกระเฉง" }
+    ]
   },
   {
     category: "Vocabulary",
     question: "The scientist made a remarkable __________ that changed our understanding of the universe.",
-    choices: [
-      "mistake",
-      "disaster",
-      "discovery",
-      "schedule"
-    ],
+    choices: ["mistake","disaster","discovery","schedule"],
     answer: 2,
-    explanation: "'Discovery' means finding something new. A remarkable discovery that changes understanding is a scientific breakthrough."
+    explanation: "'Discovery' means finding something new. A remarkable discovery that changes understanding is a scientific breakthrough.",
+    tip: [
+      { word: "remarkable",  meaning: "unusual, worth noticing",        thai: "น่าทึ่ง, โดดเด่น" },
+      { word: "discovery",   meaning: "finding something new",          thai: "การค้นพบ" },
+      { word: "universe",    meaning: "all of space and everything in it", thai: "จักรวาล" },
+      { word: "disaster",    meaning: "a sudden terrible event",        thai: "ภัยพิบัติ, หายนะ" }
+    ]
   },
 
   /* ─────────────────────────────────────────────
@@ -889,86 +1056,86 @@ const questions = [
   {
     category: "Grammar",
     question: "My parents __________ in Bangkok for twenty years before they moved to Chiang Mai.",
-    choices: [
-      "live",
-      "have lived",
-      "had lived",
-      "were living"
-    ],
+    choices: ["live","have lived","had lived","were living"],
     answer: 2,
-    explanation: "'Had lived' (Past Perfect) is correct because the action happened over a period before another past action (moving to Chiang Mai)."
+    explanation: "'Had lived' (Past Perfect) is correct because the action happened over a period before another past action (moving to Chiang Mai).",
+    tip: [
+      { word: "Past Perfect",   meaning: "had + past participle — action before another past action", thai: "อดีตกาลสมบูรณ์: had + V3" },
+      { word: "had lived",      meaning: "lived (for a period) before something else happened",       thai: "เคยอาศัยอยู่ (ก่อนเหตุการณ์อื่น)" },
+      { word: "before",         meaning: "earlier than / prior to",                                   thai: "ก่อนหน้า" }
+    ]
   },
   {
     category: "Grammar",
     question: "Neither of the students __________ done the homework yet.",
-    choices: [
-      "have",
-      "has",
-      "were",
-      "are"
-    ],
+    choices: ["have","has","were","are"],
     answer: 1,
-    explanation: "'Neither' is a singular pronoun, so it takes a singular verb. 'Has' is correct here."
+    explanation: "'Neither' is a singular pronoun, so it takes a singular verb. 'Has' is correct here.",
+    tip: [
+      { word: "neither",        meaning: "not one and not the other (singular)",  thai: "ไม่มีคนใดคนหนึ่ง (เอกพจน์)" },
+      { word: "subject-verb agreement", meaning: "the verb must match the subject", thai: "กริยาต้องสอดคล้องกับประธาน" },
+      { word: "yet",            meaning: "up to now (used with Present Perfect)", thai: "ยังไม่ (ใช้กับ Present Perfect)" }
+    ]
   },
   {
     category: "Grammar",
     question: "She plays the piano __________ than anyone else in the school.",
-    choices: [
-      "more beautifully",
-      "most beautifully",
-      "beautifuller",
-      "much beautiful"
-    ],
+    choices: ["more beautifully","most beautifully","beautifuller","much beautiful"],
     answer: 0,
-    explanation: "For comparison between two things (she vs. everyone else), use the comparative form: 'more beautifully' (adverb)."
+    explanation: "For comparison between two things (she vs. everyone else), use the comparative form: 'more beautifully' (adverb).",
+    tip: [
+      { word: "comparative",    meaning: "comparing two things: more + adverb", thai: "การเปรียบเทียบสองสิ่ง: more + คำวิเศษณ์" },
+      { word: "superlative",    meaning: "the highest degree: most + adverb",   thai: "ขั้นสูงสุด: most + คำวิเศษณ์" },
+      { word: "beautifully",    meaning: "adverb form of 'beautiful'",           thai: "อย่างสวยงาม (รูปกริยาวิเศษณ์)" }
+    ]
   },
   {
     category: "Grammar",
     question: "The letter __________ by the secretary last Friday.",
-    choices: [
-      "sent",
-      "was sent",
-      "has sent",
-      "is sending"
-    ],
+    choices: ["sent","was sent","has sent","is sending"],
     answer: 1,
-    explanation: "This sentence uses the passive voice in simple past: 'was sent'. The subject (the letter) receives the action."
+    explanation: "This sentence uses the passive voice in simple past: 'was sent'. The subject (the letter) receives the action.",
+    tip: [
+      { word: "passive voice",  meaning: "subject receives the action: was/were + V3", thai: "ประโยคกรรมวาจก: was/were + V3" },
+      { word: "secretary",      meaning: "a person who handles office tasks",           thai: "เลขานุการ" },
+      { word: "was sent",       meaning: "past passive of 'send'",                      thai: "ถูกส่ง (อดีตกาล Passive)" }
+    ]
   },
   {
     category: "Grammar",
     question: "If it __________ tomorrow, we will cancel the field trip.",
-    choices: [
-      "rains",
-      "rained",
-      "will rain",
-      "would rain"
-    ],
+    choices: ["rains","rained","will rain","would rain"],
     answer: 0,
-    explanation: "For real conditional sentences (First Conditional), use 'If + present simple + will'. 'If it rains' is correct."
+    explanation: "For real conditional sentences (First Conditional), use 'If + present simple + will'. 'If it rains' is correct.",
+    tip: [
+      { word: "First Conditional", meaning: "real/possible situation: If + present, will + base verb", thai: "เงื่อนไขที่เป็นไปได้: If + ปัจจุบัน, will + กริยา" },
+      { word: "cancel",         meaning: "to stop a planned event",     thai: "ยกเลิก" },
+      { word: "field trip",     meaning: "an educational trip outside school", thai: "การทัศนศึกษา" }
+    ]
   },
   {
     category: "Grammar",
     question: "The book __________ on the table belongs to my teacher.",
-    choices: [
-      "lying",
-      "which is lying",
-      "lies",
-      "lay"
-    ],
+    choices: ["lying","which is lying","lies","lay"],
     answer: 1,
-    explanation: "'Which is lying' is a relative clause correctly modifying 'the book'. It describes which book we mean."
+    explanation: "'Which is lying' is a relative clause correctly modifying 'the book'. It describes which book we mean.",
+    tip: [
+      { word: "relative clause", meaning: "a clause using who/which/that to describe a noun", thai: "อนุประโยคที่ขยายคำนาม เช่น which, that, who" },
+      { word: "belong to",       meaning: "to be owned by",                                   thai: "เป็นของ, เป็นสมบัติของ" },
+      { word: "lying",           meaning: "being placed flat on a surface",                   thai: "วางราบอยู่ (กริยา lie)" }
+    ]
   },
   {
     category: "Grammar",
     question: "He asked me __________ I had finished reading the report.",
-    choices: [
-      "that",
-      "which",
-      "whether",
-      "what"
-    ],
+    choices: ["that","which","whether","what"],
     answer: 2,
-    explanation: "'Whether' is used in indirect questions to report a yes/no question. 'He asked whether...' is correct reported speech."
+    explanation: "'Whether' is used in indirect questions to report a yes/no question. 'He asked whether...' is correct reported speech.",
+    tip: [
+      { word: "whether",         meaning: "used to introduce an indirect yes/no question", thai: "หรือไม่ (ใช้นำคำถามทางอ้อม)" },
+      { word: "reported speech", meaning: "reporting what someone said without quoting",   thai: "การรายงานคำพูด (Indirect Speech)" },
+      { word: "report",          meaning: "a written or spoken account of something",      thai: "รายงาน" }
+    ]
   },
 
   /* ─────────────────────────────────────────────
@@ -985,7 +1152,12 @@ const questions = [
       "Maybe you should ask your parents what food to eat."
     ],
     answer: 0,
-    explanation: "Ben's response should be helpful and relevant. Suggesting a store and mentioning good prices is the most natural reply."
+    explanation: "Ben's response should be helpful and relevant. Suggesting a store and mentioning good prices is the most natural reply.",
+    tip: [
+      { word: "Why don't you…?", meaning: "a polite way to give a suggestion", thai: "ลองไป…ดูสิ? (การแนะนำอย่างสุภาพ)" },
+      { word: "option",           meaning: "a choice you can make",             thai: "ทางเลือก" },
+      { word: "downtown",         meaning: "the centre of a city",              thai: "ใจกลางเมือง" }
+    ]
   },
   {
     category: "Conversation",
@@ -998,7 +1170,13 @@ const questions = [
       "You should give me more time because I was busy."
     ],
     answer: 1,
-    explanation: "The most polite and appropriate response is to apologize, give a reason, and ask permission to submit it late."
+    explanation: "The most polite and appropriate response is to apologize, give a reason, and ask permission to submit it late.",
+    tip: [
+      { word: "hand in",    meaning: "to give your work to the teacher",   thai: "ส่งงาน" },
+      { word: "on time",    meaning: "not late, at the right time",        thai: "ตรงเวลา" },
+      { word: "submit",     meaning: "to formally give something in",      thai: "ส่ง (งาน/เอกสาร)" },
+      { word: "May I…?",    meaning: "a polite way to ask for permission", thai: "ขอ…ได้ไหม? (สุภาพ)" }
+    ]
   },
   {
     category: "Conversation",
@@ -1011,7 +1189,12 @@ const questions = [
       "No, I didn't never go there."
     ],
     answer: 1,
-    explanation: "The question uses Present Perfect ('Have you ever been'). The correct reply uses 'have visited' — a Present Perfect response."
+    explanation: "The question uses Present Perfect ('Have you ever been'). The correct reply uses 'have visited' — a Present Perfect response.",
+    tip: [
+      { word: "Have you ever…?", meaning: "Present Perfect question about life experience", thai: "คุณเคย…ไหม? (ถามประสบการณ์)" },
+      { word: "twice",           meaning: "two times",                                      thai: "สองครั้ง" },
+      { word: "amazing",         meaning: "very impressive, wonderful",                     thai: "น่าทึ่ง, ยอดเยี่ยมมาก" }
+    ]
   },
   {
     category: "Conversation",
@@ -1024,7 +1207,12 @@ const questions = [
       "Can you tell me where the park is?"
     ],
     answer: 0,
-    explanation: "In a medical clinic, the correct and appropriate thing for a patient to say is that they need to see a doctor and state their problem."
+    explanation: "In a medical clinic, the correct and appropriate thing for a patient to say is that they need to see a doctor and state their problem.",
+    tip: [
+      { word: "receptionist",  meaning: "a person who greets visitors at a front desk", thai: "พนักงานต้อนรับ" },
+      { word: "stomachache",   meaning: "pain in the stomach",                          thai: "ปวดท้อง" },
+      { word: "I need to…",    meaning: "I must / it is necessary for me to…",         thai: "ฉันต้องการ / ฉันจำเป็นต้อง…" }
+    ]
   },
   {
     category: "Conversation",
@@ -1037,7 +1225,12 @@ const questions = [
       "Please don't thank me. I am busy now."
     ],
     answer: 2,
-    explanation: "'Not at all' is a natural, warm response to 'Thank you'. Wishing good luck adds an appropriate, friendly touch."
+    explanation: "'Not at all' is a natural, warm response to 'Thank you'. Wishing good luck adds an appropriate, friendly touch.",
+    tip: [
+      { word: "Not at all!",   meaning: "a friendly reply to 'Thank you' (= don't mention it)", thai: "ไม่เป็นไรเลย / ยินดีค่ะ/ครับ" },
+      { word: "Good luck!",    meaning: "a phrase wishing someone success",                     thai: "โชคดีนะ!" },
+      { word: "last night",    meaning: "the night before today",                               thai: "คืนที่แล้ว" }
+    ]
   },
 
   /* ─────────────────────────────────────────────
@@ -1053,7 +1246,12 @@ const questions = [
       "She not like spicy food at all."
     ],
     answer: 2,
-    explanation: "With third-person singular (she/he/it), use 'doesn't' + base verb. 'She doesn't like' is the only correct form."
+    explanation: "With third-person singular (she/he/it), use 'doesn't' + base verb. 'She doesn't like' is the only correct form.",
+    tip: [
+      { word: "doesn't",         meaning: "does not — used with he/she/it",            thai: "ไม่ (ใช้กับ he/she/it)" },
+      { word: "third-person singular", meaning: "he, she, it — adds 's' or 'doesn't'", thai: "บุรุษที่สาม เอกพจน์ (he/she/it)" },
+      { word: "spicy",           meaning: "having a hot, strong taste from chillies",  thai: "รสเผ็ด" }
+    ]
   },
   {
     category: "Error Correction",
@@ -1065,7 +1263,12 @@ const questions = [
       "I will call you as soon as I arrive."
     ],
     answer: 1,
-    explanation: "'The children is playing' is wrong. 'Children' is plural, so it takes 'are': 'The children are playing.'"
+    explanation: "'The children is playing' is wrong. 'Children' is plural, so it takes 'are': 'The children are playing.'",
+    tip: [
+      { word: "children",        meaning: "plural of 'child' — uses plural verb 'are'", thai: "เด็กๆ (พหูพจน์ของ child)" },
+      { word: "plural",          meaning: "more than one",                               thai: "พหูพจน์ (มากกว่าหนึ่ง)" },
+      { word: "garden",          meaning: "a piece of land where plants grow",           thai: "สวน" }
+    ]
   },
   {
     category: "Error Correction",
@@ -1077,7 +1280,12 @@ const questions = [
       "I seen him at the market yesterday."
     ],
     answer: 2,
-    explanation: "'Has never eaten' is the correct Present Perfect form. The others misuse past participles or have wrong subject-verb agreement."
+    explanation: "'Has never eaten' is the correct Present Perfect form. The others misuse past participles or have wrong subject-verb agreement.",
+    tip: [
+      { word: "Present Perfect",  meaning: "has/have + past participle (V3)",          thai: "Present Perfect: has/have + V3" },
+      { word: "past participle",  meaning: "the V3 form: eat → eaten, go → gone",      thai: "กริยาช่องที่ 3: eat→eaten" },
+      { word: "sushi",            meaning: "a Japanese dish of rice with fish/seafood", thai: "ซูชิ อาหารญี่ปุ่น" }
+    ]
   },
   {
     category: "Error Correction",
@@ -1089,7 +1297,12 @@ const questions = [
       "The sentence is correct."
     ],
     answer: 0,
-    explanation: "'My mother' is third-person singular, so the verb must be 'cooks', not 'cook'."
+    explanation: "'My mother' is third-person singular, so the verb must be 'cooks', not 'cook'.",
+    tip: [
+      { word: "Simple Present",   meaning: "routine actions: she cooks every day",       thai: "ปัจจุบันกาลธรรมดา: กริยาปัจจุบันที่ทำเป็นประจำ" },
+      { word: "every evening",    meaning: "each evening, regularly",                    thai: "ทุกๆ เย็น" },
+      { word: "after + -ing",     meaning: "after doing something: after coming home",   thai: "หลังจากทำ…: after + กริยา -ing" }
+    ]
   },
   {
     category: "Error Correction",
@@ -1101,7 +1314,13 @@ const questions = [
       "D — 'exciting'"
     ],
     answer: 1,
-    explanation: "'Yesterday' signals simple past tense. 'Go' must become 'went'. 'We went to the cinema' is correct."
+    explanation: "'Yesterday' signals simple past tense. 'Go' must become 'went'. 'We went to the cinema' is correct.",
+    tip: [
+      { word: "Simple Past",     meaning: "past action: use V2 form (go → went)",       thai: "อดีตกาลธรรมดา: กริยาช่องที่ 2" },
+      { word: "went",            meaning: "past tense of 'go' (irregular verb)",         thai: "ไป (V2 ของ go — กริยาผิดปกติ)" },
+      { word: "cinema",          meaning: "a place where you watch movies",              thai: "โรงภาพยนตร์" },
+      { word: "exciting",        meaning: "causing excitement, thrilling",               thai: "น่าตื่นเต้น" }
+    ]
   },
 
   /* ─────────────────────────────────────────────
@@ -1119,7 +1338,12 @@ const questions = [
       "Dolphins and smaller whales"
     ],
     answer: 1,
-    explanation: "The passage clearly states: 'blue whales feed mainly on tiny shrimp-like creatures called krill.'"
+    explanation: "The passage clearly states: 'blue whales feed mainly on tiny shrimp-like creatures called krill.'",
+    tip: [
+      { word: "krill",           meaning: "tiny shrimp-like sea creatures, whale food", thai: "คริล — สัตว์ทะเลขนาดเล็กคล้ายกุ้ง" },
+      { word: "feed on",         meaning: "to eat (as a regular food source)",           thai: "กิน (เป็นอาหารหลัก)" },
+      { word: "tonne",           meaning: "a unit of weight = 1,000 kg",                thai: "เมตริกตัน (= 1,000 กก.)" }
+    ]
   },
   {
     category: "Reading",
@@ -1132,7 +1356,12 @@ const questions = [
       "They are not endangered; the population is growing quickly"
     ],
     answer: 2,
-    explanation: "The passage states the main reasons are 'historical commercial whaling and, more recently, threats from climate change and ship strikes.'"
+    explanation: "The passage states the main reasons are 'historical commercial whaling and, more recently, threats from climate change and ship strikes.'",
+    tip: [
+      { word: "endangered species", meaning: "a type of animal at risk of dying out completely", thai: "สัตว์ใกล้สูญพันธุ์" },
+      { word: "whaling",            meaning: "the activity of hunting and killing whales",        thai: "การล่าวาฬ" },
+      { word: "climate change",     meaning: "long-term changes in global weather patterns",      thai: "การเปลี่ยนแปลงสภาพภูมิอากาศ" }
+    ]
   },
   {
     category: "Reading",
@@ -1145,7 +1374,12 @@ const questions = [
       "very large"
     ],
     answer: 3,
-    explanation: "'Enormous' means extremely large or huge — the opposite of small."
+    explanation: "'Enormous' means extremely large or huge — the opposite of small.",
+    tip: [
+      { word: "enormous",        meaning: "extremely large / huge",              thai: "ใหญ่โตมาก, มหึมา" },
+      { word: "despite",         meaning: "even though / in spite of",           thai: "ทั้งๆ ที่, แม้ว่า" },
+      { word: "classified as",   meaning: "officially put into a category",      thai: "ถูกจัดว่าเป็น / จัดอยู่ในประเภท" }
+    ]
   },
   {
     category: "Reading",
@@ -1158,7 +1392,12 @@ const questions = [
       "Krill are small but they are dangerous to other sea animals."
     ],
     answer: 1,
-    explanation: "The key contrast is: blue whales are enormous (largest animal), yet they eat krill — tiny creatures. The word 'despite' signals this contrast."
+    explanation: "The key contrast is: blue whales are enormous (largest animal), yet they eat krill — tiny creatures. The word 'despite' signals this contrast.",
+    tip: [
+      { word: "contrast",        meaning: "a big difference between two things",         thai: "ความแตกต่าง" },
+      { word: "despite / although", meaning: "words that show contrast between two ideas", thai: "ทั้งๆ ที่ / แม้ว่า (แสดงความขัดแย้ง)" },
+      { word: "creature",        meaning: "any living thing, especially an animal",       thai: "สิ่งมีชีวิต, สัตว์" }
+    ]
   },
   {
     category: "Reading",
@@ -1171,7 +1410,12 @@ const questions = [
       "Angry and confused"
     ],
     answer: 1,
-    explanation: "The passage states directly: 'She felt nervous and shy because she didn't know anyone.'"
+    explanation: "The passage states directly: 'She felt nervous and shy because she didn't know anyone.'",
+    tip: [
+      { word: "nervous",         meaning: "worried and anxious",                       thai: "กังวล, ประหม่า" },
+      { word: "shy",             meaning: "uncomfortable talking to new people",        thai: "ขี้อาย" },
+      { word: "alone",           meaning: "without other people / by oneself",          thai: "คนเดียว, โดดเดี่ยว" }
+    ]
   },
   {
     category: "Reading",
@@ -1184,7 +1428,12 @@ const questions = [
       "She asked Sara why she moved to the new city."
     ],
     answer: 2,
-    explanation: "The passage says: 'a girl named Mia came over, smiled, and said, Hi! I'm Mia. Do you want to sit with us?'"
+    explanation: "The passage says: 'a girl named Mia came over, smiled, and said, Hi! I'm Mia. Do you want to sit with us?'",
+    tip: [
+      { word: "ignored",         meaning: "paid no attention to someone",              thai: "เพิกเฉย, ไม่สนใจ" },
+      { word: "invited",         meaning: "asked someone to join or come",             thai: "ชวน, เชิญ" },
+      { word: "came over",       meaning: "walked towards someone / approached",       thai: "เดินเข้ามาหา" }
+    ]
   },
   {
     category: "Reading",
@@ -1197,7 +1446,12 @@ const questions = [
       "It takes many years to make a true friend."
     ],
     answer: 2,
-    explanation: "The story concludes: 'Sara realised that a small act of kindness can make a huge difference to someone who is feeling lonely.' This is the central message."
+    explanation: "The story concludes: 'Sara realised that a small act of kindness can make a huge difference to someone who is feeling lonely.' This is the central message.",
+    tip: [
+      { word: "theme / message",  meaning: "the main lesson or idea of a story",        thai: "แนวคิดหลัก / บทเรียนของเรื่อง" },
+      { word: "act of kindness",  meaning: "something kind you do for another person",  thai: "การกระทำที่ใจดี" },
+      { word: "make a difference", meaning: "to have an important effect",              thai: "สร้างความแตกต่าง, มีความหมาย" }
+    ]
   },
   {
     category: "Reading",
@@ -1210,7 +1464,12 @@ const questions = [
       "Feeling disappointed and sad"
     ],
     answer: 0,
-    explanation: "'Relieved' means feeling happier because a worry or problem is gone. Sara was nervous and then felt relieved when Mia was friendly."
+    explanation: "'Relieved' means feeling happier because a worry or problem is gone. Sara was nervous and then felt relieved when Mia was friendly.",
+    tip: [
+      { word: "relieved",        meaning: "feeling less worried / stress has gone away", thai: "รู้สึกโล่งอก, หายกังวล" },
+      { word: "grateful",        meaning: "feeling thankful for something",               thai: "รู้สึกขอบคุณ, ซาบซึ้งใจ" },
+      { word: "lonely",          meaning: "sad because you have no company",              thai: "เหงา, โดดเดี่ยว" }
+    ]
   }
 
 ]; // ← end of questions array
@@ -1219,10 +1478,11 @@ const questions = [
 /* =====================================================================
    QUIZ STATE
 ===================================================================== */
-let currentQ   = 0;
+let currentQ    = 0;
 let userAnswers = new Array(questions.length).fill(null);
 let quizStarted = false;
 let reviewOpen  = false;
+let tipOpen     = false;
 
 
 /* =====================================================================
@@ -1233,6 +1493,7 @@ function startQuiz() {
   userAnswers = new Array(questions.length).fill(null);
   quizStarted = true;
   reviewOpen  = false;
+  tipOpen     = false;
 
   document.getElementById('start-screen').style.display  = 'none';
   document.getElementById('result-screen').style.display = 'none';
@@ -1253,19 +1514,18 @@ function restartQuiz() {
    RENDER CURRENT QUESTION
 ===================================================================== */
 function renderQuestion() {
-  const q = questions[currentQ];
+  const q     = questions[currentQ];
   const total = questions.length;
 
   // Progress bar
   const pct = ((currentQ) / total) * 100;
   document.getElementById('progress-fill').style.width = Math.max(pct, 2) + '%';
-  document.getElementById('progress-count').textContent =
-    `Question ${currentQ + 1} of ${total}`;
+  document.getElementById('progress-count').textContent = `Question ${currentQ + 1} of ${total}`;
 
   // Category & question text
-  document.getElementById('q-category').textContent = q.category;
-  document.getElementById('q-number').textContent   = `Question ${currentQ + 1}`;
-  document.getElementById('question-text').textContent = q.question;
+  document.getElementById('q-category').textContent       = q.category;
+  document.getElementById('q-number').textContent         = `Question ${currentQ + 1}`;
+  document.getElementById('question-text').textContent    = q.question;
 
   // Passage (if any)
   const passageBox  = document.getElementById('passage-box');
@@ -1276,6 +1536,15 @@ function renderQuestion() {
   } else {
     passageBox.classList.add('hidden');
   }
+
+  // Reset tip panel
+  tipOpen = false;
+  document.getElementById('tip-panel').style.display = 'none';
+  document.getElementById('tip-btn').classList.remove('active');
+  buildTipPanel(q);
+
+  // Reset inline explanation
+  document.getElementById('inline-explanation').style.display = 'none';
 
   // Build choices
   const list = document.getElementById('choices-list');
@@ -1294,21 +1563,53 @@ function renderQuestion() {
     list.appendChild(li);
   });
 
-  // If already answered (going back scenario — disabled in this quiz, but safe)
+  // If already answered (safe restore)
   if (userAnswers[currentQ] !== null) {
     markChoice(userAnswers[currentQ], q.answer);
+    showInlineExplanation(userAnswers[currentQ], q);
   }
 
   // Next button state
   const nextBtn = document.getElementById('next-btn');
   nextBtn.disabled = userAnswers[currentQ] === null;
+  nextBtn.textContent = (currentQ === total - 1) ? 'Submit Quiz ✓' : 'Next Question →';
+}
 
-  // Last question label
-  if (currentQ === total - 1) {
-    nextBtn.textContent = 'Submit Quiz ✓';
-  } else {
-    nextBtn.textContent = 'Next Question →';
+/* =====================================================================
+   TIP PANEL
+===================================================================== */
+function buildTipPanel(q) {
+  const list = document.getElementById('tip-vocab-list');
+  list.innerHTML = '';
+
+  if (!q.tip || q.tip.length === 0) {
+    // Hide tip button if no tip data
+    document.getElementById('tip-btn').style.display = 'none';
+    return;
   }
+
+  document.getElementById('tip-btn').style.display = 'inline-flex';
+
+  q.tip.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'tip-vocab-item';
+    div.innerHTML = `
+      <span class="tip-word">${item.word}</span>
+      <span class="tip-arrow">→</span>
+      <span class="tip-meaning">${item.meaning}</span>
+      <span class="tip-thai">(${item.thai})</span>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function toggleTip() {
+  tipOpen = !tipOpen;
+  const panel = document.getElementById('tip-panel');
+  const btn   = document.getElementById('tip-btn');
+  panel.style.display = tipOpen ? 'block' : 'none';
+  btn.classList.toggle('active', tipOpen);
+  btn.textContent = tipOpen ? '✕ ปิด Tip' : '💡 Tip — คำศัพท์น่ารู้';
 }
 
 
@@ -1316,24 +1617,47 @@ function renderQuestion() {
    SELECT CHOICE
 ===================================================================== */
 function selectChoice(index) {
-  // If already answered, ignore
   if (userAnswers[currentQ] !== null) return;
 
   userAnswers[currentQ] = index;
-  markChoice(index, questions[currentQ].answer);
+  const q = questions[currentQ];
+  markChoice(index, q.answer);
+  showInlineExplanation(index, q);
   document.getElementById('next-btn').disabled = false;
 }
 
 function markChoice(selected, correct) {
   const items = document.querySelectorAll('.choice-item');
   items.forEach((item, i) => {
-    item.style.pointerEvents = 'none'; // lock choices
+    item.style.pointerEvents = 'none';
     if (i === correct) {
       item.classList.add('correct');
     } else if (i === selected && selected !== correct) {
       item.classList.add('wrong');
     }
   });
+}
+
+/* =====================================================================
+   INLINE EXPLANATION (shown immediately after answering)
+===================================================================== */
+function showInlineExplanation(selected, q) {
+  const box     = document.getElementById('inline-explanation');
+  const header  = document.getElementById('inline-exp-header');
+  const body    = document.getElementById('inline-exp-body');
+  const correct = q.answer;
+
+  if (selected === correct) {
+    box.className   = 'inline-explanation correct-exp';
+    header.innerHTML = '✅ &nbsp;ถูกต้อง! Correct!';
+  } else {
+    const letters = ['A', 'B', 'C', 'D'];
+    box.className   = 'inline-explanation wrong-exp';
+    header.innerHTML = `❌ &nbsp;ไม่ถูกต้อง — คำตอบที่ถูกคือ <strong>${letters[correct]}: ${q.choices[correct]}</strong>`;
+  }
+
+  body.textContent  = q.explanation;
+  box.style.display = 'block';
 }
 
 
