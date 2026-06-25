@@ -1,0 +1,18 @@
+<div class="be-section bg-white">
+  <div class="be-container--narrow">
+    {%- if page.title != blank -%}
+      <h1 style="font-size:clamp(28px,4vw,42px);font-weight:800;color:#1C1917;letter-spacing:-0.8px;margin-bottom:24px;">{{ page.title }}</h1>
+    {%- endif -%}
+    <div style="font-size:16px;color:#57534E;line-height:1.9;">
+      {{ page.content }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page Content",
+  "settings": [],
+  "presets": [{ "name": "Page Content" }]
+}
+{% endschema %}

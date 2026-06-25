@@ -1,0 +1,76 @@
+<header class="site-header" role="banner">
+  <div class="site-header__inner">
+
+    <!-- Logo -->
+    <a href="{{ routes.root_url }}" class="site-header__logo" aria-label="{{ shop.name }}">
+      <div class="site-header__logo-mark">
+        <span>B</span>
+      </div>
+      <div>
+        <div class="site-header__logo-text-top">Bright</div>
+        <div class="site-header__logo-text-bot">ENGMATH</div>
+      </div>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="site-header__nav" role="navigation" aria-label="Main navigation">
+      <a href="{{ routes.root_url }}" class="site-header__nav-link">Home</a>
+      <a href="{{ routes.collections_url }}" class="site-header__nav-link">Shop</a>
+      {%- for link in linklists[section.settings.menu].links -%}
+        <a href="{{ link.url }}" class="site-header__nav-link"
+          {%- if link.active %} aria-current="page"{% endif %}>
+          {{ link.title }}
+        </a>
+      {%- endfor -%}
+    </nav>
+
+    <!-- Actions -->
+    <div class="site-header__actions">
+      <!-- Search -->
+      <button class="site-header__icon-btn" onclick="document.querySelector('#search-modal')?.showModal()" aria-label="Search">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+      </button>
+      <!-- Cart -->
+      <a href="{{ routes.cart_url }}" class="site-header__cart-btn" aria-label="Cart">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        {%- if cart.item_count > 0 -%}
+          <span class="site-header__cart-count">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </a>
+      <!-- Hamburger -->
+      <button class="site-header__hamburger" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<!-- Mobile menu overlay -->
+<div class="mobile-menu__overlay" id="mobile-menu-overlay"></div>
+
+<!-- Mobile menu -->
+<nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
+  <a href="{{ routes.root_url }}" class="mobile-menu__link">Home</a>
+  <a href="{{ routes.collections_url }}" class="mobile-menu__link">Shop All</a>
+  {%- for link in linklists[section.settings.menu].links -%}
+    <a href="{{ link.url }}" class="mobile-menu__link">{{ link.title }}</a>
+  {%- endfor -%}
+  <a href="{{ routes.collections_url }}" class="mobile-menu__shop-btn">
+    Shop All Products →
+  </a>
+</nav>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

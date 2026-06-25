@@ -1,0 +1,70 @@
+<section class="be-section bg-white" id="categories">
+  <div class="be-container">
+    <div class="be-section-header">
+      <div class="be-section-tag">Browse by Category</div>
+      <h2 class="be-section-title">{{ section.settings.title }}</h2>
+      <p class="be-section-subtitle">{{ section.settings.subtitle }}</p>
+    </div>
+    <div class="grid-auto" style="--min:260px;--gap:18px;">
+      {%- for block in section.blocks -%}
+        <a href="{{ block.settings.link }}" class="category-card" {{ block.shopify_attributes }}>
+          <div class="category-card__icon" style="background:{{ block.settings.icon_bg }};color:{{ block.settings.icon_color }};">
+            {%- render 'icon', name: block.settings.icon -%}
+          </div>
+          <h3 class="category-card__title">{{ block.settings.title }}</h3>
+          <p class="category-card__desc">{{ block.settings.description }}</p>
+          <div class="category-card__link">
+            Shop now
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Category Cards",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Find What You Need" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "ค้นหาสื่อการสอนที่เหมาะสำหรับนักเรียนของคุณ ครบทุกวิชา ทุกระดับชั้น" }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category card",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Math Worksheets" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Addition, subtraction, multiplication & more for every grade level" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "color", "id": "icon_bg", "label": "Icon background", "default": "#FFF3E8" },
+        { "type": "color", "id": "icon_color", "label": "Icon color", "default": "#F97316" },
+        { "type": "select", "id": "icon", "label": "Icon", "default": "math",
+          "options": [
+            { "value": "math", "label": "Math" },
+            { "value": "book", "label": "Book" },
+            { "value": "clipboard", "label": "Clipboard" },
+            { "value": "pencil", "label": "Pencil" },
+            { "value": "ebook", "label": "E-book" },
+            { "value": "download", "label": "Download" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category Cards",
+      "blocks": [
+        { "type": "category", "settings": { "title": "Math Worksheets", "description": "Addition, subtraction, multiplication & more for every grade level", "icon_bg": "#FFF3E8", "icon_color": "#F97316", "icon": "math" } },
+        { "type": "category", "settings": { "title": "English Worksheets", "description": "Grammar, vocabulary, comprehension & reading exercises", "icon_bg": "#EFF6FF", "icon_color": "#2563EB", "icon": "book" } },
+        { "type": "category", "settings": { "title": "Exam Prep", "description": "Practice tests, past papers & proven exam strategies", "icon_bg": "#F5F3FF", "icon_color": "#7C3AED", "icon": "clipboard" } },
+        { "type": "category", "settings": { "title": "Phonics & Reading", "description": "Phonics, sight words, CVC words & reading fluency", "icon_bg": "#F0FDF4", "icon_color": "#16A34A", "icon": "pencil" } },
+        { "type": "category", "settings": { "title": "E-books", "description": "Digital books, guides & comprehensive learning packs", "icon_bg": "#FFF7ED", "icon_color": "#EA580C", "icon": "ebook" } },
+        { "type": "category", "settings": { "title": "Free Samples", "description": "Try before you buy — download free sample files today", "icon_bg": "#F0FDF4", "icon_color": "#16A34A", "icon": "download" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

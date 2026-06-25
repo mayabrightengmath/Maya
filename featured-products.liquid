@@ -1,0 +1,44 @@
+<section class="be-section bg-ivory" id="shop">
+  <div class="be-container">
+    <div class="be-section-header">
+      <div class="be-section-tag">Best Sellers</div>
+      <h2 class="be-section-title">{{ section.settings.title }}</h2>
+      <p class="be-section-subtitle">{{ section.settings.subtitle }}</p>
+    </div>
+
+    {%- assign featured_collection = collections[section.settings.collection] -%}
+    {%- if featured_collection != blank -%}
+      <div class="product-grid" style="margin-bottom:44px;">
+        {%- for product in featured_collection.products limit: section.settings.products_count -%}
+          {%- render 'product-card', product: product -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="product-grid" style="margin-bottom:44px;">
+        {%- for product in collections.all.products limit: section.settings.products_count -%}
+          {%- render 'product-card', product: product -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    <div class="text-center">
+      <a href="{{ routes.collections_url }}" class="btn btn--secondary">
+        View All Products
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Best-Selling Digital Files" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "สื่อการสอนยอดนิยม ดาวน์โหลดได้ทันทีหลังชำระเงิน" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "products_count", "min": 2, "max": 8, "step": 1, "label": "Number of products", "default": 4 }
+  ],
+  "presets": [{ "name": "Featured Products" }]
+}
+{% endschema %}

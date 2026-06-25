@@ -1,0 +1,22 @@
+{%- if section.settings.show_bar -%}
+<div class="announcement-bar" id="announcement-bar">
+  🎓 <strong>{{ section.settings.text }}</strong>
+  {%- if section.settings.link_label != blank -%}
+    <a href="{{ section.settings.link_url }}">{{ section.settings.link_label }} →</a>
+  {%- endif -%}
+  <button class="announcement-bar__close" aria-label="Close announcement">×</button>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    { "type": "checkbox", "id": "show_bar", "label": "Show announcement bar", "default": true },
+    { "type": "text", "id": "text", "label": "Announcement text", "default": "Free Math Starter Pack — ดาวน์โหลดฟรีวันนี้" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Get it here" },
+    { "type": "url", "id": "link_url", "label": "Link URL", "default": "/pages/free-samples" }
+  ],
+  "presets": [{ "name": "Announcement Bar" }]
+}
+{% endschema %}

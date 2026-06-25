@@ -1,0 +1,37 @@
+<div class="stats-bar">
+  <div class="be-container stats-bar__inner">
+    {%- for block in section.blocks -%}
+      <div class="stats-bar__item" {{ block.shopify_attributes }}>
+        <div class="stats-bar__number">{{ block.settings.number }}</div>
+        <div class="stats-bar__label">{{ block.settings.label }}</div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Stats Bar",
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat item",
+      "settings": [
+        { "type": "text", "id": "number", "label": "Number", "default": "1,000+" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Happy Customers" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stats Bar",
+      "blocks": [
+        { "type": "stat", "settings": { "number": "1,000+", "label": "Happy Customers" } },
+        { "type": "stat", "settings": { "number": "50+", "label": "Digital Products" } },
+        { "type": "stat", "settings": { "number": "★ 5.0", "label": "Average Rating" } },
+        { "type": "stat", "settings": { "number": "PDF", "label": "Instant Delivery" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

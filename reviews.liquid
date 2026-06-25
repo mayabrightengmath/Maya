@@ -1,0 +1,64 @@
+<section class="be-section bg-white">
+  <div class="be-container">
+    <div class="be-section-header">
+      <div class="be-section-tag">Customer Reviews</div>
+      <h2 class="be-section-title">{{ section.settings.title }}</h2>
+      <p class="be-section-subtitle">{{ section.settings.subtitle }}</p>
+    </div>
+    <div class="grid-auto" style="--min:280px;--gap:24px;">
+      {%- for block in section.blocks -%}
+      <div class="review-card" {{ block.shopify_attributes }}>
+        <div class="review-card__quote-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path></svg>
+        </div>
+        <div class="review-card__stars">
+          {%- assign stars = block.settings.rating -%}
+          {%- for i in (1..5) -%}
+            {%- if i <= stars -%}★{%- else -%}☆{%- endif -%}
+          {%- endfor -%}
+        </div>
+        <p class="review-card__text">{{ block.settings.review_text }}</p>
+        <div class="review-card__author">
+          <div class="review-card__avatar">{{ block.settings.name | slice: 0 }}</div>
+          <div>
+            <div class="review-card__name">{{ block.settings.name }}</div>
+            <div class="review-card__role">{{ block.settings.role }}</div>
+          </div>
+        </div>
+      </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "What Our Customers Say" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "รีวิวจากผู้ปกครอง คุณครู และนักเรียนที่ใช้จริง" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "textarea", "id": "review_text", "label": "Review text", "default": "ลูกชอบมากค่ะ สีสันสวย เนื้อหาเหมาะกับเด็ก เข้าใจง่าย ดาวน์โหลดได้เลยไม่ต้องรอนาน" },
+        { "type": "text", "id": "name", "label": "Name", "default": "คุณแม่เนย" },
+        { "type": "text", "id": "role", "label": "Role", "default": "Parent" },
+        { "type": "range", "id": "rating", "min": 1, "max": 5, "step": 1, "label": "Rating", "default": 5 }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews",
+      "blocks": [
+        { "type": "review", "settings": { "review_text": "ลูกชอบมากค่ะ สีสันสวย เนื้อหาเหมาะกับเด็ก เข้าใจง่าย ดาวน์โหลดได้เลยไม่ต้องรอนาน ซื้อแล้วใช้ได้ทันที", "name": "คุณแม่เนย", "role": "Parent", "rating": 5 } },
+        { "type": "review", "settings": { "review_text": "ใช้ในห้องเรียนได้เลยค่ะ Worksheet ออกแบบมาดีมาก เนื้อหาตรงหลักสูตร พิมพ์แล้วสวยมาก นักเรียนชอบมากค่ะ", "name": "ครูจอย", "role": "Primary School Teacher", "rating": 5 } },
+        { "type": "review", "settings": { "review_text": "หนูชอบทำแบบฝึกหัดนี้มากค่ะ สนุก ไม่น่าเบื่อ เข้าใจง่าย ทำแล้วได้คะแนนดีขึ้นมากเลย", "name": "น้องพลอย", "role": "Grade 3 Student", "rating": 5 } }
+      ]
+    }
+  ]
+}
+{% endschema %}

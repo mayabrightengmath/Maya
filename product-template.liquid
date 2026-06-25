@@ -1,0 +1,268 @@
+{%- assign product = product -%}
+
+<nav class="breadcrumb">
+  <div class="be-container breadcrumb__inner">
+    <a href="{{ routes.root_url }}" class="breadcrumb__link">Home</a>
+    <span class="breadcrumb__sep">/</span>
+    <a href="{{ routes.collections_url }}" class="breadcrumb__link">Shop</a>
+    <span class="breadcrumb__sep">/</span>
+    {%- if product.collections.first -%}
+      <a href="{{ product.collections.first.url }}" class="breadcrumb__link">{{ product.collections.first.title }}</a>
+      <span class="breadcrumb__sep">/</span>
+    {%- endif -%}
+    <span class="breadcrumb__current">{{ product.title }}</span>
+  </div>
+</nav>
+
+<div class="product-page">
+  <div class="be-container">
+    <div class="product-page__grid">
+
+      <!-- GALLERY -->
+      <div class="product-page__gallery">
+        <div class="product-page__main-img">
+          {%- if product.featured_image -%}
+            <img src="{{ product.featured_image | img_url: '600x' }}" alt="{{ product.featured_image.alt | escape }}" id="main-product-image" width="600" height="400" loading="eager">
+          {%- else -%}
+            <!-- Placeholder mockup when no image is uploaded -->
+            <div style="position:relative;">
+              <div style="position:absolute;width:200px;height:264px;background:#FFCFA0;border-radius:12px;transform:rotate(-6deg) translate(-16px,10px);"></div>
+              <div style="position:absolute;width:200px;height:264px;background:#FFE9CC;border-radius:12px;transform:rotate(-3deg) translate(-8px,5px);"></div>
+              <div style="position:relative;width:200px;height:264px;background:white;border-radius:12px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,0.14);">
+                <div style="background:#F97316;height:60px;display:flex;align-items:center;justify-content:center;padding:12px;">
+                  <span style="font-size:13px;font-weight:800;color:white;text-align:center;text-transform:uppercase;letter-spacing:0.5px;">{{ product.type | default: 'Worksheet' }}</span>
+                </div>
+                <div style="padding:14px;display:flex;flex-direction:column;gap:8px;">
+                  {%- for i in (1..5) -%}
+                    <div style="height:4px;background:#F0EDE8;border-radius:2px;{%- if forloop.index == 2 %}width:70%;{%- elsif forloop.index == 4 %}width:85%;{%- endif %}"></div>
+                  {%- endfor -%}
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- if product.images.size > 1 -%}
+        <div class="product-page__thumbs">
+          {%- for image in product.images -%}
+            <div class="product-page__thumb {% if forloop.first %}is-active{% endif %}"
+                 data-src="{{ image | img_url: '600x' }}"
+                 style="background:{{ section.settings.thumb_bg }};">
+              <img src="{{ image | img_url: '80x' }}" alt="{{ image.alt | escape }}" width="80" height="80" loading="lazy">
+            </div>
+          {%- endfor -%}
+        </div>
+        {%- endif -%}
+
+        <div style="background:white;border-radius:12px;padding:14px 18px;border:1px solid #F0EDE8;display:flex;align-items:center;gap:12px;">
+          <div style="width:36px;height:36px;background:#FFF3E8;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#1C1917;margin-bottom:2px;">Preview Before Buying</div>
+            <div style="font-size:12px;color:#78716C;">Sample images shown above — scroll to see more</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DETAILS -->
+      <div>
+        <!-- Tags -->
+        <div class="product-page__tags">
+          {%- if product.metafields.custom.subject != blank -%}
+            <span class="tag tag--orange">{{ product.metafields.custom.subject }}</span>
+          {%- endif -%}
+          {%- if product.metafields.custom.grade_level != blank -%}
+            <span class="tag tag--blue">{{ product.metafields.custom.grade_level }}</span>
+          {%- endif -%}
+          {%- for tag in product.tags -%}
+            {%- if tag == 'bestseller' -%}
+              <span class="tag tag--green">Bestseller</span>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        <!-- Title -->
+        <h1 class="product-page__title">{{ product.title }}</h1>
+
+        <!-- Stars -->
+        <div class="product-page__stars">
+          <span style="color:#F97316;font-size:16px;letter-spacing:2px;">★★★★★</span>
+          <span style="font-size:14px;color:#78716C;">{{ section.settings.review_summary }}</span>
+          <span style="font-size:13px;color:#16A34A;font-weight:600;">✓ In Stock</span>
+        </div>
+
+        <!-- Price -->
+        <div class="product-page__price-row">
+          <form data-product-form action="/cart/add" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+            <span class="product-page__price">
+              {%- if product.compare_at_price > product.price -%}
+                {{ product.price | money }}
+              {%- else -%}
+                {{ product.price | money }}
+              {%- endif -%}
+            </span>
+            {%- if product.compare_at_price > product.price -%}
+              <span class="product-page__compare-price">{{ product.compare_at_price | money }}</span>
+              {%- assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
+              <span class="tag tag--orange" style="padding:4px 10px;border-radius:100px;">Save {{ savings }}%</span>
+            {%- endif -%}
+          </form>
+        </div>
+
+        <!-- Meta grid -->
+        <div class="product-page__meta-grid">
+          {%- if product.metafields.custom.subject != blank -%}
+          <div class="product-page__meta-item">
+            <div class="product-page__meta-label">Subject</div>
+            <div class="product-page__meta-value">{{ product.metafields.custom.subject }}</div>
+          </div>
+          {%- endif -%}
+          {%- if product.metafields.custom.grade_level != blank -%}
+          <div class="product-page__meta-item">
+            <div class="product-page__meta-label">Grade Level</div>
+            <div class="product-page__meta-value">{{ product.metafields.custom.grade_level }}</div>
+          </div>
+          {%- endif -%}
+          {%- if product.metafields.custom.file_type != blank -%}
+          <div class="product-page__meta-item">
+            <div class="product-page__meta-label">File Type</div>
+            <div class="product-page__meta-value">{{ product.metafields.custom.file_type | default: 'PDF (A4)' }}</div>
+          </div>
+          {%- endif -%}
+          {%- if product.metafields.custom.page_count != blank -%}
+          <div class="product-page__meta-item">
+            <div class="product-page__meta-label">Pages</div>
+            <div class="product-page__meta-value">{{ product.metafields.custom.page_count }}</div>
+          </div>
+          {%- endif -%}
+        </div>
+
+        <!-- Short description -->
+        {%- if product.description != blank -%}
+          <div class="product-page__description">
+            {{ product.description | strip_html | truncate: 300 }}
+          </div>
+        {%- endif -%}
+
+        <!-- Buttons -->
+        <div class="product-page__btn-group">
+          <form action="/cart/add" method="post" enctype="multipart/form-data" data-product-form>
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+            <button type="submit" class="btn btn--primary btn--full btn--lg" data-add-to-cart>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+              Add to Cart — {{ product.price | money }}
+            </button>
+          </form>
+          <a href="/checkout?variant={{ product.selected_or_first_available_variant.id }}&quantity=1" class="btn btn--dark btn--full btn--lg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            Buy Now — ดาวน์โหลดทันที
+          </a>
+        </div>
+
+        <!-- Trust badges -->
+        {%- render 'trust-badges' -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT DESCRIPTION TABS -->
+<section class="be-section--sm bg-white">
+  <div class="be-container--narrow">
+    <div class="product-tabs__nav">
+      <button class="product-tabs__btn is-active" data-tab="description">Description</button>
+      <button class="product-tabs__btn" data-tab="included">What's Included</button>
+      <button class="product-tabs__btn" data-tab="how">How to Use</button>
+      <button class="product-tabs__btn" data-tab="details">File Details</button>
+      <button class="product-tabs__btn" data-tab="terms">Terms of Use</button>
+    </div>
+
+    <div class="product-tabs__panel is-active" data-tab="description">
+      <div style="font-size:15px;color:#57534E;line-height:1.85;">
+        {{ product.description }}
+      </div>
+    </div>
+
+    <div class="product-tabs__panel" data-tab="included">
+      <h3 style="font-size:22px;font-weight:800;color:#1C1917;margin-bottom:20px;">What's Included</h3>
+      {%- if product.metafields.custom.included_items != blank -%}
+        <div class="grid-auto" style="--min:250px;--gap:14px;">
+          {%- assign items = product.metafields.custom.included_items | split: '|' -%}
+          {%- for item in items -%}
+            <div class="included-item">
+              <div class="included-item__icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"></path></svg>
+              </div>
+              <div><div class="included-item__title">{{ item | strip }}</div></div>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <p style="color:#78716C;">Please add included items in the product metafield "custom.included_items" separated by | characters.</p>
+      {%- endif -%}
+    </div>
+
+    <div class="product-tabs__panel" data-tab="how">
+      <h3 style="font-size:22px;font-weight:800;color:#1C1917;margin-bottom:20px;">How to Use</h3>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;align-items:flex-start;gap:16px;"><div style="width:32px;height:32px;background:#F97316;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:white;flex-shrink:0;">1</div><div style="padding-top:4px;"><div style="font-size:15px;font-weight:700;color:#1C1917;margin-bottom:4px;">Purchase &amp; Download</div><div style="font-size:14px;color:#78716C;line-height:1.6;">Complete checkout and receive the PDF download link in your email within minutes.</div></div></div>
+        <div style="display:flex;align-items:flex-start;gap:16px;"><div style="width:32px;height:32px;background:#F97316;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:white;flex-shrink:0;">2</div><div style="padding-top:4px;"><div style="font-size:15px;font-weight:700;color:#1C1917;margin-bottom:4px;">Print or Open Digitally</div><div style="font-size:14px;color:#78716C;line-height:1.6;">Print on A4 paper for classroom use, or open on iPad/tablet for digital annotation.</div></div></div>
+        <div style="display:flex;align-items:flex-start;gap:16px;"><div style="width:32px;height:32px;background:#F97316;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:white;flex-shrink:0;">3</div><div style="padding-top:4px;"><div style="font-size:15px;font-weight:700;color:#1C1917;margin-bottom:4px;">Start Practicing</div><div style="font-size:14px;color:#78716C;line-height:1.6;">Work through exercises — the answer key is included at the end.</div></div></div>
+      </div>
+    </div>
+
+    <div class="product-tabs__panel" data-tab="details">
+      <h3 style="font-size:22px;font-weight:800;color:#1C1917;margin-bottom:20px;">File Details</h3>
+      <div style="background:#FFFBF5;border-radius:14px;border:1px solid #F0EDE8;overflow:hidden;">
+        {%- assign details = 'File Format,PDF (A4)|Subject,' | append: product.metafields.custom.subject | append: '|Grade Level,' | append: product.metafields.custom.grade_level | append: '|Pages,' | append: product.metafields.custom.page_count | append: '|Print Quality,300 DPI|Compatible,All PDF readers / iPad / Android|Delivery,Instant digital download' | split: '|' -%}
+        {%- for detail in details -%}
+          {%- assign parts = detail | split: ',' -%}
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #F0EDE8;">
+            <span style="font-size:14px;color:#78716C;font-weight:500;">{{ parts[0] }}</span>
+            <span style="font-size:14px;font-weight:700;color:#1C1917;">{{ parts[1] }}</span>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="product-tabs__panel" data-tab="terms">
+      <h3 style="font-size:22px;font-weight:800;color:#1C1917;margin-bottom:20px;">Terms of Use</h3>
+      <div style="background:#FFF3E8;border-radius:14px;padding:20px 24px;border:1px solid #FED7AA;margin-bottom:16px;">
+        <div style="font-size:14px;font-weight:700;color:#92400E;margin-bottom:6px;">✓ You MAY:</div>
+        <div style="font-size:14px;color:#78350F;line-height:1.8;">Print for your personal child or classroom students • Use on your personal devices • Annotate digitally</div>
+      </div>
+      <div style="background:#FEF2F2;border-radius:14px;padding:20px 24px;border:1px solid #FECACA;">
+        <div style="font-size:14px;font-weight:700;color:#991B1B;margin-bottom:6px;">✗ You may NOT:</div>
+        <div style="font-size:14px;color:#7F1D1D;line-height:1.8;">Resell or redistribute • Share the digital file with others • Upload to any platform • Claim as your own work</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RELATED PRODUCTS -->
+{%- if recommendations.performed and recommendations.products_count > 0 -%}
+<section class="be-section bg-ivory">
+  <div class="be-container">
+    <h2 style="font-size:clamp(22px,3vw,30px);font-weight:800;color:#1C1917;letter-spacing:-0.3px;margin-bottom:32px;">You Might Also Like</h2>
+    <div class="product-grid">
+      {%- for rec_product in recommendations.products limit: 4 -%}
+        {%- render 'product-card', product: rec_product -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product Template",
+  "settings": [
+    { "type": "text", "id": "review_summary", "label": "Review summary text", "default": "4.9 (48 reviews)" },
+    { "type": "color", "id": "thumb_bg", "label": "Thumbnail background", "default": "#FFF3E8" }
+  ],
+  "presets": [{ "name": "Product Template" }]
+}
+{% endschema %}

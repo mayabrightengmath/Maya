@@ -1,0 +1,108 @@
+<footer class="site-footer" role="contentinfo">
+  <div class="be-container">
+    <div class="site-footer__grid">
+
+      <!-- Brand -->
+      <div>
+        <div class="site-footer__logo">
+          <div class="site-footer__logo-mark"><span>B</span></div>
+          <div>
+            <div style="font-size:14px;font-weight:800;color:white;line-height:1;">Bright</div>
+            <div style="font-size:10px;font-weight:700;color:#F97316;letter-spacing:1.8px;">ENGMATH</div>
+          </div>
+        </div>
+        <p class="site-footer__desc">{{ section.settings.brand_desc }}</p>
+        <div class="site-footer__socials">
+          {%- if settings.social_facebook != blank -%}
+            <a href="{{ settings.social_facebook }}" class="site-footer__social" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+          {%- endif -%}
+          {%- if settings.social_instagram != blank -%}
+            <a href="{{ settings.social_instagram }}" class="site-footer__social" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+          {%- endif -%}
+          {%- if settings.social_line != blank -%}
+            <a href="https://line.me/ti/p/{{ settings.social_line }}" class="site-footer__social" target="_blank" rel="noopener" aria-label="LINE" style="font-size:10px;font-weight:800;">LINE</a>
+          {%- endif -%}
+          {%- if settings.social_tiktok != blank -%}
+            <a href="{{ settings.social_tiktok }}" class="site-footer__social" target="_blank" rel="noopener" aria-label="TikTok" style="font-size:9px;font-weight:800;">TT</a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Shop links -->
+      <div>
+        <p class="site-footer__heading">Shop</p>
+        <div class="site-footer__links">
+          {%- for link in linklists[section.settings.shop_menu].links -%}
+            <a href="{{ link.url }}" class="site-footer__link">{{ link.title }}</a>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <!-- Info links -->
+      <div>
+        <p class="site-footer__heading">Info</p>
+        <div class="site-footer__links">
+          {%- for link in linklists[section.settings.info_menu].links -%}
+            <a href="{{ link.url }}" class="site-footer__link">{{ link.title }}</a>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <p class="site-footer__heading">Contact</p>
+        {%- if settings.contact_email != blank -%}
+        <div class="site-footer__contact-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;margin-top:3px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          <span class="site-footer__contact-text">{{ settings.contact_email }}</span>
+        </div>
+        {%- endif -%}
+        {%- if settings.contact_line != blank -%}
+        <div class="site-footer__contact-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;margin-top:3px;"><path d="M21 2H3v16h5l4 4 4-4h5V2z"></path></svg>
+          <span class="site-footer__contact-text">Line: {{ settings.contact_line }}</span>
+        </div>
+        {%- endif -%}
+        {%- if settings.contact_hours != blank -%}
+        <div class="site-footer__contact-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;margin-top:3px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span class="site-footer__contact-text">{{ settings.contact_hours }}</span>
+        </div>
+        {%- endif -%}
+        <div class="site-footer__payments">
+          <div class="site-footer__payment-label">Payment Methods</div>
+          <div class="site-footer__payment-methods">
+            <span class="site-footer__payment-badge">PromptPay</span>
+            <span class="site-footer__payment-badge">Bank Transfer</span>
+            <span class="site-footer__payment-badge">Credit Card</span>
+            <span class="site-footer__payment-badge">Line Pay</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="site-footer__bottom">
+      <p class="site-footer__copy">© {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+      <div class="site-footer__legal">
+        {%- for link in linklists[section.settings.legal_menu].links -%}
+          <a href="{{ link.url }}" class="site-footer__legal-link">{{ link.title }}</a>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "textarea", "id": "brand_desc", "label": "Brand description", "default": "สื่อการเรียนรู้คุณภาพสูง ภาษาอังกฤษและคณิตศาสตร์ สำหรับเด็กไทย ออกแบบโดยครูผู้มีประสบการณ์กว่า 10 ปี" },
+    { "type": "link_list", "id": "shop_menu", "label": "Shop menu", "default": "footer-shop" },
+    { "type": "link_list", "id": "info_menu", "label": "Info menu", "default": "footer-info" },
+    { "type": "link_list", "id": "legal_menu", "label": "Legal menu", "default": "footer-legal" }
+  ]
+}
+{% endschema %}

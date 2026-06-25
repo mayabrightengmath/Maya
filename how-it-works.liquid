@@ -1,0 +1,58 @@
+<section class="be-section bg-white" id="how">
+  <div class="be-container">
+    <div class="be-section-header">
+      <div class="be-section-tag">Simple Process</div>
+      <h2 class="be-section-title">{{ section.settings.title }}</h2>
+      <p class="be-section-subtitle">{{ section.settings.subtitle }}</p>
+    </div>
+    <div class="grid-auto" style="--min:240px;--gap:36px;">
+      {%- for block in section.blocks -%}
+      <div class="how-step" {{ block.shopify_attributes }}>
+        <div class="how-step__icon">
+          {%- render 'icon', name: block.settings.icon, size: 28 -%}
+        </div>
+        <div class="how-step__num">Step {{ forloop.index | prepend: '0' | slice: -2, 2 }}</div>
+        <h3 class="how-step__title">{{ block.settings.title }}</h3>
+        <div class="how-step__sub">{{ block.settings.subtitle }}</div>
+        <p class="how-step__desc">{{ block.settings.description }}</p>
+      </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "How It Works",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "วิธีการสั่งซื้อ — How It Works" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "ซื้อง่าย ได้ไว ใน 3 ขั้นตอน" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "เลือกไฟล์ที่ต้องการ" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle (English)", "default": "Browse & choose" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Browse our collection and select the worksheets that match your grade level and learning goals." },
+        { "type": "select", "id": "icon", "label": "Icon", "default": "search", "options": [
+          { "value": "search", "label": "Search" },
+          { "value": "payment", "label": "Payment" },
+          { "value": "download", "label": "Download" }
+        ]}
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "How It Works",
+      "blocks": [
+        { "type": "step", "settings": { "title": "เลือกไฟล์ที่ต้องการ", "subtitle": "Browse & choose", "description": "Browse our collection and select the worksheets that match your grade level and learning goals.", "icon": "search" } },
+        { "type": "step", "settings": { "title": "ชำระเงินปลอดภัย", "subtitle": "Pay securely", "description": "Pay via PromptPay, bank transfer, or credit card through our secure and trusted checkout.", "icon": "payment" } },
+        { "type": "step", "settings": { "title": "ดาวน์โหลดและใช้งาน", "subtitle": "Download instantly", "description": "Get your download link by email right away. Print or use on any device — no waiting!", "icon": "download" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

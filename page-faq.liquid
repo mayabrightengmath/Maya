@@ -1,0 +1,60 @@
+<section style="background:white;padding:72px 24px 56px;border-bottom:1px solid #F0EDE8;text-align:center;">
+  <div class="be-container--narrow">
+    <div class="be-section-tag">Help Center</div>
+    <h1 class="be-section-title" style="margin-top:16px;">{{ section.settings.title }}</h1>
+    <p style="font-size:17px;color:#78716C;line-height:1.75;margin-top:12px;">{{ section.settings.subtitle }}</p>
+  </div>
+</section>
+
+<section style="padding:72px 24px 88px;">
+  <div class="be-container--narrow">
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      {%- for block in section.blocks -%}
+      <div class="faq-item" {{ block.shopify_attributes }}>
+        <button class="faq-item__btn" aria-expanded="false">
+          <span style="font-size:20px;flex-shrink:0;">{{ block.settings.emoji }}</span>
+          <span class="faq-item__question">{{ block.settings.question }}</span>
+          <span class="faq-item__icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-item__answer" role="region">
+          <p>{{ block.settings.answer }}</p>
+          {%- if block.settings.link_label != blank -%}
+            <a href="{{ block.settings.link_url }}" style="display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:14px;font-weight:600;color:#F97316;text-decoration:none;">{{ block.settings.link_label }} →</a>
+          {%- endif -%}
+        </div>
+      </div>
+      {%- endfor -%}
+    </div>
+
+    <div style="margin-top:52px;background:linear-gradient(135deg,#FFF3E8,#FFE4C4);border-radius:20px;padding:36px;text-align:center;border:1px solid #FED7AA;">
+      <div style="font-size:28px;margin-bottom:14px;">💬</div>
+      <h3 style="font-size:20px;font-weight:800;color:#1C1917;margin-bottom:10px;">ยังมีคำถามอีกไหม?</h3>
+      <p style="font-size:15px;color:#78716C;line-height:1.75;margin-bottom:24px;">ติดต่อเราได้โดยตรง ตอบกลับทุกวัน 9:00–21:00 น.</p>
+      <a href="/pages/contact" class="btn btn--primary">ติดต่อเรา →</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ Page",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "คำถามที่พบบ่อย" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Frequently Asked Questions — ตอบทุกข้อสงสัยก่อนซื้อ" }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        { "type": "text", "id": "emoji", "label": "Emoji", "default": "📄" },
+        { "type": "text", "id": "question", "label": "Question", "default": "ไฟล์เป็นแบบไหน?" },
+        { "type": "textarea", "id": "answer", "label": "Answer", "default": "ไฟล์ทั้งหมดเป็น PDF คุณภาพสูง พร้อมใช้งานได้ทันที" },
+        { "type": "text", "id": "link_label", "label": "Link label (optional)" },
+        { "type": "url", "id": "link_url", "label": "Link URL (optional)" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "FAQ Page" }]
+}
+{% endschema %}

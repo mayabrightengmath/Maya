@@ -1,0 +1,55 @@
+<section class="be-section bg-ivory" id="faq">
+  <div class="be-container--narrow">
+    <div class="be-section-header">
+      <div class="be-section-tag">FAQ</div>
+      <h2 class="be-section-title">{{ section.settings.title }}</h2>
+      <p class="be-section-subtitle">{{ section.settings.subtitle }}</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      {%- for block in section.blocks -%}
+      <div class="faq-item" {{ block.shopify_attributes }}>
+        <button class="faq-item__btn" aria-expanded="false">
+          <span class="faq-item__question">{{ block.settings.question }}</span>
+          <span class="faq-item__icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-item__answer" role="region">
+          <p>{{ block.settings.answer }}</p>
+        </div>
+      </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "คำถามที่พบบ่อย" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Frequently Asked Questions" }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ item",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "ไฟล์เป็นแบบไหน?" },
+        { "type": "textarea", "id": "answer", "label": "Answer", "default": "ไฟล์ทั้งหมดเป็น PDF คุณภาพสูง พร้อมใช้งานได้ทันที รองรับการพิมพ์ขนาด A4 ทั้งขาวดำและสี" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        { "type": "faq_item", "settings": { "question": "ไฟล์เป็นแบบไหน?", "answer": "ไฟล์ทั้งหมดเป็น PDF คุณภาพสูง พร้อมใช้งานได้ทันที บางชุดอาจมีไฟล์ ZIP ที่บรรจุหลายไฟล์ไว้ด้วยกัน รองรับการพิมพ์ขนาด A4 ทั้งขาวดำและสี" } },
+        { "type": "faq_item", "settings": { "question": "ซื้อแล้วดาวน์โหลดอย่างไร?", "answer": "หลังชำระเงินสำเร็จ ระบบจะส่งลิงก์ดาวน์โหลดไปยังอีเมลของคุณทันที สามารถดาวน์โหลดได้ภายใน 24 ชั่วโมง" } },
+        { "type": "faq_item", "settings": { "question": "ใช้กับ iPad ได้ไหม?", "answer": "ได้เลยค่ะ! ไฟล์ PDF รองรับการใช้งานบน iPad, Android Tablet, คอมพิวเตอร์ Mac/Windows และสมาร์ทโฟนทุกรุ่น" } },
+        { "type": "faq_item", "settings": { "question": "พิมพ์ออกมาได้ไหม?", "answer": "ได้แน่นอนค่ะ ออกแบบมาสำหรับกระดาษ A4 โดยเฉพาะ คมชัด อ่านง่าย ทั้งขาวดำและสี" } },
+        { "type": "faq_item", "settings": { "question": "ขอคืนเงินได้ไหม?", "answer": "เนื่องจากเป็นไฟล์ดิจิตอล จึงไม่สามารถคืนเงินได้หลังจากดาวน์โหลดแล้ว กรุณาดูตัวอย่างก่อนทำการซื้อทุกครั้งนะคะ" } },
+        { "type": "faq_item", "settings": { "question": "ใช้ในห้องเรียนได้ไหม?", "answer": "ได้ค่ะ สามารถพิมพ์ใช้ในห้องเรียนได้สำหรับนักเรียนของคุณ แต่ไม่อนุญาตให้จำหน่ายต่อหรือแชร์ไฟล์ดิจิตอล" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

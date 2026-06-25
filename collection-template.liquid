@@ -1,0 +1,123 @@
+<div style="background:white;border-bottom:1px solid #F0EDE8;padding:40px 0 36px;">
+  <div class="be-container">
+    <nav class="breadcrumb__inner" style="margin-bottom:12px;">
+      <a href="{{ routes.root_url }}" class="breadcrumb__link">Home</a>
+      <span class="breadcrumb__sep">/</span>
+      <span class="breadcrumb__current">{{ collection.title }}</span>
+    </nav>
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <div>
+        <h1 style="font-size:clamp(26px,3.5vw,36px);font-weight:800;color:#1C1917;letter-spacing:-0.5px;margin-bottom:6px;">{{ collection.title }}</h1>
+        <p style="font-size:16px;color:#78716C;">{{ collection.products_count }} products{%- if collection.description != blank %} — {{ collection.description | strip_html }}{%- endif -%}</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-size:14px;color:#78716C;font-weight:500;">Sort by:</span>
+        <select data-sort-by style="border:1px solid #F0EDE8;border-radius:8px;padding:8px 12px;font-size:14px;font-family:inherit;color:#1C1917;background:white;cursor:pointer;outline:none;">
+          <option value="best-selling">Best Selling</option>
+          <option value="price-ascending">Price: Low to High</option>
+          <option value="price-descending">Price: High to Low</option>
+          <option value="created-descending">Newest First</option>
+          <option value="title-ascending">A–Z</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="collection-page">
+  <div class="collection-page__layout">
+
+    <!-- Sidebar -->
+    <aside class="collection-sidebar">
+      <h3 class="collection-sidebar__title">Filters</h3>
+      {%- for filter in collection.filters -%}
+        <div class="collection-sidebar__section">
+          <div class="collection-sidebar__label">{{ filter.label }}</div>
+          {%- case filter.type -%}
+          {%- when 'list' -%}
+            {%- for value in filter.values -%}
+              <label class="filter-option">
+                <input type="checkbox"
+                  name="{{ value.param_name }}"
+                  value="{{ value.value }}"
+                  {%- if value.active %} checked{%- endif %}
+                  onchange="this.form.submit()">
+                {{ value.label }}
+                <span class="filter-option__count">{{ value.count }}</span>
+              </label>
+            {%- endfor -%}
+          {%- when 'price_range' -%}
+            <div style="display:flex;gap:8px;align-items:center;">
+              <input type="number" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value }}" placeholder="Min" style="width:80px;padding:8px;border:1px solid #F0EDE8;border-radius:7px;font-size:13px;font-family:inherit;">
+              <span style="color:#78716C;">–</span>
+              <input type="number" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value }}" placeholder="Max" style="width:80px;padding:8px;border:1px solid #F0EDE8;border-radius:7px;font-size:13px;font-family:inherit;">
+            </div>
+          {%- endcase -%}
+        </div>
+        <div style="border-top:1px solid #F0EDE8;margin:14px 0;"></div>
+      {%- endfor -%}
+      {%- if collection.filters.size == 0 -%}
+        <div class="collection-sidebar__section">
+          <div class="collection-sidebar__label">Subject</div>
+          {%- for tag in collection.all_tags -%}
+            <label class="filter-option">
+              <input type="checkbox" {%- if current_tags contains tag %} checked{%- endif %}>
+              {{ tag }}
+            </label>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+      <a href="{{ collection.url }}" style="display:block;width:100%;margin-top:16px;padding:10px;border:1px solid #F0EDE8;background:white;border-radius:9px;font-size:13px;font-weight:600;color:#78716C;text-align:center;text-decoration:none;transition:all 0.15s;">Clear All Filters</a>
+    </aside>
+
+    <!-- Products -->
+    <div>
+      {%- if collection.products.size == 0 -%}
+        <div style="text-align:center;padding:80px 24px;">
+          <div style="font-size:48px;margin-bottom:16px;">📭</div>
+          <h2 style="font-size:22px;font-weight:800;color:#1C1917;margin-bottom:8px;">No products found</h2>
+          <p style="color:#78716C;margin-bottom:24px;">Try adjusting your filters or browse all products.</p>
+          <a href="{{ routes.collections_url }}" class="btn btn--primary">Browse All Products</a>
+        </div>
+      {%- else -%}
+        <div class="product-grid" style="grid-template-columns:repeat(auto-fill,minmax(230px,1fr));">
+          {%- for product in collection.products -%}
+            {%- render 'product-card', product: product -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+        <div class="pagination">
+          {%- if paginate.previous -%}
+            <a href="{{ paginate.previous.url }}" class="pagination__btn" aria-label="Previous page">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"></path></svg>
+            </a>
+          {%- endif -%}
+          {%- for part in paginate.parts -%}
+            {%- if part.is_link -%}
+              <a href="{{ part.url }}" class="pagination__btn">{{ part.title }}</a>
+            {%- elsif part.title == paginate.current_page -%}
+              <span class="pagination__btn is-active">{{ part.title }}</span>
+            {%- else -%}
+              <span class="pagination__btn" style="cursor:default;opacity:0.4;">{{ part.title }}</span>
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if paginate.next -%}
+            <a href="{{ paginate.next.url }}" class="pagination__btn" aria-label="Next page">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"></path></svg>
+            </a>
+          {%- endif -%}
+        </div>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection Template",
+  "settings": [],
+  "presets": [{ "name": "Collection Template" }]
+}
+{% endschema %}

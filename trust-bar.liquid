@@ -1,0 +1,59 @@
+<section class="trust-section">
+  <div class="be-container">
+    <div class="be-section-header">
+      <h2 class="be-section-title" style="color:white;">{{ section.settings.title }}</h2>
+      <p class="be-section-subtitle" style="color:rgba(255,255,255,0.55);">{{ section.settings.subtitle }}</p>
+    </div>
+    <div class="grid-auto" style="--min:180px;--gap:20px;">
+      {%- for block in section.blocks -%}
+      <div class="trust-card" {{ block.shopify_attributes }}>
+        <div class="trust-card__icon">
+          {%- render 'icon', name: block.settings.icon, size: 20 -%}
+        </div>
+        <h4 class="trust-card__title">{{ block.settings.title }}</h4>
+        <p class="trust-card__desc">{{ block.settings.description }}</p>
+      </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trust Bar",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Why Choose Bright ENGMATH?" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "ทำไมถึงควรเลือกใช้สื่อจาก Bright ENGMATH" }
+  ],
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Trust point",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Created by a Real Teacher" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "10+ years of Math & English classroom teaching experience" },
+        { "type": "select", "id": "icon", "label": "Icon", "default": "pencil", "options": [
+          { "value": "pencil", "label": "Pencil" },
+          { "value": "bolt", "label": "Bolt / Instant" },
+          { "value": "file", "label": "File" },
+          { "value": "mobile", "label": "Mobile" },
+          { "value": "users", "label": "Users" },
+          { "value": "shield", "label": "Shield" }
+        ]}
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Bar",
+      "blocks": [
+        { "type": "point", "settings": { "title": "Created by a Real Teacher", "description": "10+ years of Math & English classroom teaching experience", "icon": "pencil" } },
+        { "type": "point", "settings": { "title": "Instant Download", "description": "Files delivered to your email immediately after payment", "icon": "bolt" } },
+        { "type": "point", "settings": { "title": "Print-Ready PDF", "description": "Optimized for A4 — crisp and clear in B&W or full color", "icon": "file" } },
+        { "type": "point", "settings": { "title": "All Devices Ready", "description": "Works on iPad, tablet, computer and smartphone", "icon": "mobile" } },
+        { "type": "point", "settings": { "title": "Classroom Approved", "description": "Licensed for personal and classroom use", "icon": "users" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

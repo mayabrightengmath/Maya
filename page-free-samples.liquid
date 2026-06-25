@@ -1,0 +1,93 @@
+<section style="background:linear-gradient(135deg,#FFF3E8 0%,#FFE4C4 100%);padding:80px 24px 72px;text-align:center;">
+  <div class="be-container--narrow">
+    <div class="be-section-tag" style="background:white;box-shadow:0 2px 8px rgba(249,115,22,0.15);">100% Free — No Sign-up Required</div>
+    <h1 class="be-section-title" style="margin-top:16px;">{{ section.settings.title }}</h1>
+    <p style="font-size:18px;color:#78716C;margin-bottom:10px;line-height:1.75;margin-top:14px;">{{ section.settings.subtitle }}</p>
+    <p style="font-size:15px;color:#A8A29E;line-height:1.8;">{{ section.settings.description }}</p>
+  </div>
+</section>
+
+<section class="be-section bg-white">
+  <div class="be-container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <h2 class="be-section-title">Available Free Downloads</h2>
+      <p style="font-size:15px;color:#78716C;">Updated regularly — no email required</p>
+    </div>
+    <div class="grid-auto" style="--min:280px;--gap:22px;">
+      {%- for block in section.blocks -%}
+      <div style="background:#FFFBF5;border-radius:18px;overflow:hidden;border:1px solid #F0EDE8;transition:all 0.22s;" {{ block.shopify_attributes }}>
+        <div style="height:180px;background:{{ block.settings.card_bg }};display:flex;align-items:center;justify-content:center;position:relative;padding:20px;">
+          <div style="width:100px;height:132px;background:white;border-radius:9px;box-shadow:0 6px 18px rgba(0,0,0,0.12);overflow:hidden;z-index:1;position:relative;">
+            <div style="height:36px;background:{{ block.settings.accent_color }};display:flex;align-items:center;justify-content:center;">
+              <span style="font-size:8px;font-weight:800;color:white;text-transform:uppercase;letter-spacing:0.5px;">{{ block.settings.subject_label }}</span>
+            </div>
+            <div style="padding:8px;display:flex;flex-direction:column;gap:5px;">
+              {%- for i in (1..4) -%}<div style="height:4px;background:#F0EDE8;border-radius:2px;{%- if forloop.index == 2 %}width:70%;{%- elsif forloop.index == 4 %}width:85%;{%- endif %}"></div>{%- endfor -%}
+            </div>
+          </div>
+          <div style="position:absolute;top:12px;left:12px;background:#16A34A;color:white;font-size:9px;font-weight:700;padding:3px 9px;border-radius:100px;z-index:2;">FREE</div>
+          <div style="position:absolute;top:12px;right:12px;background:white;color:#44403C;font-size:9px;font-weight:600;padding:3px 9px;border-radius:100px;border:1px solid #E7E5E4;z-index:2;">{{ block.settings.grade }}</div>
+        </div>
+        <div style="padding:18px 20px 20px;">
+          <div style="display:flex;gap:6px;margin-bottom:10px;">
+            <span class="tag" style="background:{{ block.settings.tag_bg }};color:{{ block.settings.accent_color }};">{{ block.settings.subject_label }}</span>
+            <span class="tag tag--blue">{{ block.settings.pages }}</span>
+          </div>
+          <h3 style="font-size:15px;font-weight:700;color:#1C1917;margin-bottom:6px;line-height:1.4;">{{ block.settings.title }}</h3>
+          <p style="font-size:13px;color:#78716C;line-height:1.6;margin-bottom:16px;">{{ block.settings.description }}</p>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div style="display:flex;align-items:center;gap:5px;">
+              <span style="font-size:18px;font-weight:800;color:#16A34A;">FREE</span>
+              {%- if block.settings.original_price != blank -%}
+                <span style="font-size:13px;color:#A8A29E;text-decoration:line-through;">{{ block.settings.original_price }}</span>
+              {%- endif -%}
+            </div>
+            <a href="{{ block.settings.download_url }}" class="btn btn--sm" style="background:#16A34A;color:white;" {%- if block.settings.download_url == blank %}href="/pages/free-samples"{% endif %}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 16v1a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+              Download
+            </a>
+          </div>
+        </div>
+      </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<section style="background:#1C1917;padding:72px 24px;text-align:center;">
+  <div class="be-container--narrow">
+    <h2 style="font-size:clamp(24px,3vw,34px);font-weight:800;color:white;margin-bottom:14px;">Ready to Upgrade?</h2>
+    <p style="font-size:16px;color:rgba(255,255,255,0.6);line-height:1.75;margin-bottom:36px;">ชอบไฟล์ตัวอย่างไหม? ดูคอลเล็กชั่นเต็มของเรา มีสื่อการเรียนรู้กว่า 50 ชุด</p>
+    <a href="{{ routes.collections_url }}" class="btn btn--primary btn--lg">Shop All Products →</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Free Samples Page",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Try Free Learning Materials" },
+    { "type": "text", "id": "subtitle", "label": "Thai subtitle", "default": "ดาวน์โหลดตัวอย่างฟรีก่อนตัดสินใจซื้อ" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "No email required. Download instantly and see the quality for yourself before you buy." }
+  ],
+  "blocks": [
+    {
+      "type": "sample",
+      "name": "Free sample card",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Math Starter Pack — Addition" },
+        { "type": "text", "id": "subject_label", "label": "Subject label", "default": "MATH" },
+        { "type": "text", "id": "grade", "label": "Grade", "default": "Grade 1" },
+        { "type": "text", "id": "pages", "label": "Pages", "default": "8 pages" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Single-digit addition with pictures and number lines. Perfect for beginners." },
+        { "type": "text", "id": "original_price", "label": "Original price (crossed out)", "default": "฿149" },
+        { "type": "url", "id": "download_url", "label": "Download URL" },
+        { "type": "color", "id": "card_bg", "label": "Card background top color", "default": "#FFF3E8" },
+        { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#F97316" },
+        { "type": "color", "id": "tag_bg", "label": "Tag background", "default": "#FFF3E8" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Free Samples Page" }]
+}
+{% endschema %}
