@@ -1,0 +1,137 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Bright ENGMATH",
+    "theme_version": "1.0.0",
+    "theme_author": "Bright ENGMATH",
+    "theme_documentation_url": "",
+    "theme_support_url": ""
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary (Orange)",
+        "default": "#F97316"
+      },
+      {
+        "type": "color",
+        "id": "color_primary_dark",
+        "label": "Primary Dark",
+        "default": "#EA6908"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Page Background",
+        "default": "#FFFBF5"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Body Text",
+        "default": "#1C1917"
+      },
+      {
+        "type": "color",
+        "id": "color_text_muted",
+        "label": "Muted Text",
+        "default": "#78716C"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Border",
+        "default": "#F0EDE8"
+      },
+      {
+        "type": "color",
+        "id": "color_dark",
+        "label": "Dark (Footer)",
+        "default": "#1C1917"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "type_header_font",
+        "label": "Heading Font",
+        "default": "assistant_n4"
+      },
+      {
+        "type": "range",
+        "id": "type_base_size",
+        "min": 14,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "label": "Base Font Size",
+        "default": 16
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "url",
+        "id": "social_facebook",
+        "label": "Facebook URL"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "text",
+        "id": "social_line",
+        "label": "LINE ID",
+        "placeholder": "@brightengmath"
+      },
+      {
+        "type": "url",
+        "id": "social_tiktok",
+        "label": "TikTok URL"
+      }
+    ]
+  },
+  {
+    "name": "Contact",
+    "settings": [
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Contact Email",
+        "default": "brightengmath@gmail.com"
+      },
+      {
+        "type": "text",
+        "id": "contact_line",
+        "label": "LINE Official",
+        "default": "@brightengmath"
+      },
+      {
+        "type": "text",
+        "id": "contact_hours",
+        "label": "Business Hours",
+        "default": "ตอบกลับทุกวัน 9:00–21:00 น."
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image"
+      }
+    ]
+  }
+]
