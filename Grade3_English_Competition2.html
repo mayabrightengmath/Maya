@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grade 3 English Competition | Bright EngMath</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px}
+body{font-family:'Nunito',sans-serif;background:#F0F7FF;color:#1E293B;min-height:100vh}
+:root{
+  --brand:#1B3A6B;--brand-mid:#2A5298;--brand-light:#EBF4FF;
+  --gold:#F59E0B;--gold-light:#FEF3C7;
+  --green:#16A34A;--green-light:#F0FDF4;
+  --red:#EF4444;--red-light:#FEF2F2;
+  --easy:#10B981;--easy-light:#D1FAE5;
+  --medium:#F59E0B;--medium-light:#FEF3C7;
+  --hard:#EF4444;--hard-light:#FEE2E2;
+  --white:#fff;--gray-100:#F1F5F9;--gray-200:#E2E8F0;
+  --gray-400:#94A3B8;--gray-600:#475569;--gray-800:#1E293B;
+  --r-lg:16px;--r-xl:24px;--r-full:999px;
+  --shadow:0 4px 12px rgba(0,0,0,.08);--shadow-lg:0 8px 24px rgba(27,58,107,.12);
+}
+
+/* SCREENS */
+.screen{display:none}
+.screen.active{display:flex;flex-direction:column;min-height:100vh;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── HOME ── */
+#home{align-items:center;padding:2rem 1rem 3rem}
+.home-hero{text-align:center;margin-bottom:2rem}
+.brand-tag{display:inline-block;background:var(--brand);color:#fff;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.3rem 1rem;border-radius:var(--r-full);margin-bottom:.85rem}
+.home-star{font-size:52px;display:block;margin-bottom:.25rem;animation:bob 2s infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.home-hero h1{font-family:'Fredoka One',sans-serif;font-size:clamp(1.9rem,5vw,2.8rem);color:var(--brand);line-height:1.1;margin-bottom:.4rem}
+.home-hero h1 span{color:var(--gold)}
+.home-sub{font-size:14px;color:var(--gray-600);font-weight:600}
+
+.level-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.1rem;width:100%;max-width:860px}
+.lcard{background:#fff;border-radius:var(--r-xl);padding:1.6rem 1.4rem 1.4rem;box-shadow:var(--shadow);border:2px solid transparent;cursor:pointer;text-align:center;position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s,border-color .15s}
+.lcard:before{content:'';position:absolute;top:0;left:0;right:0;height:5px;border-radius:var(--r-xl) var(--r-xl) 0 0}
+.lcard.easy:before{background:var(--easy)}
+.lcard.medium:before{background:var(--medium)}
+.lcard.hard:before{background:var(--hard)}
+.lcard:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.lcard.easy:hover{border-color:var(--easy)}
+.lcard.medium:hover{border-color:var(--medium)}
+.lcard.hard:hover{border-color:var(--hard)}
+.l-icon{font-size:46px;display:block;margin-bottom:.6rem}
+.l-name{font-family:'Fredoka One',sans-serif;font-size:1.55rem;margin-bottom:.35rem}
+.lcard.easy .l-name{color:var(--easy)}
+.lcard.medium .l-name{color:var(--medium)}
+.lcard.hard .l-name{color:var(--hard)}
+.l-desc{font-size:13px;color:var(--gray-600);font-weight:600;line-height:1.55;margin-bottom:.9rem}
+.l-chips{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem}
+.chip{font-size:12px;font-weight:700;padding:.2rem .7rem;border-radius:var(--r-full)}
+.easy .chip{background:var(--easy-light);color:#065F46}
+.medium .chip{background:var(--medium-light);color:#78350F}
+.hard .chip{background:var(--hard-light);color:#7F1D1D}
+.l-btn{display:inline-block;padding:.6rem 1.75rem;border-radius:var(--r-full);font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;border:none;cursor:pointer;color:#fff;transition:filter .15s}
+.lcard.easy .l-btn{background:var(--easy)}
+.lcard.medium .l-btn{background:var(--medium)}
+.lcard.hard .l-btn{background:var(--hard)}
+.l-btn:hover{filter:brightness(1.08)}
+
+/* ── QUIZ ── */
+#quiz{align-items:stretch}
+.topbar{background:var(--brand);padding:.7rem 1rem;display:flex;align-items:center;gap:.75rem;position:sticky;top:0;z-index:20;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.tbtn{background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:var(--r-full);padding:.38rem .85rem;font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;display:flex;align-items:center;gap:.35rem;transition:background .15s}
+.tbtn:hover{background:rgba(255,255,255,.28)}
+.ttitle{flex:1;text-align:center;font-family:'Fredoka One',sans-serif;font-size:1.05rem;color:#fff}
+.lvl-badge{font-size:11px;font-weight:800;padding:.22rem .7rem;border-radius:var(--r-full);text-transform:uppercase;letter-spacing:.05em}
+.lb-easy{background:var(--easy);color:#fff}
+.lb-medium{background:var(--medium);color:#fff}
+.lb-hard{background:var(--hard);color:#fff}
+
+.prog-bar-wrap{background:#fff;padding:.7rem 1rem .5rem;border-bottom:1px solid var(--gray-200)}
+.prog-top{display:flex;justify-content:space-between;margin-bottom:.4rem}
+.prog-lbl{font-size:12px;font-weight:700;color:var(--brand)}
+.prog-sc{font-size:12px;font-weight:700;color:var(--green)}
+.prog-track{height:8px;background:var(--gray-200);border-radius:var(--r-full);overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--brand-mid),var(--gold));border-radius:var(--r-full);transition:width .35s ease}
+
+.dot-row{display:flex;flex-wrap:wrap;gap:5px;padding:.65rem 1rem;background:#fff;border-bottom:1px solid var(--gray-200)}
+.qdot{width:26px;height:26px;border-radius:6px;border:2px solid var(--gray-200);background:var(--gray-100);font-size:11px;font-weight:800;color:var(--gray-400);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .12s}
+.qdot.cur{border-color:var(--brand);background:var(--brand);color:#fff}
+.qdot.ok{border-color:var(--green);background:var(--easy-light);color:var(--green)}
+.qdot.bad{border-color:var(--red);background:var(--red-light);color:var(--red)}
+
+.quiz-body{flex:1;padding:1.1rem 1rem;max-width:700px;margin:0 auto;width:100%}
+.sec-chip{display:inline-flex;align-items:center;gap:.3rem;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.22rem .7rem;border-radius:var(--r-full);background:var(--brand-light);color:var(--brand);margin-bottom:.65rem}
+
+.qcard{background:#fff;border-radius:var(--r-xl);padding:1.4rem;box-shadow:var(--shadow);margin-bottom:1.1rem}
+.q-num{font-size:12px;font-weight:700;color:var(--gray-400);margin-bottom:.35rem}
+.q-text{font-size:17px;line-height:1.6;color:var(--gray-800);font-weight:700;margin-bottom:1rem}
+
+.passage-box{background:#F8FAFF;border-left:4px solid var(--brand);border-radius:0 var(--r-lg) var(--r-lg) 0;padding:.9rem 1.1rem;margin-bottom:.9rem;font-size:14.5px;line-height:1.9;color:var(--gray-800);font-style:italic}
+.p-label{font-style:normal;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--brand);margin-bottom:.45rem;display:block}
+.dlg-box{background:var(--brand-light);border:1.5px solid #BFDBFE;border-radius:var(--r-lg);padding:.8rem 1rem;margin-bottom:.8rem;font-size:15px;line-height:1.7;color:var(--brand);font-style:italic}
+
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{display:flex;align-items:center;gap:13px;padding:.75rem 1rem;border:2px solid var(--gray-200);border-radius:var(--r-lg);cursor:pointer;transition:all .13s;background:#fff;font-size:15px;font-weight:600;color:var(--gray-800);user-select:none}
+.opt:hover:not(.disabled){border-color:var(--brand-mid);background:var(--brand-light);transform:translateX(3px)}
+.opt.disabled{cursor:default}
+.opt.correct{border-color:var(--green);background:var(--easy-light);color:#14532D}
+.opt.wrong{border-color:var(--red);background:var(--red-light);color:#7F1D1D}
+.opt-dot{width:30px;height:30px;border-radius:50%;border:2px solid var(--gray-200);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;color:var(--brand-mid);background:var(--brand-light);transition:all .13s}
+.opt.correct .opt-dot{border-color:var(--green);background:var(--green);color:#fff}
+.opt.wrong .opt-dot{border-color:var(--red);background:var(--red);color:#fff}
+
+.exp-box{margin-top:.9rem;padding:.8rem 1rem;border-radius:var(--r-lg);font-size:14px;font-weight:600;line-height:1.6;display:none;gap:.5rem;align-items:flex-start}
+.exp-box.show{display:flex}
+.exp-box.ok{background:var(--easy-light);border:1.5px solid #86EFAC;color:#14532D}
+.exp-box.bad{background:var(--red-light);border:1.5px solid #FCA5A5;color:#7F1D1D}
+.exp-icon{font-size:18px;flex-shrink:0}
+
+.quiz-nav{display:flex;align-items:center;gap:.75rem;padding:.9rem 1rem;max-width:700px;margin:0 auto;width:100%}
+.nbtn{padding:.65rem 1.35rem;border-radius:var(--r-full);border:2px solid var(--gray-200);background:#fff;font-size:15px;font-weight:800;color:var(--gray-600);cursor:pointer;font-family:'Nunito',sans-serif;transition:all .13s;display:flex;align-items:center;gap:.35rem}
+.nbtn:hover:not(:disabled){border-color:var(--brand);color:var(--brand);background:var(--brand-light)}
+.nbtn:disabled{opacity:.3;cursor:default}
+.nbtn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+.nbtn.primary:hover:not(:disabled){background:var(--brand-mid);border-color:var(--brand-mid)}
+.nav-mid{flex:1;text-align:center;font-size:13px;font-weight:700;color:var(--gray-400)}
+
+/* ── RESULT ── */
+#result{align-items:center;padding:2rem 1rem 3rem}
+.res-topbar{width:100%;max-width:540px;margin-bottom:1.25rem}
+.rcard{background:#fff;border-radius:var(--r-xl);padding:2.25rem 1.75rem;box-shadow:var(--shadow-lg);text-align:center;max-width:500px;width:100%;margin-bottom:1.5rem}
+.r-emoji{font-size:60px;display:block;margin-bottom:.6rem}
+.r-brand{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+.r-title{font-family:'Fredoka One',sans-serif;font-size:1.65rem;color:var(--brand);margin-bottom:.35rem}
+.r-lvl{display:inline-block;font-size:12px;font-weight:800;padding:.25rem .9rem;border-radius:var(--r-full);margin-bottom:1.1rem}
+.r-score{font-family:'Fredoka One',sans-serif;font-size:3.75rem;color:var(--brand);line-height:1;margin-bottom:.2rem}
+.r-pct{font-size:14px;color:var(--gray-400);font-weight:700;margin-bottom:1.1rem}
+.r-stats{display:flex;gap:.65rem;justify-content:center;margin-bottom:1.1rem}
+.rstat{background:var(--gray-100);border-radius:var(--r-lg);padding:.55rem .9rem;text-align:center;min-width:66px}
+.rstat-n{font-family:'Fredoka One',sans-serif;font-size:1.45rem}
+.rstat-l{font-size:10px;font-weight:700;color:var(--gray-400);text-transform:uppercase}
+.rstat.gn .rstat-n{color:var(--green)}
+.rstat.rd .rstat-n{color:var(--red)}
+.rstat.bl .rstat-n{color:var(--brand)}
+.grade-pill{display:inline-block;padding:.45rem 1.5rem;border-radius:var(--r-full);font-size:13px;font-weight:800;margin-bottom:1.5rem}
+.ga{background:var(--easy-light);color:#065F46}
+.gb{background:var(--brand-light);color:var(--brand)}
+.gc{background:var(--medium-light);color:#78350F}
+.gd{background:var(--red-light);color:#7F1D1D}
+.rbtns{display:flex;gap:.65rem;justify-content:center;flex-wrap:wrap}
+.rbtn{padding:.65rem 1.4rem;border-radius:var(--r-full);border:none;font-size:14px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;transition:filter .15s}
+.rbtn:hover{filter:brightness(1.07)}
+.rbtn.p{background:var(--brand);color:#fff}
+.rbtn.g{background:var(--gold);color:#fff}
+.rbtn.s{background:var(--gray-100);color:var(--gray-800)}
+
+.footer{text-align:center;font-size:11px;color:var(--gray-400);font-weight:700;padding:.75rem;line-height:1.8;margin-top:.5rem}
+.footer strong{color:var(--brand-mid)}
+
+@media(max-width:480px){
+  .level-grid{grid-template-columns:1fr}
+  .q-text{font-size:15px}
+  .opt{font-size:14px}
+  .r-score{font-size:3rem}
+}
+</style>
+</head>
+<body>
+
+<!-- HOME -->
+<div id="home" class="screen active">
+  <div class="home-hero">
+    <div class="brand-tag">✦ Bright EngMath</div>
+    <span class="home-star">⭐</span>
+    <h1>Grade 3 English<br><span>Competition</span></h1>
+    <p class="home-sub">Grammar &nbsp;·&nbsp; Conversation &nbsp;·&nbsp; Reading Comprehension</p>
+  </div>
+
+  <div class="level-grid">
+    <div class="lcard easy" onclick="startLevel('easy')">
+      <span class="l-icon">🌱</span>
+      <div class="l-name">Easy</div>
+      <div class="l-desc">Simple sentences, everyday words<br>and short conversations</div>
+      <div class="l-chips"><span class="chip">10 Questions</span><span class="chip">15 min</span></div>
+      <button class="l-btn">Start Now →</button>
+    </div>
+    <div class="lcard medium" onclick="startLevel('medium')">
+      <span class="l-icon">🔥</span>
+      <div class="l-name">Medium</div>
+      <div class="l-desc">Tenses, comparatives, dialogues<br>and a short reading passage</div>
+      <div class="l-chips"><span class="chip">10 Questions</span><span class="chip">20 min</span></div>
+      <button class="l-btn">Start Now →</button>
+    </div>
+    <div class="lcard hard" onclick="startLevel('hard')">
+      <span class="l-icon">🏆</span>
+      <div class="l-name">Hard</div>
+      <div class="l-desc">Advanced grammar, real-life situations<br>and a challenging reading passage</div>
+      <div class="l-chips"><span class="chip">10 Questions</span><span class="chip">25 min</span></div>
+      <button class="l-btn">Start Now →</button>
+    </div>
+  </div>
+  <div class="footer" style="margin-top:2rem"><strong>Bright EngMath</strong> · English Competition Practice for Grade 3<br>© Bright EngMath. All rights reserved.</div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="screen">
+  <div class="topbar">
+    <button class="tbtn" onclick="goHome()">🏠 Home</button>
+    <div class="ttitle">English Competition</div>
+    <span class="lvl-badge" id="lvl-badge"></span>
+  </div>
+  <div class="prog-bar-wrap">
+    <div class="prog-top">
+      <span class="prog-lbl" id="prog-lbl">Question 1 of 10</span>
+      <span class="prog-sc" id="prog-sc">✓ 0 correct</span>
+    </div>
+    <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+  </div>
+  <div class="dot-row" id="dot-row"></div>
+  <div class="quiz-body">
+    <div class="sec-chip" id="sec-chip">🔤 Grammar</div>
+    <div class="qcard" id="qcard"></div>
+  </div>
+  <div class="quiz-nav">
+    <button class="nbtn" id="btn-prev" onclick="nav(-1)">← Prev</button>
+    <div class="nav-mid" id="nav-mid">1 / 10</div>
+    <button class="nbtn primary" id="btn-next" onclick="nav(1)">Next →</button>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div id="result" class="screen">
+  <div class="res-topbar">
+    <button class="nbtn" onclick="goHome()">🏠 Home</button>
+  </div>
+  <div class="rcard">
+    <span class="r-emoji" id="r-emoji">🎉</span>
+    <div class="r-brand">Bright EngMath</div>
+    <div class="r-title">Quiz Complete!</div>
+    <div class="r-lvl" id="r-lvl"></div>
+    <div class="r-score" id="r-score">10 / 10</div>
+    <div class="r-pct" id="r-pct">100%</div>
+    <div class="r-stats">
+      <div class="rstat gn"><div class="rstat-n" id="r-c">0</div><div class="rstat-l">Correct</div></div>
+      <div class="rstat rd"><div class="rstat-n" id="r-w">0</div><div class="rstat-l">Wrong</div></div>
+      <div class="rstat bl"><div class="rstat-n" id="r-t">10</div><div class="rstat-l">Total</div></div>
+    </div>
+    <div class="grade-pill" id="r-grade"></div>
+    <div class="rbtns">
+      <button class="rbtn p" onclick="restart()">Try Again</button>
+      <button class="rbtn g" onclick="reviewAll()">Review Answers</button>
+      <button class="rbtn s" onclick="goHome()">🏠 Home</button>
+    </div>
+  </div>
+  <div class="footer"><strong>Bright EngMath</strong> · English Competition Practice for Grade 3<br>© Bright EngMath. All rights reserved.</div>
+</div>
+
+<script>
+const L=['A','B','C','D'];
+
+const PE=`Ben has a dog named Spot. Spot is white and brown. Ben takes Spot to the park every morning. They play and run together. Spot loves to catch the ball. Ben loves Spot very much.`;
+
+const PM=`Sara wakes up at 6 o'clock every morning. She brushes her teeth and eats breakfast with her family. Then she puts on her school uniform and walks to school with her friend Mia. At school, Sara's favourite subject is English because she loves to read storybooks. After school, she helps her mother cook dinner. Sara is a very responsible girl.`;
+
+const PH=`The Amazon rainforest is the largest tropical rainforest on Earth. It covers most of northern Brazil and extends into several other countries. The rainforest is home to millions of species of plants, animals, and insects. Many of them have not yet been discovered by scientists. The Amazon River, which runs through the forest, is the second longest river in the world. People who live near the rainforest depend on it for food, water, and medicine. However, large areas of the Amazon are being cut down every year for farming and logging. Scientists warn that if this continues, many species will disappear forever.`;
+
+const BANK={
+  easy:[
+    {sec:"🔤 Grammar",q:"She _______ a book every night.",o:["read","reads","reading","readed"],a:1,e:"'She' is 3rd person singular → we add -s to the verb: reads."},
+    {sec:"🔤 Grammar",q:"There _______ two cats on the roof.",o:["is","am","are","be"],a:2,e:"'Two cats' is plural → use are."},
+    {sec:"🔤 Grammar",q:"I _______ my homework right now.",o:["do","does","am doing","did"],a:2,e:"'Right now' tells us the action is happening at this moment → use am doing (present continuous)."},
+    {sec:"🔤 Grammar",q:"_______ you like ice cream?",o:["Is","Do","Are","Does"],a:1,e:"For questions with 'you' in the simple present → use Do."},
+    {sec:"💬 Conversation",dlg:`A: "Good morning! How are you?"`,q:"B: _______",o:["Yes, I am fine.","I'm fine, thank you!","Good, I am morning.","Fine is I."],a:1,e:"'I'm fine, thank you!' is the correct and polite reply to 'How are you?'"},
+    {sec:"💬 Conversation",dlg:`A: "What is your name?"`,q:"B: _______",o:["My name is Lily.","I am nine years.","Yes, my name.","Name is good."],a:0,e:"'My name is ___.' is the correct way to answer 'What is your name?'"},
+    {sec:"💬 Conversation",dlg:`A: "How old are you?"`,q:"B: _______",o:["I am nine years old.","I have nine years.","Nine is my age old.","My age has nine."],a:0,e:"'I am ___ years old.' is the correct structure for giving your age."},
+    {sec:"💬 Conversation",dlg:`A: "Happy Birthday!"`,q:"B: _______",o:["Yes, it is happy.","Thank you very much!","Happy to you too.","I like birthday."],a:1,e:"'Thank you very much!' is the natural and polite reply to 'Happy Birthday!'"},
+    {sec:"📖 Reading",pass:PE,plbl:"Read the story — then answer",q:"What is the dog's name?",o:["Ben","Spot","Ball","Park"],a:1,e:"The story says 'Ben has a dog named Spot.'"},
+    {sec:"📖 Reading",pass:PE,plbl:"Read the story — then answer",q:"What colour is Spot?",o:["Black and white","Brown and black","White and brown","All brown"],a:2,e:"'Spot is white and brown.' — stated directly in the story."},
+  ],
+  medium:[
+    {sec:"🔤 Grammar",q:"She _______ to the market yesterday.",o:["go","goes","went","going"],a:2,e:"'Yesterday' = past tense. The past form of 'go' is went."},
+    {sec:"🔤 Grammar",q:"We _______ English at school every day.",o:["study","studies","studied","studying"],a:0,e:"'We' + simple present = base form: study. Only he/she/it takes -s."},
+    {sec:"🔤 Grammar",q:"This is _______ book I told you about.",o:["a","an","the","—"],a:2,e:"'The' is used when both the speaker and listener know which specific thing is being mentioned."},
+    {sec:"🔤 Grammar",q:"He is _______ than his brother.",o:["tall","taller","tallest","the tallest"],a:1,e:"Comparing two people → use the comparative form: taller."},
+    {sec:"💬 Conversation",dlg:`A: "Can I borrow your pencil, please?"`,q:"B: _______",o:["Yes, of course! Here you are.","Pencil is on the table.","I don't like pencils.","You can buy one."],a:0,e:"'Yes, of course! Here you are.' is the natural, polite reply when lending something."},
+    {sec:"💬 Conversation",dlg:`A: "What time does school start?"`,q:"B: _______",o:["School is very big.","It starts at eight o'clock.","I like school very much.","School time is good."],a:1,e:"'It starts at eight o'clock.' directly and correctly answers the time question."},
+    {sec:"💬 Conversation",dlg:`Teacher: "Please open your books to page ten."`,q:"Student: _______",o:["Yes, teacher! I will.","My book is blue.","I don't have page ten.","Books are for reading."],a:0,e:"'Yes, teacher! I will.' is the correct, respectful response to a teacher's instruction."},
+    {sec:"💬 Conversation",dlg:`A: "What do you want to be when you grow up?"`,q:"B: _______",o:["I want to a doctor be.","When I grow I want.","I want to be a doctor.","Doctor is my want."],a:2,e:"'I want to be a ___.' is the correct structure for talking about future jobs."},
+    {sec:"📖 Reading",pass:PM,plbl:"Read the story — then answer",q:"What time does Sara wake up every morning?",o:["5 o'clock","6 o'clock","7 o'clock","8 o'clock"],a:1,e:"'Sara wakes up at 6 o'clock every morning.' — stated clearly at the start."},
+    {sec:"📖 Reading",pass:PM,plbl:"Read the story — then answer",q:"What is Sara's favourite subject at school?",o:["Maths","Science","English","Thai"],a:2,e:"'Sara's favourite subject is English because she loves to read storybooks.'"},
+  ],
+  hard:[
+    {sec:"🔤 Grammar",q:"By the time we arrived, the film _______ already.",o:["starts","started","has started","had started"],a:3,e:"Past perfect 'had started' describes an action that was completed BEFORE another past action ('arrived')."},
+    {sec:"🔤 Grammar",q:"She asked me _______ I liked vegetables.",o:["that","if","what","which"],a:1,e:"In reported yes/no questions, we use 'if': 'She asked me if I liked...'"},
+    {sec:"🔤 Grammar",q:"The window _______ by the strong wind last night.",o:["broke","was broken","has broken","is breaking"],a:1,e:"Passive voice in the past tense: was/were + past participle → 'was broken'."},
+    {sec:"🔤 Grammar",q:"I wish I _______ fly like a bird!",o:["can","could","will","am"],a:1,e:"'I wish' + past form expresses an unreal wish → use 'could' (past form of can)."},
+    {sec:"💬 Conversation",dlg:`A: "I've lost my homework. I can't find it anywhere."`,q:"B: _______",o:["Homework is important.","Have you checked your bag? Maybe it is still there.","You should do your homework.","Lost things are hard to find."],a:1,e:"Offers practical, helpful advice — directly addressing the problem rather than stating the obvious."},
+    {sec:"💬 Conversation",dlg:`A: "Congratulations on winning the spelling competition!"`,q:"B: _______",o:["Yes, I like spelling.","Thank you! I practised every day.","Spelling is difficult for me.","Competitions are very fun."],a:1,e:"'Thank you! I practised every day.' — warm reply that also explains the achievement."},
+    {sec:"💬 Conversation",dlg:`A: "Could you speak more slowly, please? I don't understand."`,q:"B: _______",o:["No, I speak fast always.","Of course! I'm sorry. Is this better?","You should study more English.","Fast speaking is normal."],a:1,e:"'Of course! I'm sorry. Is this better?' — politely agrees, apologises, and checks for understanding."},
+    {sec:"📖 Reading",pass:PH,plbl:"Read the passage — then answer",q:"Where is the Amazon rainforest mainly found?",o:["Southern Africa","Northern Brazil","Central Europe","Southeast Asia"],a:1,e:"'It covers most of northern Brazil' — stated directly in the passage."},
+    {sec:"📖 Reading",pass:PH,plbl:"Read the passage — then answer",q:"Why are large areas of the Amazon being cut down?",o:["To build new schools","For farming and logging","To make national parks","Because of heavy rain"],a:1,e:"'Large areas of the Amazon are being cut down every year for farming and logging.'"},
+    {sec:"📖 Reading",pass:PH,plbl:"Read the passage — then answer",q:"What might happen if the cutting down of the Amazon continues?",o:["More animals will be discovered.","New rivers will form.","Many species will disappear forever.","The rainforest will grow bigger."],a:2,e:"'If this continues, many species will disappear forever.' — stated in the final sentence."},
+  ]
+};
+
+// STATE
+let curLevel='easy', qs=[], ans=[], curQ=0;
+
+// SCREENS
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function goHome(){
+  ans=[];
+  show('home');
+}
+
+function startLevel(lv){
+  curLevel=lv;
+  qs=BANK[lv];
+  ans=Array(qs.length).fill(null);
+  curQ=0;
+  const nm={easy:'🌱 Easy',medium:'🔥 Medium',hard:'🏆 Hard'};
+  const bc={easy:'lb-easy',medium:'lb-medium',hard:'lb-hard'};
+  const b=document.getElementById('lvl-badge');
+  b.textContent=nm[lv]; b.className='lvl-badge '+bc[lv];
+  show('quiz');
+  render();
+}
+
+function nav(d){
+  if(d===1){
+    const done=ans.every(a=>a!==null);
+    if(curQ===qs.length-1&&done){showResult();return;}
+    if(curQ<qs.length-1) curQ++;
+    else{const f=ans.findIndex(a=>a===null);if(f>=0)curQ=f;}
+  } else {
+    if(curQ>0) curQ--;
+  }
+  render();
+}
+
+function jumpDot(i){curQ=i;render();}
+
+function pick(i){
+  if(ans[curQ]!==null) return;
+  ans[curQ]=i;
+  updateStats(); renderDots(); renderCard();
+}
+
+function render(){updateStats();renderDots();renderCard();}
+
+function updateStats(){
+  const n=qs.length;
+  const done=ans.filter(a=>a!==null).length;
+  const correct=ans.filter((a,i)=>a!==null&&a===qs[i].a).length;
+  document.getElementById('prog-lbl').textContent=`Question ${curQ+1} of ${n}`;
+  document.getElementById('prog-sc').textContent=`✓ ${correct} correct`;
+  document.getElementById('prog-fill').style.width=Math.round(done/n*100)+'%';
+  document.getElementById('nav-mid').textContent=`${curQ+1} / ${n}`;
+  document.getElementById('btn-prev').disabled=curQ===0;
+  const allDone=ans.every(a=>a!==null);
+  document.getElementById('btn-next').textContent=(curQ===n-1&&allDone)?'See Results →':'Next →';
+}
+
+function renderDots(){
+  let h='';
+  ans.forEach((a,i)=>{
+    let c='qdot';
+    if(i===curQ)c+=' cur';
+    else if(a!==null)c+=a===qs[i].a?' ok':' bad';
+    h+=`<div class="${c}" onclick="jumpDot(${i})">${i+1}</div>`;
+  });
+  document.getElementById('dot-row').innerHTML=h;
+}
+
+function renderCard(){
+  const qi=qs[curQ];
+  const ua=ans[curQ];
+  const rev=ua!==null;
+  document.getElementById('sec-chip').textContent=qi.sec;
+  let h=`<div class="q-num">Question ${curQ+1} of ${qs.length}</div>`;
+  if(qi.pass) h+=`<div class="passage-box"><span class="p-label">📖 ${qi.plbl}</span>${qi.pass}</div>`;
+  if(qi.dlg) h+=`<div class="dlg-box">${qi.dlg}</div>`;
+  h+=`<div class="q-text">${qi.q}</div><div class="opts">`;
+  qi.o.forEach((o,i)=>{
+    let c='opt';
+    if(rev){
+      if(i===qi.a)c+=' correct';
+      else if(i===ua)c+=' wrong';
+      c+=' disabled';
+    }
+    h+=`<div class="${c}" onclick="pick(${i})"><span class="opt-dot">${L[i]}</span><span>${o}</span></div>`;
+  });
+  h+='</div>';
+  if(rev){
+    const ok=ua===qi.a;
+    const intro=ok?'<strong>Correct!</strong> ':`<strong>Answer: ${L[qi.a]}.</strong> `;
+    h+=`<div class="exp-box ${ok?'ok':'bad'} show"><span class="exp-icon">${ok?'✅':'❌'}</span><span>${intro}${qi.e}</span></div>`;
+  }
+  document.getElementById('qcard').innerHTML=h;
+}
+
+function showResult(){
+  const n=qs.length;
+  const c=ans.filter((a,i)=>a===qs[i].a).length;
+  const pct=Math.round(c/n*100);
+  document.getElementById('r-emoji').textContent=pct>=80?'🎉':pct>=60?'😊':pct>=40?'😅':'📚';
+  const nm={easy:'🌱 Easy Level',medium:'🔥 Medium Level',hard:'🏆 Hard Level'};
+  const st={easy:'background:var(--easy-light);color:#065F46',medium:'background:var(--medium-light);color:#78350F',hard:'background:var(--hard-light);color:#7F1D1D'};
+  const rl=document.getElementById('r-lvl');
+  rl.textContent=nm[curLevel]; rl.setAttribute('style',st[curLevel]);
+  document.getElementById('r-score').textContent=`${c} / ${n}`;
+  document.getElementById('r-pct').textContent=`${pct}%`;
+  document.getElementById('r-c').textContent=c;
+  document.getElementById('r-w').textContent=n-c;
+  document.getElementById('r-t').textContent=n;
+  const gp=document.getElementById('r-grade');
+  if(pct>=80){gp.textContent='⭐ Excellent — Grade A';gp.className='grade-pill ga';}
+  else if(pct>=60){gp.textContent='👍 Good — Grade B';gp.className='grade-pill gb';}
+  else if(pct>=40){gp.textContent='🙂 Fair — Grade C';gp.className='grade-pill gc';}
+  else{gp.textContent='📚 Keep Practising — Grade D';gp.className='grade-pill gd';}
+  show('result');
+}
+
+function restart(){ans=Array(qs.length).fill(null);curQ=0;show('quiz');render();}
+function reviewAll(){curQ=0;show('quiz');render();}
+</script>
+</body>
+</html>
