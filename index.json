@@ -1,0 +1,45 @@
+{
+  "sections": {
+    "hero": { "type": "hero", "settings": {
+      "headline": "Digital Worksheets & E-books for Bright Young Learners",
+      "subheadline": "สื่อการเรียนรู้ภาษาอังกฤษและคณิตศาสตร์ พร้อมดาวน์โหลด ใช้งานง่าย เหมาะสำหรับเด็ก ผู้ปกครอง และคุณครู",
+      "btn_primary_label": "Shop Digital Files",
+      "btn_primary_link": "/collections/all",
+      "btn_secondary_label": "View Free Samples",
+      "btn_secondary_link": "/pages/free-samples"
+    }},
+    "stats": { "type": "stats-bar", "settings": {} },
+    "categories": { "type": "category-cards", "settings": {
+      "title": "Find What You Need",
+      "subtitle": "ค้นหาสื่อการสอนที่เหมาะสำหรับนักเรียนของคุณ ครบทุกวิชา ทุกระดับชั้น"
+    }},
+    "featured_products": { "type": "featured-products", "settings": {
+      "title": "Best-Selling Digital Files",
+      "subtitle": "สื่อการสอนยอดนิยม ดาวน์โหลดได้ทันทีหลังชำระเงิน",
+      "collection": ""
+    }},
+    "how_it_works": { "type": "how-it-works", "settings": {
+      "title": "วิธีการสั่งซื้อ — How It Works",
+      "subtitle": "ซื้อง่าย ได้ไว ใน 3 ขั้นตอน"
+    }},
+    "trust": { "type": "trust-bar", "settings": {
+      "title": "Why Choose Bright ENGMATH?",
+      "subtitle": "ทำไมถึงควรเลือกใช้สื่อจาก Bright ENGMATH"
+    }},
+    "free_samples": { "type": "free-samples-cta", "settings": {
+      "title": "Try Free Learning Materials",
+      "subtitle": "ดาวน์โหลดตัวอย่างฟรีก่อนตัดสินใจซื้อ",
+      "btn_label": "Download Free Samples",
+      "btn_link": "/pages/free-samples"
+    }},
+    "reviews": { "type": "reviews", "settings": {
+      "title": "What Our Customers Say",
+      "subtitle": "รีวิวจากผู้ปกครอง คุณครู และนักเรียนที่ใช้จริง"
+    }},
+    "faq": { "type": "faq", "settings": {
+      "title": "คำถามที่พบบ่อย",
+      "subtitle": "Frequently Asked Questions"
+    }}
+  },
+  "order": ["hero","stats","categories","featured_products","how_it_works","trust","free_samples","reviews","faq"]
+}

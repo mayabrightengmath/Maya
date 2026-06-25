@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": { "type": "page-free-samples", "settings": {
+      "title": "Try Free Learning Materials",
+      "subtitle": "ดาวน์โหลดตัวอย่างฟรีก่อนตัดสินใจซื้อ"
+    }}
+  },
+  "order": ["main"]
+}
