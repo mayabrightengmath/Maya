@@ -1,0 +1,85 @@
+{%- comment -%}
+  Renders a product card.
+  Usage: {%- render 'product-card', product: product -%}
+{%- endcomment -%}
+
+{%- assign subject = product.metafields.custom.subject | default: product.type -%}
+{%- assign grade = product.metafields.custom.grade_level -%}
+{%- assign file_type = product.metafields.custom.file_type | default: 'PDF' -%}
+{%- assign page_count = product.metafields.custom.page_count -%}
+
+{%- assign accent_colors = 'Math:#F97316,English:#2563EB,Phonics:#16A34A,Exam:#7C3AED,E-book:#EA580C' | split: ',' -%}
+{%- assign card_color = '#F97316' -%}
+{%- for pair in accent_colors -%}
+  {%- assign parts = pair | split: ':' -%}
+  {%- if subject contains parts[0] -%}
+    {%- assign card_color = parts[1] -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- assign bg_map = 'Math:linear-gradient(135deg,#FFF3E8,#FFE0B2),English:linear-gradient(135deg,#EFF6FF,#DBEAFE),Phonics:linear-gradient(135deg,#F0FDF4,#DCFCE7),Exam:linear-gradient(135deg,#F5F3FF,#EDE9FE),E-book:linear-gradient(135deg,#FFF7ED,#FED7AA)' | split: ',' -%}
+{%- assign card_bg = 'linear-gradient(135deg,#FFF3E8,#FFE0B2)' -%}
+
+<div class="product-card">
+  <a href="{{ product.url }}" style="text-decoration:none;display:block;">
+    <!-- Image area -->
+    <div class="product-card__image" style="background:{{ card_bg }};">
+      {%- if product.featured_image -%}
+        <img src="{{ product.featured_image | img_url: '400x' }}"
+             alt="{{ product.featured_image.alt | escape }}"
+             width="400" height="300"
+             loading="lazy"
+             style="width:100%;height:100%;object-fit:cover;border-radius:0;">
+      {%- else -%}
+        <!-- Generated mockup -->
+        <div class="product-card__mockup">
+          <div class="product-card__mockup-header" style="background:{{ card_color }};">
+            <span>{{ subject }}</span>
+          </div>
+          <div class="product-card__mockup-lines">
+            <div class="product-card__mockup-line"></div>
+            <div class="product-card__mockup-line" style="width:72%;"></div>
+            <div class="product-card__mockup-line"></div>
+            <div class="product-card__mockup-line" style="width:85%;"></div>
+            <div class="product-card__mockup-line" style="width:60%;"></div>
+            <div class="product-card__mockup-line"></div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if subject != blank -%}
+        <div class="product-card__subject-tag" style="background:{{ card_color }};">{{ subject }}</div>
+      {%- endif -%}
+      {%- if grade != blank -%}
+        <div class="product-card__grade-tag">{{ grade }}</div>
+      {%- endif -%}
+      {%- if product.tags contains 'bestseller' -%}
+        <div class="product-card__bestseller">
+          <span class="tag tag--bestseller">BESTSELLER</span>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Body -->
+    <div class="product-card__body">
+      <h3 class="product-card__title">{{ product.title }}</h3>
+      <div class="product-card__stars">
+        <span class="product-card__stars-text">★★★★★</span>
+        <span class="product-card__stars-count">({{ product.metafields.custom.review_count | default: '—' }})</span>
+      </div>
+      <div class="product-card__tags">
+        {%- if file_type != blank -%}
+          <span class="tag tag--orange">{{ file_type }}</span>
+        {%- endif -%}
+        {%- if page_count != blank -%}
+          <span class="tag tag--blue">{{ page_count }}</span>
+        {%- endif -%}
+        <span class="tag tag--green">Instant DL</span>
+      </div>
+      <div class="product-card__footer">
+        <span class="product-card__price">{{ product.price | money }}</span>
+        <span class="btn btn--sm btn--primary">View →</span>
+      </div>
+    </div>
+  </a>
+</div>
