@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌟 English Values Quiz — Grade 3</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', 'Arial Rounded MT Bold', Arial, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 25%, #a8edea 50%, #fed6e3 75%, #c3cfe2 100%);
+      background-size: 300% 300%;
+      animation: bgMove 18s ease infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 12px 40px;
+    }
+    @keyframes bgMove {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* ── CONTAINER ── */
+    .wrap { width: 100%; max-width: 680px; }
+
+    /* ── SCREENS ── */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* ── CARD ── */
+    .card {
+      background: rgba(255,255,255,0.94);
+      border-radius: 28px;
+      padding: 32px 28px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.13);
+    }
+
+    /* ── CREDITS BAR ── */
+    .credits {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      text-shadow: 0 1px 4px rgba(0,0,0,0.25);
+      letter-spacing: 0.5px;
+    }
+
+    /* ════════════════════════════════
+       HOME SCREEN
+    ════════════════════════════════ */
+    .home-top { text-align: center; margin-bottom: 26px; }
+    .home-top .hero-emoji {
+      font-size: 68px;
+      display: block;
+      animation: bounce 2.2s ease-in-out infinite;
+    }
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-12px); }
+    }
+    .home-top h1 {
+      font-size: 30px;
+      font-weight: 900;
+      color: #6c5ce7;
+      margin: 8px 0 4px;
+    }
+    .home-top h2 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #a29bfe;
+      margin-bottom: 8px;
+    }
+    .home-top p { font-size: 15px; color: #636e72; }
+
+    .units-box {
+      background: linear-gradient(135deg, #f8f7ff, #fff0f8);
+      border-radius: 18px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+    }
+    .units-box h3 { font-size: 15px; font-weight: 800; color: #6c5ce7; margin-bottom: 10px; }
+    .unit-pill {
+      display: inline-block;
+      background: linear-gradient(135deg, #a8edea, #fed6e3);
+      color: #2d3436;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      margin: 4px 3px;
+    }
+
+    .set-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .set-btn {
+      padding: 20px 14px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: transform 0.18s, box-shadow 0.18s;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.12);
+      text-align: center;
+    }
+    .set-btn:hover  { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.16); }
+    .set-btn:active { transform: translateY(0); }
+    .set-btn-1 { background: linear-gradient(135deg, #74b9ff, #6c5ce7); color: #fff; }
+    .set-btn-2 { background: linear-gradient(135deg, #fd79a8, #e84393); color: #fff; }
+    .set-btn .b-icon  { font-size: 36px; display: block; margin-bottom: 6px; }
+    .set-btn .b-title { font-size: 20px; font-weight: 800; display: block; }
+    .set-btn .b-sub   { font-size: 12px; font-weight: 600; opacity: 0.88; display: block; margin-top: 3px; }
+
+    /* ════════════════════════════════
+       QUIZ SCREEN
+    ════════════════════════════════ */
+    .quiz-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .set-badge {
+      background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+      color: #fff;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .q-counter { font-size: 14px; font-weight: 700; color: #636e72; }
+
+    .prog-track {
+      background: #e8e8f4;
+      border-radius: 10px;
+      height: 13px;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+    .prog-fill {
+      height: 100%;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #a8edea, #6c5ce7);
+      transition: width 0.45s ease;
+    }
+    .unit-tag { font-size: 12px; font-weight: 700; color: #b2bec3; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 18px; }
+
+    .type-badge {
+      display: inline-block;
+      background: #fff3cd;
+      color: #856404;
+      border-radius: 12px;
+      padding: 3px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .q-text {
+      font-size: 20px;
+      font-weight: 800;
+      color: #2d3436;
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+
+    .passage-box {
+      background: #f0eeff;
+      border-left: 5px solid #6c5ce7;
+      border-radius: 0 14px 14px 0;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      font-size: 16px;
+      color: #2d3436;
+      line-height: 1.6;
+      font-style: italic;
+      display: none;
+    }
+
+    /* Options */
+    .opts { display: flex; flex-direction: column; gap: 11px; }
+    .opt-btn {
+      padding: 14px 18px;
+      border: 2.5px solid #e8e8f4;
+      border-radius: 14px;
+      background: #fff;
+      font-size: 17px;
+      font-weight: 600;
+      color: #2d3436;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, transform 0.15s;
+      text-align: left;
+      line-height: 1.4;
+    }
+    .opt-btn:hover:not(:disabled) { border-color: #a29bfe; background: #f8f7ff; transform: translateX(5px); }
+    .opt-btn.correct  { border-color: #00b894 !important; background: #d4edda !important; color: #155724 !important; }
+    .opt-btn.wrong    { border-color: #d63031 !important; background: #f8d7da !important; color: #721c24 !important; }
+    .opt-btn:disabled { cursor: default; }
+
+    /* FIB */
+    .fib-wrap { display: flex; flex-direction: column; gap: 10px; }
+    .fib-input {
+      padding: 14px 18px;
+      border: 2.5px solid #e8e8f4;
+      border-radius: 14px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #2d3436;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .fib-input:focus   { border-color: #6c5ce7; background: #f8f7ff; }
+    .fib-input.correct { border-color: #00b894 !important; background: #d4edda !important; }
+    .fib-input.wrong   { border-color: #d63031 !important; background: #f8d7da !important; }
+    .fib-hint {
+      background: #d4edda;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #155724;
+      display: none;
+    }
+    .fib-submit {
+      padding: 13px;
+      background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .fib-submit:hover { transform: translateY(-2px); box-shadow: 0 5px 16px rgba(108,92,231,0.3); }
+
+    /* Feedback */
+    .feedback {
+      margin-top: 14px;
+      padding: 13px 16px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+    .feedback.show    { display: flex; }
+    .feedback.correct { background: #d4edda; color: #155724; border: 2px solid #00b894; }
+    .feedback.wrong   { background: #f8d7da; color: #721c24; border: 2px solid #d63031; }
+    .feedback .ficon  { font-size: 26px; flex-shrink: 0; }
+
+    /* Next button */
+    .next-btn {
+      margin-top: 20px;
+      padding: 15px;
+      background: linear-gradient(135deg, #00b894, #00cec9);
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+      width: 100%;
+      transition: transform 0.15s, box-shadow 0.15s;
+      display: none;
+    }
+    .next-btn.show  { display: block; }
+    .next-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,184,148,0.3); }
+
+    /* ════════════════════════════════
+       SCORE SCREEN
+    ════════════════════════════════ */
+    .score-wrap { text-align: center; }
+    .score-hero { font-size: 76px; margin-bottom: 6px; animation: pop 0.5s ease; }
+    @keyframes pop {
+      0%   { transform: scale(0.4); opacity: 0; }
+      70%  { transform: scale(1.15); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .score-title { font-size: 28px; font-weight: 900; color: #6c5ce7; margin-bottom: 4px; }
+    .score-sub   { font-size: 16px; color: #636e72; margin-bottom: 22px; }
+
+    .circle-wrap {
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      margin: 0 auto 18px;
+      box-shadow: 0 8px 32px rgba(108,92,231,0.32);
+    }
+    .circle-num   { font-size: 46px; font-weight: 900; color: #fff; line-height: 1; }
+    .circle-denom { font-size: 15px; color: rgba(255,255,255,0.78); font-weight: 700; }
+
+    .pct-label  { font-size: 15px; color: #636e72; font-weight: 700; margin-bottom: 6px; }
+    .stars      { font-size: 36px; margin-bottom: 22px; }
+
+    .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+    .stat-box  { padding: 16px; border-radius: 16px; text-align: center; }
+    .stat-box.ok  { background: #d4edda; }
+    .stat-box.bad { background: #f8d7da; }
+    .stat-num  { font-size: 30px; font-weight: 900; }
+    .stat-box.ok  .stat-num { color: #155724; }
+    .stat-box.bad .stat-num { color: #721c24; }
+    .stat-lbl  { font-size: 13px; font-weight: 700; color: #636e72; margin-top: 2px; }
+
+    .score-btns { display: flex; flex-direction: column; gap: 11px; }
+    .s-btn {
+      padding: 14px;
+      border: none;
+      border-radius: 15px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .s-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 18px rgba(0,0,0,0.12); }
+    .s-btn.review   { background: linear-gradient(135deg, #fdcb6e, #e17055); color: #fff; }
+    .s-btn.restart  { background: linear-gradient(135deg, #74b9ff, #0984e3); color: #fff; }
+    .s-btn.other    { background: linear-gradient(135deg, #fd79a8, #e84393); color: #fff; }
+    .s-btn.home-btn { background: #f0f0f5; color: #636e72; }
+
+    /* ════════════════════════════════
+       REVIEW SCREEN
+    ════════════════════════════════ */
+    .review-head { text-align: center; margin-bottom: 22px; }
+    .review-head h2 { font-size: 24px; font-weight: 900; color: #6c5ce7; margin-bottom: 4px; }
+    .review-head p  { font-size: 14px; color: #636e72; }
+
+    .review-list {
+      display: flex; flex-direction: column; gap: 14px;
+      max-height: 62vh;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .review-list::-webkit-scrollbar { width: 6px; }
+    .review-list::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 8px; }
+    .review-list::-webkit-scrollbar-thumb { background: #a29bfe; border-radius: 8px; }
+
+    .r-item { padding: 15px 16px; border-radius: 16px; border: 2.5px solid; }
+    .r-item.ok  { border-color: #00b894; background: #f0fff8; }
+    .r-item.bad { border-color: #d63031; background: #fff5f5; }
+
+    .r-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 7px; }
+    .r-qnum { font-size: 12px; font-weight: 800; color: #b2bec3; text-transform: uppercase; letter-spacing: 0.5px; }
+    .r-badge { padding: 2px 10px; border-radius: 10px; font-size: 12px; font-weight: 800; }
+    .r-badge.ok  { background: #00b894; color: #fff; }
+    .r-badge.bad { background: #d63031; color: #fff; }
+
+    .r-q  { font-size: 15px; font-weight: 700; color: #2d3436; margin-bottom: 7px; line-height: 1.4; }
+    .r-a  { font-size: 14px; margin-bottom: 3px; }
+    .r-a .lbl   { font-weight: 800; color: #636e72; }
+    .r-a .val   { font-weight: 700; }
+    .r-a .ok-v  { color: #00b894; }
+    .r-a .bad-v { color: #d63031; text-decoration: line-through; }
+
+    .review-back {
+      margin-top: 18px;
+      padding: 14px;
+      background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+      color: #fff;
+      border: none;
+      border-radius: 15px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      width: 100%;
+      transition: transform 0.15s;
+    }
+    .review-back:hover { transform: translateY(-2px); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 480px) {
+      .card { padding: 22px 16px; }
+      .home-top h1 { font-size: 24px; }
+      .q-text   { font-size: 17px; }
+      .opt-btn  { font-size: 15px; padding: 12px 14px; }
+      .fib-input { font-size: 16px; }
+      .set-grid  { grid-template-columns: 1fr; }
+      .circle-num { font-size: 38px; }
+      .score-title { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ══════════════ HOME SCREEN ══════════════ -->
+  <div id="homeScreen" class="screen active">
+    <div class="card">
+      <div class="home-top">
+        <span class="hero-emoji">🌟</span>
+        <h1>English Values Quiz</h1>
+        <h2>Grade 3 · Values Review</h2>
+        <p>Let's learn about sharing, helping, and being kind! 💛</p>
+      </div>
+
+      <div class="units-box">
+        <h3>📚 Units in this quiz:</h3>
+        <span class="unit-pill">🤝 Give and Share</span>
+        <span class="unit-pill">🏙️ Love Your City</span>
+        <span class="unit-pill">⚽ Fair Play</span>
+        <span class="unit-pill">🌍 Help the World</span>
+      </div>
+
+      <div class="set-grid">
+        <button class="set-btn set-btn-1" onclick="startQuiz(1)">
+          <span class="b-icon">📝</span>
+          <span class="b-title">Set 1</span>
+          <span class="b-sub">30 Questions · Easy–Medium</span>
+        </button>
+        <button class="set-btn set-btn-2" onclick="startQuiz(2)">
+          <span class="b-icon">🎯</span>
+          <span class="b-title">Set 2</span>
+          <span class="b-sub">30 Questions · Medium</span>
+        </button>
+      </div>
+    </div>
+    <div class="credits">✨ Bright EngMath 2026 ✨</div>
+  </div>
+
+  <!-- ══════════════ QUIZ SCREEN ══════════════ -->
+  <div id="quizScreen" class="screen">
+    <div class="card">
+      <div class="quiz-meta">
+        <span class="set-badge" id="qSetBadge">Set 1</span>
+        <span class="q-counter" id="qCounter">1 / 30</span>
+      </div>
+      <div class="prog-track">
+        <div class="prog-fill" id="progFill" style="width:0%"></div>
+      </div>
+      <div class="unit-tag" id="qUnit">Unit: Give and Share</div>
+
+      <div class="type-badge" id="typeBadge">Multiple Choice</div>
+      <div class="q-text"  id="qText"></div>
+      <div class="passage-box" id="passage"></div>
+      <div id="answerArea"></div>
+
+      <div class="feedback" id="feedback">
+        <span class="ficon" id="fIcon"></span>
+        <span id="fText"></span>
+      </div>
+      <button class="next-btn" id="nextBtn" onclick="nextQ()">Next Question →</button>
+    </div>
+    <div class="credits">✨ Bright EngMath 2026 ✨</div>
+  </div>
+
+  <!-- ══════════════ SCORE SCREEN ══════════════ -->
+  <div id="scoreScreen" class="screen">
+    <div class="card">
+      <div class="score-wrap">
+        <div class="score-hero"  id="sHero">🏆</div>
+        <div class="score-title" id="sTitle">Great Job!</div>
+        <div class="score-sub"   id="sSub">You finished the quiz!</div>
+        <div class="circle-wrap">
+          <div class="circle-num"   id="sNum">0</div>
+          <div class="circle-denom">out of 30</div>
+        </div>
+        <div class="pct-label" id="sPct"></div>
+        <div class="stars"     id="sStars">⭐⭐⭐</div>
+        <div class="stats-row">
+          <div class="stat-box ok">
+            <div class="stat-num" id="sCorrect">0</div>
+            <div class="stat-lbl">✅ Correct</div>
+          </div>
+          <div class="stat-box bad">
+            <div class="stat-num" id="sWrong">0</div>
+            <div class="stat-lbl">❌ Incorrect</div>
+          </div>
+        </div>
+        <div class="score-btns">
+          <button class="s-btn review"   onclick="showReview()">📋 Review My Answers</button>
+          <button class="s-btn restart"  onclick="restartQuiz()">🔄 Try Again</button>
+          <button class="s-btn other"    id="otherBtn" onclick="goOther()">🎯 Try Set 2</button>
+          <button class="s-btn home-btn" onclick="goHome()">🏠 Back to Home</button>
+        </div>
+      </div>
+    </div>
+    <div class="credits">✨ Bright EngMath 2026 ✨</div>
+  </div>
+
+  <!-- ══════════════ REVIEW SCREEN ══════════════ -->
+  <div id="reviewScreen" class="screen">
+    <div class="card">
+      <div class="review-head">
+        <h2>📋 Answer Review</h2>
+        <p id="revSummary">Score: 0/30</p>
+      </div>
+      <div class="review-list" id="revList"></div>
+      <button class="review-back" onclick="backToScore()">← Back to Score</button>
+    </div>
+    <div class="credits">✨ Bright EngMath 2026 ✨</div>
+  </div>
+
+</div><!-- /wrap -->
+
+<script>
+/* ══════════════════════════════════════════════
+   QUIZ DATA — 60 QUESTIONS
+══════════════════════════════════════════════ */
+const SETS = {
+
+/* ─────────────────────────────────────────────
+   SET 1  (Easy → Medium)
+   10 MC · 10 FIB · 5 SC · 5 SR
+───────────────────────────────────────────── */
+set1: [
+
+/* ── MULTIPLE CHOICE ── */
+{ id:1, type:'mc', unit:'Give and Share',
+  q:'What should you do when you have more food than you need?',
+  opts:['Eat it all yourself','Share it with others','Throw it in the bin'],
+  ans:'Share it with others' },
+
+{ id:2, type:'mc', unit:'Love Your City',
+  q:'Where should you put your rubbish?',
+  opts:['On the street','In the park','In the bin'],
+  ans:'In the bin' },
+
+{ id:3, type:'mc', unit:'Love Your City',
+  q:'Which of these is a type of public transport?',
+  opts:['A toy car','A bicycle','A bus'],
+  ans:'A bus' },
+
+{ id:4, type:'mc', unit:'Help the World',
+  q:'What should we do to save water?',
+  opts:['Leave the tap running all day','Use lots of water every morning','Turn off the tap when you are not using it'],
+  ans:'Turn off the tap when you are not using it' },
+
+{ id:5, type:'mc', unit:'Fair Play',
+  q:'What does a fair player do when they lose a game?',
+  opts:['Gets very angry','Shouts at the other team','Says "Good game!" and smiles'],
+  ans:'Says "Good game!" and smiles' },
+
+{ id:6, type:'mc', unit:'Love Your City',
+  q:'What is a park?',
+  opts:['A big shopping centre','A public place with trees and flowers','A large school building'],
+  ans:'A public place with trees and flowers' },
+
+{ id:7, type:'mc', unit:'Give and Share',
+  q:'If your friend falls down, what should you do?',
+  opts:['Laugh at them','Walk away quickly','Help them up'],
+  ans:'Help them up' },
+
+{ id:8, type:'mc', unit:'Help the World',
+  q:'What should you do when you leave a room?',
+  opts:['Leave the lights on','Open all the windows','Turn the lights off'],
+  ans:'Turn the lights off' },
+
+{ id:9, type:'mc', unit:'Love Your City',
+  q:'Which sentence is correct?',
+  opts:['We must throws rubbish on the street.','We must throwing rubbish.','We must not throw rubbish on the street.'],
+  ans:'We must not throw rubbish on the street.' },
+
+{ id:10, type:'mc', unit:'Give and Share',
+  q:'What does the word "share" mean?',
+  opts:['Take things away from others','Give some of what you have to others','Hide your things from friends'],
+  ans:'Give some of what you have to others' },
+
+/* ── FILL IN THE BLANK ── */
+{ id:11, type:'fib', unit:'Help the World',
+  q:'We should _____ water and not waste it.',
+  ans:['save'] },
+
+{ id:12, type:'fib', unit:'Love Your City',
+  q:'You must not _____ rubbish on the street.',
+  ans:['throw'] },
+
+{ id:13, type:'fib', unit:'Love Your City',
+  q:'A _____ is a public place with trees and flowers.',
+  ans:['park'] },
+
+{ id:14, type:'fib', unit:'Love Your City',
+  q:'We can take the _____ to school instead of a car.',
+  ans:['bus','train'] },
+
+{ id:15, type:'fib', unit:'Give and Share',
+  q:'It is good to _____ things with your friends.',
+  ans:['share'] },
+
+{ id:16, type:'fib', unit:'Fair Play',
+  q:'We must follow the _____ when we play games.',
+  ans:['rules'] },
+
+{ id:17, type:'fib', unit:'Help the World',
+  q:'Please _____ off the lights when you leave the room.',
+  ans:['turn'] },
+
+{ id:18, type:'fib', unit:'Help the World',
+  q:'We should not use too many plastic _____.',
+  ans:['bags'] },
+
+{ id:19, type:'fib', unit:'Fair Play',
+  q:'It is not OK to be _____ when you lose a game.',
+  ans:['angry'] },
+
+{ id:20, type:'fib', unit:'Give and Share',
+  q:'We should _____ people who need help.',
+  ans:['help'] },
+
+/* ── SENTENCE CORRECTION ── */
+{ id:21, type:'sc', unit:'Love Your City',
+  q:'Which sentence is correct?',
+  opts:['We should not to throw rubbish in the park.',
+        'We not should throw rubbish in the park.',
+        'We should not throw rubbish in the park.'],
+  ans:'We should not throw rubbish in the park.' },
+
+{ id:22, type:'sc', unit:'Give and Share',
+  q:'Which sentence is correct?',
+  opts:['She can shares her food with friends.',
+        'She can share her food with friends.',
+        'She cans share her food with friends.'],
+  ans:'She can share her food with friends.' },
+
+{ id:23, type:'sc', unit:'Help the World',
+  q:'Which sentence is correct?',
+  opts:['We must to turn off the water.',
+        'We musts turn off the water.',
+        'We must turn off the water.'],
+  ans:'We must turn off the water.' },
+
+{ id:24, type:'sc', unit:'Help the World',
+  q:'Which sentence is correct?',
+  opts:['It is good to wastes electricity.',
+        'It is not good to waste electricity.',
+        'It not good to waste electricity.'],
+  ans:'It is not good to waste electricity.' },
+
+{ id:25, type:'sc', unit:'Fair Play',
+  q:'Which sentence is correct?',
+  opts:['He are a fair player.',
+        'He be a fair player.',
+        'He is a fair player.'],
+  ans:'He is a fair player.' },
+
+/* ── READ AND CHOOSE ── */
+{ id:26, type:'sr', unit:'Give and Share',
+  passage:null,
+  q:"Tom's friend forgot his lunch at home. Tom has a big lunch box. What should Tom do?",
+  opts:['Eat all his lunch and say nothing',
+        'Tell his friend to buy food from the shop',
+        'Share some of his lunch with his friend'],
+  ans:'Share some of his lunch with his friend' },
+
+{ id:27, type:'sr', unit:'Love Your City',
+  passage:null,
+  q:'You see a bottle on the floor in the park. What is the right thing to do?',
+  opts:['Walk past it','Kick it away','Pick it up and put it in the bin'],
+  ans:'Pick it up and put it in the bin' },
+
+{ id:28, type:'sr', unit:'Help the World',
+  passage:null,
+  q:'The tap in the bathroom is still running. Nobody is using it. What should you say?',
+  opts:['"It\'s OK, water never runs out."','"We must turn off the tap!"','"Let\'s use more water."'],
+  ans:'"We must turn off the tap!"' },
+
+{ id:29, type:'sr', unit:'Fair Play',
+  passage:null,
+  q:'Your team lost the football game. What is the right thing to do?',
+  opts:['Shout and refuse to shake hands',
+        'Tell everyone the game was not fair',
+        'Say "Good game!" and be kind to the other team'],
+  ans:'Say "Good game!" and be kind to the other team' },
+
+{ id:30, type:'sr', unit:'Love Your City',
+  passage:null,
+  q:'You need to go to school. Which is the best choice to help keep the city clean?',
+  opts:['Ask your dad to drive you by car','Stay at home','Take the bus or train to school'],
+  ans:'Take the bus or train to school' },
+
+],/* end set1 */
+
+/* ─────────────────────────────────────────────
+   SET 2  (Medium)
+   10 MC · 10 FIB · 5 SC · 5 SR
+───────────────────────────────────────────── */
+set2: [
+
+/* ── MULTIPLE CHOICE ── */
+{ id:1, type:'mc', unit:'Love Your City',
+  q:'Which action helps keep the city clean?',
+  opts:['Dropping rubbish on the street','Burning rubbish in the park','Putting rubbish in the bin'],
+  ans:'Putting rubbish in the bin' },
+
+{ id:2, type:'mc', unit:'Love Your City',
+  q:'What is "public transport"?',
+  opts:['A private car for one family','A bicycle you own','Buses and trains that everyone can use'],
+  ans:'Buses and trains that everyone can use' },
+
+{ id:3, type:'mc', unit:'Fair Play',
+  q:'What should a fair player do after winning a game?',
+  opts:['Laugh at the other team','Tell everyone how great they are','Celebrate kindly and not make others feel bad'],
+  ans:'Celebrate kindly and not make others feel bad' },
+
+{ id:4, type:'mc', unit:'Help the World',
+  q:'Which habit helps save electricity at home?',
+  opts:['Leaving the TV on all night','Using many lamps at the same time','Turning off lights when you do not need them'],
+  ans:'Turning off lights when you do not need them' },
+
+{ id:5, type:'mc', unit:'Give and Share',
+  q:'What does it mean to "give"?',
+  opts:['Take something from others','Keep everything for yourself','Offer something you have to someone else'],
+  ans:'Offer something you have to someone else' },
+
+{ id:6, type:'mc', unit:'Fair Play',
+  q:'If a player gets hurt during a game, the fair thing to do is ...',
+  opts:['Keep playing and ignore them','Laugh because they are slow','Stop and go to help them'],
+  ans:'Stop and go to help them' },
+
+{ id:7, type:'mc', unit:'Help the World',
+  q:'How can we help the world?',
+  opts:['Use more plastic bags every day','Throw old things in the river','Use less water and electricity'],
+  ans:'Use less water and electricity' },
+
+{ id:8, type:'mc', unit:'Love Your City',
+  q:'Which of these is NOT good for the city?',
+  opts:['Planting flowers in the park','Riding a bicycle to school','Throwing plastic bags into the river'],
+  ans:'Throwing plastic bags into the river' },
+
+{ id:9, type:'mc', unit:'Love Your City',
+  q:'Why should we use public transport?',
+  opts:['It is always faster than walking','It helps reduce pollution in the city','It is more expensive than a private car'],
+  ans:'It helps reduce pollution in the city' },
+
+{ id:10, type:'mc', unit:'Give and Share',
+  q:'Which sentence uses "should" correctly?',
+  opts:['You should helping people.','You should to help people.','You should help people who need it.'],
+  ans:'You should help people who need it.' },
+
+/* ── FILL IN THE BLANK ── */
+{ id:11, type:'fib', unit:'Love Your City',
+  q:'We can ride a _____ to school to help keep the air clean.',
+  ans:['bike','bicycle'] },
+
+{ id:12, type:'fib', unit:'Fair Play',
+  q:'A good player is always _____ even when they lose.',
+  ans:['fair','kind'] },
+
+{ id:13, type:'fib', unit:'Help the World',
+  q:'We must not _____ water by leaving the tap on.',
+  ans:['waste'] },
+
+{ id:14, type:'fib', unit:'Love Your City',
+  q:'_____ transport like buses and trains helps the city.',
+  ans:['public'] },
+
+{ id:15, type:'fib', unit:'Fair Play',
+  q:'It is not OK to make someone feel _____ on purpose.',
+  ans:['hurt','sad','bad'] },
+
+{ id:16, type:'fib', unit:'Love Your City',
+  q:'We should love and protect the _____ and trees in our city.',
+  ans:['flowers','plants','parks'] },
+
+{ id:17, type:'fib', unit:'Fair Play',
+  q:'If you win, you should not make others feel _____.',
+  ans:['bad','sad','hurt'] },
+
+{ id:18, type:'fib', unit:'Help the World',
+  q:'Using fewer plastic _____ is good for the world.',
+  ans:['bags'] },
+
+{ id:19, type:'fib', unit:'Help the World',
+  q:'We should _____ electricity by turning off lights.',
+  ans:['save'] },
+
+{ id:20, type:'fib', unit:'Give and Share',
+  q:'It is good to _____ others clean the classroom.',
+  ans:['help'] },
+
+/* ── SENTENCE CORRECTION ── */
+{ id:21, type:'sc', unit:'Give and Share',
+  q:'Which sentence is correct?',
+  opts:['We should to help people in need.',
+        'We should helps people in need.',
+        'We should help people in need.'],
+  ans:'We should help people in need.' },
+
+{ id:22, type:'sc', unit:'Give and Share',
+  q:'Which sentence is correct?',
+  opts:["She don't share her pencils with friends.",
+        "She doesn't shares her pencils with friends.",
+        "She doesn't share her pencils with friends."],
+  ans:"She doesn't share her pencils with friends." },
+
+{ id:23, type:'sc', unit:'Love Your City',
+  q:'Which sentence is correct?',
+  opts:['It are not OK to throw rubbish.',
+        'It is not OK to throwing rubbish.',
+        'It is not OK to throw rubbish.'],
+  ans:'It is not OK to throw rubbish.' },
+
+{ id:24, type:'sc', unit:'Love Your City',
+  q:'Which sentence is correct?',
+  opts:['We can walks to school.',
+        'We can walking to school.',
+        'We can walk to school.'],
+  ans:'We can walk to school.' },
+
+{ id:25, type:'sc', unit:'Fair Play',
+  q:'Which sentence is correct?',
+  opts:['A fair player never angry when they lose.',
+        'A fair player is never angrily when they lose.',
+        'A fair player is never angry when they lose.'],
+  ans:'A fair player is never angry when they lose.' },
+
+/* ── READ AND CHOOSE ── */
+{ id:26, type:'sr', unit:'Love Your City',
+  passage:'📖 "Lily sees a bottle on the ground in the park. She picks it up and puts it in the bin."',
+  q:'What does Lily do to help the park?',
+  opts:['She throws rubbish in the park.',
+        'She takes the bottle home to play with.',
+        'She helps keep the park clean.'],
+  ans:'She helps keep the park clean.' },
+
+{ id:27, type:'sr', unit:'Fair Play',
+  passage:'📖 "Tom always says \'Good game!\' after playing football, even when his team loses."',
+  q:'What kind of player is Tom?',
+  opts:['An angry player','A selfish player','A fair player'],
+  ans:'A fair player' },
+
+{ id:28, type:'sr', unit:'Give and Share',
+  passage:null,
+  q:"Your friend drops their water bottle and water spills everywhere. What should you do?",
+  opts:['Laugh and walk away','Tell the teacher only','Help them clean it up'],
+  ans:'Help them clean it up' },
+
+{ id:29, type:'sr', unit:'Love Your City',
+  passage:"📖 \"Every day, Ana takes the bus to school. She doesn't ask her dad to drive her.\"",
+  q:'How does Ana help the city?',
+  opts:['She saves a lot of money.',
+        'She uses public transport to reduce pollution.',
+        'She runs very fast to school.'],
+  ans:'She uses public transport to reduce pollution.' },
+
+{ id:30, type:'sr', unit:'Give and Share',
+  passage:null,
+  q:"You see your classmate crying after losing a race. What is the kindest thing to say?",
+  opts:['"You are very slow!"',
+        '"I won! I won! Ha ha!"',
+        '"It\'s OK! You tried your best! Let\'s try again!"'],
+  ans:'"It\'s OK! You tried your best! Let\'s try again!"' },
+
+]/* end set2 */
+
+};/* end SETS */
+
+/* ══════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════ */
+let curSet   = 1;
+let curIdx   = 0;
+let answered = false;
+let userAnss = [];  // {idx, userAns, correctAns, ok}
+let score    = 0;
+
+const CORRECT_FB = [
+  '🌟 Correct! Great job!',
+  '⭐ Amazing! You got it!',
+  '✨ Well done! You are so smart!',
+  '🎉 Correct! Keep going!',
+  '💛 Excellent! You rock!'
+];
+const WRONG_FB = [
+  '💪 Not quite! See the correct answer below.',
+  '😊 Good thinking! Check the answer below.',
+  '🌈 Almost! The correct answer is shown.',
+  '📚 Nice try! Let\'s learn from this one.'
+];
+
+/* ══════════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════════ */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function goHome()    { showScreen('homeScreen'); }
+function backToScore() { showScreen('scoreScreen'); }
+
+function startQuiz(setNum) {
+  curSet   = setNum;
+  curIdx   = 0;
+  score    = 0;
+  userAnss = [];
+  answered = false;
+  document.getElementById('qSetBadge').textContent = 'Set ' + setNum;
+  showScreen('quizScreen');
+  renderQ();
+}
+function restartQuiz() { startQuiz(curSet); }
+function goOther()     { startQuiz(curSet === 1 ? 2 : 1); }
+function showReview()  { renderReview(); showScreen('reviewScreen'); }
+
+/* ══════════════════════════════════════════════
+   RENDER QUESTION
+══════════════════════════════════════════════ */
+function qs()   { return SETS['set' + curSet]; }
+function total(){ return qs().length; }
+
+function renderQ() {
+  const q   = qs()[curIdx];
+  const cur = curIdx + 1;
+  const tot = total();
+  answered = false;
+
+  // Header
+  document.getElementById('qCounter').textContent  = cur + ' / ' + tot;
+  document.getElementById('progFill').style.width  = ((cur - 1) / tot * 100) + '%';
+  document.getElementById('qUnit').textContent     = 'Unit: ' + q.unit;
+
+  const typeMap = { mc:'📝 Multiple Choice', fib:'✏️ Fill in the Blank', sc:'🔍 Sentence Correction', sr:'📖 Read and Choose' };
+  document.getElementById('typeBadge').textContent = typeMap[q.type] || 'Question';
+
+  document.getElementById('qText').textContent = q.q;
+
+  // Passage
+  const pEl = document.getElementById('passage');
+  if (q.passage) { pEl.textContent = q.passage; pEl.style.display = 'block'; }
+  else           { pEl.style.display = 'none'; }
+
+  // Reset feedback & next btn
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback';
+  const nb = document.getElementById('nextBtn');
+  nb.className = 'next-btn';
+  nb.textContent = cur === tot ? 'Finish Quiz 🏁' : 'Next Question →';
+
+  // Answer area
+  const area = document.getElementById('answerArea');
+  area.innerHTML = '';
+
+  if (q.type === 'fib') buildFIB(q, area);
+  else                  buildOpts(q, area);
+}
+
+/* ── Options (MC / SC / SR) ── */
+function buildOpts(q, area) {
+  const div = document.createElement('div');
+  div.className = 'opts';
+  q.opts.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.textContent = opt;
+    btn.addEventListener('click', () => pickOpt(btn, opt, q.ans, div));
+    div.appendChild(btn);
+  });
+  area.appendChild(div);
+}
+function pickOpt(clicked, chosen, correct, div) {
+  if (answered) return;
+  answered = true;
+  const ok = chosen === correct;
+  div.querySelectorAll('.opt-btn').forEach(b => {
+    b.disabled = true;
+    if (b.textContent === correct) b.classList.add('correct');
+  });
+  if (!ok) clicked.classList.add('wrong');
+  record(chosen, correct, ok);
+  showFB(ok);
+  showNext();
+}
+
+/* ── Fill in the Blank ── */
+function buildFIB(q, area) {
+  const wrap = document.createElement('div');
+  wrap.className = 'fib-wrap';
+
+  const inp = document.createElement('input');
+  inp.type = 'text';
+  inp.className = 'fib-input';
+  inp.placeholder = 'Type your answer here …';
+  inp.id = 'fibInp';
+  inp.addEventListener('keypress', e => { if (e.key === 'Enter') checkFIB(q); });
+
+  const hint = document.createElement('div');
+  hint.className = 'fib-hint';
+  hint.id = 'fibHint';
+
+  const sub = document.createElement('button');
+  sub.className = 'fib-submit';
+  sub.textContent = '✅ Check My Answer';
+  sub.addEventListener('click', () => checkFIB(q));
+
+  wrap.appendChild(inp);
+  wrap.appendChild(hint);
+  wrap.appendChild(sub);
+  area.appendChild(wrap);
+  setTimeout(() => inp.focus(), 80);
+}
+function checkFIB(q) {
+  if (answered) return;
+  const inp   = document.getElementById('fibInp');
+  const typed = inp.value.trim().toLowerCase();
+  if (!typed) { inp.style.borderColor = '#fdcb6e'; inp.placeholder = 'Please type something first!'; return; }
+
+  answered = true;
+  const ok = q.ans.map(a => a.toLowerCase()).includes(typed);
+  inp.disabled = true;
+  inp.classList.add(ok ? 'correct' : 'wrong');
+
+  if (!ok) {
+    const hint = document.getElementById('fibHint');
+    hint.textContent = '✅ Correct answer: ' + q.ans[0];
+    hint.style.display = 'block';
+  }
+  record(inp.value.trim(), q.ans[0], ok);
+  showFB(ok);
+  showNext();
+}
+
+/* ── Helpers ── */
+function record(userAns, correctAns, ok) {
+  userAnss.push({ idx: curIdx, userAns, correctAns, ok });
+  if (ok) score++;
+}
+function showFB(ok) {
+  const fb = document.getElementById('feedback');
+  const pool = ok ? CORRECT_FB : WRONG_FB;
+  const msg  = pool[Math.floor(Math.random() * pool.length)];
+  document.getElementById('fIcon').textContent = ok ? '🎉' : '💡';
+  document.getElementById('fText').textContent = msg;
+  fb.className = 'feedback show ' + (ok ? 'correct' : 'wrong');
+}
+function showNext() {
+  document.getElementById('nextBtn').classList.add('show');
+}
+function nextQ() {
+  if (curIdx < total() - 1) { curIdx++; renderQ(); }
+  else showScore();
+}
+
+/* ══════════════════════════════════════════════
+   SCORE SCREEN
+══════════════════════════════════════════════ */
+function showScore() {
+  const tot  = 30;
+  const pct  = Math.round(score / tot * 100);
+
+  let hero, title, sub, stars;
+  if      (pct >= 90) { hero='🏆'; title='Outstanding!';        sub='You are a superstar! Incredible work!';        stars='⭐⭐⭐⭐⭐'; }
+  else if (pct >= 80) { hero='🌟'; title='Great Job!';           sub='You did really well! Keep it up!';             stars='⭐⭐⭐⭐'; }
+  else if (pct >= 70) { hero='😊'; title='Good Work!';           sub='You\'re doing well! Practice makes perfect!';  stars='⭐⭐⭐'; }
+  else if (pct >= 50) { hero='💪'; title='Keep Trying!';         sub='You can do better! Try the quiz again!';       stars='⭐⭐'; }
+  else                { hero='📚'; title='Let\'s Practice More!'; sub='Don\'t give up! Try again and learn!';         stars='⭐'; }
+
+  document.getElementById('sHero').textContent   = hero;
+  document.getElementById('sTitle').textContent  = title;
+  document.getElementById('sSub').textContent    = sub;
+  document.getElementById('sNum').textContent    = score;
+  document.getElementById('sPct').textContent    = pct + '%';
+  document.getElementById('sStars').textContent  = stars;
+  document.getElementById('sCorrect').textContent = score;
+  document.getElementById('sWrong').textContent  = tot - score;
+  document.getElementById('otherBtn').textContent = curSet === 1 ? '🎯 Try Set 2' : '📝 Try Set 1';
+
+  // Final progress bar
+  document.getElementById('progFill').style.width = '100%';
+
+  showScreen('scoreScreen');
+}
+
+/* ══════════════════════════════════════════════
+   REVIEW SCREEN
+══════════════════════════════════════════════ */
+function typeLabel(t) {
+  return { mc:'Multiple Choice', fib:'Fill in the Blank', sc:'Sentence Correction', sr:'Read & Choose' }[t] || t;
+}
+function renderReview() {
+  document.getElementById('revSummary').textContent = 'Score: ' + score + '/30 · Set ' + curSet;
+  const list = document.getElementById('revList');
+  list.innerHTML = '';
+
+  userAnss.forEach((rec, i) => {
+    const q = qs()[rec.idx];
+    const div = document.createElement('div');
+    div.className = 'r-item ' + (rec.ok ? 'ok' : 'bad');
+
+    div.innerHTML =
+      '<div class="r-top">' +
+        '<span class="r-qnum">Q' + (i+1) + ' · ' + q.unit + ' (' + typeLabel(q.type) + ')</span>' +
+        '<span class="r-badge ' + (rec.ok ? 'ok' : 'bad') + '">' + (rec.ok ? '✅ Correct' : '❌ Wrong') + '</span>' +
+      '</div>' +
+      '<div class="r-q">' + escHtml(q.q) + '</div>' +
+      '<div class="r-a"><span class="lbl">Your answer: </span><span class="val ' + (rec.ok ? 'ok-v' : 'bad-v') + '">' + escHtml(rec.userAns || '(blank)') + '</span></div>' +
+      (!rec.ok ? '<div class="r-a"><span class="lbl">Correct answer: </span><span class="val ok-v">' + escHtml(rec.correctAns) + '</span></div>' : '');
+
+    list.appendChild(div);
+  });
+}
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>
