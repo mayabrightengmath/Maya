@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Primary 2 Math Olympiad Quiz | Bright EngMath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="quizData.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #faf5ff;
+      --card: #ffffff;
+      --primary: #7c3aed;
+      --primary-light: #ede9fe;
+      --text: #1e1b4b;
+      --text-soft: #6b7280;
+      --border: #e9d5ff;
+      --correct: #16a34a;
+      --correct-bg: #dcfce7;
+      --correct-border: #86efac;
+      --wrong: #dc2626;
+      --wrong-bg: #fee2e2;
+      --wrong-border: #fca5a5;
+      --explain-bg: #fefce8;
+      --explain-border: #fde047;
+      --shadow: 0 4px 24px rgba(124,58,237,0.10);
+      --shadow-lg: 0 8px 40px rgba(124,58,237,0.16);
+      --radius: 20px;
+      --radius-sm: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #faf5ff 0%, #eff6ff 50%, #fff7ed 100%);
+      min-height: 100vh;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ───────────────────────────────────────────── */
+    #navbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--border);
+      padding: 0 20px;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 12px rgba(124,58,237,0.08);
+    }
+    .nav-logo {
+      font-size: 1.15rem; font-weight: 900; color: var(--primary);
+      display: flex; align-items: center; gap: 8px; text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+    .nav-logo .logo-icon { font-size: 1.35rem; }
+    .nav-home-btn {
+      background: var(--primary-light); color: var(--primary);
+      border: 2px solid var(--border); border-radius: 50px;
+      padding: 7px 18px; font-size: 0.9rem; font-weight: 800;
+      cursor: pointer; display: flex; align-items: center; gap: 6px;
+      transition: all 0.2s; font-family: 'Nunito', sans-serif;
+    }
+    .nav-home-btn:hover { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-1px); }
+    #quiz-score-badge {
+      display: none;
+      background: var(--primary); color: white;
+      border-radius: 50px; padding: 5px 14px;
+      font-size: 0.82rem; font-weight: 800;
+    }
+
+    /* ── LAYOUT ─────────────────────────────────────────── */
+    #app { min-height: calc(100vh - 60px); }
+
+    /* ── HOME PAGE ──────────────────────────────────────── */
+    .hero {
+      text-align: center; padding: 56px 20px 40px;
+      max-width: 780px; margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--primary-light); color: var(--primary);
+      border: 2px solid var(--border); border-radius: 50px;
+      padding: 6px 18px; font-size: 0.82rem; font-weight: 800;
+      margin-bottom: 20px; letter-spacing: 0.3px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; line-height: 1.15;
+      color: var(--text); margin-bottom: 14px;
+    }
+    .hero h1 span { color: var(--primary); }
+    .hero p {
+      font-size: 1.05rem; color: var(--text-soft); max-width: 560px;
+      margin: 0 auto 32px; line-height: 1.7;
+    }
+    .hero-stats {
+      display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .hero-stat {
+      background: white; border: 2px solid var(--border);
+      border-radius: var(--radius-sm); padding: 14px 24px; text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .hero-stat .num { font-size: 1.7rem; font-weight: 900; color: var(--primary); line-height: 1; }
+    .hero-stat .lbl { font-size: 0.78rem; font-weight: 700; color: var(--text-soft); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ── TOPICS SECTION ─────────────────────────────────── */
+    .section { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
+    .section-title {
+      font-size: 1.45rem; font-weight: 900; color: var(--text);
+      text-align: center; margin-bottom: 8px;
+    }
+    .section-sub { text-align: center; color: var(--text-soft); font-size: 0.95rem; margin-bottom: 28px; }
+    .topics-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px;
+    }
+    .topic-card {
+      background: white; border: 2px solid var(--border); border-radius: var(--radius-sm);
+      padding: 18px 14px; text-align: center; box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .topic-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .topic-card .ti { font-size: 1.8rem; margin-bottom: 8px; }
+    .topic-card .tn { font-size: 0.85rem; font-weight: 800; color: var(--text); }
+
+    /* ── HOW TO USE ─────────────────────────────────────── */
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; }
+    .step-card {
+      background: white; border: 2px solid var(--border); border-radius: var(--radius-sm);
+      padding: 24px 18px; box-shadow: var(--shadow); position: relative;
+    }
+    .step-num {
+      width: 36px; height: 36px; border-radius: 50%; background: var(--primary);
+      color: white; font-weight: 900; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 12px;
+    }
+    .step-card h3 { font-size: 1rem; font-weight: 800; margin-bottom: 6px; }
+    .step-card p { font-size: 0.85rem; color: var(--text-soft); line-height: 1.6; }
+
+    /* ── SET CARDS ──────────────────────────────────────── */
+    .sets-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+    .set-card {
+      border: 3px solid; border-radius: var(--radius); padding: 26px 22px;
+      cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow); position: relative; overflow: hidden;
+    }
+    .set-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+    .set-card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; }
+    .set-emoji { font-size: 2.2rem; }
+    .set-stars { display: flex; gap: 3px; }
+    .set-card h3 { font-size: 1.15rem; font-weight: 900; margin-bottom: 4px; }
+    .set-card .set-level { font-size: 0.8rem; font-weight: 800; opacity: 0.75; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+    .set-card p { font-size: 0.88rem; line-height: 1.6; opacity: 0.8; margin-bottom: 18px; }
+    .set-start-btn {
+      width: 100%; padding: 12px; border-radius: 50px; border: none;
+      font-size: 0.95rem; font-weight: 800; cursor: pointer;
+      font-family: 'Nunito', sans-serif; transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .set-start-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    footer {
+      text-align: center; padding: 32px 20px;
+      border-top: 2px solid var(--border);
+      color: var(--text-soft); font-size: 0.85rem;
+      margin-top: 20px;
+    }
+    footer strong { color: var(--primary); font-weight: 800; }
+
+    /* ── QUIZ PAGE ──────────────────────────────────────── */
+    .quiz-container { max-width: 700px; margin: 0 auto; padding: 24px 16px 48px; }
+    .quiz-header { margin-bottom: 20px; }
+    .quiz-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+    .quiz-title-tag {
+      font-size: 0.82rem; font-weight: 800; padding: 5px 14px;
+      border-radius: 50px; letter-spacing: 0.3px;
+    }
+    .quiz-progress-label { font-size: 0.82rem; color: var(--text-soft); font-weight: 700; }
+    .progress-bar-track {
+      width: 100%; height: 10px; background: #e9d5ff; border-radius: 50px; overflow: hidden; margin-bottom: 6px;
+    }
+    .progress-bar-fill { height: 100%; border-radius: 50px; transition: width 0.5s ease; background: linear-gradient(90deg, var(--primary), #a855f7); }
+    .question-card {
+      background: white; border-radius: var(--radius); padding: 28px 24px;
+      box-shadow: var(--shadow-lg); border: 2px solid var(--border); margin-bottom: 18px;
+      animation: fadeSlide 0.35s ease;
+    }
+    @keyframes fadeSlide { from { opacity:0; transform: translateY(14px); } to { opacity:1; transform: translateY(0); } }
+    .q-topic-tag {
+      display: inline-block; font-size: 0.75rem; font-weight: 800;
+      background: var(--primary-light); color: var(--primary);
+      border-radius: 50px; padding: 3px 12px; margin-bottom: 14px;
+      letter-spacing: 0.3px;
+    }
+    .q-number { font-size: 0.82rem; color: var(--text-soft); font-weight: 700; margin-bottom: 6px; }
+    .q-text { font-size: 1.18rem; font-weight: 800; line-height: 1.5; color: var(--text); }
+    .answers-grid { display: grid; gap: 12px; margin-bottom: 18px; }
+    .answer-btn {
+      width: 100%; background: white; border: 2.5px solid var(--border);
+      border-radius: var(--radius-sm); padding: 14px 18px;
+      font-size: 1rem; font-weight: 700; cursor: pointer; text-align: left;
+      display: flex; align-items: center; gap: 14px;
+      font-family: 'Nunito', sans-serif; color: var(--text);
+      transition: all 0.2s; min-height: 54px;
+    }
+    .answer-btn:hover:not(:disabled) {
+      border-color: var(--primary); background: var(--primary-light);
+      transform: translateX(4px);
+    }
+    .answer-btn:disabled { cursor: default; }
+    .answer-btn .letter-badge {
+      min-width: 32px; height: 32px; border-radius: 50%;
+      background: var(--primary-light); color: var(--primary);
+      font-weight: 900; font-size: 0.9rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all 0.2s;
+    }
+    .answer-btn.correct {
+      background: var(--correct-bg); border-color: var(--correct-border);
+      animation: bounceIn 0.4s ease;
+    }
+    .answer-btn.correct .letter-badge { background: var(--correct); color: white; }
+    .answer-btn.wrong {
+      background: var(--wrong-bg); border-color: var(--wrong-border);
+      animation: shake 0.4s ease;
+    }
+    .answer-btn.wrong .letter-badge { background: var(--wrong); color: white; }
+    .answer-btn.dimmed { opacity: 0.45; }
+    @keyframes bounceIn {
+      0% { transform: scale(0.97); } 50% { transform: scale(1.025); } 100% { transform: scale(1); }
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); }
+    }
+    /* Feedback banner */
+    .feedback-banner {
+      border-radius: var(--radius-sm); padding: 12px 18px;
+      font-size: 1rem; font-weight: 800; text-align: center;
+      margin-bottom: 14px; display: flex; align-items: center;
+      justify-content: center; gap: 8px; animation: fadeSlide 0.3s ease;
+    }
+    .feedback-banner.correct { background: var(--correct-bg); color: var(--correct); border: 2px solid var(--correct-border); }
+    .feedback-banner.wrong { background: var(--wrong-bg); color: var(--wrong); border: 2px solid var(--wrong-border); }
+    /* Explanation */
+    .explanation-card {
+      background: var(--explain-bg); border: 2px solid var(--explain-border);
+      border-radius: var(--radius-sm); padding: 18px 20px;
+      margin-bottom: 18px; animation: fadeSlide 0.35s ease;
+    }
+    .explanation-card .expl-title {
+      font-size: 0.82rem; font-weight: 900; color: #92400e;
+      text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .explanation-card .expl-text {
+      font-size: 0.97rem; color: #78350f; line-height: 1.7; font-weight: 600;
+    }
+    .next-btn {
+      width: 100%; padding: 16px; border-radius: 50px; border: none;
+      background: var(--primary); color: white;
+      font-size: 1.05rem; font-weight: 800; cursor: pointer;
+      font-family: 'Nunito', sans-serif; transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      box-shadow: 0 4px 14px rgba(124,58,237,0.35);
+    }
+    .next-btn:hover { background: #6d28d9; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(124,58,237,0.45); }
+
+    /* ── RESULT PAGE ────────────────────────────────────── */
+    .result-container { max-width: 680px; margin: 0 auto; padding: 32px 16px 48px; }
+    .result-card {
+      background: white; border-radius: var(--radius); padding: 40px 28px;
+      box-shadow: var(--shadow-lg); border: 2px solid var(--border);
+      text-align: center; animation: fadeSlide 0.4s ease;
+    }
+    .score-circle {
+      width: 140px; height: 140px; border-radius: 50%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      margin: 0 auto 24px; border: 6px solid;
+    }
+    .score-circle .sc-num { font-size: 2.8rem; font-weight: 900; line-height: 1; }
+    .score-circle .sc-denom { font-size: 1rem; font-weight: 700; opacity: 0.7; }
+    .result-emoji { font-size: 3.2rem; margin-bottom: 12px; display: block; }
+    .result-card h2 { font-size: 1.8rem; font-weight: 900; margin-bottom: 8px; }
+    .result-msg { font-size: 1rem; color: var(--text-soft); line-height: 1.6; margin-bottom: 28px; max-width: 420px; margin-left: auto; margin-right: auto; }
+    .result-pct { font-size: 1.3rem; font-weight: 800; margin-bottom: 4px; }
+    .result-actions { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 28px; }
+    .btn-retry {
+      padding: 14px 32px; border-radius: 50px; border: none;
+      background: var(--primary); color: white;
+      font-size: 1rem; font-weight: 800; cursor: pointer;
+      font-family: 'Nunito', sans-serif; transition: all 0.2s;
+      box-shadow: 0 4px 14px rgba(124,58,237,0.35);
+    }
+    .btn-retry:hover { background: #6d28d9; transform: translateY(-2px); }
+    .btn-home-result {
+      padding: 14px 32px; border-radius: 50px;
+      border: 2.5px solid var(--border); background: white;
+      color: var(--primary); font-size: 1rem; font-weight: 800; cursor: pointer;
+      font-family: 'Nunito', sans-serif; transition: all 0.2s;
+    }
+    .btn-home-result:hover { background: var(--primary-light); transform: translateY(-2px); }
+
+    /* Topic summary */
+    .topic-summary { margin-top: 24px; text-align: left; border-top: 2px solid var(--border); padding-top: 20px; }
+    .topic-summary h4 { font-size: 0.9rem; font-weight: 900; color: var(--text); margin-bottom: 14px; text-align: center; }
+    .topic-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .topic-chip {
+      padding: 5px 14px; border-radius: 50px; font-size: 0.78rem; font-weight: 800;
+      border: 2px solid;
+    }
+    .topic-chip.good { background: var(--correct-bg); color: var(--correct); border-color: var(--correct-border); }
+    .topic-chip.bad { background: var(--wrong-bg); color: var(--wrong); border-color: var(--wrong-border); }
+
+    /* Performance divider */
+    .perf-bar {
+      width: 100%; height: 8px; border-radius: 50px; background: #e5e7eb;
+      margin: 10px 0 24px; overflow: hidden;
+    }
+    .perf-bar-fill { height: 100%; border-radius: 50px; transition: width 1s ease; }
+
+    /* Badge for sets */
+    .lock-badge {
+      position: absolute; top: 16px; right: 16px;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(0,0,0,0.08);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem;
+    }
+
+    /* ── MOBILE ─────────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.75rem; }
+      .hero-stats { gap: 12px; }
+      .hero-stat { padding: 12px 18px; }
+      .question-card { padding: 20px 16px; }
+      .q-text { font-size: 1.05rem; }
+      .answer-btn { font-size: 0.95rem; padding: 13px 14px; }
+      .next-btn { padding: 15px; }
+      .result-card { padding: 28px 16px; }
+      .score-circle { width: 120px; height: 120px; }
+      .score-circle .sc-num { font-size: 2.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <span class="nav-logo">
+    <span class="logo-icon">✨</span>
+    Bright EngMath
+  </span>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span id="quiz-score-badge"></span>
+    <button class="nav-home-btn" onclick="goHome()">🏠 Home</button>
+  </div>
+</nav>
+
+<div id="app"></div>
+
+<script>
+// ─────────────────────────────────────────────
+// APP STATE
+// ─────────────────────────────────────────────
+let state = {
+  page: 'home',
+  setIndex: null,
+  qIndex: 0,
+  selected: null,
+  score: 0,
+  answers: []   // [{selected, correct, topic, isCorrect}]
+};
+
+// ─────────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────────
+function goHome() {
+  state = { page:'home', setIndex:null, qIndex:0, selected:null, score:0, answers:[] };
+  document.getElementById('quiz-score-badge').style.display = 'none';
+  render();
+  window.scrollTo(0,0);
+}
+
+function startQuiz(idx) {
+  state = { page:'quiz', setIndex:idx, qIndex:0, selected:null, score:0, answers:[] };
+  updateScoreBadge();
+  render();
+  window.scrollTo(0,0);
+}
+
+function selectAnswer(letter) {
+  if (state.selected !== null) return;
+  const set = quizSets[state.setIndex];
+  const q = set.questions[state.qIndex];
+  const correct = q.correctAnswer;
+  const isCorrect = letter === correct;
+  state.selected = letter;
+  if (isCorrect) state.score++;
+  state.answers.push({ selected: letter, correct, topic: q.topic, isCorrect });
+  updateScoreBadge();
+  render();
+}
+
+function nextQuestion() {
+  const set = quizSets[state.setIndex];
+  if (state.qIndex + 1 >= set.questions.length) {
+    state.page = 'result';
+    document.getElementById('quiz-score-badge').style.display = 'none';
+  } else {
+    state.qIndex++;
+    state.selected = null;
+  }
+  render();
+  window.scrollTo(0,0);
+}
+
+function retryQuiz() {
+  startQuiz(state.setIndex);
+}
+
+function updateScoreBadge() {
+  const badge = document.getElementById('quiz-score-badge');
+  badge.style.display = 'inline-block';
+  badge.textContent = '⭐ ' + state.score + ' / ' + quizSets[state.setIndex].questions.length;
+}
+
+// ─────────────────────────────────────────────
+// RENDERERS
+// ─────────────────────────────────────────────
+function render() {
+  const app = document.getElementById('app');
+  if (state.page === 'home')   app.innerHTML = renderHome();
+  if (state.page === 'quiz')   app.innerHTML = renderQuiz();
+  if (state.page === 'result') app.innerHTML = renderResult();
+}
+
+// ══════════════════════════════════════════════
+// HOME PAGE
+// ══════════════════════════════════════════════
+function renderHome() {
+  const topics = [
+    {ti:'🔢','tn':'Multiples'},
+    {ti:'🧩','tn':'Divisors'},
+    {ti:'📐','tn':'Geometry'},
+    {ti:'⏰','tn':'Time'},
+    {ti:'🍕','tn':'Fractions'},
+    {ti:'✨','tn':'Patterns'},
+    {ti:'🎲','tn':'Combinatorics'},
+    {ti:'🔑','tn':'LCM & GCD'},
+    {ti:'🟣','tn':'Prime Numbers'},
+    {ti:'⚖️','tn':'Remainders'},
+    {ti:'💡','tn':'Word Problems'},
+    {ti:'🔭','tn':'Number Sense'},
+  ];
+  const topicCards = topics.map(t => `
+    <div class="topic-card">
+      <div class="ti">${t.ti}</div>
+      <div class="tn">${t.tn}</div>
+    </div>`).join('');
+
+  const setColors = [
+    {bg:'#f5f3ff',border:'#ddd6fe',btn:'#7c3aed',btnClr:'white'},
+    {bg:'#eff6ff',border:'#bfdbfe',btn:'#2563eb',btnClr:'white'},
+    {bg:'#ecfdf5',border:'#a7f3d0',btn:'#059669',btnClr:'white'},
+    {bg:'#fff7ed',border:'#fed7aa',btn:'#ea580c',btnClr:'white'},
+    {bg:'#fdf2f8',border:'#fbcfe8',btn:'#db2777',btnClr:'white'},
+  ];
+  const setCards = quizSets.map((s,i) => {
+    const c = setColors[i];
+    const starHtml = Array.from({length:5},(_,si)=>`<span style="color:${si<s.stars?'#f59e0b':'#d1d5db'};font-size:1rem;">★</span>`).join('');
+    return `
+    <div class="set-card" style="background:${c.bg};border-color:${c.border};color:${s.color};"
+         onclick="startQuiz(${i})">
+      <div class="set-card-top">
+        <span class="set-emoji">${s.emoji}</span>
+        <div class="set-stars">${starHtml}</div>
+      </div>
+      <h3 style="color:#1e1b4b;">${s.title}</h3>
+      <div class="set-level" style="color:${s.color};">${s.subtitle}</div>
+      <p style="color:#374151;">${s.description}</p>
+      <button class="set-start-btn" style="background:${c.btn};color:${c.btnClr};"
+              onclick="event.stopPropagation();startQuiz(${i})">
+        🚀 Start Quiz →
+      </button>
+    </div>`;
+  }).join('');
+
+  return `
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">🏅 Olympiad-Style Practice</div>
+    <h1>Primary 2 <span>Math Olympiad</span><br>Quiz Platform</h1>
+    <p>Practice real olympiad math with 5 carefully designed sets, step-by-step explanations, and instant feedback on every question!</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">5</div><div class="lbl">Practice Sets</div></div>
+      <div class="hero-stat"><div class="num">150</div><div class="lbl">Questions</div></div>
+      <div class="hero-stat"><div class="num">12</div><div class="lbl">Math Topics</div></div>
+    </div>
+  </div>
+
+  <!-- WHAT YOU'LL PRACTICE -->
+  <div class="section">
+    <h2 class="section-title">📚 What You'll Practice</h2>
+    <p class="section-sub">Each quiz covers a wide range of olympiad math skills</p>
+    <div class="topics-grid">${topicCards}</div>
+  </div>
+
+  <!-- HOW TO USE -->
+  <div class="section" style="background:white;border-radius:24px;border:2px solid var(--border);box-shadow:var(--shadow);">
+    <h2 class="section-title">🎯 How to Use This Quiz</h2>
+    <p class="section-sub">It's easy and fun — here's how!</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>Choose a Set</h3>
+        <p>Pick from 5 levels — start with Set 1 (Warm-up) and work your way up to the Final Mock Test!</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>Answer Questions</h3>
+        <p>Read each question carefully and tap the answer you think is correct. You get 30 questions per set!</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>See Explanation</h3>
+        <p>After each answer, you'll see whether you're right — plus a clear, step-by-step explanation!</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <h3>Check Your Score</h3>
+        <p>At the end, see your total score and performance level. Aim for Olympiad Star! 🌟</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ SETS -->
+  <div class="section">
+    <h2 class="section-title">🗂️ Choose Your Practice Set</h2>
+    <p class="section-sub">5 sets from warm-up to final mock — each with 30 questions</p>
+    <div class="sets-grid">${setCards}</div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Made with ❤️ for young math champions</p>
+    <p style="margin-top:6px;">Created by <strong>Bright EngMath</strong> · Primary 2 Math Olympiad Quiz Platform</p>
+  </footer>`;
+}
+
+// ══════════════════════════════════════════════
+// QUIZ PAGE
+// ══════════════════════════════════════════════
+function renderQuiz() {
+  const set = quizSets[state.setIndex];
+  const q = set.questions[state.qIndex];
+  const total = set.questions.length;
+  const pct = Math.round((state.qIndex / total) * 100);
+  const answered = state.selected !== null;
+
+  // Answer buttons
+  const letters = ['A','B','C','D'];
+  const answerBtns = letters.map(l => {
+    let cls = 'answer-btn';
+    let icon = '';
+    if (answered) {
+      if (l === q.correctAnswer) { cls += ' correct'; icon = ' ✓'; }
+      else if (l === state.selected && l !== q.correctAnswer) { cls += ' wrong'; icon = ' ✗'; }
+      else cls += ' dimmed';
+    }
+    return `
+    <button class="${cls}" onclick="selectAnswer('${l}')" ${answered?'disabled':''}>
+      <span class="letter-badge">${l}</span>
+      <span>${q.choices[l]}${icon}</span>
+    </button>`;
+  }).join('');
+
+  // Feedback
+  let feedbackHtml = '';
+  if (answered) {
+    const isCorrect = state.selected === q.correctAnswer;
+    if (isCorrect) {
+      feedbackHtml = `<div class="feedback-banner correct">🎉 Correct! Well done!</div>`;
+    } else {
+      feedbackHtml = `<div class="feedback-banner wrong">❌ Not quite! The correct answer is <strong>${q.correctAnswer}: ${q.choices[q.correctAnswer]}</strong></div>`;
+    }
+  }
+
+  // Explanation
+  let explHtml = '';
+  if (answered) {
+    explHtml = `
+    <div class="explanation-card">
+      <div class="expl-title">💡 Here's how to solve it</div>
+      <div class="expl-text">${q.explanation}</div>
+    </div>`;
+  }
+
+  // Next button label
+  const isLast = state.qIndex + 1 >= total;
+  const nextLabel = isLast ? '🏁 See My Results' : 'Next Question →';
+
+  return `
+  <div class="quiz-container">
+    <div class="quiz-header">
+      <div class="quiz-meta">
+        <span class="quiz-title-tag" style="background:${set.bgColor};color:${set.color};border:2px solid ${set.borderColor};">
+          ${set.emoji} ${set.title}
+        </span>
+        <span class="quiz-progress-label">Question ${state.qIndex+1} of ${total}</span>
+      </div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" style="width:${pct}%;"></div>
+      </div>
+    </div>
+
+    <div class="question-card">
+      <div class="q-topic-tag">${q.topic}</div>
+      <div class="q-number">Q${state.qIndex+1}</div>
+      <div class="q-text">${q.question}</div>
+    </div>
+
+    <div class="answers-grid">${answerBtns}</div>
+
+    ${feedbackHtml}
+    ${explHtml}
+
+    ${answered ? `<button class="next-btn" onclick="nextQuestion()">${nextLabel}</button>` : ''}
+  </div>`;
+}
+
+// ══════════════════════════════════════════════
+// RESULT PAGE
+// ══════════════════════════════════════════════
+function renderResult() {
+  const set = quizSets[state.setIndex];
+  const total = set.questions.length;
+  const score = state.score;
+  const pct = Math.round((score / total) * 100);
+
+  let emoji, title, msg, circleColor, barColor;
+  if (score >= 27) {
+    emoji='🏆'; title='Olympiad Star!';
+    msg='Incredible! You got almost everything right. You\'re ready for real math olympiads!';
+    circleColor='#16a34a'; barColor='#4ade80';
+  } else if (score >= 21) {
+    emoji='🌟'; title='Great Job!';
+    msg='Excellent work! You\'re thinking like a math champion. Keep practicing to reach the top!';
+    circleColor='#2563eb'; barColor='#60a5fa';
+  } else if (score >= 15) {
+    emoji='👍'; title='Good Effort!';
+    msg='Nice progress! Review the explanations for the questions you missed — you\'re getting there!';
+    circleColor='#d97706'; barColor='#fbbf24';
+  } else {
+    emoji='💪'; title='Keep Going!';
+    msg='Every mistake is a learning chance! Read the explanations and try again — you\'ll improve!';
+    circleColor='#7c3aed'; barColor='#a78bfa';
+  }
+
+  // Topic summary — which topics had errors
+  const topicMap = {};
+  state.answers.forEach(a => {
+    if (!topicMap[a.topic]) topicMap[a.topic] = { correct:0, total:0 };
+    topicMap[a.topic].total++;
+    if (a.isCorrect) topicMap[a.topic].correct++;
+  });
+  const topicChips = Object.entries(topicMap).map(([topic, data]) => {
+    const good = data.correct === data.total;
+    return `<span class="topic-chip ${good?'good':'bad'}">${good?'✓':'✗'} ${topic}</span>`;
+  }).join('');
+
+  return `
+  <div class="result-container">
+    <div class="result-card">
+      <span class="result-emoji">${emoji}</span>
+      <div class="score-circle" style="border-color:${circleColor};color:${circleColor};">
+        <span class="sc-num">${score}</span>
+        <span class="sc-denom">out of ${total}</span>
+      </div>
+      <h2>${title}</h2>
+      <div class="result-pct" style="color:${circleColor};">${pct}% Score</div>
+      <div class="perf-bar"><div class="perf-bar-fill" style="width:${pct}%;background:${barColor};"></div></div>
+      <p class="result-msg">${msg}</p>
+
+      <div style="background:#f8f5ff;border-radius:14px;padding:16px 20px;margin-bottom:8px;">
+        <div style="font-size:0.8rem;font-weight:800;color:var(--text-soft);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;">Performance Level</div>
+        <div style="display:grid;gap:6px;font-size:0.87rem;font-weight:700;text-align:left;">
+          <div style="${score>=27?'color:#16a34a;font-weight:900;':'color:#9ca3af;'}">🏆 27–30 Correct — Olympiad Star</div>
+          <div style="${score>=21&&score<27?'color:#2563eb;font-weight:900;':'color:#9ca3af;'}">🌟 21–26 Correct — Great Job!</div>
+          <div style="${score>=15&&score<21?'color:#d97706;font-weight:900;':'color:#9ca3af;'}">👍 15–20 Correct — Good Effort!</div>
+          <div style="${score<15?'color:#7c3aed;font-weight:900;':'color:#9ca3af;'}">💪 0–14 Correct — Keep Going!</div>
+        </div>
+      </div>
+
+      <div class="topic-summary">
+        <h4>Topic Breakdown</h4>
+        <div class="topic-chips">${topicChips}</div>
+      </div>
+
+      <div class="result-actions">
+        <button class="btn-retry" onclick="retryQuiz()">🔄 Try Again</button>
+        <button class="btn-home-result" onclick="goHome()">🏠 Go Home</button>
+      </div>
+    </div>
+
+    <footer style="text-align:center;padding:20px;color:var(--text-soft);font-size:0.82rem;">
+      Created by <strong style="color:var(--primary);">Bright EngMath</strong>
+    </footer>
+  </div>`;
+}
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+render();
+</script>
+</body>
+</html>
