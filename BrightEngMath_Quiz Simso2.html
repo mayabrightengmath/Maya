@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Primary 2 Math Olympiad Quiz | Bright EngMath</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#faf5ff;--card:#fff;--primary:#7c3aed;--pri-light:#ede9fe;
+  --text:#1e1b4b;--soft:#6b7280;--border:#e9d5ff;
+  --ok:#16a34a;--ok-bg:#dcfce7;--ok-br:#86efac;
+  --no:#dc2626;--no-bg:#fee2e2;--no-br:#fca5a5;
+  --ex-bg:#fefce8;--ex-br:#fde047;
+  --sh:0 4px 24px rgba(124,58,237,.10);--sh2:0 8px 40px rgba(124,58,237,.16);
+  --r:20px;--rs:12px
+}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:linear-gradient(135deg,#faf5ff 0%,#eff6ff 50%,#fff7ed 100%);min-height:100vh;color:var(--text);-webkit-font-smoothing:antialiased}
+/* NAV */
+#nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:2px solid var(--border);height:60px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(124,58,237,.08)}
+.logo{font-size:1.1rem;font-weight:900;color:var(--primary);display:flex;align-items:center;gap:7px}
+#homeBtn{background:var(--pri-light);color:var(--primary);border:2px solid var(--border);border-radius:50px;padding:7px 18px;font-size:.9rem;font-weight:800;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;gap:6px}
+#homeBtn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+#scoreBadge{display:none;background:var(--primary);color:#fff;border-radius:50px;padding:5px 14px;font-size:.82rem;font-weight:800}
+/* APP */
+#app{min-height:calc(100vh - 60px)}
+/* HOME */
+.hero{text-align:center;padding:52px 20px 36px;max-width:780px;margin:0 auto}
+.hbadge{display:inline-flex;align-items:center;gap:6px;background:var(--pri-light);color:var(--primary);border:2px solid var(--border);border-radius:50px;padding:6px 18px;font-size:.82rem;font-weight:800;margin-bottom:18px}
+.hero h1{font-size:clamp(1.8rem,5vw,2.9rem);font-weight:900;line-height:1.2;margin-bottom:14px}
+.hero h1 span{color:var(--primary)}
+.hero p{font-size:1.02rem;color:var(--soft);max-width:540px;margin:0 auto 28px;line-height:1.7}
+.stats{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:8px}
+.stat{background:#fff;border:2px solid var(--border);border-radius:var(--rs);padding:14px 22px;text-align:center;box-shadow:var(--sh)}
+.stat .n{font-size:1.7rem;font-weight:900;color:var(--primary);line-height:1}
+.stat .l{font-size:.75rem;font-weight:700;color:var(--soft);margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+/* SECTIONS */
+.sec{max-width:900px;margin:0 auto;padding:28px 20px}
+.sec-title{font-size:1.4rem;font-weight:900;text-align:center;margin-bottom:6px}
+.sec-sub{text-align:center;color:var(--soft);font-size:.93rem;margin-bottom:24px}
+/* TOPICS */
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:13px}
+.tc{background:#fff;border:2px solid var(--border);border-radius:var(--rs);padding:16px 12px;text-align:center;box-shadow:var(--sh);transition:transform .2s,box-shadow .2s}
+.tc:hover{transform:translateY(-3px);box-shadow:var(--sh2)}
+.tc .ti{font-size:1.7rem;margin-bottom:7px}
+.tc .tn{font-size:.83rem;font-weight:800}
+/* STEPS */
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
+.sc{background:#fff;border:2px solid var(--border);border-radius:var(--rs);padding:22px 16px;box-shadow:var(--sh)}
+.snum{width:34px;height:34px;border-radius:50%;background:var(--primary);color:#fff;font-weight:900;font-size:.95rem;display:flex;align-items:center;justify-content:center;margin-bottom:11px}
+.sc h3{font-size:.97rem;font-weight:800;margin-bottom:5px}
+.sc p{font-size:.84rem;color:var(--soft);line-height:1.6}
+/* SET CARDS */
+.setgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:18px}
+.setcard{border:3px solid;border-radius:var(--r);padding:24px 20px;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:var(--sh)}
+.setcard:hover{transform:translateY(-5px);box-shadow:var(--sh2)}
+.setcard-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:11px}
+.setemoji{font-size:2.1rem}
+.setcard h3{font-size:1.1rem;font-weight:900;margin-bottom:3px}
+.setlvl{font-size:.78rem;font-weight:800;opacity:.75;text-transform:uppercase;letter-spacing:.5px;margin-bottom:9px}
+.setcard p{font-size:.86rem;line-height:1.6;opacity:.8;margin-bottom:16px}
+.setbtn{width:100%;padding:12px;border-radius:50px;border:none;font-size:.93rem;font-weight:800;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px}
+.setbtn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+/* FOOTER */
+footer{text-align:center;padding:28px 20px;border-top:2px solid var(--border);color:var(--soft);font-size:.84rem;margin-top:16px}
+footer strong{color:var(--primary);font-weight:800}
+/* QUIZ */
+.qwrap{max-width:700px;margin:0 auto;padding:22px 16px 48px}
+.qhead{margin-bottom:18px}
+.qmeta{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.qtag{font-size:.8rem;font-weight:800;padding:5px 13px;border-radius:50px;letter-spacing:.3px}
+.qprog-lbl{font-size:.8rem;color:var(--soft);font-weight:700}
+.pbar-track{width:100%;height:10px;background:#e9d5ff;border-radius:50px;overflow:hidden;margin-bottom:5px}
+.pbar-fill{height:100%;border-radius:50px;transition:width .5s ease;background:linear-gradient(90deg,var(--primary),#a855f7)}
+.qcard{background:#fff;border-radius:var(--r);padding:26px 22px;box-shadow:var(--sh2);border:2px solid var(--border);margin-bottom:16px;animation:fs .35s ease}
+@keyframes fs{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.qtopic{display:inline-block;font-size:.74rem;font-weight:800;background:var(--pri-light);color:var(--primary);border-radius:50px;padding:3px 11px;margin-bottom:12px;letter-spacing:.3px}
+.qnum{font-size:.8rem;color:var(--soft);font-weight:700;margin-bottom:5px}
+.qtext{font-size:1.15rem;font-weight:800;line-height:1.5}
+/* ANSWERS */
+.agrid{display:grid;gap:11px;margin-bottom:16px}
+.abtn{width:100%;background:#fff;border:2.5px solid var(--border);border-radius:var(--rs);padding:13px 16px;font-size:.98rem;font-weight:700;cursor:pointer;text-align:left;display:flex;align-items:center;gap:13px;font-family:inherit;color:var(--text);transition:all .2s;min-height:52px}
+.abtn:hover:not([disabled]){border-color:var(--primary);background:var(--pri-light);transform:translateX(4px)}
+.abtn[disabled]{cursor:default}
+.lbadge{min-width:31px;height:31px;border-radius:50%;background:var(--pri-light);color:var(--primary);font-weight:900;font-size:.88rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.abtn.ok{background:var(--ok-bg);border-color:var(--ok-br);animation:bi .4s ease}
+.abtn.ok .lbadge{background:var(--ok);color:#fff}
+.abtn.no{background:var(--no-bg);border-color:var(--no-br);animation:sk .4s ease}
+.abtn.no .lbadge{background:var(--no);color:#fff}
+.abtn.dim{opacity:.42}
+@keyframes bi{0%{transform:scale(.97)}50%{transform:scale(1.025)}100%{transform:scale(1)}}
+@keyframes sk{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+/* FEEDBACK */
+.fb{border-radius:var(--rs);padding:12px 16px;font-size:.98rem;font-weight:800;text-align:center;margin-bottom:13px;display:flex;align-items:center;justify-content:center;gap:7px;animation:fs .3s ease}
+.fb.ok{background:var(--ok-bg);color:var(--ok);border:2px solid var(--ok-br)}
+.fb.no{background:var(--no-bg);color:var(--no);border:2px solid var(--no-br)}
+/* EXPLANATION */
+.expl{background:var(--ex-bg);border:2px solid var(--ex-br);border-radius:var(--rs);padding:16px 18px;margin-bottom:16px;animation:fs .35s ease}
+.expl-ttl{font-size:.8rem;font-weight:900;color:#92400e;text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.expl-txt{font-size:.95rem;color:#78350f;line-height:1.7;font-weight:600}
+/* NEXT BTN */
+.nextbtn{width:100%;padding:15px;border-radius:50px;border:none;background:var(--primary);color:#fff;font-size:1.03rem;font-weight:800;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px;box-shadow:0 4px 14px rgba(124,58,237,.35)}
+.nextbtn:hover{background:#6d28d9;transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,.45)}
+/* RESULT */
+.rwrap{max-width:680px;margin:0 auto;padding:28px 16px 48px}
+.rcard{background:#fff;border-radius:var(--r);padding:38px 26px;box-shadow:var(--sh2);border:2px solid var(--border);text-align:center;animation:fs .4s ease}
+.scircle{width:136px;height:136px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 22px;border:6px solid}
+.scircle .sn{font-size:2.7rem;font-weight:900;line-height:1}
+.scircle .sd{font-size:.97rem;font-weight:700;opacity:.7}
+.remoji{font-size:3rem;margin-bottom:11px;display:block}
+.rcard h2{font-size:1.7rem;font-weight:900;margin-bottom:7px}
+.rmsg{font-size:.97rem;color:var(--soft);line-height:1.65;margin-bottom:8px;max-width:400px;margin-left:auto;margin-right:auto}
+.rpct{font-size:1.25rem;font-weight:800;margin-bottom:4px}
+.pbar2{width:100%;height:8px;border-radius:50px;background:#e5e7eb;margin:8px 0 22px;overflow:hidden}
+.pbar2-fill{height:100%;border-radius:50px;transition:width 1s ease}
+.ractions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:24px}
+.rbtn{padding:13px 28px;border-radius:50px;border:none;background:var(--primary);color:#fff;font-size:.97rem;font-weight:800;cursor:pointer;font-family:inherit;transition:all .2s;box-shadow:0 4px 14px rgba(124,58,237,.35)}
+.rbtn:hover{background:#6d28d9;transform:translateY(-2px)}
+.rhbtn{padding:13px 28px;border-radius:50px;border:2.5px solid var(--border);background:#fff;color:var(--primary);font-size:.97rem;font-weight:800;cursor:pointer;font-family:inherit;transition:all .2s}
+.rhbtn:hover{background:var(--pri-light);transform:translateY(-2px)}
+/* TOPICS SUMMARY */
+.tsum{margin-top:22px;text-align:left;border-top:2px solid var(--border);padding-top:18px}
+.tsum h4{font-size:.88rem;font-weight:900;margin-bottom:12px;text-align:center}
+.tchips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center}
+.chip{padding:4px 13px;border-radius:50px;font-size:.76rem;font-weight:800;border:2px solid}
+.chip.ok{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-br)}
+.chip.no{background:var(--no-bg);color:var(--no);border-color:var(--no-br)}
+/* PERF TABLE */
+.ptable{background:#f8f5ff;border-radius:14px;padding:14px 18px;margin-bottom:6px}
+.ptable .pl{font-size:.78rem;font-weight:800;color:var(--soft);text-transform:uppercase;letter-spacing:.5px;margin-bottom:9px}
+.ptable .pr{font-size:.86rem;font-weight:700;margin:5px 0}
+@media(max-width:480px){
+  .hero h1{font-size:1.65rem}
+  .stats{gap:10px}
+  .qcard{padding:18px 14px}
+  .qtext{font-size:1.02rem}
+  .abtn{font-size:.92rem;padding:12px 13px}
+  .rcard{padding:24px 14px}
+  .scircle{width:116px;height:116px}
+  .scircle .sn{font-size:2.2rem}
+}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <span class="logo"><span>✨</span> Bright EngMath</span>
+  <div style="display:flex;align-items:center;gap:10px">
+    <span id="scoreBadge"></span>
+    <button id="homeBtn">🏠 Home</button>
+  </div>
+</nav>
+<div id="app"></div>
+
+<script>
+// ============================================================
+// Bright EngMath — Primary 2 Math Olympiad Quiz Data
+// 5 Sets × 30 Questions = 150 Questions Total
+// ============================================================
+
+const quizSets = [
+  {
+    id: 'set-1',
+    title: 'Practice Set 1',
+    subtitle: 'Warm-up Level',
+    emoji: '⭐',
+    stars: 1,
+    color: '#7c3aed',
+    bgColor: '#f5f3ff',
+    borderColor: '#ddd6fe',
+    description: 'Build confidence with foundational olympiad math concepts.',
+    questions: [
+      {
+        id: 1, topic: 'Multiples', difficulty: 'Easy',
+        question: 'What is the least three-digit multiple of 12?',
+        choices: { A: '96', B: '108', C: '120', D: '132' },
+        correctAnswer: 'B',
+        explanation: 'A three-digit number starts at 100. Let\'s check multiples of 12: 96 = 12 × 8 (only two digits!), 108 = 12 × 9 (three digits! ✓). So 108 is the smallest three-digit multiple of 12.'
+      },
+      {
+        id: 2, topic: 'Divisors', difficulty: 'Easy',
+        question: 'How many positive divisors does 24 have?',
+        choices: { A: '6', B: '7', C: '8', D: '9' },
+        correctAnswer: 'C',
+        explanation: 'Divisors of 24 are numbers that divide evenly into 24: 1, 2, 3, 4, 6, 8, 12, 24. Count them: that\'s 8 divisors!'
+      },
+      {
+        id: 3, topic: 'Number Sense', difficulty: 'Easy',
+        question: 'What is the sum of the first 5 even numbers?',
+        choices: { A: '30', B: '25', C: '40', D: '20' },
+        correctAnswer: 'A',
+        explanation: 'The first 5 even numbers are: 2, 4, 6, 8, 10. Add them step by step: 2+4=6, 6+6=12, 12+8=20, 20+10=30. The answer is 30!'
+      },
+      {
+        id: 4, topic: 'Remainders', difficulty: 'Easy',
+        question: 'What is the remainder when 47 is divided by 5?',
+        choices: { A: '1', B: '2', C: '3', D: '4' },
+        correctAnswer: 'B',
+        explanation: '5 × 9 = 45. So 47 − 45 = 2. The remainder is 2!'
+      },
+      {
+        id: 5, topic: 'Prime Numbers', difficulty: 'Easy',
+        question: 'What is the greatest two-digit prime number?',
+        choices: { A: '91', B: '93', C: '97', D: '99' },
+        correctAnswer: 'C',
+        explanation: 'Check: 99 = 9 × 11, 93 = 3 × 31, 91 = 7 × 13 — none of these are prime. 97 cannot be divided by 2, 3, 5, or 7, so 97 is prime! It\'s the largest two-digit prime.'
+      },
+      {
+        id: 6, topic: 'Divisibility', difficulty: 'Easy',
+        question: 'Which number is divisible by BOTH 3 and 4?',
+        choices: { A: '15', B: '21', C: '24', D: '25' },
+        correctAnswer: 'C',
+        explanation: 'A number divisible by both 3 and 4 must be a multiple of 12. Check: 24 ÷ 3 = 8 ✓, 24 ÷ 4 = 6 ✓. Answer: 24!'
+      },
+      {
+        id: 7, topic: 'Word Problem', difficulty: 'Easy',
+        question: '15 cookies are shared equally into 3 boxes. How many cookies are in each box?',
+        choices: { A: '3', B: '4', C: '5', D: '6' },
+        correctAnswer: 'C',
+        explanation: '15 ÷ 3 = 5. Each box gets 5 cookies!'
+      },
+      {
+        id: 8, topic: 'Geometry', difficulty: 'Easy',
+        question: 'What is the perimeter of a rectangle with length 8 cm and width 5 cm?',
+        choices: { A: '13 cm', B: '40 cm', C: '26 cm', D: '20 cm' },
+        correctAnswer: 'C',
+        explanation: 'Perimeter = 2 × (length + width) = 2 × (8 + 5) = 2 × 13 = 26 cm.'
+      },
+      {
+        id: 9, topic: 'Patterns', difficulty: 'Easy',
+        question: 'A number starts at 3 and doubles 4 times. What is the final number?',
+        choices: { A: '24', B: '48', C: '36', D: '12' },
+        correctAnswer: 'B',
+        explanation: '3 → 6 → 12 → 24 → 48. Double 4 times gives 48!'
+      },
+      {
+        id: 10, topic: 'Time', difficulty: 'Easy',
+        question: 'If today is Wednesday, what day will it be in 10 days?',
+        choices: { A: 'Friday', B: 'Saturday', C: 'Sunday', D: 'Monday' },
+        correctAnswer: 'B',
+        explanation: '10 = 7 + 3. After 7 days it is Wednesday again. Then 3 more days: Thursday → Friday → Saturday. The answer is Saturday!'
+      },
+      {
+        id: 11, topic: 'Fractions', difficulty: 'Easy',
+        question: 'What is 3/4 of 20?',
+        choices: { A: '10', B: '12', C: '15', D: '18' },
+        correctAnswer: 'C',
+        explanation: '3/4 of 20: First divide by 4 → 20 ÷ 4 = 5. Then multiply by 3 → 5 × 3 = 15.'
+      },
+      {
+        id: 12, topic: 'Patterns', difficulty: 'Easy',
+        question: 'What comes next? 2, 5, 8, 11, ___',
+        choices: { A: '12', B: '13', C: '14', D: '15' },
+        correctAnswer: 'C',
+        explanation: 'Each number increases by 3. 2 → 5 → 8 → 11 → 14. The pattern is +3 each time!'
+      },
+      {
+        id: 13, topic: 'Number Sense', difficulty: 'Easy',
+        question: 'What is 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10?',
+        choices: { A: '45', B: '50', C: '55', D: '60' },
+        correctAnswer: 'C',
+        explanation: 'Pair the numbers: (1+10) + (2+9) + (3+8) + (4+7) + (5+6) = 11 + 11 + 11 + 11 + 11 = 11 × 5 = 55!'
+      },
+      {
+        id: 14, topic: 'Geometry', difficulty: 'Easy',
+        question: 'What is the area of a rectangle with length 9 cm and width 6 cm?',
+        choices: { A: '30 cm²', B: '54 cm²', C: '45 cm²', D: '48 cm²' },
+        correctAnswer: 'B',
+        explanation: 'Area = length × width = 9 × 6 = 54 cm².'
+      },
+      {
+        id: 15, topic: 'Geometry', difficulty: 'Easy',
+        question: 'A right triangle has legs 3 cm and 4 cm. What is the hypotenuse?',
+        choices: { A: '5 cm', B: '6 cm', C: '7 cm', D: '8 cm' },
+        correctAnswer: 'A',
+        explanation: 'Use the 3-4-5 rule! 3² + 4² = 9 + 16 = 25 = 5². So the hypotenuse is 5 cm!'
+      },
+      {
+        id: 16, topic: 'Combinatorics', difficulty: 'Easy',
+        question: 'A student has 3 shirts and 2 pairs of pants. How many different outfits can be made?',
+        choices: { A: '5', B: '6', C: '8', D: '9' },
+        correctAnswer: 'B',
+        explanation: 'Multiply the choices: 3 shirts × 2 pants = 6 outfits. You can pair each shirt with each pair of pants!'
+      },
+      {
+        id: 17, topic: 'Fractions', difficulty: 'Easy',
+        question: 'Which fraction is equal to 0.5?',
+        choices: { A: '1/3', B: '1/4', C: '2/5', D: '1/2' },
+        correctAnswer: 'D',
+        explanation: '0.5 = 5/10 = 1/2. Half of 1 is 0.5!'
+      },
+      {
+        id: 18, topic: 'Patterns', difficulty: 'Easy',
+        question: 'What comes next? 1, 4, 9, 16, 25, ___',
+        choices: { A: '30', B: '35', C: '36', D: '40' },
+        correctAnswer: 'C',
+        explanation: 'These are perfect squares! 1²=1, 2²=4, 3²=9, 4²=16, 5²=25, 6²=36. The next is 36!'
+      },
+      {
+        id: 19, topic: 'LCM', difficulty: 'Easy',
+        question: 'What is the Least Common Multiple (LCM) of 4 and 6?',
+        choices: { A: '8', B: '10', C: '12', D: '24' },
+        correctAnswer: 'C',
+        explanation: 'Multiples of 4: 4, 8, 12... Multiples of 6: 6, 12... The first number in both lists is 12. LCM = 12!'
+      },
+      {
+        id: 20, topic: 'Word Problem', difficulty: 'Easy',
+        question: '84 students are divided into groups of 7. How many groups are there?',
+        choices: { A: '10', B: '11', C: '12', D: '14' },
+        correctAnswer: 'C',
+        explanation: '84 ÷ 7 = 12. There are 12 groups!'
+      },
+      {
+        id: 21, topic: 'Fractions', difficulty: 'Easy',
+        question: 'What is 1/2 + 1/4?',
+        choices: { A: '1/6', B: '2/6', C: '3/4', D: '2/4' },
+        correctAnswer: 'C',
+        explanation: 'Change 1/2 to fourths: 1/2 = 2/4. Now add: 2/4 + 1/4 = 3/4!'
+      },
+      {
+        id: 22, topic: 'Geometry', difficulty: 'Easy',
+        question: 'A hexagon has how many sides?',
+        choices: { A: '5', B: '6', C: '7', D: '8' },
+        correctAnswer: 'B',
+        explanation: 'A hexagon has 6 sides. Remember: "hex" means 6, just like hexadecimal!'
+      },
+      {
+        id: 23, topic: 'Time', difficulty: 'Easy',
+        question: 'What time is it 3 hours and 20 minutes after 9:45?',
+        choices: { A: '12:05', B: '1:05', C: '12:35', D: '1:35' },
+        correctAnswer: 'B',
+        explanation: '9:45 + 3 hours = 12:45. Then 12:45 + 20 minutes = 13:05, which is 1:05 PM!'
+      },
+      {
+        id: 24, topic: 'Geometry', difficulty: 'Easy',
+        question: 'What is the perimeter of a triangle with sides 5 cm, 7 cm, and 9 cm?',
+        choices: { A: '18 cm', B: '20 cm', C: '21 cm', D: '22 cm' },
+        correctAnswer: 'C',
+        explanation: 'Perimeter = sum of all sides = 5 + 7 + 9 = 21 cm.'
+      },
+      {
+        id: 25, topic: 'Divisibility', difficulty: 'Easy',
+        question: 'How many numbers from 1 to 30 are divisible by 4?',
+        choices: { A: '6', B: '7', C: '8', D: '9' },
+        correctAnswer: 'B',
+        explanation: 'Multiples of 4 up to 30: 4, 8, 12, 16, 20, 24, 28. Count them: that\'s 7 numbers!'
+      },
+      {
+        id: 26, topic: 'Prime Numbers', difficulty: 'Easy',
+        question: 'Which of these is a prime number?',
+        choices: { A: '21', B: '27', C: '31', D: '33' },
+        correctAnswer: 'C',
+        explanation: '21 = 3×7, 27 = 3×9, 33 = 3×11 — all divisible by 3. But 31 cannot be divided evenly by any number except 1 and 31. So 31 is prime!'
+      },
+      {
+        id: 27, topic: 'Word Problem', difficulty: 'Easy',
+        question: 'Each box holds 12 cakes. There are 5 boxes. How many cakes in total?',
+        choices: { A: '60', B: '55', C: '65', D: '70' },
+        correctAnswer: 'A',
+        explanation: '5 × 12 = 60 cakes in total!'
+      },
+      {
+        id: 28, topic: 'Number Sense', difficulty: 'Easy',
+        question: 'What is 1000 − 357?',
+        choices: { A: '643', B: '653', C: '633', D: '663' },
+        correctAnswer: 'A',
+        explanation: '1000 − 357: Think of it as 1000 − 300 = 700, then 700 − 57 = 643!'
+      },
+      {
+        id: 29, topic: 'Number Sense', difficulty: 'Easy',
+        question: 'What is 16 × 5?',
+        choices: { A: '70', B: '75', C: '80', D: '85' },
+        correctAnswer: 'C',
+        explanation: '16 × 5 = 16 × 10 ÷ 2 = 160 ÷ 2 = 80. A quick trick: multiply by 10 then halve it!'
+      },
+      {
+        id: 30, topic: 'Fractions', difficulty: 'Easy',
+        question: 'Sam has 36 marbles. He gives 1/4 to his friend. How many does Sam keep?',
+        choices: { A: '9', B: '24', C: '27', D: '28' },
+        correctAnswer: 'C',
+        explanation: '1/4 of 36 = 36 ÷ 4 = 9. Sam gives away 9. He keeps 36 − 9 = 27 marbles!'
+      }
+    ]
+  },
+
+  {
+    id: 'set-2',
+    title: 'Practice Set 2',
+    subtitle: 'Standard Level',
+    emoji: '🔵',
+    stars: 2,
+    color: '#2563eb',
+    bgColor: '#eff6ff',
+    borderColor: '#bfdbfe',
+    description: 'Step up with classic olympiad reasoning and problem-solving.',
+    questions: [
+      {
+        id: 1, topic: 'Multiples', difficulty: 'Medium',
+        question: 'What is the least three-digit multiple of 9?',
+        choices: { A: '99', B: '108', C: '117', D: '126' },
+        correctAnswer: 'B',
+        explanation: '99 has only 2 digits (9 × 11 = 99). The next multiple is 9 × 12 = 108, which has 3 digits! So the answer is 108.'
+      },
+      {
+        id: 2, topic: 'Divisors', difficulty: 'Medium',
+        question: 'How many positive divisors does 36 have?',
+        choices: { A: '7', B: '8', C: '9', D: '10' },
+        correctAnswer: 'C',
+        explanation: 'Divisors of 36: 1, 2, 3, 4, 6, 9, 12, 18, 36. Count carefully — that\'s 9 divisors!'
+      },
+      {
+        id: 3, topic: 'Number Sense', difficulty: 'Medium',
+        question: 'What is the sum of all even numbers from 2 to 20?',
+        choices: { A: '90', B: '100', C: '110', D: '120' },
+        correctAnswer: 'C',
+        explanation: 'Even numbers: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20. There are 10 of them. Sum = 10 × (2 + 20) ÷ 2 = 10 × 11 = 110!'
+      },
+      {
+        id: 4, topic: 'Remainders', difficulty: 'Medium',
+        question: 'What is the remainder when 100 is divided by 7?',
+        choices: { A: '1', B: '2', C: '5', D: '6' },
+        correctAnswer: 'B',
+        explanation: '7 × 14 = 98. So 100 − 98 = 2. The remainder is 2!'
+      },
+      {
+        id: 5, topic: 'Prime Numbers', difficulty: 'Medium',
+        question: 'What is the smallest three-digit prime number?',
+        choices: { A: '100', B: '101', C: '103', D: '107' },
+        correctAnswer: 'B',
+        explanation: '100 = 4 × 25, so not prime. 101 cannot be divided evenly by 2, 3, 5, or 7, so 101 is prime! It\'s the smallest three-digit prime.'
+      },
+      {
+        id: 6, topic: 'Word Problem', difficulty: 'Medium',
+        question: '144 eggs are packed into cartons of 12. How many cartons are needed?',
+        choices: { A: '10', B: '11', C: '12', D: '13' },
+        correctAnswer: 'C',
+        explanation: '144 ÷ 12 = 12. You need exactly 12 cartons!'
+      },
+      {
+        id: 7, topic: 'Geometry', difficulty: 'Medium',
+        question: 'A rectangle has a perimeter of 24 cm and a length of 8 cm. What is its area?',
+        choices: { A: '24 cm²', B: '32 cm²', C: '40 cm²', D: '48 cm²' },
+        correctAnswer: 'B',
+        explanation: 'Perimeter = 2 × (length + width), so 24 = 2 × (8 + width), meaning 8 + width = 12, so width = 4 cm. Area = 8 × 4 = 32 cm²!'
+      },
+      {
+        id: 8, topic: 'Patterns', difficulty: 'Medium',
+        question: 'A bacteria colony doubles every hour. It starts with 5 bacteria at noon. How many bacteria are there at 4 PM?',
+        choices: { A: '40', B: '60', C: '80', D: '100' },
+        correctAnswer: 'C',
+        explanation: '5 → 10 → 20 → 40 → 80. After 4 hours of doubling, there are 80 bacteria!'
+      },
+      {
+        id: 9, topic: 'Time', difficulty: 'Medium',
+        question: 'If today is Monday, what day will it be in 100 days?',
+        choices: { A: 'Tuesday', B: 'Wednesday', C: 'Thursday', D: 'Friday' },
+        correctAnswer: 'B',
+        explanation: '100 ÷ 7 = 14 remainder 2. So 100 days later is the same as 2 days after Monday. Monday + 2 = Wednesday!'
+      },
+      {
+        id: 10, topic: 'Fractions', difficulty: 'Medium',
+        question: 'What is 2/3 of 60?',
+        choices: { A: '30', B: '36', C: '40', D: '45' },
+        correctAnswer: 'C',
+        explanation: '2/3 of 60: divide by 3 first → 60 ÷ 3 = 20, then multiply by 2 → 20 × 2 = 40!'
+      },
+      {
+        id: 11, topic: 'Patterns', difficulty: 'Medium',
+        question: 'What comes next? 3, 6, 12, 24, ___',
+        choices: { A: '36', B: '42', C: '48', D: '56' },
+        correctAnswer: 'C',
+        explanation: 'Each term is multiplied by 2! 3 → 6 → 12 → 24 → 48.'
+      },
+      {
+        id: 12, topic: 'Number Sense', difficulty: 'Medium',
+        question: 'What is 1 + 3 + 5 + 7 + 9? (Sum of first 5 odd numbers)',
+        choices: { A: '20', B: '25', C: '30', D: '35' },
+        correctAnswer: 'B',
+        explanation: '1 + 3 = 4, 4 + 5 = 9, 9 + 7 = 16, 16 + 9 = 25. The sum of the first n odd numbers is always n²! Here n = 5, so 5² = 25.'
+      },
+      {
+        id: 13, topic: 'Geometry', difficulty: 'Medium',
+        question: 'A square has a perimeter of 36 cm. What is its area?',
+        choices: { A: '72 cm²', B: '81 cm²', C: '100 cm²', D: '144 cm²' },
+        correctAnswer: 'B',
+        explanation: 'Perimeter of square = 4 × side, so side = 36 ÷ 4 = 9 cm. Area = 9 × 9 = 81 cm²!'
+      },
+      {
+        id: 14, topic: 'Geometry', difficulty: 'Medium',
+        question: 'A right triangle has legs of 5 cm and 12 cm. What is the hypotenuse?',
+        choices: { A: '10 cm', B: '11 cm', C: '13 cm', D: '15 cm' },
+        correctAnswer: 'C',
+        explanation: '5² + 12² = 25 + 144 = 169 = 13². So the hypotenuse is 13 cm! This is the famous 5-12-13 right triangle.'
+      },
+      {
+        id: 15, topic: 'Combinatorics', difficulty: 'Medium',
+        question: 'There are 4 colors and 3 styles of backpacks. How many different backpacks are possible?',
+        choices: { A: '7', B: '10', C: '12', D: '16' },
+        correctAnswer: 'C',
+        explanation: 'Multiply the choices: 4 colors × 3 styles = 12 different backpacks!'
+      },
+      {
+        id: 16, topic: 'Time', difficulty: 'Medium',
+        question: 'Which time is 45 minutes before 3:20?',
+        choices: { A: '2:30', B: '2:35', C: '2:40', D: '2:45' },
+        correctAnswer: 'B',
+        explanation: '3:20 − 45 minutes: 3:20 − 20 min = 3:00, then 3:00 − 25 min = 2:35!'
+      },
+      {
+        id: 17, topic: 'Divisors', difficulty: 'Medium',
+        question: 'What is the largest factor of 48 that is less than 48?',
+        choices: { A: '16', B: '24', C: '36', D: '40' },
+        correctAnswer: 'B',
+        explanation: 'Factors of 48: 1, 2, 3, 4, 6, 8, 12, 16, 24, 48. The largest factor less than 48 is 24. (48 ÷ 24 = 2 ✓)'
+      },
+      {
+        id: 18, topic: 'LCM', difficulty: 'Medium',
+        question: 'What is the LCM of 6 and 8?',
+        choices: { A: '14', B: '18', C: '24', D: '48' },
+        correctAnswer: 'C',
+        explanation: 'Multiples of 6: 6, 12, 18, 24... Multiples of 8: 8, 16, 24... The first common multiple is 24!'
+      },
+      {
+        id: 19, topic: 'Fractions', difficulty: 'Medium',
+        question: '3/5 of 75 students passed a test. How many students passed?',
+        choices: { A: '35', B: '40', C: '45', D: '50' },
+        correctAnswer: 'C',
+        explanation: '3/5 of 75: 75 ÷ 5 = 15, then 15 × 3 = 45 students passed!'
+      },
+      {
+        id: 20, topic: 'Fractions', difficulty: 'Medium',
+        question: 'What is 3/4 − 1/8?',
+        choices: { A: '1/2', B: '5/8', C: '2/4', D: '3/8' },
+        correctAnswer: 'B',
+        explanation: 'Change 3/4 to eighths: 3/4 = 6/8. Now subtract: 6/8 − 1/8 = 5/8!'
+      },
+      {
+        id: 21, topic: 'Patterns', difficulty: 'Medium',
+        question: 'What comes next? 100, 95, 90, 85, ___',
+        choices: { A: '75', B: '78', C: '80', D: '82' },
+        correctAnswer: 'C',
+        explanation: 'Each number decreases by 5. 85 − 5 = 80!'
+      },
+      {
+        id: 22, topic: 'Geometry', difficulty: 'Medium',
+        question: 'What angle do clock hands make at 3:00?',
+        choices: { A: '45°', B: '60°', C: '90°', D: '120°' },
+        correctAnswer: 'C',
+        explanation: 'At 3:00, the minute hand points to 12 and the hour hand points to 3. The clock face has 12 sections each of 30°. From 12 to 3 is 3 sections = 3 × 30° = 90°!'
+      },
+      {
+        id: 23, topic: 'Geometry', difficulty: 'Medium',
+        question: 'A regular hexagon has a side of 7 cm. What is its perimeter?',
+        choices: { A: '35 cm', B: '42 cm', C: '49 cm', D: '56 cm' },
+        correctAnswer: 'B',
+        explanation: 'A regular hexagon has 6 equal sides. Perimeter = 6 × 7 = 42 cm!'
+      },
+      {
+        id: 24, topic: 'Divisibility', difficulty: 'Medium',
+        question: 'How many numbers from 1 to 50 are NOT divisible by 5?',
+        choices: { A: '38', B: '40', C: '42', D: '44' },
+        correctAnswer: 'B',
+        explanation: 'Numbers divisible by 5: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50 = 10 numbers. Not divisible by 5: 50 − 10 = 40!'
+      },
+      {
+        id: 25, topic: 'Word Problem', difficulty: 'Medium',
+        question: 'Tom is 3 times Mary\'s age. Mary is 9 years old. How old is Tom?',
+        choices: { A: '18', B: '24', C: '27', D: '30' },
+        correctAnswer: 'C',
+        explanation: 'Tom = 3 × Mary\'s age = 3 × 9 = 27 years old!'
+      },
+      {
+        id: 26, topic: 'Geometry', difficulty: 'Medium',
+        question: 'What is the area of a trapezoid with parallel sides 6 cm and 10 cm, and height 4 cm?',
+        choices: { A: '24 cm²', B: '28 cm²', C: '32 cm²', D: '40 cm²' },
+        correctAnswer: 'C',
+        explanation: 'Area of trapezoid = (sum of parallel sides) × height ÷ 2 = (6 + 10) × 4 ÷ 2 = 16 × 4 ÷ 2 = 32 cm²!'
+      },
+      {
+        id: 27, topic: 'Combinatorics', difficulty: 'Medium',
+        question: 'Emma has 5 hats and 3 scarves. How many hat-scarf combinations are possible?',
+        choices: { A: '8', B: '12', C: '15', D: '18' },
+        correctAnswer: 'C',
+        explanation: 'Multiply the choices: 5 hats × 3 scarves = 15 combinations!'
+      },
+      {
+        id: 28, topic: 'Combinatorics', difficulty: 'Medium',
+        question: 'How many pairs can be chosen from a group of 5 people?',
+        choices: { A: '8', B: '10', C: '12', D: '15' },
+        correctAnswer: 'B',
+        explanation: 'For pairs: 5 × 4 ÷ 2 = 10 pairs. We divide by 2 because "A & B" is the same pair as "B & A"!'
+      },
+      {
+        id: 29, topic: 'Number Sense', difficulty: 'Medium',
+        question: 'What is 3 + 4 × 2 − 1?',
+        choices: { A: '10', B: '13', C: '15', D: '4' },
+        correctAnswer: 'A',
+        explanation: 'Multiplication comes first! 4 × 2 = 8. Then: 3 + 8 − 1 = 10.'
+      },
+      {
+        id: 30, topic: 'Geometry', difficulty: 'Medium',
+        question: 'A circle has radius 7 cm. Using π ≈ 22/7, what is its area?',
+        choices: { A: '44 cm²', B: '77 cm²', C: '154 cm²', D: '308 cm²' },
+        correctAnswer: 'C',
+        explanation: 'Area = π × r² = (22/7) × 7 × 7 = 22 × 7 = 154 cm²!'
+      }
+    ]
+  },
+
+  {
+    id: 'set-3',
+    title: 'Practice Set 3',
+    subtitle: 'Challenge Level',
+    emoji: '🟢',
+    stars: 3,
+    color: '#059669',
+    bgColor: '#ecfdf5',
+    borderColor: '#a7f3d0',
+    description: 'Tackle multi-step problems requiring deeper mathematical thinking.',
+    questions: [
+      {
+        id: 1, topic: 'LCM', difficulty: 'Medium-Hard',
+        question: 'What is the least three-digit number divisible by BOTH 4 and 6?',
+        choices: { A: '100', B: '104', C: '108', D: '112' },
+        correctAnswer: 'C',
+        explanation: 'A number divisible by both 4 and 6 must be a multiple of LCM(4,6) = 12. Multiples of 12 near 100: 96 (two digits), 108 (three digits ✓). Answer: 108!'
+      },
+      {
+        id: 2, topic: 'Divisors', difficulty: 'Medium-Hard',
+        question: 'How many positive divisors does 60 have?',
+        choices: { A: '10', B: '12', C: '14', D: '16' },
+        correctAnswer: 'B',
+        explanation: '60 = 2² × 3 × 5. Number of divisors = (2+1)(1+1)(1+1) = 3 × 2 × 2 = 12. The divisors are: 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60.'
+      },
+      {
+        id: 3, topic: 'Number Sense', difficulty: 'Medium-Hard',
+        question: 'What is 2 + 4 + 6 + 8 + … + 30?',
+        choices: { A: '220', B: '230', C: '240', D: '250' },
+        correctAnswer: 'C',
+        explanation: 'Even numbers from 2 to 30: there are 15 of them. Sum = 15 × (first + last) ÷ 2 = 15 × (2 + 30) ÷ 2 = 15 × 16 = 240!'
+      },
+      {
+        id: 4, topic: 'Remainders', difficulty: 'Medium-Hard',
+        question: 'What is the remainder when 2¹⁰ (2 to the power 10) is divided by 7?',
+        choices: { A: '1', B: '2', C: '3', D: '4' },
+        correctAnswer: 'B',
+        explanation: '2¹⁰ = 1024. Divide: 7 × 146 = 1022. So 1024 − 1022 = 2. The remainder is 2!'
+      },
+      {
+        id: 5, topic: 'Prime Numbers', difficulty: 'Medium-Hard',
+        question: 'What is the sum of all prime numbers less than 20?',
+        choices: { A: '58', B: '67', C: '77', D: '87' },
+        correctAnswer: 'C',
+        explanation: 'Primes less than 20: 2, 3, 5, 7, 11, 13, 17, 19. Sum = 2+3+5+7+11+13+17+19 = 77!'
+      },
+      {
+        id: 6, topic: 'Word Problem', difficulty: 'Medium-Hard',
+        question: 'There are twice as many girls as boys in a class. If there are 12 boys, how many students are in the class?',
+        choices: { A: '24', B: '30', C: '36', D: '48' },
+        correctAnswer: 'C',
+        explanation: 'Girls = 2 × 12 = 24. Total students = 12 boys + 24 girls = 36 students!'
+      },
+      {
+        id: 7, topic: 'Word Problem', difficulty: 'Medium-Hard',
+        question: 'A store sells 35 pens per day. How many days does it take to sell 245 pens?',
+        choices: { A: '5', B: '6', C: '7', D: '8' },
+        correctAnswer: 'C',
+        explanation: '245 ÷ 35 = 7 days!'
+      },
+      {
+        id: 8, topic: 'Geometry', difficulty: 'Medium-Hard',
+        question: 'A rectangle\'s length is twice its width. Its perimeter is 60 cm. What is its area?',
+        choices: { A: '150 cm²', B: '175 cm²', C: '200 cm²', D: '225 cm²' },
+        correctAnswer: 'C',
+        explanation: 'Let width = w, length = 2w. Perimeter: 2(w + 2w) = 60, so 6w = 60, w = 10. Length = 20. Area = 10 × 20 = 200 cm²!'
+      },
+      {
+        id: 9, topic: 'Patterns', difficulty: 'Medium-Hard',
+        question: 'A paper starts 1 mm thick. It is folded in half 5 times. How thick is it?',
+        choices: { A: '16 mm', B: '32 mm', C: '48 mm', D: '64 mm' },
+        correctAnswer: 'B',
+        explanation: 'Each fold doubles the thickness: 1 → 2 → 4 → 8 → 16 → 32 mm. After 5 folds: 32 mm!'
+      },
+      {
+        id: 10, topic: 'Time', difficulty: 'Medium-Hard',
+        question: 'April has 30 days. April 1st is a Tuesday. How many Saturdays are in April?',
+        choices: { A: '3', B: '4', C: '5', D: '6' },
+        correctAnswer: 'B',
+        explanation: 'April 1 = Tuesday. First Saturday = April 6 (1 + 5 days). Next Saturdays: 13, 20, 27. Count: 4 Saturdays!'
+      },
+      {
+        id: 11, topic: 'Fractions', difficulty: 'Medium-Hard',
+        question: 'A pizza is cut into 8 equal slices. Tom ate 3 and Sara ate 2. What fraction is LEFT?',
+        choices: { A: '1/4', B: '3/8', C: '5/8', D: '1/2' },
+        correctAnswer: 'B',
+        explanation: 'Total eaten = 3 + 2 = 5 slices. Left = 8 − 5 = 3 slices. Fraction left = 3/8!'
+      },
+      {
+        id: 12, topic: 'Patterns', difficulty: 'Medium-Hard',
+        question: 'What is the missing number? 1, 2, 4, 7, 11, ___',
+        choices: { A: '14', B: '15', C: '16', D: '17' },
+        correctAnswer: 'C',
+        explanation: 'Look at the differences: +1, +2, +3, +4... The next difference is +5. So 11 + 5 = 16!'
+      },
+      {
+        id: 13, topic: 'Number Sense', difficulty: 'Medium-Hard',
+        question: 'What is the sum of all multiples of 3 from 1 to 30?',
+        choices: { A: '135', B: '150', C: '165', D: '180' },
+        correctAnswer: 'C',
+        explanation: 'Multiples of 3 from 3 to 30: 3, 6, 9, ..., 30. Sum = 3 × (1+2+3+...+10) = 3 × 55 = 165!'
+      },
+      {
+        id: 14, topic: 'Geometry', difficulty: 'Medium-Hard',
+        question: 'What is the area of a right triangle with legs 6 cm and 8 cm?',
+        choices: { A: '14 cm²', B: '24 cm²', C: '48 cm²', D: '96 cm²' },
+        correctAnswer: 'B',
+        explanation: 'Area of triangle = base × height ÷ 2 = 6 × 8 ÷ 2 = 48 ÷ 2 = 24 cm²!'
+      },
+      {
+        id: 15, topic: 'Geometry', difficulty: 'Medium-Hard',
+        question: 'A right triangle has legs 8 cm and 15 cm. What is its perimeter?',
+        choices: { A: '30 cm', B: '36 cm', C: '40 cm', D: '44 cm' },
+        correctAnswer: 'C',
+        explanation: 'Hypotenuse: √(8² + 15²) = √(64 + 225) = √289 = 17 cm. Perimeter = 8 + 15 + 17 = 40 cm!'
+      },
+      {
+        id: 16, topic: 'Combinatorics', difficulty: 'Medium-Hard',
+        question: 'A student chooses 1 of 3 books AND 1 of 4 pens. How many choices are there?',
+        choices: { A: '7', B: '10', C: '12', D: '16' },
+        correctAnswer: 'C',
+        explanation: 'Multiply: 3 books × 4 pens = 12 choices. When you choose one AND another, you multiply!'
+      },
+      {
+        id: 17, topic: 'Time', difficulty: 'Medium-Hard',
+        question: 'A train leaves at 8:45 AM and arrives at 2:30 PM. How long is the journey?',
+        choices: { A: '5 h 15 min', B: '5 h 30 min', C: '5 h 45 min', D: '6 h' },
+        correctAnswer: 'C',
+        explanation: '8:45 AM to 9:45 AM = 1 hour. 9:45 AM to 2:30 PM = 4 hours 45 minutes. Total = 1 h + 4 h 45 min = 5 hours 45 minutes!'
+      },
+      {
+        id: 18, topic: 'Fractions', difficulty: 'Medium-Hard',
+        question: 'When a number is multiplied by 5/8, the result is 40. What is the number?',
+        choices: { A: '32', B: '48', C: '56', D: '64' },
+        correctAnswer: 'D',
+        explanation: 'If 5/8 × n = 40, then n = 40 × 8/5 = 320 ÷ 5 = 64!'
+      },
+      {
+        id: 19, topic: 'LCM', difficulty: 'Medium-Hard',
+        question: 'Two bells ring together at 12:00. One rings every 4 min, the other every 6 min. When do they next ring together?',
+        choices: { A: '12:08', B: '12:10', C: '12:12', D: '12:15' },
+        correctAnswer: 'C',
+        explanation: 'LCM(4, 6) = 12 minutes. They ring together again after 12 minutes = 12:12!'
+      },
+      {
+        id: 20, topic: 'Fractions', difficulty: 'Medium-Hard',
+        question: 'What is 2/3 ÷ 4?',
+        choices: { A: '2/7', B: '1/6', C: '8/3', D: '1/3' },
+        correctAnswer: 'B',
+        explanation: 'Dividing by 4 is the same as multiplying by 1/4. So 2/3 × 1/4 = 2/12 = 1/6!'
+      },
+      {
+        id: 21, topic: 'Patterns', difficulty: 'Medium-Hard',
+        question: 'What comes next? 2, 3, 5, 8, 13, ___',
+        choices: { A: '18', B: '19', C: '20', D: '21' },
+        correctAnswer: 'D',
+        explanation: 'Each term is the SUM of the two terms before it! 8 + 13 = 21. This is the Fibonacci pattern!'
+      },
+      {
+        id: 22, topic: 'Geometry', difficulty: 'Medium-Hard',
+        question: 'What is the angle between clock hands at 6:30?',
+        choices: { A: '5°', B: '10°', C: '15°', D: '20°' },
+        correctAnswer: 'C',
+        explanation: 'At 6:30: minute hand is at 180°. Hour hand: 6 × 30° + 30 × 0.5° = 180° + 15° = 195°. Difference = 195° − 180° = 15°!'
+      },
+      {
+        id: 23, topic: 'Geometry', difficulty: 'Medium-Hard',
+        question: 'What is the sum of interior angles of a pentagon?',
+        choices: { A: '360°', B: '450°', C: '540°', D: '720°' },
+        correctAnswer: 'C',
+        explanation: 'Formula: (n − 2) × 180°. For a pentagon (5 sides): (5 − 2) × 180° = 3 × 180° = 540°!'
+      },
+      {
+        id: 24, topic: 'Divisibility', difficulty: 'Medium-Hard',
+        question: 'How many numbers from 1 to 100 are divisible by 3 OR by 5?',
+        choices: { A: '44', B: '45', C: '46', D: '47' },
+        correctAnswer: 'D',
+        explanation: 'Divisible by 3: 33 numbers. By 5: 20 numbers. By 15 (both): 6 numbers. By 3 or 5: 33 + 20 − 6 = 47!'
+      },
+      {
+        id: 25, topic: 'Geometry', difficulty: 'Medium-Hard',
+        question: 'What is the surface area of a cuboid with dimensions 3 cm × 4 cm × 5 cm?',
+        choices: { A: '47 cm²', B: '94 cm²', C: '60 cm²', D: '120 cm²' },
+        correctAnswer: 'B',
+        explanation: 'SA = 2 × (3×4 + 4×5 + 3×5) = 2 × (12 + 20 + 15) = 2 × 47 = 94 cm²!'
+      },
+      {
+        id: 26, topic: 'Geometry', difficulty: 'Medium-Hard',
+        question: 'A rectangle has area 72 cm². Its width is 8 cm. What is its perimeter?',
+        choices: { A: '26 cm', B: '30 cm', C: '34 cm', D: '38 cm' },
+        correctAnswer: 'C',
+        explanation: 'Length = 72 ÷ 8 = 9 cm. Perimeter = 2 × (9 + 8) = 2 × 17 = 34 cm!'
+      },
+      {
+        id: 27, topic: 'Combinatorics', difficulty: 'Medium-Hard',
+        question: '6 students each shake hands with everyone else exactly once. How many handshakes in total?',
+        choices: { A: '12', B: '15', C: '18', D: '21' },
+        correctAnswer: 'B',
+        explanation: 'Total handshakes = 6 × 5 ÷ 2 = 15. We divide by 2 because A shaking B\'s hand is the same as B shaking A\'s hand!'
+      },
+      {
+        id: 28, topic: 'Number Sense', difficulty: 'Medium-Hard',
+        question: 'What is 3 + 4 × 5 − 2²?',
+        choices: { A: '15', B: '19', C: '23', D: '27' },
+        correctAnswer: 'B',
+        explanation: 'Order of operations: 2² = 4 first, then 4 × 5 = 20. So: 3 + 20 − 4 = 19!'
+      },
+      {
+        id: 29, topic: 'Geometry', difficulty: 'Medium-Hard',
+        question: 'A circle has radius 14 cm. Using π ≈ 22/7, what is its circumference?',
+        choices: { A: '44 cm', B: '77 cm', C: '88 cm', D: '154 cm' },
+        correctAnswer: 'C',
+        explanation: 'Circumference = 2 × π × r = 2 × (22/7) × 14 = 2 × 44 = 88 cm!'
+      },
+      {
+        id: 30, topic: 'Combinatorics', difficulty: 'Medium-Hard',
+        question: 'How many ways can you arrange 3 different books on a shelf?',
+        choices: { A: '3', B: '5', C: '6', D: '9' },
+        correctAnswer: 'C',
+        explanation: '3 choices for the first spot, 2 for the second, 1 for the last. Total = 3 × 2 × 1 = 6 ways!'
+      }
+    ]
+  },
+
+  {
+    id: 'set-4',
+    title: 'Practice Set 4',
+    subtitle: 'Advanced Challenge',
+    emoji: '🔶',
+    stars: 4,
+    color: '#ea580c',
+    bgColor: '#fff7ed',
+    borderColor: '#fed7aa',
+    description: 'Push your limits with advanced olympiad-style reasoning problems.',
+    questions: [
+      {
+        id: 1, topic: 'Multiples', difficulty: 'Hard',
+        question: 'How many three-digit numbers are multiples of 25?',
+        choices: { A: '34', B: '36', C: '38', D: '40' },
+        correctAnswer: 'B',
+        explanation: 'Smallest 3-digit multiple of 25: 100 (25 × 4). Largest: 975 (25 × 39). Count = 39 − 4 + 1 = 36!'
+      },
+      {
+        id: 2, topic: 'Divisors', difficulty: 'Hard',
+        question: 'What is the smallest number GREATER than 10 that has exactly 3 divisors?',
+        choices: { A: '16', B: '25', C: '36', D: '49' },
+        correctAnswer: 'B',
+        explanation: 'A number has exactly 3 divisors only if it is the square of a prime (p²): 4 = 2² has divisors 1,2,4. 9 = 3² has 1,3,9. 25 = 5² has 1,5,25 — and 25 > 10! Answer: 25.'
+      },
+      {
+        id: 3, topic: 'Number Sense', difficulty: 'Hard',
+        question: 'What is 2 + 4 + 6 + … + 40?',
+        choices: { A: '380', B: '400', C: '420', D: '440' },
+        correctAnswer: 'C',
+        explanation: 'Sum of first 20 even numbers: 2+4+...+40. There are 20 terms. Sum = 20 × (2 + 40) ÷ 2 = 20 × 21 = 420!'
+      },
+      {
+        id: 4, topic: 'Remainders', difficulty: 'Hard',
+        question: 'What is the remainder when 5⁷ is divided by 4?',
+        choices: { A: '0', B: '1', C: '2', D: '3' },
+        correctAnswer: 'B',
+        explanation: '5 ÷ 4 gives remainder 1. So 5¹ has remainder 1. Since the remainder of 5 is always 1, 5⁷ also has remainder 1 when divided by 4!'
+      },
+      {
+        id: 5, topic: 'Prime Numbers', difficulty: 'Hard',
+        question: 'How many prime numbers are between 20 and 50?',
+        choices: { A: '5', B: '6', C: '7', D: '8' },
+        correctAnswer: 'C',
+        explanation: 'Primes between 20 and 50: 23, 29, 31, 37, 41, 43, 47. Count = 7!'
+      },
+      {
+        id: 6, topic: 'Word Problem', difficulty: 'Hard',
+        question: 'Lisa has 3 times as many stickers as Kate. If Lisa gives Kate 15 stickers, they have the same number. How many stickers did Lisa start with?',
+        choices: { A: '30', B: '40', C: '45', D: '60' },
+        correctAnswer: 'C',
+        explanation: 'Let Kate = K, Lisa = 3K. After giving: 3K − 15 = K + 15. So 2K = 30, K = 15. Lisa started with 3 × 15 = 45 stickers!'
+      },
+      {
+        id: 7, topic: 'Geometry', difficulty: 'Hard',
+        question: 'A rectangle\'s length is 5 cm more than its width. Its area is 84 cm². What is its perimeter?',
+        choices: { A: '34 cm', B: '36 cm', C: '38 cm', D: '40 cm' },
+        correctAnswer: 'C',
+        explanation: 'Let width = w, length = w + 5. So w(w + 5) = 84. Try w = 7: 7 × 12 = 84 ✓! Perimeter = 2 × (7 + 12) = 2 × 19 = 38 cm!'
+      },
+      {
+        id: 8, topic: 'Patterns', difficulty: 'Hard',
+        question: 'What comes next? 1, 3, 7, 15, 31, ___',
+        choices: { A: '47', B: '53', C: '63', D: '67' },
+        correctAnswer: 'C',
+        explanation: 'Pattern: each term = previous × 2 + 1. 1→3→7→15→31→63. Check: 31 × 2 + 1 = 63!'
+      },
+      {
+        id: 9, topic: 'Time', difficulty: 'Hard',
+        question: 'January 1st is a Friday. What day is December 31st in the same (non-leap) year?',
+        choices: { A: 'Friday', B: 'Saturday', C: 'Sunday', D: 'Monday' },
+        correctAnswer: 'B',
+        explanation: 'A non-leap year has 365 days. 365 ÷ 7 = 52 remainder 1. So Dec 31 is 1 day after Friday = Saturday!'
+      },
+      {
+        id: 10, topic: 'Fractions', difficulty: 'Hard',
+        question: 'A jar is 3/4 full. You pour out 1/3 of the contents. What fraction of the jar is left?',
+        choices: { A: '5/12', B: '1/2', C: '7/12', D: '5/6' },
+        correctAnswer: 'B',
+        explanation: 'You pour out 1/3 of 3/4 = (1/3) × (3/4) = 3/12 = 1/4. Left = 3/4 − 1/4 = 2/4 = 1/2!'
+      },
+      {
+        id: 11, topic: 'Patterns', difficulty: 'Hard',
+        question: 'What is the missing number? 2, 6, 12, 20, 30, ___',
+        choices: { A: '40', B: '42', C: '44', D: '46' },
+        correctAnswer: 'B',
+        explanation: 'Differences: +4, +6, +8, +10, +12... The next difference is +12. So 30 + 12 = 42!'
+      },
+      {
+        id: 12, topic: 'Number Sense', difficulty: 'Hard',
+        question: 'Find n if 1 + 2 + 3 + … + n = 45.',
+        choices: { A: '8', B: '9', C: '10', D: '11' },
+        correctAnswer: 'B',
+        explanation: 'Formula: n × (n+1) ÷ 2 = 45. So n × (n+1) = 90. Try n = 9: 9 × 10 = 90 ✓! Answer: n = 9!'
+      },
+      {
+        id: 13, topic: 'Geometry', difficulty: 'Hard',
+        question: 'Three consecutive even numbers form the sides of a right triangle. What is the largest side?',
+        choices: { A: '8', B: '10', C: '12', D: '16' },
+        correctAnswer: 'B',
+        explanation: 'Try 6, 8, 10: 6² + 8² = 36 + 64 = 100 = 10² ✓. These are consecutive even numbers and form a right triangle. Largest side = 10!'
+      },
+      {
+        id: 14, topic: 'Combinatorics', difficulty: 'Hard',
+        question: 'A 3-digit lock uses digits 1–6 with no repeats. How many different codes are possible?',
+        choices: { A: '60', B: '90', C: '120', D: '216' },
+        correctAnswer: 'C',
+        explanation: '6 choices for the first digit, 5 for the second (no repeat), 4 for the third. Total = 6 × 5 × 4 = 120 codes!'
+      },
+      {
+        id: 15, topic: 'Geometry', difficulty: 'Hard',
+        question: 'At 3:40, what is the angle between the clock hands?',
+        choices: { A: '100°', B: '120°', C: '130°', D: '140°' },
+        correctAnswer: 'C',
+        explanation: 'Minute hand: 40 × 6° = 240°. Hour hand: 3 × 30° + 40 × 0.5° = 90° + 20° = 110°. Angle = 240° − 110° = 130°!'
+      },
+      {
+        id: 16, topic: 'LCM', difficulty: 'Hard',
+        question: 'Three clocks ring every 3, 4, and 6 minutes. They all ring together at 6:00 AM. When do they next all ring together?',
+        choices: { A: '6:08 AM', B: '6:10 AM', C: '6:12 AM', D: '6:15 AM' },
+        correctAnswer: 'C',
+        explanation: 'LCM(3, 4, 6) = 12 minutes. They all ring together again at 6:00 + 12 min = 6:12 AM!'
+      },
+      {
+        id: 17, topic: 'Word Problem', difficulty: 'Hard',
+        question: 'Apples cost $3 each, oranges cost $5 each. Buying 8 fruits costs $30. How many apples were bought?',
+        choices: { A: '3', B: '4', C: '5', D: '6' },
+        correctAnswer: 'C',
+        explanation: 'Let apples = a, oranges = 8 − a. 3a + 5(8 − a) = 30. 3a + 40 − 5a = 30. −2a = −10. a = 5 apples!'
+      },
+      {
+        id: 18, topic: 'Patterns', difficulty: 'Hard',
+        question: 'In the sequence 1, 1, 2, 3, 5, 8, 13, 21, …, what is the 10th term?',
+        choices: { A: '34', B: '44', C: '55', D: '66' },
+        correctAnswer: 'C',
+        explanation: 'Fibonacci sequence: 1, 1, 2, 3, 5, 8, 13, 21, 34, 55. Count: the 10th term is 55!'
+      },
+      {
+        id: 19, topic: 'Geometry', difficulty: 'Hard',
+        question: 'Where does the hour hand point at 4:00? (in degrees from 12)',
+        choices: { A: '110°', B: '120°', C: '130°', D: '140°' },
+        correctAnswer: 'B',
+        explanation: 'Each hour mark is 30° apart (360° ÷ 12 = 30°). At 4:00, the hour hand is at 4 × 30° = 120° from 12!'
+      },
+      {
+        id: 20, topic: 'Geometry', difficulty: 'Hard',
+        question: 'A regular octagon has a perimeter of 64 cm. What is one interior angle?',
+        choices: { A: '120°', B: '125°', C: '130°', D: '135°' },
+        correctAnswer: 'D',
+        explanation: 'Side = 64 ÷ 8 = 8 cm. Interior angle = (8−2) × 180° ÷ 8 = 6 × 180° ÷ 8 = 1080° ÷ 8 = 135°!'
+      },
+      {
+        id: 21, topic: 'Divisibility', difficulty: 'Hard',
+        question: 'How many numbers from 1 to 50 are divisible by 2 but NOT by 4?',
+        choices: { A: '11', B: '12', C: '13', D: '14' },
+        correctAnswer: 'C',
+        explanation: 'Divisible by 2: 25 numbers. Divisible by 4: 12 numbers. Divisible by 2 but not 4: 25 − 12 = 13!'
+      },
+      {
+        id: 22, topic: 'Geometry', difficulty: 'Hard',
+        question: 'A cuboid has dimensions 2×3×4. All dimensions are doubled. How many times greater is the surface area?',
+        choices: { A: '2', B: '3', C: '4', D: '8' },
+        correctAnswer: 'C',
+        explanation: 'Original SA = 2(6+8+12) = 52. New (doubled) SA = 2(24+32+48) = 208. Ratio = 208 ÷ 52 = 4. Doubling dimensions multiplies SA by 4!'
+      },
+      {
+        id: 23, topic: 'Word Problem', difficulty: 'Hard',
+        question: 'A 90 cm rope is cut into 3 pieces. The 2nd is twice the 1st. The 3rd is 3 times the 2nd. How long is the 1st piece?',
+        choices: { A: '8 cm', B: '10 cm', C: '12 cm', D: '15 cm' },
+        correctAnswer: 'B',
+        explanation: 'First = x, second = 2x, third = 3 × 2x = 6x. Total: x + 2x + 6x = 9x = 90. So x = 10 cm!'
+      },
+      {
+        id: 24, topic: 'Combinatorics', difficulty: 'Hard',
+        question: '8 people at a party each shake hands with everyone else exactly once. How many handshakes in total?',
+        choices: { A: '24', B: '28', C: '32', D: '36' },
+        correctAnswer: 'B',
+        explanation: 'Handshakes = 8 × 7 ÷ 2 = 28. (Each of 8 people shakes 7 hands, but each handshake is counted twice!)'
+      },
+      {
+        id: 25, topic: 'Number Sense', difficulty: 'Hard',
+        question: 'What is (15 − 3²) × 2 + 4?',
+        choices: { A: '12', B: '14', C: '16', D: '18' },
+        correctAnswer: 'C',
+        explanation: '3² = 9. Then: (15 − 9) × 2 + 4 = 6 × 2 + 4 = 12 + 4 = 16!'
+      },
+      {
+        id: 26, topic: 'Geometry', difficulty: 'Hard',
+        question: 'A trapezoid has parallel sides 10 cm and 14 cm, and height 6 cm. What is its area?',
+        choices: { A: '60 cm²', B: '66 cm²', C: '72 cm²', D: '80 cm²' },
+        correctAnswer: 'C',
+        explanation: 'Area = (10 + 14) × 6 ÷ 2 = 24 × 6 ÷ 2 = 144 ÷ 2 = 72 cm²!'
+      },
+      {
+        id: 27, topic: 'Remainders', difficulty: 'Hard',
+        question: 'A number greater than 10 leaves remainder 3 when divided by both 5 and 7. What is the smallest such number?',
+        choices: { A: '23', B: '28', C: '33', D: '38' },
+        correctAnswer: 'D',
+        explanation: 'Need: n ≡ 3 (mod 5) and n ≡ 3 (mod 7). So n − 3 must be divisible by LCM(5,7) = 35. Smallest: 35 + 3 = 38!'
+      },
+      {
+        id: 28, topic: 'Word Problem', difficulty: 'Hard',
+        question: 'If 40% of a number equals 30, what is the number?',
+        choices: { A: '60', B: '70', C: '75', D: '80' },
+        correctAnswer: 'C',
+        explanation: '40% × n = 30. So n = 30 ÷ 0.4 = 75. Or: 40% = 30, so 10% = 7.5, so 100% = 75!'
+      },
+      {
+        id: 29, topic: 'Multiples', difficulty: 'Hard',
+        question: 'How many two-digit numbers are divisible by both 3 and 7?',
+        choices: { A: '3', B: '4', C: '5', D: '6' },
+        correctAnswer: 'B',
+        explanation: 'Must be multiples of LCM(3,7) = 21. Two-digit multiples of 21: 21, 42, 63, 84. Count = 4!'
+      },
+      {
+        id: 30, topic: 'Combinatorics', difficulty: 'Hard',
+        question: 'A bag has 5 red and 3 green marbles. In how many ways can you choose 2 GREEN marbles?',
+        choices: { A: '1', B: '2', C: '3', D: '6' },
+        correctAnswer: 'C',
+        explanation: 'Choose 2 from 3 green marbles: 3 × 2 ÷ 2 = 3 ways!'
+      }
+    ]
+  },
+
+  {
+    id: 'set-5',
+    title: 'Practice Set 5',
+    subtitle: 'Final Mock Test',
+    emoji: '🏆',
+    stars: 5,
+    color: '#db2777',
+    bgColor: '#fdf2f8',
+    borderColor: '#fbcfe8',
+    description: 'The ultimate olympiad simulation — prove your mastery!',
+    questions: [
+      {
+        id: 1, topic: 'LCM', difficulty: 'Hard',
+        question: 'What is the least three-digit number divisible by BOTH 6 and 9?',
+        choices: { A: '100', B: '108', C: '114', D: '126' },
+        correctAnswer: 'B',
+        explanation: 'LCM(6, 9) = 18. Multiples of 18: 90 (two digits), 108 (three digits ✓). Answer: 108!'
+      },
+      {
+        id: 2, topic: 'Divisors', difficulty: 'Hard',
+        question: 'How many factors does 2⁴ × 3² have?',
+        choices: { A: '10', B: '12', C: '15', D: '18' },
+        correctAnswer: 'C',
+        explanation: 'For 2⁴ × 3²: number of factors = (4+1) × (2+1) = 5 × 3 = 15!'
+      },
+      {
+        id: 3, topic: 'Number Sense', difficulty: 'Hard',
+        question: 'What is 2 + 4 + 6 + … + 50?',
+        choices: { A: '600', B: '625', C: '650', D: '680' },
+        correctAnswer: 'C',
+        explanation: 'Sum of even numbers 2 to 50: 25 terms. Sum = 25 × (2 + 50) ÷ 2 = 25 × 26 = 650!'
+      },
+      {
+        id: 4, topic: 'Remainders', difficulty: 'Hard',
+        question: 'What is the remainder when 3⁸ is divided by 4?',
+        choices: { A: '0', B: '1', C: '2', D: '3' },
+        correctAnswer: 'B',
+        explanation: '3 ÷ 4 leaves remainder 3, which equals −1. So 3⁸ ≡ (−1)⁸ = 1 (mod 4). Remainder = 1!'
+      },
+      {
+        id: 5, topic: 'Prime Numbers', difficulty: 'Hard',
+        question: 'What is the product of the DISTINCT prime factors of 360?',
+        choices: { A: '15', B: '30', C: '60', D: '72' },
+        correctAnswer: 'B',
+        explanation: '360 = 2³ × 3² × 5. Distinct prime factors: 2, 3, 5. Product = 2 × 3 × 5 = 30!'
+      },
+      {
+        id: 6, topic: 'Divisibility', difficulty: 'Hard',
+        question: 'The 4-digit number 3_48 is divisible by 9. What is the missing digit?',
+        choices: { A: '2', B: '3', C: '4', D: '6' },
+        correctAnswer: 'B',
+        explanation: 'A number is divisible by 9 if its digit sum is divisible by 9. 3 + _ + 4 + 8 = 15 + _. For this to be divisible by 9: 15 + _ = 18, so _ = 3!'
+      },
+      {
+        id: 7, topic: 'Word Problem', difficulty: 'Hard',
+        question: 'Mike reads 25 pages per day. How many WEEKS does it take to read a 350-page book?',
+        choices: { A: '1 week', B: '2 weeks', C: '3 weeks', D: '4 weeks' },
+        correctAnswer: 'B',
+        explanation: '350 ÷ 25 = 14 days. 14 days = 2 weeks!'
+      },
+      {
+        id: 8, topic: 'Geometry', difficulty: 'Hard',
+        question: 'A rectangle has perimeter 50 cm and one side 15 cm. What is its area?',
+        choices: { A: '100 cm²', B: '125 cm²', C: '150 cm²', D: '175 cm²' },
+        correctAnswer: 'C',
+        explanation: 'Other side = 50 ÷ 2 − 15 = 25 − 15 = 10 cm. Area = 15 × 10 = 150 cm²!'
+      },
+      {
+        id: 9, topic: 'Patterns', difficulty: 'Hard',
+        question: 'Starting with 2, each term is multiplied by 3. What is the 6th term?',
+        choices: { A: '162', B: '486', C: '243', D: '729' },
+        correctAnswer: 'B',
+        explanation: '2, 6, 18, 54, 162, 486. The 6th term is 486!'
+      },
+      {
+        id: 10, topic: 'Time', difficulty: 'Hard',
+        question: 'June has 30 days and June 1st is a Thursday. How many Fridays are in June?',
+        choices: { A: '3', B: '4', C: '5', D: '6' },
+        correctAnswer: 'C',
+        explanation: 'June 1 = Thursday. First Friday = June 2. Fridays: 2, 9, 16, 23, 30. Count = 5 Fridays!'
+      },
+      {
+        id: 11, topic: 'Fractions', difficulty: 'Hard',
+        question: 'A bag has 4 red and 6 blue balls. What FRACTION of the balls are red?',
+        choices: { A: '2/5', B: '1/3', C: '3/5', D: '4/9' },
+        correctAnswer: 'A',
+        explanation: 'Total = 4 + 6 = 10 balls. Red fraction = 4/10 = 2/5!'
+      },
+      {
+        id: 12, topic: 'Patterns', difficulty: 'Hard',
+        question: 'What comes next? 5, 10, 20, 40, 80, ___',
+        choices: { A: '120', B: '140', C: '160', D: '180' },
+        correctAnswer: 'C',
+        explanation: 'Each term is multiplied by 2. 80 × 2 = 160!'
+      },
+      {
+        id: 13, topic: 'Number Sense', difficulty: 'Hard',
+        question: 'What is 1 + 2 + 3 + 4 + … + 100?',
+        choices: { A: '4950', B: '5000', C: '5050', D: '5100' },
+        correctAnswer: 'C',
+        explanation: 'Formula: n × (n+1) ÷ 2 = 100 × 101 ÷ 2 = 10100 ÷ 2 = 5050!'
+      },
+      {
+        id: 14, topic: 'Geometry', difficulty: 'Hard',
+        question: 'A trapezoid has parallel sides 8 cm and 12 cm, and height 5 cm. What is its area?',
+        choices: { A: '40 cm²', B: '50 cm²', C: '60 cm²', D: '100 cm²' },
+        correctAnswer: 'B',
+        explanation: 'Area = (8 + 12) × 5 ÷ 2 = 20 × 5 ÷ 2 = 100 ÷ 2 = 50 cm²!'
+      },
+      {
+        id: 15, topic: 'Geometry', difficulty: 'Hard',
+        question: 'A right triangle has legs 7 cm and 24 cm. What is the hypotenuse?',
+        choices: { A: '20 cm', B: '25 cm', C: '26 cm', D: '30 cm' },
+        correctAnswer: 'B',
+        explanation: '7² + 24² = 49 + 576 = 625 = 25². Hypotenuse = 25 cm!'
+      },
+      {
+        id: 16, topic: 'Combinatorics', difficulty: 'Hard',
+        question: 'A cafeteria has 4 types of bread and 5 types of filling. How many different sandwiches can be made?',
+        choices: { A: '9', B: '15', C: '18', D: '20' },
+        correctAnswer: 'D',
+        explanation: '4 breads × 5 fillings = 20 different sandwiches!'
+      },
+      {
+        id: 17, topic: 'Geometry', difficulty: 'Hard',
+        question: 'What angle do clock hands make at 12:30?',
+        choices: { A: '155°', B: '160°', C: '165°', D: '170°' },
+        correctAnswer: 'C',
+        explanation: 'At 12:30: minute hand at 180°. Hour hand at 0° + 30 × 0.5° = 15°. Angle = 180° − 15° = 165°!'
+      },
+      {
+        id: 18, topic: 'Divisors', difficulty: 'Hard',
+        question: 'Which number has exactly 8 positive divisors?',
+        choices: { A: '16', B: '20', C: '24', D: '28' },
+        correctAnswer: 'C',
+        explanation: 'Divisors of 24: 1, 2, 3, 4, 6, 8, 12, 24 = exactly 8 divisors! (16 has 5, 20 has 6, 28 has 6)'
+      },
+      {
+        id: 19, topic: 'LCM', difficulty: 'Hard',
+        question: 'Bus A arrives every 10 minutes, Bus B every 15 minutes. Both arrive at 8:00 AM. When do they NEXT arrive together?',
+        choices: { A: '8:20 AM', B: '8:25 AM', C: '8:30 AM', D: '8:35 AM' },
+        correctAnswer: 'C',
+        explanation: 'LCM(10, 15) = 30 minutes. They arrive together again at 8:00 + 30 min = 8:30 AM!'
+      },
+      {
+        id: 20, topic: 'Word Problem', difficulty: 'Hard',
+        question: 'A class has 30 students. 60% bring their own lunch. How many students bring lunch?',
+        choices: { A: '12', B: '15', C: '18', D: '20' },
+        correctAnswer: 'C',
+        explanation: '60% of 30 = 60/100 × 30 = 0.6 × 30 = 18 students!'
+      },
+      {
+        id: 21, topic: 'Fractions', difficulty: 'Hard',
+        question: 'What is 7/8 − 5/12?',
+        choices: { A: '1/4', B: '7/24', C: '11/24', D: '1/2' },
+        correctAnswer: 'C',
+        explanation: 'LCD = 24. 7/8 = 21/24. 5/12 = 10/24. 21/24 − 10/24 = 11/24!'
+      },
+      {
+        id: 22, topic: 'Patterns', difficulty: 'Hard',
+        question: 'In the sequence 3, 4, 7, 11, 18, ___, each term is the sum of the two before it. What is next?',
+        choices: { A: '25', B: '27', C: '29', D: '31' },
+        correctAnswer: 'C',
+        explanation: '11 + 18 = 29!'
+      },
+      {
+        id: 23, topic: 'Geometry', difficulty: 'Hard',
+        question: 'A regular polygon has interior angles of 120°. How many sides does it have?',
+        choices: { A: '4', B: '5', C: '6', D: '8' },
+        correctAnswer: 'C',
+        explanation: 'Formula: (n−2) × 180° ÷ n = 120°. So (n−2) × 180 = 120n. 180n − 360 = 120n. 60n = 360. n = 6 sides!'
+      },
+      {
+        id: 24, topic: 'Divisibility', difficulty: 'Hard',
+        question: 'How many numbers from 1 to 200 are divisible by 7?',
+        choices: { A: '26', B: '27', C: '28', D: '29' },
+        correctAnswer: 'C',
+        explanation: '200 ÷ 7 = 28.57... So there are 28 whole multiples of 7 from 1 to 200 (7, 14, 21, ..., 196)!'
+      },
+      {
+        id: 25, topic: 'Geometry', difficulty: 'Hard',
+        question: 'An open box (no lid) has dimensions 5 cm × 4 cm × 3 cm. What is its total surface area?',
+        choices: { A: '62 cm²', B: '74 cm²', C: '84 cm²', D: '94 cm²' },
+        correctAnswer: 'B',
+        explanation: 'Base (5×4) = 20. Two long sides (5×3) × 2 = 30. Two short sides (4×3) × 2 = 24. Total = 20 + 30 + 24 = 74 cm²!'
+      },
+      {
+        id: 26, topic: 'Word Problem', difficulty: 'Hard',
+        question: 'A 120 cm rope is cut in the ratio 3:5:4. What is the length of the LONGEST piece?',
+        choices: { A: '30 cm', B: '40 cm', C: '50 cm', D: '60 cm' },
+        correctAnswer: 'C',
+        explanation: 'Total ratio parts = 3+5+4 = 12. Each part = 120 ÷ 12 = 10 cm. Lengths: 30, 50, 40. Longest = 50 cm!'
+      },
+      {
+        id: 27, topic: 'Combinatorics', difficulty: 'Hard',
+        question: 'A team of 7 people needs to choose 2 members for a task. How many ways can this be done?',
+        choices: { A: '14', B: '21', C: '28', D: '35' },
+        correctAnswer: 'B',
+        explanation: 'Ways = 7 × 6 ÷ 2 = 42 ÷ 2 = 21 ways!'
+      },
+      {
+        id: 28, topic: 'Number Sense', difficulty: 'Hard',
+        question: 'What is (3 + 5) × 4 − 2³?',
+        choices: { A: '20', B: '22', C: '24', D: '26' },
+        correctAnswer: 'C',
+        explanation: '2³ = 8. (3+5) = 8. So 8 × 4 − 8 = 32 − 8 = 24!'
+      },
+      {
+        id: 29, topic: 'Multiples', difficulty: 'Hard',
+        question: 'How many two-digit multiples of 11 are there?',
+        choices: { A: '7', B: '8', C: '9', D: '10' },
+        correctAnswer: 'C',
+        explanation: 'Two-digit multiples of 11: 11, 22, 33, 44, 55, 66, 77, 88, 99. Count = 9!'
+      },
+      {
+        id: 30, topic: 'Geometry', difficulty: 'Hard',
+        question: 'A kite has diagonals of 12 cm and 8 cm. What is its area?',
+        choices: { A: '24 cm²', B: '40 cm²', C: '48 cm²', D: '96 cm²' },
+        correctAnswer: 'C',
+        explanation: 'Area of kite = diagonal₁ × diagonal₂ ÷ 2 = 12 × 8 ÷ 2 = 96 ÷ 2 = 48 cm²!'
+      }
+    ]
+  }
+];
+
+
+// ── STATE ─────────────────────────────────────────────────
+var S = { page:'home', setIdx:null, qIdx:0, selected:null, score:0, answers:[] };
+
+// ── HELPERS ───────────────────────────────────────────────
+function $id(id){ return document.getElementById(id); }
+function app(){ return $id('app'); }
+function badge(){ return $id('scoreBadge'); }
+
+// ── NAVIGATION ────────────────────────────────────────────
+function goHome(){
+  S = {page:'home',setIdx:null,qIdx:0,selected:null,score:0,answers:[]};
+  badge().style.display='none';
+  render(); window.scrollTo(0,0);
+}
+function startQuiz(idx){
+  S = {page:'quiz',setIdx:idx,qIdx:0,selected:null,score:0,answers:[]};
+  updateBadge(); render(); window.scrollTo(0,0);
+}
+function selectAnswer(letter){
+  if(S.selected!==null) return;
+  var q = quizSets[S.setIdx].questions[S.qIdx];
+  var ok = letter === q.correctAnswer;
+  S.selected = letter;
+  if(ok) S.score++;
+  S.answers.push({selected:letter,correct:q.correctAnswer,topic:q.topic,ok:ok});
+  updateBadge(); render();
+}
+function nextQ(){
+  var set = quizSets[S.setIdx];
+  if(S.qIdx+1 >= set.questions.length){
+    S.page='result'; badge().style.display='none';
+  } else {
+    S.qIdx++; S.selected=null;
+  }
+  render(); window.scrollTo(0,0);
+}
+function retryQuiz(){ startQuiz(S.setIdx); }
+function updateBadge(){
+  var b=badge();
+  b.style.display='inline-block';
+  b.textContent='⭐ '+S.score+' / '+quizSets[S.setIdx].questions.length;
+}
+
+// ── RENDER ────────────────────────────────────────────────
+function render(){
+  try{
+    if(S.page==='home')   app().innerHTML = homeHTML();
+    if(S.page==='quiz')   app().innerHTML = quizHTML();
+    if(S.page==='result') app().innerHTML = resultHTML();
+  } catch(e){
+    app().innerHTML='<div style="padding:40px;text-align:center;color:red;font-family:sans-serif"><h2>Something went wrong</h2><p>'+e.message+'</p></div>';
+  }
+}
+
+// ══ HOME ══════════════════════════════════════════════════
+function homeHTML(){
+  var topics = [
+    {i:'🔢',n:'Multiples'},{i:'🧩',n:'Divisors'},{i:'📐',n:'Geometry'},
+    {i:'⏰',n:'Time'},{i:'🍕',n:'Fractions'},{i:'✨',n:'Patterns'},
+    {i:'🎲',n:'Combinatorics'},{i:'🔑',n:'LCM & GCD'},{i:'🟣',n:'Prime Numbers'},
+    {i:'⚖️',n:'Remainders'},{i:'💡',n:'Word Problems'},{i:'🔭',n:'Number Sense'}
+  ];
+  var tCards = topics.map(function(t){
+    return '<div class="tc"><div class="ti">'+t.i+'</div><div class="tn">'+t.n+'</div></div>';
+  }).join('');
+
+  var sColors=[
+    {bg:'#f5f3ff',br:'#ddd6fe',btn:'#7c3aed',btxt:'white'},
+    {bg:'#eff6ff',br:'#bfdbfe',btn:'#2563eb',btxt:'white'},
+    {bg:'#ecfdf5',br:'#a7f3d0',btn:'#059669',btxt:'white'},
+    {bg:'#fff7ed',br:'#fed7aa',btn:'#ea580c',btxt:'white'},
+    {bg:'#fdf2f8',br:'#fbcfe8',btn:'#db2777',btxt:'white'}
+  ];
+  var sCards = quizSets.map(function(s,i){
+    var c=sColors[i];
+    var stars='';
+    for(var x=0;x<5;x++) stars+='<span style="color:'+(x<s.stars?'#f59e0b':'#d1d5db')+';font-size:.95rem;">★</span>';
+    return '<div class="setcard" style="background:'+c.bg+';border-color:'+c.br+';" data-action="start-quiz" data-set="'+i+'">'+
+      '<div class="setcard-top"><span class="setemoji">'+s.emoji+'</span><div>'+stars+'</div></div>'+
+      '<h3 style="color:#1e1b4b">'+s.title+'</h3>'+
+      '<div class="setlvl" style="color:'+s.color+'">'+s.subtitle+'</div>'+
+      '<p style="color:#374151">'+s.description+'</p>'+
+      '<button class="setbtn" style="background:'+c.btn+';color:'+c.btxt+';" data-action="start-quiz" data-set="'+i+'">🚀 Start Quiz →</button>'+
+      '</div>';
+  }).join('');
+
+  return '<div class="hero">'+
+    '<div class="hbadge">🏅 Olympiad-Style Practice</div>'+
+    '<h1>Primary 2 <span>Math Olympiad</span><br>Quiz Platform</h1>'+
+    '<p>Practice real olympiad math with 5 carefully designed sets, step-by-step explanations, and instant feedback!</p>'+
+    '<div class="stats">'+
+      '<div class="stat"><div class="n">5</div><div class="l">Practice Sets</div></div>'+
+      '<div class="stat"><div class="n">150</div><div class="l">Questions</div></div>'+
+      '<div class="stat"><div class="n">12</div><div class="l">Math Topics</div></div>'+
+    '</div></div>'+
+    '<div class="sec"><h2 class="sec-title">📚 What You\'ll Practice</h2>'+
+    '<p class="sec-sub">Each quiz covers a wide range of olympiad math skills</p>'+
+    '<div class="tgrid">'+tCards+'</div></div>'+
+    '<div class="sec" style="background:#fff;border-radius:24px;border:2px solid var(--border);box-shadow:var(--sh)">'+
+    '<h2 class="sec-title">🎯 How to Use This Quiz</h2>'+
+    '<p class="sec-sub">Easy and fun — here\'s how!</p>'+
+    '<div class="sgrid">'+
+      '<div class="sc"><div class="snum">1</div><h3>Choose a Set</h3><p>Pick from 5 levels — start with Set 1 (Warm-up) and work up to the Final Mock Test!</p></div>'+
+      '<div class="sc"><div class="snum">2</div><h3>Answer Questions</h3><p>Read each question carefully and tap the answer. You get 30 questions per set!</p></div>'+
+      '<div class="sc"><div class="snum">3</div><h3>See Explanation</h3><p>After each answer, get a clear step-by-step explanation!</p></div>'+
+      '<div class="sc"><div class="snum">4</div><h3>Check Your Score</h3><p>At the end, see your total score and performance level. Aim for Olympiad Star! 🌟</p></div>'+
+    '</div></div>'+
+    '<div class="sec"><h2 class="sec-title">🗂️ Choose Your Practice Set</h2>'+
+    '<p class="sec-sub">5 sets from warm-up to final mock — 30 questions each</p>'+
+    '<div class="setgrid">'+sCards+'</div></div>'+
+    '<footer><p>Made with ❤️ for young math champions</p>'+
+    '<p style="margin-top:5px">Created by <strong>Bright EngMath</strong> · Primary 2 Math Olympiad Quiz Platform</p></footer>';
+}
+
+// ══ QUIZ ══════════════════════════════════════════════════
+function quizHTML(){
+  var set=quizSets[S.setIdx];
+  var q=set.questions[S.qIdx];
+  var total=set.questions.length;
+  var pct=Math.round((S.qIdx/total)*100);
+  var answered=S.selected!==null;
+  var letters=['A','B','C','D'];
+
+  var aBtns = letters.map(function(l){
+    var cls='abtn';
+    var icon='';
+    if(answered){
+      if(l===q.correctAnswer){cls+=' ok';icon=' ✓';}
+      else if(l===S.selected){cls+=' no';icon=' ✗';}
+      else cls+=' dim';
+    }
+    var disabled=answered?' disabled':'';
+    return '<button class="'+cls+'" data-action="answer" data-answer="'+l+'"'+disabled+'>'+
+      '<span class="lbadge">'+l+'</span>'+
+      '<span>'+q.choices[l]+icon+'</span>'+
+      '</button>';
+  }).join('');
+
+  var fbHtml='';
+  var exHtml='';
+  var nxtHtml='';
+  if(answered){
+    var isOk=S.selected===q.correctAnswer;
+    if(isOk){
+      fbHtml='<div class="fb ok">🎉 Correct! Well done!</div>';
+    } else {
+      fbHtml='<div class="fb no">❌ Not quite! Correct answer: <strong>'+q.correctAnswer+': '+q.choices[q.correctAnswer]+'</strong></div>';
+    }
+    exHtml='<div class="expl"><div class="expl-ttl">💡 Here\'s how to solve it</div>'+
+            '<div class="expl-txt">'+q.explanation+'</div></div>';
+    var isLast=S.qIdx+1>=total;
+    nxtHtml='<button class="nextbtn" data-action="next">'+
+              (isLast?'🏁 See My Results':'Next Question →')+'</button>';
+  }
+
+  return '<div class="qwrap">'+
+    '<div class="qhead">'+
+      '<div class="qmeta">'+
+        '<span class="qtag" style="background:'+set.bgColor+';color:'+set.color+';border:2px solid '+set.borderColor+'">'+set.emoji+' '+set.title+'</span>'+
+        '<span class="qprog-lbl">Question '+(S.qIdx+1)+' of '+total+'</span>'+
+      '</div>'+
+      '<div class="pbar-track"><div class="pbar-fill" style="width:'+pct+'%"></div></div>'+
+    '</div>'+
+    '<div class="qcard">'+
+      '<div class="qtopic">'+q.topic+'</div>'+
+      '<div class="qnum">Q'+(S.qIdx+1)+'</div>'+
+      '<div class="qtext">'+q.question+'</div>'+
+    '</div>'+
+    '<div class="agrid">'+aBtns+'</div>'+
+    fbHtml+exHtml+nxtHtml+
+    '</div>';
+}
+
+// ══ RESULT ════════════════════════════════════════════════
+function resultHTML(){
+  var set=quizSets[S.setIdx];
+  var total=set.questions.length;
+  var score=S.score;
+  var pct=Math.round((score/total)*100);
+  var emoji,title,msg,cc,bc;
+  if(score>=27){
+    emoji='🏆';title='Olympiad Star!';
+    msg='Incredible! You got almost everything right. You are ready for real math olympiads!';
+    cc='#16a34a';bc='#4ade80';
+  } else if(score>=21){
+    emoji='🌟';title='Great Job!';
+    msg='Excellent work! You are thinking like a math champion. Keep practicing to reach the top!';
+    cc='#2563eb';bc='#60a5fa';
+  } else if(score>=15){
+    emoji='👍';title='Good Effort!';
+    msg='Nice progress! Review the explanations for the questions you missed — you are getting there!';
+    cc='#d97706';bc='#fbbf24';
+  } else {
+    emoji='💪';title='Keep Going!';
+    msg='Every mistake is a learning chance! Read the explanations and try again!';
+    cc='#7c3aed';bc='#a78bfa';
+  }
+  // topic map
+  var tm={};
+  S.answers.forEach(function(a){
+    if(!tm[a.topic]) tm[a.topic]={ok:0,t:0};
+    tm[a.topic].t++;
+    if(a.ok) tm[a.topic].ok++;
+  });
+  var chips=Object.keys(tm).map(function(tp){
+    var g=tm[tp].ok===tm[tp].t;
+    return '<span class="chip '+(g?'ok':'no')+'">'+(g?'✓':'✗')+' '+tp+'</span>';
+  }).join('');
+
+  return '<div class="rwrap">'+
+    '<div class="rcard">'+
+      '<span class="remoji">'+emoji+'</span>'+
+      '<div class="scircle" style="border-color:'+cc+';color:'+cc+'">'+
+        '<span class="sn">'+score+'</span>'+
+        '<span class="sd">out of '+total+'</span>'+
+      '</div>'+
+      '<h2>'+title+'</h2>'+
+      '<div class="rpct" style="color:'+cc+'">'+pct+'% Score</div>'+
+      '<div class="pbar2"><div class="pbar2-fill" style="width:'+pct+'%;background:'+bc+'"></div></div>'+
+      '<p class="rmsg">'+msg+'</p>'+
+      '<div class="ptable">'+
+        '<div class="pl">Performance Level</div>'+
+        '<div class="pr" style="color:'+(score>=27?'#16a34a':'#9ca3af')+'">🏆 27–30 — Olympiad Star</div>'+
+        '<div class="pr" style="color:'+(score>=21&&score<27?'#2563eb':'#9ca3af')+'">🌟 21–26 — Great Job!</div>'+
+        '<div class="pr" style="color:'+(score>=15&&score<21?'#d97706':'#9ca3af')+'">👍 15–20 — Good Effort!</div>'+
+        '<div class="pr" style="color:'+(score<15?'#7c3aed':'#9ca3af')+'">💪 0–14 — Keep Going!</div>'+
+      '</div>'+
+      '<div class="tsum"><h4>Topic Breakdown</h4><div class="tchips">'+chips+'</div></div>'+
+      '<div class="ractions">'+
+        '<button class="rbtn" data-action="retry">🔄 Try Again</button>'+
+        '<button class="rhbtn" data-action="home">🏠 Go Home</button>'+
+      '</div>'+
+    '</div>'+
+    '<footer style="text-align:center;padding:18px;color:var(--soft);font-size:.82rem">Created by <strong style="color:var(--primary)">Bright EngMath</strong></footer>'+
+    '</div>';
+}
+
+// ── EVENT DELEGATION (no onclick in innerHTML) ────────────
+document.addEventListener('click', function(e){
+  var el = e.target.closest('[data-action]');
+  if(!el) return;
+  var act = el.getAttribute('data-action');
+  var set = el.getAttribute('data-set');
+  var ans = el.getAttribute('data-answer');
+  if(act==='start-quiz') startQuiz(parseInt(set,10));
+  else if(act==='answer') selectAnswer(ans);
+  else if(act==='next') nextQ();
+  else if(act==='retry') retryQuiz();
+  else if(act==='home') goHome();
+});
+$id('homeBtn').addEventListener('click', goHome);
+
+// ── INIT ─────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function(){ render(); });
+</script>
+</body>
+</html>
