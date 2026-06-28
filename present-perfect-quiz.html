@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Present Perfect Tense Quiz Pack | Bright EngMath</title>
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #faf8f2;
+    color: #3a3535;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ===== COLOR TOKENS ===== */
+  :root {
+    --cream:     #faf8f2;
+    --ivory:     #f5f0e8;
+    --yellow:    #fef3c7;
+    --yellow-d:  #f59e0b;
+    --blue:      #dbeafe;
+    --blue-d:    #3b82f6;
+    --blue-m:    #60a5fa;
+    --green:     #d1fae5;
+    --green-d:   #10b981;
+    --pink:      #fce7f3;
+    --pink-d:    #ec4899;
+    --text:      #2d2828;
+    --muted:     #6b6b6b;
+    --card-bg:   #ffffff;
+    --shadow:    0 4px 20px rgba(0,0,0,.08);
+    --shadow-sm: 0 2px 8px rgba(0,0,0,.06);
+    --radius:    18px;
+    --radius-sm: 12px;
+  }
+
+  /* ===== LAYOUT ===== */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* ===== NAV ===== */
+  .navbar {
+    background: #fff;
+    border-bottom: 2px solid var(--yellow);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+  }
+  .brand {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--blue-d);
+    letter-spacing: -.3px;
+  }
+  .brand span { color: var(--yellow-d); }
+  .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-btn {
+    background: none;
+    border: none;
+    padding: 7px 14px;
+    border-radius: 30px;
+    font-size: .88rem;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .nav-btn:hover, .nav-btn.active {
+    background: var(--yellow);
+    color: var(--text);
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    display: inline-block;
+    padding: 13px 28px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: all .2s;
+    text-decoration: none;
+    text-align: center;
+  }
+  .btn-primary {
+    background: var(--blue-d);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(59,130,246,.35);
+  }
+  .btn-primary:hover { background: #2563eb; transform: translateY(-2px); }
+  .btn-secondary {
+    background: var(--yellow);
+    color: var(--text);
+    box-shadow: 0 4px 14px rgba(245,158,11,.2);
+  }
+  .btn-secondary:hover { background: #fde68a; transform: translateY(-2px); }
+  .btn-success {
+    background: var(--green-d);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(16,185,129,.3);
+  }
+  .btn-success:hover { background: #059669; transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent;
+    border: 2px solid var(--blue-d);
+    color: var(--blue-d);
+  }
+  .btn-outline:hover { background: var(--blue); }
+  .btn-sm { padding: 9px 18px; font-size: .88rem; }
+  .btn-lg { padding: 16px 36px; font-size: 1.1rem; }
+
+  /* ===== CARDS ===== */
+  .card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(0,0,0,.04);
+  }
+  .card-sm { padding: 20px; border-radius: var(--radius-sm); }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(135deg, #eff6ff 0%, #fef9ec 50%, #ecfdf5 100%);
+    padding: 70px 24px 60px;
+    text-align: center;
+    border-bottom: 3px solid var(--yellow);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    background: rgba(254,243,199,.6);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 160px; height: 160px;
+    background: rgba(209,250,229,.6);
+    border-radius: 50%;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--yellow);
+    color: var(--yellow-d);
+    font-size: .8rem;
+    font-weight: 700;
+    padding: 5px 16px;
+    border-radius: 30px;
+    margin-bottom: 18px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 900;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 14px;
+    position: relative; z-index: 1;
+  }
+  .hero h1 span { color: var(--blue-d); }
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 580px;
+    margin: 0 auto 30px;
+    position: relative; z-index: 1;
+  }
+  .hero-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+  /* ===== FEATURE CARDS ===== */
+  .features {
+    padding: 60px 24px;
+    background: var(--cream);
+  }
+  .section-title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .section-sub {
+    text-align: center;
+    color: var(--muted);
+    margin-bottom: 36px;
+    font-size: .95rem;
+  }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .feature-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 24px 20px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(0,0,0,.04);
+    transition: transform .2s;
+  }
+  .feature-card:hover { transform: translateY(-4px); }
+  .feat-icon {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+  }
+  .feat-title { font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+  .feat-desc { font-size: .87rem; color: var(--muted); }
+
+  /* ===== LESSON PAGE ===== */
+  .lesson-header {
+    background: linear-gradient(135deg, #eff6ff, #ecfdf5);
+    padding: 50px 24px 40px;
+    text-align: center;
+    border-bottom: 3px solid var(--blue);
+  }
+  .lesson-body {
+    padding: 40px 24px;
+  }
+  .lesson-section {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-sm);
+    border-left: 5px solid var(--blue-d);
+  }
+  .lesson-section.green { border-left-color: var(--green-d); }
+  .lesson-section.yellow { border-left-color: var(--yellow-d); }
+  .lesson-section.pink { border-left-color: var(--pink-d); }
+  .lesson-h2 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--blue-d);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .lesson-h2.green { color: var(--green-d); }
+  .lesson-h2.yellow { color: var(--yellow-d); }
+  .lesson-h2.pink { color: var(--pink-d); }
+  .formula-box {
+    background: var(--blue);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #1e40af;
+    margin: 12px 0;
+    letter-spacing: .3px;
+  }
+  .formula-box.green { background: var(--green); color: #065f46; }
+  .formula-box.yellow { background: var(--yellow); color: #92400e; }
+  .example-list { list-style: none; padding: 0; }
+  .example-list li {
+    background: var(--ivory);
+    border-radius: 10px;
+    padding: 10px 16px;
+    margin: 6px 0;
+    font-size: .95rem;
+    border-left: 3px solid var(--blue-m);
+  }
+  .example-list li.green { border-left-color: var(--green-d); }
+  .example-list li.yellow { border-left-color: var(--yellow-d); }
+  .example-list li.pink { border-left-color: var(--pink-d); }
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  @media (max-width: 560px) { .two-col { grid-template-columns: 1fr; } }
+  .mini-card {
+    background: var(--ivory);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    font-size: .9rem;
+  }
+  .mini-card strong { color: var(--blue-d); display: block; margin-bottom: 6px; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .tag {
+    background: var(--blue);
+    color: #1e40af;
+    border-radius: 30px;
+    padding: 4px 14px;
+    font-size: .83rem;
+    font-weight: 600;
+  }
+  .tag.green { background: var(--green); color: #065f46; }
+  .tag.yellow { background: var(--yellow); color: #92400e; }
+  .tag.pink { background: var(--pink); color: #9d174d; }
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+    font-size: .92rem;
+  }
+  .comparison-table th {
+    background: var(--blue-d);
+    color: #fff;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 700;
+  }
+  .comparison-table th:first-child { border-radius: 10px 0 0 0; }
+  .comparison-table th:last-child { border-radius: 0 10px 0 0; }
+  .comparison-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #f0ede8;
+  }
+  .comparison-table tr:nth-child(even) td { background: var(--ivory); }
+
+  .thai-note {
+    font-size: .85rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 6px;
+  }
+
+  /* ===== QUIZ MENU ===== */
+  .quiz-menu-header {
+    background: linear-gradient(135deg, #fef9ec, #ecfdf5);
+    padding: 50px 24px 40px;
+    text-align: center;
+    border-bottom: 3px solid var(--green);
+  }
+  .level-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    padding: 48px 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .level-card {
+    border-radius: var(--radius);
+    padding: 32px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .25s;
+    border: 2px solid transparent;
+    box-shadow: var(--shadow);
+  }
+  .level-card:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(0,0,0,.12); }
+  .level-card.easy { background: linear-gradient(135deg, #d1fae5, #ecfdf5); border-color: var(--green-d); }
+  .level-card.medium { background: linear-gradient(135deg, #dbeafe, #eff6ff); border-color: var(--blue-d); }
+  .level-card.hard { background: linear-gradient(135deg, #fce7f3, #fdf2f8); border-color: var(--pink-d); }
+  .level-icon { font-size: 3rem; margin-bottom: 14px; }
+  .level-name { font-size: 1.4rem; font-weight: 800; margin-bottom: 8px; }
+  .level-card.easy .level-name { color: #065f46; }
+  .level-card.medium .level-name { color: #1e40af; }
+  .level-card.hard .level-name { color: #9d174d; }
+  .level-desc { font-size: .88rem; color: var(--muted); margin-bottom: 18px; }
+  .level-badges { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+  .level-badge {
+    font-size: .77rem;
+    font-weight: 600;
+    padding: 3px 12px;
+    border-radius: 30px;
+    background: rgba(255,255,255,.7);
+  }
+
+  /* ===== QUIZ ENGINE ===== */
+  .quiz-page-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+  .quiz-header-bar {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 18px 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .quiz-level-tag {
+    font-size: .8rem;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 30px;
+  }
+  .quiz-level-tag.easy { background: var(--green); color: #065f46; }
+  .quiz-level-tag.medium { background: var(--blue); color: #1e40af; }
+  .quiz-level-tag.hard { background: var(--pink); color: #9d174d; }
+  .quiz-progress-text {
+    font-size: .88rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .progress-bar-wrap {
+    flex: 1;
+    background: var(--ivory);
+    border-radius: 30px;
+    height: 10px;
+    min-width: 120px;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 30px;
+    background: linear-gradient(90deg, var(--blue-d), var(--green-d));
+    transition: width .4s ease;
+  }
+  .score-chip {
+    background: var(--yellow);
+    color: var(--text);
+    font-size: .83rem;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 30px;
+  }
+
+  .question-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    animation: fadeUp .3s ease;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .q-type-badge {
+    display: inline-block;
+    font-size: .77rem;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 30px;
+    background: var(--ivory);
+    color: var(--muted);
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .q-number {
+    font-size: .85rem;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .q-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 22px;
+    line-height: 1.6;
+  }
+
+  /* Multiple choice */
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--ivory);
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm);
+    padding: 14px 18px;
+    font-size: .97rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .2s;
+    text-align: left;
+    color: var(--text);
+  }
+  .choice-btn:hover:not(:disabled) {
+    background: var(--blue);
+    border-color: var(--blue-d);
+  }
+  .choice-btn .choice-letter {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: .85rem;
+    flex-shrink: 0;
+    border: 2px solid #ddd;
+  }
+  .choice-btn.correct {
+    background: var(--green);
+    border-color: var(--green-d);
+  }
+  .choice-btn.correct .choice-letter {
+    background: var(--green-d);
+    color: #fff;
+    border-color: var(--green-d);
+  }
+  .choice-btn.wrong {
+    background: #fee2e2;
+    border-color: #ef4444;
+  }
+  .choice-btn.wrong .choice-letter {
+    background: #ef4444;
+    color: #fff;
+    border-color: #ef4444;
+  }
+
+  /* Fill in blank */
+  .fill-input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid #e0ddd8;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    font-family: inherit;
+    background: var(--ivory);
+    color: var(--text);
+    transition: border .2s;
+    outline: none;
+  }
+  .fill-input:focus { border-color: var(--blue-d); background: #fff; }
+  .fill-input.correct-input { border-color: var(--green-d); background: var(--green); }
+  .fill-input.wrong-input { border-color: #ef4444; background: #fee2e2; }
+  .fill-submit-btn {
+    margin-top: 12px;
+    width: 100%;
+  }
+
+  /* Error correction / Rewrite / Short answer */
+  .error-sentence {
+    background: #fee2e2;
+    border: 2px solid #fca5a5;
+    border-radius: var(--radius-sm);
+    padding: 14px 18px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #991b1b;
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+  .rewrite-source {
+    background: var(--yellow);
+    border: 2px solid var(--yellow-d);
+    border-radius: var(--radius-sm);
+    padding: 14px 18px;
+    font-size: .97rem;
+    font-weight: 600;
+    color: #92400e;
+    margin-bottom: 14px;
+  }
+  .short-answer-area {
+    width: 100%;
+    min-height: 80px;
+    padding: 14px 18px;
+    border: 2px solid #e0ddd8;
+    border-radius: var(--radius-sm);
+    font-size: .97rem;
+    font-family: inherit;
+    resize: vertical;
+    background: var(--ivory);
+    color: var(--text);
+    outline: none;
+  }
+  .short-answer-area:focus { border-color: var(--blue-d); background: #fff; }
+
+  /* Feedback box */
+  .feedback-box {
+    margin-top: 18px;
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    display: none;
+    animation: fadeUp .25s ease;
+  }
+  .feedback-box.show { display: block; }
+  .feedback-box.correct-fb {
+    background: var(--green);
+    border: 2px solid var(--green-d);
+  }
+  .feedback-box.wrong-fb {
+    background: #fee2e2;
+    border: 2px solid #fca5a5;
+  }
+  .feedback-box.info-fb {
+    background: var(--blue);
+    border: 2px solid var(--blue-d);
+  }
+  .feedback-status {
+    font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .correct-fb .feedback-status { color: #065f46; }
+  .wrong-fb .feedback-status { color: #991b1b; }
+  .info-fb .feedback-status { color: #1e40af; }
+  .feedback-answer {
+    font-size: .93rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .feedback-explain { font-size: .9rem; color: var(--muted); }
+  .correct-fb .feedback-explain { color: #065f46; opacity: .85; }
+  .wrong-fb .feedback-explain { color: #991b1b; opacity: .85; }
+  .info-fb .feedback-explain { color: #1e40af; opacity: .85; }
+
+  .next-btn-wrap { margin-top: 20px; display: flex; justify-content: flex-end; }
+
+  /* ===== RESULTS PAGE ===== */
+  .results-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 48px 20px 80px;
+    text-align: center;
+  }
+  .results-trophy { font-size: 5rem; margin-bottom: 16px; }
+  .results-title { font-size: 2rem; font-weight: 900; color: var(--text); margin-bottom: 8px; }
+  .results-subtitle { font-size: 1rem; color: var(--muted); margin-bottom: 28px; }
+  .score-display {
+    background: linear-gradient(135deg, var(--blue), var(--green));
+    border-radius: var(--radius);
+    padding: 30px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow);
+  }
+  .score-big { font-size: 3.5rem; font-weight: 900; color: #fff; line-height: 1; }
+  .score-label { color: rgba(255,255,255,.8); font-size: .95rem; margin-top: 6px; }
+  .encourage-msg {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .encourage-sub { font-size: .95rem; color: var(--muted); margin-bottom: 32px; }
+  .results-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #fff;
+    border-top: 2px solid var(--yellow);
+    padding: 28px 24px;
+    text-align: center;
+    font-size: .85rem;
+    color: var(--muted);
+  }
+  footer strong { color: var(--blue-d); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 640px) {
+    .question-card { padding: 22px 18px; }
+    .quiz-header-bar { gap: 10px; }
+    .hero { padding: 50px 20px 40px; }
+    .choice-btn { padding: 12px 14px; font-size: .93rem; }
+    .btn-lg { padding: 13px 28px; font-size: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="brand">✏️ Bright <span>Eng</span>Math</div>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="showPage('home')">Home</button>
+    <button class="nav-btn" onclick="showPage('lesson')">Lesson</button>
+    <button class="nav-btn" onclick="showPage('quiz-menu')">Quiz</button>
+  </div>
+</nav>
+
+<!-- ==================== HOME PAGE ==================== -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-badge">📚 Bright EngMath Learning Series</div>
+    <h1><span>Present Perfect Tense</span><br>Quiz Pack</h1>
+    <p>Learn, Practice, and Master Present Perfect Tense step by step — with 3 levels, 90 questions, and instant feedback every step of the way.</p>
+    <div class="hero-buttons">
+      <button class="btn btn-primary btn-lg" onclick="showPage('lesson')">📖 Start Learning</button>
+      <button class="btn btn-secondary btn-lg" onclick="showPage('quiz-menu')">🎯 Start Quiz</button>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="container">
+      <h2 class="section-title">What's Inside This Pack?</h2>
+      <p class="section-sub">Everything you need to learn and master Present Perfect Tense</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feat-icon">📝</div>
+          <div class="feat-title">Full Lesson Summary</div>
+          <div class="feat-desc">Clear grammar notes with formulas, examples, and tips — in English with Thai notes to help understanding</div>
+        </div>
+        <div class="feature-card">
+          <div class="feat-icon">🟢</div>
+          <div class="feat-title">Easy Level</div>
+          <div class="feat-desc">30 multiple choice questions — perfect for beginners learning have/has and basic V3 forms</div>
+        </div>
+        <div class="feature-card">
+          <div class="feat-icon">🔵</div>
+          <div class="feat-title">Medium Level</div>
+          <div class="feat-desc">30 questions — MC + fill in the blank. Focus on time expressions and sentence forms</div>
+        </div>
+        <div class="feature-card">
+          <div class="feat-icon">🔴</div>
+          <div class="feat-title">Hard Level</div>
+          <div class="feat-desc">30 mixed questions — error correction, rewriting, and short answer for advanced learners</div>
+        </div>
+        <div class="feature-card">
+          <div class="feat-icon">⚡</div>
+          <div class="feat-title">Instant Feedback</div>
+          <div class="feat-desc">Every question shows correct/incorrect right away with a short explanation</div>
+        </div>
+        <div class="feature-card">
+          <div class="feat-icon">📥</div>
+          <div class="feat-title">Word &amp; PDF Download</div>
+          <div class="feat-desc">Download the full 90-question quiz pack as a professional teaching resource</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:40px;">
+        <p style="color:var(--muted);font-size:.9rem;margin-bottom:16px;">Download the full teaching resource:</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a href="Present-Perfect-Quiz-Pack-BrightEngMath.docx" download class="btn btn-outline">📄 Download Word (.docx)</a>
+          <a href="Present-Perfect-Quiz-Pack-BrightEngMath.pdf" download class="btn btn-primary">📑 Download PDF</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== LESSON PAGE ==================== -->
+<div id="page-lesson" class="page">
+  <div class="lesson-header">
+    <div class="hero-badge">📖 Grammar Lesson</div>
+    <h1 style="font-size:2rem;font-weight:900;color:var(--text);margin-bottom:10px;">Present Perfect Tense</h1>
+    <p style="color:var(--muted);max-width:540px;margin:0 auto;">Read and understand before you take the quiz. <em>(อ่านทำความเข้าใจก่อนทำแบบทดสอบ)</em></p>
+  </div>
+
+  <div class="lesson-body">
+    <div class="container">
+
+      <!-- A: What is Present Perfect -->
+      <div class="lesson-section">
+        <h2 class="lesson-h2">🔤 A. What is Present Perfect Tense?</h2>
+        <p>Present Perfect Tense is used to talk about actions or experiences that <strong>happened in the past</strong> but are <strong>still connected to the present</strong>.</p>
+        <p class="thai-note">ใช้พูดถึงเหตุการณ์ที่เกิดขึ้นในอดีต แต่ยังมีความเกี่ยวข้องหรือผลกระทบต่อปัจจุบัน</p>
+        <div class="formula-box">Structure: Subject + have / has + Past Participle (V3)</div>
+        <ul class="example-list">
+          <li>I <strong>have finished</strong> my homework. <span style="color:var(--muted);font-size:.85rem;">(ฉันทำการบ้านเสร็จแล้ว — ยังเกี่ยวข้องกับตอนนี้)</span></li>
+          <li>She <strong>has visited</strong> Japan.</li>
+          <li>They <strong>have lived</strong> here for five years.</li>
+        </ul>
+      </div>
+
+      <!-- B: Have / Has -->
+      <div class="lesson-section green">
+        <h2 class="lesson-h2 green">👥 B. Have / Has — Which One to Use?</h2>
+        <div class="two-col">
+          <div class="mini-card">
+            <strong>Use HAVE with:</strong>
+            I · You · We · They
+            <br><br>
+            <em>I <u>have</u> seen it.</em><br>
+            <em>They <u>have</u> gone home.</em>
+          </div>
+          <div class="mini-card">
+            <strong>Use HAS with:</strong>
+            He · She · It
+            <br><br>
+            <em>She <u>has</u> finished.</em><br>
+            <em>He <u>has</u> eaten lunch.</em>
+          </div>
+        </div>
+        <p class="thai-note" style="margin-top:12px;">จำง่าย ๆ: He / She / It → HAS | ที่เหลือทั้งหมด → HAVE</p>
+      </div>
+
+      <!-- C: Past Participles -->
+      <div class="lesson-section yellow">
+        <h2 class="lesson-h2 yellow">📋 C. Past Participle Verbs (V3)</h2>
+        <div class="two-col">
+          <div class="mini-card">
+            <strong>Regular Verbs (V1 + -ed)</strong>
+            play → played<br>
+            clean → cleaned<br>
+            watch → watched<br>
+            finish → finished<br>
+            visit → visited
+          </div>
+          <div class="mini-card">
+            <strong>Irregular Verbs (must memorize)</strong>
+            go → gone<br>
+            eat → eaten<br>
+            see → seen<br>
+            write → written<br>
+            do → done<br>
+            take → taken<br>
+            give → given<br>
+            come → come
+          </div>
+        </div>
+        <p class="thai-note" style="margin-top:12px;">กริยา irregular ต้องจำรูป V3 เพราะไม่ได้เติม -ed ธรรมดา</p>
+      </div>
+
+      <!-- D: Positive -->
+      <div class="lesson-section">
+        <h2 class="lesson-h2">✅ D. Positive Sentences</h2>
+        <div class="formula-box">Subject + have/has + V3</div>
+        <ul class="example-list">
+          <li>I <strong>have eaten</strong> breakfast.</li>
+          <li>She <strong>has done</strong> her homework.</li>
+          <li>We <strong>have finished</strong> the project.</li>
+          <li>He <strong>has written</strong> a letter.</li>
+        </ul>
+      </div>
+
+      <!-- E: Negative -->
+      <div class="lesson-section pink">
+        <h2 class="lesson-h2 pink">❌ E. Negative Sentences</h2>
+        <div class="formula-box yellow">Subject + have/has + NOT + V3</div>
+        <ul class="example-list">
+          <li class="pink">I <strong>have not seen</strong> that movie.</li>
+          <li class="pink">He <strong>has not finished</strong> his work.</li>
+        </ul>
+        <div style="margin-top:14px;">
+          <div class="tag-row">
+            <span class="tag pink">have not = haven't</span>
+            <span class="tag pink">has not = hasn't</span>
+          </div>
+        </div>
+        <ul class="example-list" style="margin-top:12px;">
+          <li class="pink">I <strong>haven't</strong> seen that movie.</li>
+          <li class="pink">He <strong>hasn't</strong> finished his work.</li>
+        </ul>
+      </div>
+
+      <!-- F: Questions -->
+      <div class="lesson-section green">
+        <h2 class="lesson-h2 green">❓ F. Questions</h2>
+        <div class="formula-box green">Have / Has + Subject + V3 ?</div>
+        <ul class="example-list">
+          <li class="green"><strong>Have</strong> you ever been to Japan?</li>
+          <li class="green"><strong>Has</strong> she finished her homework?</li>
+          <li class="green"><strong>Have</strong> they started the meeting?</li>
+        </ul>
+      </div>
+
+      <!-- G: Time Expressions -->
+      <div class="lesson-section yellow">
+        <h2 class="lesson-h2 yellow">⏰ G. Common Time Expressions</h2>
+        <div class="two-col">
+          <div>
+            <div class="tag-row">
+              <span class="tag yellow">ever</span>
+              <span class="tag yellow">never</span>
+              <span class="tag yellow">already</span>
+              <span class="tag yellow">yet</span>
+            </div>
+            <div class="tag-row" style="margin-top:4px;">
+              <span class="tag yellow">just</span>
+              <span class="tag yellow">since</span>
+              <span class="tag yellow">for</span>
+              <span class="tag yellow">recently</span>
+            </div>
+          </div>
+          <div>
+            <p style="font-size:.88rem;color:var(--muted);">
+              <strong>for</strong> = period of time<br>
+              <strong>since</strong> = starting point<br>
+              <strong>yet</strong> = negatives &amp; questions<br>
+              <strong>already</strong> = before expected<br>
+              <strong>just</strong> = very recently
+            </p>
+          </div>
+        </div>
+        <ul class="example-list" style="margin-top:14px;">
+          <li class="yellow">I have <strong>just</strong> finished my lunch.</li>
+          <li class="yellow">She has lived here <strong>since</strong> 2020.</li>
+          <li class="yellow">They have studied English <strong>for</strong> three years.</li>
+          <li class="yellow">Have you finished your work <strong>yet</strong>?</li>
+          <li class="yellow">I have <strong>never</strong> tried Thai food.</li>
+          <li class="yellow">Have you <strong>ever</strong> been to London?</li>
+          <li class="yellow">She has <strong>already</strong> eaten dinner.</li>
+        </ul>
+      </div>
+
+      <!-- H: PP vs Past Simple -->
+      <div class="lesson-section pink">
+        <h2 class="lesson-h2 pink">⚖️ H. Present Perfect vs Past Simple</h2>
+        <p class="thai-note" style="margin-bottom:14px;">Present Perfect = ไม่เน้นเวลาที่เกิด หรือยังเกี่ยวข้องกับปัจจุบัน | Past Simple = เกิดและจบไปแล้ว มีเวลาชัดเจน</p>
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Present Perfect</th>
+              <th>Past Simple</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>I <strong>have lost</strong> my key. <em>(ยังหายอยู่)</em></td>
+              <td>I <strong>lost</strong> my key <strong>yesterday</strong>. <em>(จบแล้ว)</em></td>
+            </tr>
+            <tr>
+              <td>She <strong>has visited</strong> Paris. <em>(ไม่ระบุเวลา)</em></td>
+              <td>She <strong>visited</strong> Paris <strong>in 2019</strong>. <em>(ระบุปี)</em></td>
+            </tr>
+            <tr>
+              <td>He <strong>has finished</strong> the report. <em>(ผลยังอยู่)</em></td>
+              <td>He <strong>finished</strong> the report <strong>two hours ago</strong>.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:14px;background:var(--ivory);border-radius:var(--radius-sm);padding:14px 16px;">
+          <p style="font-size:.88rem;"><strong>❌ DO NOT use Present Perfect with:</strong> yesterday · last week · in 2019 · two hours ago · when I was young</p>
+          <p style="font-size:.88rem;margin-top:6px;"><strong>✅ USE Present Perfect with:</strong> ever · never · already · yet · just · since · for · recently</p>
+        </div>
+      </div>
+
+      <div style="text-align:center;padding:20px 0 10px;">
+        <button class="btn btn-success btn-lg" onclick="showPage('quiz-menu')">🎯 Ready! Take the Quiz →</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ==================== QUIZ MENU PAGE ==================== -->
+<div id="page-quiz-menu" class="page">
+  <div class="quiz-menu-header">
+    <div class="hero-badge">🎯 Quiz Levels</div>
+    <h1 style="font-size:2rem;font-weight:900;color:var(--text);margin-bottom:10px;">Choose Your Level</h1>
+    <p style="color:var(--muted);">Start from Easy or jump straight to a challenge. Each level has 30 questions with instant feedback.</p>
+  </div>
+  <div class="level-grid">
+    <div class="level-card easy" onclick="startQuiz('easy')">
+      <div class="level-icon">🟢</div>
+      <div class="level-name">Easy</div>
+      <div class="level-desc">Perfect for beginners! Focus on basic structure and vocabulary.</div>
+      <div class="level-badges">
+        <span class="level-badge">30 Questions</span>
+        <span class="level-badge">Multiple Choice</span>
+        <span class="level-badge">have / has / V3</span>
+      </div>
+      <button class="btn btn-success">Start Easy →</button>
+    </div>
+    <div class="level-card medium" onclick="startQuiz('medium')">
+      <div class="level-icon">🔵</div>
+      <div class="level-name">Medium</div>
+      <div class="level-desc">Ready to go deeper? Mix of MC and fill-in-the-blank.</div>
+      <div class="level-badges">
+        <span class="level-badge">30 Questions</span>
+        <span class="level-badge">MC + Fill Blank</span>
+        <span class="level-badge">Time Expressions</span>
+      </div>
+      <button class="btn btn-primary">Start Medium →</button>
+    </div>
+    <div class="level-card hard" onclick="startQuiz('hard')">
+      <div class="level-icon">🔴</div>
+      <div class="level-name">Hard</div>
+      <div class="level-desc">Advanced challenge! Error correction, rewriting, and more.</div>
+      <div class="level-badges">
+        <span class="level-badge">30 Questions</span>
+        <span class="level-badge">Mixed Types</span>
+        <span class="level-badge">PP vs Past Simple</span>
+      </div>
+      <button class="btn" style="background:var(--pink);color:#9d174d;">Start Hard →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== QUIZ PAGE ==================== -->
+<div id="page-quiz" class="page">
+  <div class="quiz-page-inner">
+    <div class="quiz-header-bar">
+      <span id="quiz-level-tag" class="quiz-level-tag easy">Easy</span>
+      <span id="quiz-progress-text" class="quiz-progress-text">Question 1 / 30</span>
+      <div class="progress-bar-wrap">
+        <div id="quiz-progress-fill" class="progress-bar-fill" style="width:3%"></div>
+      </div>
+      <span id="quiz-score-chip" class="score-chip">Score: 0</span>
+    </div>
+    <div id="quiz-question-area"></div>
+  </div>
+</div>
+
+<!-- ==================== RESULTS PAGE ==================== -->
+<div id="page-results" class="page">
+  <div class="results-wrap">
+    <div id="results-trophy" class="results-trophy">🏆</div>
+    <div id="results-title" class="results-title">Quiz Complete!</div>
+    <div id="results-subtitle" class="results-subtitle">Level: Easy</div>
+    <div class="score-display">
+      <div id="results-score-big" class="score-big">0 / 30</div>
+      <div class="score-label">Your Score</div>
+    </div>
+    <div id="results-encourage" class="encourage-msg">Great job!</div>
+    <div id="results-encourage-sub" class="encourage-sub">Keep up the good work!</div>
+    <div class="results-actions">
+      <button class="btn btn-secondary" id="results-retry-btn">🔄 Try Again</button>
+      <button class="btn btn-outline" onclick="showPage('quiz-menu')">📋 All Levels</button>
+      <button class="btn btn-primary" onclick="showPage('home')">🏠 Home</button>
+    </div>
+    <div style="margin-top:32px;padding:24px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow-sm);">
+      <p style="font-size:.9rem;color:var(--muted);margin-bottom:16px;">Download the full 90-question teaching pack:</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="Present-Perfect-Quiz-Pack-BrightEngMath.docx" download class="btn btn-outline btn-sm">📄 Word (.docx)</a>
+        <a href="Present-Perfect-Quiz-Pack-BrightEngMath.pdf" download class="btn btn-primary btn-sm">📑 PDF</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Created by <strong>Bright EngMath</strong> · Present Perfect Tense Quiz Pack</p>
+  <p style="margin-top:4px;">For educational purposes. © 2025 Bright EngMath. All rights reserved.</p>
+</footer>
+
+<script>
+// ==================== QUIZ DATA ====================
+const QUIZ_DATA = {
+
+  easy: [
+    // 1-10: have/has basics
+    {id:'e1',type:'mc',question:'She ____ finished her homework.',choices:['have','has','having','had'],correct:1,explanation:'Use "has" with she / he / it.'},
+    {id:'e2',type:'mc',question:'I ____ eaten breakfast this morning.',choices:['has','have','had','eating'],correct:1,explanation:'Use "have" with I / you / we / they.'},
+    {id:'e3',type:'mc',question:'They ____ visited Paris twice.',choices:['has','having','have','had'],correct:2,explanation:'Use "have" with they.'},
+    {id:'e4',type:'mc',question:'He ____ written three books.',choices:['have','has','having','write'],correct:1,explanation:'Use "has" with he / she / it.'},
+    {id:'e5',type:'mc',question:'We ____ seen this movie before.',choices:['has','seen','have','had'],correct:2,explanation:'Use "have" with we.'},
+    {id:'e6',type:'mc',question:'She has ____ her keys.',choices:['loose','losing','lost','lose'],correct:2,explanation:'"Lost" is the past participle (V3) of "lose." Always use V3 after have / has.'},
+    {id:'e7',type:'mc',question:'I have ____ to Japan twice.',choices:['go','went','goes','been'],correct:3,explanation:'"Been" is used for visited places. "Have been to" = visited.'},
+    {id:'e8',type:'mc',question:'Tom has ____ his car.',choices:['wash','washed','washing','washes'],correct:1,explanation:'"Washed" is the V3 of "wash" (regular verb: + -ed).'},
+    {id:'e9',type:'mc',question:'They have ____ English for five years.',choices:['study','studies','studied','studying'],correct:2,explanation:'"Studied" is the V3 of "study" (y → ied).'},
+    {id:'e10',type:'mc',question:'She has ____ the window.',choices:['open','opens','opening','opened'],correct:3,explanation:'"Opened" is the V3 of "open" (regular verb).'},
+    // 11-15: negatives
+    {id:'e11',type:'mc',question:'I have ____ my homework yet.',choices:['not finish','not finished','no finished','not finishing'],correct:1,explanation:'Negative: have + not + V3. "Finished" is V3 of "finish."'},
+    {id:'e12',type:'mc',question:'He has ____ that book.',choices:['not read','not reads','not reading','no read'],correct:0,explanation:'Negative: has + not + V3. "Read" (past participle) is pronounced "red."'},
+    {id:'e13',type:'mc',question:'She ____ met my parents.',choices:['haven\'t','hasn\'t','didn\'t','don\'t'],correct:1,explanation:'Use "hasn\'t" (has not) with she / he / it for negatives.'},
+    {id:'e14',type:'mc',question:'We have not ____ our dinner.',choices:['ate','eat','eaten','eating'],correct:2,explanation:'"Eaten" is the V3 of "eat." Use V3 after have not.'},
+    {id:'e15',type:'mc',question:'They haven\'t ____ the house yet.',choices:['clean','cleaned','cleaning','cleans'],correct:1,explanation:'"Cleaned" is V3 of "clean." Use V3 after haven\'t.'},
+    // 16-20: questions
+    {id:'e16',type:'mc',question:'____ you ever eaten sushi?',choices:['Has','Have','Did','Do'],correct:1,explanation:'For questions with "you," use "Have."'},
+    {id:'e17',type:'mc',question:'____ she finished her project?',choices:['Have','Has','Did','Do'],correct:1,explanation:'For questions with "she/he/it," use "Has."'},
+    {id:'e18',type:'mc',question:'____ they arrived yet?',choices:['Has','Have','Did','Does'],correct:1,explanation:'"They" uses "Have" in questions.'},
+    {id:'e19',type:'mc',question:'____ he ever tried Thai food?',choices:['Have','Has','Did','Is'],correct:1,explanation:'"He" is singular (he/she/it), so use "Has."'},
+    {id:'e20',type:'mc',question:'____ your parents visited this place?',choices:['Has','Have','Did','Do'],correct:1,explanation:'"Your parents" = they → use "Have."'},
+    // 21-26: time expressions
+    {id:'e21',type:'mc',question:'I have ____ seen that show.',choices:['ever','yet','never','since'],correct:2,explanation:'"Never" = not at any time. It goes between have/has and V3.'},
+    {id:'e22',type:'mc',question:'She has ____ eaten lunch. She ate an hour ago.',choices:['yet','already','never','since'],correct:1,explanation:'"Already" = before expected. Goes before V3 in positive sentences.'},
+    {id:'e23',type:'mc',question:'Have you done your homework ____?',choices:['already','never','yet','just'],correct:2,explanation:'"Yet" is used in questions about something expected to happen.'},
+    {id:'e24',type:'mc',question:'I have ____ arrived. The food is still hot!',choices:['never','just','yet','since'],correct:1,explanation:'"Just" = a very short time ago.'},
+    {id:'e25',type:'mc',question:'She has lived here ____ 2015.',choices:['for','yet','since','ever'],correct:2,explanation:'"Since" + a starting point in time (e.g., 2015).'},
+    {id:'e26',type:'mc',question:'They have worked here ____ ten years.',choices:['since','for','just','ever'],correct:1,explanation:'"For" + a period of time (e.g., ten years).'},
+    // 27-30: past participles & correction
+    {id:'e27',type:'mc',question:'Which sentence is CORRECT?',choices:['She have eaten dinner.','She has eaten dinner.','She has eat dinner.','She have eat dinner.'],correct:1,explanation:'Use "has" with she, and the V3 "eaten."'},
+    {id:'e28',type:'mc',question:'Which sentence is CORRECT?',choices:['They has gone home.','They have go home.','They have gone home.','They have went home.'],correct:2,explanation:'Use "have" with they, and the V3 "gone."'},
+    {id:'e29',type:'mc',question:'The past participle of "eat" is:',choices:['ate','eaten','eated','eating'],correct:1,explanation:'"Eat" is irregular: eat → ate → eaten.'},
+    {id:'e30',type:'mc',question:'The past participle of "write" is:',choices:['wrote','writed','written','writing'],correct:2,explanation:'"Write" is irregular: write → wrote → written.'},
+  ],
+
+  medium: [
+    // 1-20: Multiple Choice
+    {id:'m1',type:'mc',question:'She ____ already submitted her assignment.',choices:['have','has','had','is'],correct:1,explanation:'Use "has" with she/he/it. "Already" goes before V3.'},
+    {id:'m2',type:'mc',question:'I ____ just finished the report.',choices:['have','has','had','did'],correct:0,explanation:'Use "have" with I. "Just" means a very short time ago.'},
+    {id:'m3',type:'mc',question:'____ they ever seen the Northern Lights?',choices:['Has','Have','Did','Does'],correct:1,explanation:'"They" uses "Have" in Present Perfect questions.'},
+    {id:'m4',type:'mc',question:'He hasn\'t called me ____. I\'m worried.',choices:['already','just','yet','ever'],correct:2,explanation:'"Yet" is used in negatives to say something hasn\'t happened but is expected.'},
+    {id:'m5',type:'mc',question:'We have lived in this city ____ 2018.',choices:['for','during','since','until'],correct:2,explanation:'"Since" + a starting point in time (2018).'},
+    {id:'m6',type:'mc',question:'She has studied French ____ three years.',choices:['since','for','just','ever'],correct:1,explanation:'"For" + a period of time (three years).'},
+    {id:'m7',type:'mc',question:'I have ____ finished this book. It was amazing!',choices:['yet','never','just','since'],correct:2,explanation:'"Just" = finished very recently.'},
+    {id:'m8',type:'mc',question:'Have you ____ tried spicy food?',choices:['never','ever','just','already'],correct:1,explanation:'"Ever" in questions = "at any time in your life."'},
+    {id:'m9',type:'mc',question:'She has never ____ a horse before.',choices:['ride','rode','ridden','riding'],correct:2,explanation:'"Ridden" is V3 of "ride" (irregular). Use V3 after has/have.'},
+    {id:'m10',type:'mc',question:'I have known him ____ we were children.',choices:['for','ever','since','just'],correct:2,explanation:'"Since" + a starting point or event ("since we were children").'},
+    {id:'m11',type:'mc',question:'____ your mother ever cooked Italian food?',choices:['Have','Has','Did','Does'],correct:1,explanation:'"Your mother" = she → use "Has."'},
+    {id:'m12',type:'mc',question:'I have ____ my old friend at the supermarket.',choices:['see','saw','seen','seeing'],correct:2,explanation:'"Seen" is V3 of "see." Use V3 after have/has.'},
+    {id:'m13',type:'mc',question:'He has broken his leg. → This means:',choices:['His leg is fine now.','It happened long ago.','The effect is still present now.','He will break his leg.'],correct:2,explanation:'Present Perfect shows the result still affects the present — his leg is still broken.'},
+    {id:'m14',type:'mc',question:'They have already ____ the project.',choices:['finish','finishes','finishing','finished'],correct:3,explanation:'After have/has, always use V3. "Finished" is V3 of "finish."'},
+    {id:'m15',type:'mc',question:'____ you finished your assignment yet?',choices:['Did','Do','Have','Has'],correct:2,explanation:'Present Perfect questions with "you" use "Have."'},
+    {id:'m16',type:'mc',question:'He has never ____ to China.',choices:['go','went','gone','goes'],correct:2,explanation:'"Gone" is V3 of "go." Use V3 after has/have never.'},
+    {id:'m17',type:'mc',question:'We have worked together ____ five years.',choices:['since','for','just','yet'],correct:1,explanation:'"For" + period of time (five years).'},
+    {id:'m18',type:'mc',question:'She ____ just gotten home from school.',choices:['have','has','had','is'],correct:1,explanation:'"She" uses "has." "Just" goes between has and V3.'},
+    {id:'m19',type:'mc',question:'I haven\'t visited my grandparents ____ last summer.',choices:['for','just','since','yet'],correct:2,explanation:'"Since" + starting point (last summer).'},
+    {id:'m20',type:'mc',question:'She ____ still hasn\'t replied to my message.',choices:['already','yet','—','just'],correct:2,explanation:'"Still hasn\'t" = up to now, the action has not happened. "Still" comes before hasn\'t.'},
+    // 21-30: Fill in the Blank
+    {id:'m21',type:'fill',question:'She has lived in Bangkok ____ 2021.',correct:'since',hint:'Starting point in time?',explanation:'"Since" + a specific point in time (2021).'},
+    {id:'m22',type:'fill',question:'I have studied English ____ five years.',correct:'for',hint:'Period of time?',explanation:'"For" + a period of time (five years).'},
+    {id:'m23',type:'fill',question:'Have you ____ been to Europe? (time expression for questions)',correct:'ever',hint:'Used in questions = "at any time"',explanation:'"Ever" is used in questions to mean "at any time in your life."'},
+    {id:'m24',type:'fill',question:'He has ____ finished his lunch. He just sat down a moment ago!',correct:'just',hint:'= very recently',explanation:'"Just" = a very short time ago. Goes between has/have and V3.'},
+    {id:'m25',type:'fill',question:'She hasn\'t replied to my message ____. I\'ll wait a bit longer.',correct:'yet',hint:'Negative + expected',explanation:'"Yet" in negative sentences means something hasn\'t happened but is expected.'},
+    {id:'m26',type:'fill',question:'They have ____ visited that museum. They don\'t want to go again.',correct:'already',hint:'= before expected / sooner than expected',explanation:'"Already" = the action happened before expected.'},
+    {id:'m27',type:'fill',question:'I have ____ (V3 of SEE) that film three times!',correct:'seen',hint:'V3 of "see"',explanation:'"Seen" is V3 of "see" (irregular: see → saw → seen).'},
+    {id:'m28',type:'fill',question:'She ____ (has/have) not eaten anything since morning.',correct:'has',hint:'She / he / it → ?',explanation:'"She" is third person singular → use "has."'},
+    {id:'m29',type:'fill',question:'My brother has ____ (V3 of WRITE) two novels.',correct:'written',hint:'V3 of "write"',explanation:'"Written" is V3 of "write" (irregular: write → wrote → written).'},
+    {id:'m30',type:'fill',question:'____ you ever tried durian before? (Use Have/Has)',correct:'Have',hint:'Subject = you → ?',explanation:'"You" uses "Have" in questions. Structure: Have + you + ever + V3?'},
+  ],
+
+  hard: [
+    // 1-10: Multiple Choice
+    {id:'h1',type:'mc',question:'Choose the sentence that uses Present Perfect CORRECTLY:',choices:['I have seen him yesterday.','She has gone to school two hours ago.','They have just arrived at the station.','He has lived here when he was young.'],correct:2,explanation:'"Just arrived" is correct. Never use "yesterday" or "two hours ago" with Present Perfect.'},
+    {id:'h2',type:'mc',question:'Which is the CORRECT way to change to Present Perfect? "She won the competition last year."',choices:['She has won the competition last year.','She has won the competition.','She won the competition already.','She have won the competition.'],correct:1,explanation:'Remove specific time expressions ("last year") when changing to Present Perfect.'},
+    {id:'h3',type:'mc',question:'Choose the sentence that uses Past Simple correctly (NOT Present Perfect):',choices:['I have left my umbrella at home yesterday.','She has visited Paris in 2019.','They went to the concert last Saturday.','He has eaten dinner two hours ago.'],correct:2,explanation:'"Last Saturday" is a specific past time → use Past Simple.'},
+    {id:'h4',type:'mc',question:'I ____ my phone. I can\'t find it anywhere.',choices:['lost','have lost','was losing','lose'],correct:1,explanation:'No specific time is given, and the effect (can\'t find it) is present → use Present Perfect.'},
+    {id:'h5',type:'mc',question:'She ____ to Paris in 2022 and loved it.',choices:['has been','has gone','went','have gone'],correct:2,explanation:'"In 2022" is a specific past time → use Past Simple.'},
+    {id:'h6',type:'mc',question:'He has worked at this company ____ he graduated.',choices:['for','yet','since','ever'],correct:2,explanation:'"Since he graduated" = starting point. Use "since" with a starting event.'},
+    {id:'h7',type:'mc',question:'Choose the sentence with an ERROR in Present Perfect:',choices:['She has already finished her report.','I have just eaten lunch.','They have went to the mall.','He has never visited Australia.'],correct:2,explanation:'"Went" is Past Simple. V3 of "go" is "gone." Correct: They have gone to the mall.'},
+    {id:'h8',type:'mc',question:'"I haven\'t seen you for ages!" means:',choices:['I saw you for a long time.','I haven\'t seen you for a very long time.','I will see you for a long time.','I have seen you recently.'],correct:1,explanation:'"For ages" = for a very long time. An informal but common expression.'},
+    {id:'h9',type:'mc',question:'Which pair is INCORRECT about time expressions?',choices:['yet – used in negatives and questions','already – something happened before expected','since – used with a period of time','ever – used in questions to mean "at any time"'],correct:2,explanation:'"Since" is used with a STARTING POINT. "For" is used with a PERIOD of time. This pair has it wrong.'},
+    {id:'h10',type:'mc',question:'My sister ____ her job. She\'s looking for a new one.',choices:['has just quit','just quitted','have just quit','was just quitting'],correct:0,explanation:'"Has just quit" — use "has" with she/my sister. "Quit" is both V1 and V3 (irregular).'},
+    // 11-18: Fill in the Blank
+    {id:'h11',type:'fill',question:'She has worked at the hospital ____ ten years. (for / since)',correct:'for',hint:'"ten years" = period of time',explanation:'"For" + a period of time (ten years). "Since" would need a starting point like "2014."'},
+    {id:'h12',type:'fill',question:'I have never ____ (V3 of BE) to New York. I hope to go someday.',correct:'been',hint:'V3 of "be"',explanation:'"Been" is V3 of "be/go." "Have been to" = visited.'},
+    {id:'h13',type:'fill',question:'They have just ____ (V3 of DECIDE) to move to a new house.',correct:'decided',hint:'V3 of "decide"',explanation:'"Decided" is V3 of "decide" (regular: + -d).'},
+    {id:'h14',type:'fill',question:'Have you finished the project ____? We need it soon. (yet / already)',correct:'yet',hint:'Used in questions for expected actions',explanation:'"Yet" is used in questions expecting something should be done.'},
+    {id:'h15',type:'fill',question:'She has already ____ (V3 of SUBMIT) her application. She did it this morning.',correct:'submitted',hint:'V3 of "submit"',explanation:'"Submitted" is V3 of "submit" (regular verb).'},
+    {id:'h16',type:'fill',question:'He has ____ (V3 of EAT) three slices of cake! He\'s going to feel sick.',correct:'eaten',hint:'V3 of "eat"',explanation:'"Eaten" is V3 of "eat" (irregular: eat → ate → eaten).'},
+    {id:'h17',type:'fill',question:'We have known each other ____ we were children.',correct:'since',hint:'Starting point or event',explanation:'"Since" + starting point or event ("since we were children").'},
+    {id:'h18',type:'fill',question:'I ____ (negative: not/see) my grandparents since last summer.',correct:"haven't seen",hint:"have + not + V3 of see",explanation:'"Haven\'t seen" = have + not + V3. "Seen" is V3 of "see."'},
+    // 19-23: Error Correction
+    {id:'h19',type:'error',question:'Find and correct the error:',errorSentence:'She have finished her project.',correct:'She HAS finished her project.',explanation:'"She" is third person singular → use "has," not "have."'},
+    {id:'h20',type:'error',question:'Find and correct the error:',errorSentence:'I has never eaten Japanese food.',correct:'I HAVE never eaten Japanese food.',explanation:'"I" uses "have," never "has."'},
+    {id:'h21',type:'error',question:'Find and correct the error:',errorSentence:'They have went to the museum.',correct:'They have GONE to the museum.',explanation:'"Went" is Past Simple. The V3 of "go" is "gone."'},
+    {id:'h22',type:'error',question:'Find and correct the error:',errorSentence:'Have you seen that movie yesterday?',correct:'Did you SEE that movie yesterday?',explanation:'"Yesterday" is a specific past time → use Past Simple. Correct: Did you see that movie yesterday?'},
+    {id:'h23',type:'error',question:'Find and correct the error:',errorSentence:'She has live here for 3 years.',correct:'She has LIVED here for 3 years.',explanation:'After "has/have," always use V3. "Lived" is V3 of "live."'},
+    // 24-28: Rewrite the Sentence
+    {id:'h24',type:'rewrite',question:'Rewrite using Present Perfect with "since":',rewriteSource:'She started working at this school in 2018. She still works there now.',correct:'She has worked at this school since 2018.',explanation:'Use "since" when the action started at a specific point and continues now.'},
+    {id:'h25',type:'rewrite',question:'Rewrite using Present Perfect with "for":',rewriteSource:'He began learning piano 5 years ago. He still learns now.',correct:'He has learned piano for 5 years.',altCorrect:'He has learnt piano for 5 years.',explanation:'Use "for" + period of time when action started and continues now.'},
+    {id:'h26',type:'rewrite',question:'Change to negative (use "yet"):',rewriteSource:'She has already seen the new film.',correct:"She hasn't seen the new film yet.",altCorrect:"She has not seen the new film yet.",explanation:'"Already" in positive → "yet" in the negative.'},
+    {id:'h27',type:'rewrite',question:'Change to a question:',rewriteSource:'They have visited the museum before.',correct:'Have they visited the museum before?',explanation:'Move "have" to the front to form a Present Perfect question.'},
+    {id:'h28',type:'rewrite',question:'Rewrite using Present Perfect (remove the time reference):',rewriteSource:'Last year, Maya won the gold medal.',correct:'Maya has won the gold medal.',explanation:'Remove the specific time expression. Present Perfect doesn\'t use "last year."'},
+    // 29-30: Short Answer
+    {id:'h29',type:'short',question:'Write TWO sentences: one using "for" and one using "since" with Present Perfect.',correct:'Example: I have studied English for three years. / She has lived in this city since 2020.',explanation:'"For" + period of time. "Since" + starting point in time.'},
+    {id:'h30',type:'short',question:'What is the difference between "I lost my key." and "I have lost my key."? Explain briefly.',correct:'Example: "I lost my key." = Past Simple — finished past action. "I have lost my key." = Present Perfect — the effect is still present (I still don\'t have the key).',explanation:'Past Simple = completed past action. Present Perfect = past action with present relevance/result.'},
+  ]
+};
+
+// ==================== APP STATE ====================
+let currentLevel = 'easy';
+let currentIndex = 0;
+let score = 0;
+let answered = false;
+let questions = [];
+
+// ==================== NAVIGATION ====================
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const map = { home: 0, lesson: 1, 'quiz-menu': 2 };
+  if (map[id] !== undefined) document.querySelectorAll('.nav-btn')[map[id]].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ==================== QUIZ ENGINE ====================
+function startQuiz(level) {
+  currentLevel = level;
+  currentIndex = 0;
+  score = 0;
+  answered = false;
+  questions = QUIZ_DATA[level];
+  showPage('quiz');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[currentIndex];
+  const total = questions.length;
+  const pct = ((currentIndex) / total * 100).toFixed(0);
+  const levelLabel = { easy: 'Easy', medium: 'Medium', hard: 'Hard' }[currentLevel];
+  const levelClass = currentLevel;
+
+  document.getElementById('quiz-level-tag').textContent = levelLabel;
+  document.getElementById('quiz-level-tag').className = 'quiz-level-tag ' + levelClass;
+  document.getElementById('quiz-progress-text').textContent = `Question ${currentIndex + 1} / ${total}`;
+  document.getElementById('quiz-progress-fill').style.width = (pct) + '%';
+  document.getElementById('quiz-score-chip').textContent = `Score: ${score}`;
+
+  let html = `<div class="question-card">`;
+  html += `<div class="q-type-badge">${typeLabel(q.type)}</div>`;
+  html += `<div class="q-number">Question ${currentIndex + 1}</div>`;
+
+  if (q.type === 'mc') {
+    html += `<div class="q-text">${q.question}</div>`;
+    html += `<div class="choices" id="choices-wrap">`;
+    const letters = ['A', 'B', 'C', 'D'];
+    q.choices.forEach((c, i) => {
+      html += `<button class="choice-btn" id="choice-${i}" onclick="checkMC(${i})">
+        <span class="choice-letter">${letters[i]}</span>${c}
+      </button>`;
+    });
+    html += `</div>`;
+
+  } else if (q.type === 'fill') {
+    html += `<div class="q-text">${q.question}</div>`;
+    if (q.hint) html += `<p style="font-size:.85rem;color:var(--muted);margin-bottom:10px;">💡 Hint: ${q.hint}</p>`;
+    html += `<input type="text" class="fill-input" id="fill-input" placeholder="Type your answer here..." onkeydown="if(event.key==='Enter')checkFill()" />`;
+    html += `<button class="btn btn-primary fill-submit-btn" onclick="checkFill()">Submit Answer</button>`;
+
+  } else if (q.type === 'error') {
+    html += `<div class="q-text">${q.question}</div>`;
+    html += `<div class="error-sentence">✗ ${q.errorSentence}</div>`;
+    html += `<input type="text" class="fill-input" id="fill-input" placeholder="Write the corrected sentence..." onkeydown="if(event.key==='Enter')checkFill()" />`;
+    html += `<button class="btn btn-primary fill-submit-btn" onclick="checkFill()">Submit Correction</button>`;
+
+  } else if (q.type === 'rewrite') {
+    html += `<div class="q-text">${q.question}</div>`;
+    html += `<div class="rewrite-source">📝 ${q.rewriteSource}</div>`;
+    html += `<input type="text" class="fill-input" id="fill-input" placeholder="Write your rewritten sentence..." onkeydown="if(event.key==='Enter')checkFill()" />`;
+    html += `<button class="btn btn-primary fill-submit-btn" onclick="checkFill()">Submit</button>`;
+
+  } else if (q.type === 'short') {
+    html += `<div class="q-text">${q.question}</div>`;
+    html += `<textarea class="short-answer-area" id="fill-input" placeholder="Write your answer here..."></textarea>`;
+    html += `<button class="btn btn-primary fill-submit-btn" style="margin-top:10px;" onclick="checkShort()">Submit Answer</button>`;
+  }
+
+  // Feedback area
+  html += `<div class="feedback-box" id="feedback-box">
+    <div class="feedback-status" id="fb-status"></div>
+    <div class="feedback-answer" id="fb-answer"></div>
+    <div class="feedback-explain" id="fb-explain"></div>
+  </div>`;
+
+  html += `<div class="next-btn-wrap" id="next-btn-wrap" style="display:none;">
+    <button class="btn btn-primary" onclick="nextQuestion()">${currentIndex + 1 < total ? 'Next Question →' : 'See Results 🏆'}</button>
+  </div>`;
+
+  html += `</div>`;
+  document.getElementById('quiz-question-area').innerHTML = html;
+  answered = false;
+}
+
+function typeLabel(t) {
+  const map = { mc: 'Multiple Choice', fill: 'Fill in the Blank', error: 'Error Correction', rewrite: 'Rewrite the Sentence', short: 'Short Answer' };
+  return map[t] || t;
+}
+
+function checkMC(idx) {
+  if (answered) return;
+  answered = true;
+  const q = questions[currentIndex];
+  const btns = document.querySelectorAll('.choice-btn');
+  btns.forEach(b => b.disabled = true);
+
+  const isCorrect = idx === q.correct;
+  if (isCorrect) score++;
+
+  btns[q.correct].classList.add('correct');
+  if (!isCorrect) btns[idx].classList.add('wrong');
+
+  showFeedback(isCorrect, q.choices[q.correct], q.explanation);
+}
+
+function checkFill() {
+  if (answered) return;
+  const q = questions[currentIndex];
+  const input = document.getElementById('fill-input');
+  if (!input) return;
+  const userVal = input.value.trim().toLowerCase();
+  const correctVal = q.correct.toLowerCase();
+  const altVal = q.altCorrect ? q.altCorrect.toLowerCase() : null;
+  const isCorrect = userVal === correctVal || (altVal && userVal === altVal) ||
+    correctVal.toLowerCase().includes(userVal) && userVal.length > 2;
+
+  // More generous: check if user answer contains the key word
+  const keyWord = correctVal.split(' ')[0];
+  const looseMatch = userVal.includes(keyWord) && keyWord.length > 2;
+  const finalCorrect = isCorrect || looseMatch;
+
+  answered = true;
+  if (finalCorrect) {
+    score++;
+    input.classList.add('correct-input');
+  } else {
+    input.classList.add('wrong-input');
+  }
+  input.disabled = true;
+  const submitBtn = document.querySelector('.fill-submit-btn');
+  if (submitBtn) submitBtn.disabled = true;
+
+  showFeedback(finalCorrect, q.correct, q.explanation);
+}
+
+function checkShort() {
+  if (answered) return;
+  answered = true;
+  const q = questions[currentIndex];
+  const input = document.getElementById('fill-input');
+  if (input) input.disabled = true;
+  score++; // Short answers are self-assessed — give credit
+  const submitBtn = document.querySelector('.fill-submit-btn');
+  if (submitBtn) submitBtn.disabled = true;
+  showFeedback(null, q.correct, q.explanation); // null = info mode
+}
+
+function showFeedback(isCorrect, correctAnswer, explanation) {
+  const fb = document.getElementById('feedback-box');
+  const status = document.getElementById('fb-status');
+  const answer = document.getElementById('fb-answer');
+  const explain = document.getElementById('fb-explain');
+  const nextWrap = document.getElementById('next-btn-wrap');
+
+  fb.classList.remove('correct-fb', 'wrong-fb', 'info-fb');
+
+  if (isCorrect === null) {
+    fb.classList.add('info-fb');
+    status.innerHTML = 'ℹ️ Model Answer';
+  } else if (isCorrect) {
+    fb.classList.add('correct-fb');
+    status.innerHTML = '✅ Correct!';
+  } else {
+    fb.classList.add('wrong-fb');
+    status.innerHTML = '❌ Not quite!';
+  }
+
+  answer.innerHTML = `<strong>Answer:</strong> ${correctAnswer}`;
+  explain.textContent = explanation;
+  fb.classList.add('show');
+  nextWrap.style.display = 'flex';
+
+  document.getElementById('quiz-score-chip').textContent = `Score: ${score}`;
+}
+
+function nextQuestion() {
+  currentIndex++;
+  if (currentIndex >= questions.length) {
+    showResults();
+  } else {
+    renderQuestion();
+    window.scrollTo(0, 0);
+  }
+}
+
+// ==================== RESULTS ====================
+function showResults() {
+  const total = questions.length;
+  const level = currentLevel;
+  const levelLabel = { easy: 'Easy 🟢', medium: 'Medium 🔵', hard: 'Hard 🔴' }[level];
+
+  let trophy = '🏆', msg = '', sub = '';
+  const pct = score / total;
+  if (pct >= 0.87) {
+    trophy = '🏆'; msg = 'Excellent! Outstanding Work!'; sub = 'You have truly mastered this level. Bright EngMath is proud of you! ⭐';
+  } else if (pct >= 0.7) {
+    trophy = '🌟'; msg = 'Great Job! Well Done!'; sub = 'Solid performance! Review any mistakes and you\'ll be at the top soon.';
+  } else if (pct >= 0.5) {
+    trophy = '👍'; msg = 'Good Effort! Keep Going!'; sub = 'You\'re on the right track. Review the lesson and try again!';
+  } else {
+    trophy = '💪'; msg = 'Keep Practicing!'; sub = 'Don\'t give up! Read the lesson again and retry. You\'ve got this!';
+  }
+
+  document.getElementById('results-trophy').textContent = trophy;
+  document.getElementById('results-title').textContent = 'Quiz Complete!';
+  document.getElementById('results-subtitle').textContent = `Level: ${levelLabel}`;
+  document.getElementById('results-score-big').textContent = `${score} / ${total}`;
+  document.getElementById('results-encourage').textContent = msg;
+  document.getElementById('results-encourage-sub').textContent = sub;
+  document.getElementById('results-retry-btn').onclick = () => startQuiz(level);
+
+  showPage('results');
+}
+
+// Init
+showPage('home');
+</script>
+</body>
+</html>
