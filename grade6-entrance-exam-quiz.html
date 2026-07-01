@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Grade 6 English Entrance Exam Quiz | Bright EngMath</title>
+<style>
+/* ── RESET ─────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#f5f3ee;color:#1e2a3a;line-height:1.7;min-height:100vh}
+
+/* ── TOKENS ────────────────────────────────── */
+:root{
+  --navy:#1e2a3a;--navy-light:#2d3e52;
+  --blue:#3b82f6;--blue-d:#2563eb;--blue-pale:#dbeafe;--blue-xpale:#eff6ff;
+  --green:#10b981;--green-d:#059669;--green-pale:#d1fae5;
+  --yellow:#f59e0b;--yellow-pale:#fef3c7;--yellow-xpale:#fefce8;
+  --cream:#faf8f2;--ivory:#f5f0e8;
+  --pink:#ec4899;--pink-pale:#fce7f3;
+  --red:#ef4444;--red-pale:#fee2e2;
+  --muted:#64748b;--border:#e2e8f0;
+  --card:#ffffff;
+  --radius:18px;--radius-sm:12px;
+  --shadow:0 4px 20px rgba(0,0,0,.07);
+  --shadow-sm:0 2px 8px rgba(0,0,0,.05);
+}
+
+/* ── NAV ────────────────────────────────────── */
+.navbar{background:#fff;border-bottom:2px solid var(--yellow-pale);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;box-shadow:var(--shadow-sm)}
+.brand{font-size:1.1rem;font-weight:900;color:var(--blue-d);letter-spacing:-.3px}
+.brand span{color:var(--yellow)}
+.home-nav-btn{background:var(--yellow-pale);border:none;padding:8px 18px;border-radius:30px;font-size:.85rem;font-weight:700;color:var(--navy);cursor:pointer;transition:all .2s}
+.home-nav-btn:hover{background:var(--yellow);color:#fff;transform:translateY(-1px)}
+
+/* ── PAGES ──────────────────────────────────── */
+.page{display:none}.page.active{display:block}
+
+/* ── HERO ───────────────────────────────────── */
+.hero{background:linear-gradient(135deg,#eff6ff 0%,#fef9ec 55%,#ecfdf5 100%);padding:64px 24px 52px;text-align:center;border-bottom:3px solid var(--yellow-pale);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;background:rgba(254,243,199,.5);border-radius:50%}
+.hero::after{content:'';position:absolute;bottom:-50px;left:-50px;width:180px;height:180px;background:rgba(209,250,229,.5);border-radius:50%}
+.hero-eyebrow{display:inline-block;background:var(--blue-pale);color:var(--blue-d);font-size:.78rem;font-weight:700;padding:5px 16px;border-radius:30px;margin-bottom:18px;text-transform:uppercase;letter-spacing:.6px;position:relative;z-index:1}
+.hero h1{font-size:clamp(1.9rem,5vw,3.1rem);font-weight:900;color:var(--navy);line-height:1.2;margin-bottom:14px;position:relative;z-index:1}
+.hero h1 em{font-style:normal;color:var(--blue-d)}
+.hero p{font-size:1.05rem;color:var(--muted);max-width:580px;margin:0 auto 10px;position:relative;z-index:1}
+.hero-desc-small{font-size:.88rem;color:var(--muted);position:relative;z-index:1;margin-top:6px}
+
+/* ── LEVEL CARDS ────────────────────────────── */
+.level-section{padding:52px 24px 64px;background:var(--cream)}
+.section-title{text-align:center;font-size:1.4rem;font-weight:800;color:var(--navy);margin-bottom:6px}
+.section-sub{text-align:center;color:var(--muted);font-size:.92rem;margin-bottom:36px}
+.level-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;max-width:900px;margin:0 auto}
+.lcard{border-radius:var(--radius);padding:32px 24px 28px;text-align:center;cursor:pointer;transition:all .25s;box-shadow:var(--shadow);border:2px solid transparent}
+.lcard:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,0,0,.12)}
+.lcard.easy{background:linear-gradient(145deg,#ecfdf5,#d1fae5);border-color:#6ee7b7}
+.lcard.medium{background:linear-gradient(145deg,#eff6ff,#dbeafe);border-color:#93c5fd}
+.lcard.hard{background:linear-gradient(145deg,#fefce8,#fef3c7);border-color:#fcd34d}
+.lcard-icon{font-size:3rem;margin-bottom:14px}
+.lcard-name{font-size:1.35rem;font-weight:800;margin-bottom:6px}
+.easy .lcard-name{color:#065f46}.medium .lcard-name{color:#1e40af}.hard .lcard-name{color:#92400e}
+.lcard-desc{font-size:.85rem;color:var(--muted);margin-bottom:16px;line-height:1.6}
+.lcard-tags{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:22px}
+.ltag{font-size:.73rem;font-weight:600;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.75);color:var(--muted)}
+.lcard-btn{display:inline-block;padding:11px 28px;border-radius:30px;font-size:.95rem;font-weight:700;border:none;cursor:pointer;transition:all .2s}
+.easy .lcard-btn{background:#10b981;color:#fff;box-shadow:0 4px 14px rgba(16,185,129,.3)}
+.easy .lcard-btn:hover{background:#059669;transform:translateY(-2px)}
+.medium .lcard-btn{background:#3b82f6;color:#fff;box-shadow:0 4px 14px rgba(59,130,246,.3)}
+.medium .lcard-btn:hover{background:#2563eb;transform:translateY(-2px)}
+.hard .lcard-btn{background:#f59e0b;color:#fff;box-shadow:0 4px 14px rgba(245,158,11,.3)}
+.hard .lcard-btn:hover{background:#d97706;transform:translateY(-2px)}
+
+/* ── FEATURES STRIP ─────────────────────────── */
+.features{padding:44px 24px 52px;background:#fff;border-top:2px solid var(--border)}
+.feat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;max-width:900px;margin:0 auto}
+.feat{text-align:center;padding:18px 12px}
+.feat-ico{font-size:1.8rem;margin-bottom:8px}
+.feat-name{font-weight:700;font-size:.88rem;color:var(--navy);margin-bottom:4px}
+.feat-txt{font-size:.8rem;color:var(--muted);line-height:1.5}
+
+/* ── BUTTONS ────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:11px 22px;border-radius:30px;font-size:.92rem;font-weight:700;cursor:pointer;border:none;transition:all .2s;text-align:center;justify-content:center}
+.btn-blue{background:var(--blue-d);color:#fff;box-shadow:0 4px 12px rgba(37,99,235,.3)}
+.btn-blue:hover{background:#1d4ed8;transform:translateY(-2px)}
+.btn-green{background:var(--green-d);color:#fff;box-shadow:0 4px 12px rgba(5,150,105,.3)}
+.btn-green:hover{background:#047857;transform:translateY(-2px)}
+.btn-yellow{background:var(--yellow);color:#fff;box-shadow:0 4px 12px rgba(245,158,11,.3)}
+.btn-yellow:hover{background:#d97706;transform:translateY(-2px)}
+.btn-outline{background:transparent;border:2px solid var(--blue-d);color:var(--blue-d)}
+.btn-outline:hover{background:var(--blue-pale)}
+.btn-ghost{background:var(--ivory);color:var(--navy);border:2px solid var(--border)}
+.btn-ghost:hover{background:#e9e5dc}
+.btn-sm{padding:8px 16px;font-size:.83rem}
+.btn-lg{padding:14px 32px;font-size:1rem}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+
+/* ── QUIZ PAGE ──────────────────────────────── */
+.quiz-wrap{max-width:780px;margin:0 auto;padding:28px 20px 72px}
+
+.quiz-topbar{background:#fff;border-radius:var(--radius);padding:16px 22px;margin-bottom:18px;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.q-level-chip{font-size:.75rem;font-weight:700;padding:4px 14px;border-radius:20px}
+.chip-easy{background:var(--green-pale);color:#065f46}
+.chip-medium{background:var(--blue-pale);color:#1e40af}
+.chip-hard{background:var(--yellow-pale);color:#92400e}
+.q-skill-chip{font-size:.75rem;font-weight:600;padding:4px 12px;border-radius:20px;background:var(--ivory);color:var(--muted)}
+.q-counter{font-size:.85rem;font-weight:600;color:var(--muted);margin-left:auto}
+.q-score{font-size:.82rem;font-weight:700;padding:4px 14px;border-radius:20px;background:var(--yellow-pale);color:#92400e}
+
+.progress-bar-wrap{height:8px;background:var(--ivory);border-radius:30px;margin-bottom:22px;overflow:hidden}
+.progress-bar-fill{height:100%;border-radius:30px;background:linear-gradient(90deg,var(--blue-d),var(--green-d));transition:width .4s ease}
+
+/* Question card */
+.q-card{background:#fff;border-radius:var(--radius);padding:30px;box-shadow:var(--shadow);margin-bottom:18px;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.q-num{font-size:.82rem;color:var(--muted);font-weight:600;margin-bottom:6px}
+.q-skill-tag{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 10px;border-radius:20px;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
+.tag-Grammar{background:#ede9fe;color:#5b21b6}
+.tag-Vocabulary{background:var(--yellow-pale);color:#92400e}
+.tag-Conversation{background:var(--green-pale);color:#065f46}
+.tag-Reading{background:var(--blue-pale);color:#1e40af}
+.tag-Error{background:var(--red-pale);color:#991b1b}
+.tag-Sentence{background:var(--pink-pale);color:#9d174d}
+
+/* Passage */
+.passage-box{background:var(--blue-xpale);border:1.5px solid #bfdbfe;border-radius:var(--radius-sm);padding:16px 20px;font-size:.93rem;line-height:1.8;color:var(--navy);margin-bottom:18px}
+
+/* Question text */
+.q-text{font-size:1.05rem;font-weight:600;color:var(--navy);margin-bottom:20px;line-height:1.65}
+
+/* Hint */
+.hint-btn{display:inline-flex;align-items:center;gap:5px;background:var(--yellow-xpale);border:1.5px solid #fcd34d;color:#92400e;font-size:.82rem;font-weight:700;padding:6px 14px;border-radius:20px;cursor:pointer;transition:all .2s;margin-bottom:16px}
+.hint-btn:hover{background:var(--yellow-pale)}
+.hint-box{display:none;background:linear-gradient(135deg,#fef9ec,#fefce8);border:1.5px solid #fcd34d;border-radius:var(--radius-sm);padding:14px 18px;margin-bottom:16px;animation:fadeUp .25s ease}
+.hint-box.show{display:block}
+.hint-word{font-size:.9rem;font-weight:800;color:#92400e;margin-bottom:8px}
+.hint-line{font-size:.85rem;margin-bottom:4px;color:var(--navy)}
+.hint-line span{color:var(--muted)}
+
+/* Choices */
+.choices{display:flex;flex-direction:column;gap:10px}
+.choice-btn{display:flex;align-items:center;gap:14px;background:var(--ivory);border:2px solid transparent;border-radius:var(--radius-sm);padding:13px 18px;font-size:.97rem;font-weight:500;cursor:pointer;transition:all .2s;text-align:left;color:var(--navy);width:100%}
+.choice-btn:hover:not(:disabled){background:var(--blue-pale);border-color:var(--blue)}
+.cletter{width:30px;height:30px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;flex-shrink:0;border:2px solid #d1d5db;transition:all .2s}
+.choice-btn.c-correct{background:var(--green-pale);border-color:var(--green-d)}
+.choice-btn.c-correct .cletter{background:var(--green-d);color:#fff;border-color:var(--green-d)}
+.choice-btn.c-wrong{background:var(--red-pale);border-color:var(--red)}
+.choice-btn.c-wrong .cletter{background:var(--red);color:#fff;border-color:var(--red)}
+.choice-btn.c-reveal{background:var(--green-pale);border-color:var(--green-d)}
+.choice-btn.c-reveal .cletter{background:var(--green-d);color:#fff;border-color:var(--green-d)}
+
+/* Feedback */
+.feedback{margin-top:18px;border-radius:var(--radius-sm);padding:16px 20px;display:none;animation:fadeUp .25s ease}
+.feedback.show{display:block}
+.feedback.fb-c{background:var(--green-pale);border:1.5px solid #6ee7b7}
+.feedback.fb-w{background:var(--red-pale);border:1.5px solid #fca5a5}
+.fb-status{font-size:.97rem;font-weight:800;margin-bottom:6px}
+.fb-c .fb-status{color:#065f46}.fb-w .fb-status{color:#991b1b}
+.fb-ans{font-size:.9rem;font-weight:600;color:var(--navy);margin-bottom:4px}
+.fb-exp{font-size:.87rem}
+.fb-c .fb-exp{color:#065f46}.fb-w .fb-exp{color:#991b1b;opacity:.9}
+
+/* Quiz nav */
+.quiz-nav{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;margin-top:4px}
+
+/* ── RESULTS ────────────────────────────────── */
+.results-wrap{max-width:680px;margin:0 auto;padding:48px 20px 80px;text-align:center}
+.res-trophy{font-size:5rem;margin-bottom:14px}
+.res-title{font-size:2rem;font-weight:900;color:var(--navy);margin-bottom:6px}
+.res-sub{font-size:.95rem;color:var(--muted);margin-bottom:26px}
+.score-card{background:linear-gradient(135deg,#2563eb,#10b981);border-radius:var(--radius);padding:32px;margin-bottom:28px;box-shadow:var(--shadow)}
+.score-big{font-size:4rem;font-weight:900;color:#fff;line-height:1}
+.score-pct{font-size:1.5rem;font-weight:700;color:rgba(255,255,255,.85);margin-top:4px}
+.score-lbl{color:rgba(255,255,255,.7);font-size:.9rem;margin-top:8px}
+
+/* Breakdown bar */
+.breakdown{background:#fff;border-radius:var(--radius);padding:20px 24px;margin-bottom:24px;box-shadow:var(--shadow-sm)}
+.breakdown-title{font-size:.9rem;font-weight:700;color:var(--muted);margin-bottom:12px}
+.bk-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:.87rem}
+.bk-label{width:80px;color:var(--muted)}
+.bk-bar-wrap{flex:1;height:10px;background:var(--ivory);border-radius:30px;overflow:hidden}
+.bk-bar-fill{height:100%;border-radius:30px}
+.bk-count{width:40px;text-align:right;font-weight:700;color:var(--navy);font-size:.85rem}
+
+.enc-msg{font-size:1.25rem;font-weight:800;color:var(--navy);margin-bottom:6px}
+.enc-sub{font-size:.92rem;color:var(--muted);margin-bottom:28px}
+.result-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* ── REVIEW ─────────────────────────────────── */
+.review-wrap{max-width:780px;margin:0 auto;padding:28px 20px 72px}
+.review-header{background:var(--blue-d);color:#fff;border-radius:var(--radius);padding:18px 24px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.review-title{font-size:1.1rem;font-weight:800}
+.review-item{background:#fff;border-radius:var(--radius);padding:22px 26px;margin-bottom:14px;box-shadow:var(--shadow-sm)}
+.rev-badge{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 10px;border-radius:20px;margin-bottom:8px}
+.rb-c{background:var(--green-pale);color:#065f46}.rb-w{background:var(--red-pale);color:#991b1b}.rb-s{background:var(--yellow-pale);color:#92400e}
+.rev-q{font-size:.92rem;font-weight:600;color:var(--navy);margin-bottom:10px}
+.rev-correct{font-size:.87rem;font-weight:700;color:#065f46;margin-bottom:3px}
+.rev-yours{font-size:.87rem;color:#991b1b;margin-bottom:3px}
+.rev-exp{font-size:.84rem;color:var(--muted);margin-top:6px}
+
+/* ── FOOTER ─────────────────────────────────── */
+footer{background:#fff;border-top:2px solid var(--yellow-pale);padding:20px 24px;text-align:center;font-size:.82rem;color:var(--muted)}
+footer strong{color:var(--blue-d)}
+
+/* ── RESPONSIVE ─────────────────────────────── */
+@media(max-width:640px){
+  .q-card{padding:20px 16px}
+  .btn{padding:10px 14px;font-size:.84rem}
+  .score-big{font-size:3rem}
+  .hero{padding:46px 18px 34px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="brand">✏️ Bright <span>Eng</span>Math</div>
+  <button class="home-nav-btn" onclick="goHome()">🏠 Home</button>
+</nav>
+
+<!-- ══════════ HOME ══════════ -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-eyebrow">🎓 Bright EngMath — Entrance Exam Series</div>
+    <h1>Grade 6 English<br><em>Entrance Exam Quiz</em></h1>
+    <p>Practice for your Grade 7 / Mathayom 1 entrance exam with real exam-style questions.</p>
+    <p class="hero-desc-small">Grammar · Vocabulary · Conversation · Reading Comprehension · Error Identification</p>
+  </div>
+
+  <div class="level-section">
+    <h2 class="section-title">Choose Your Practice Set</h2>
+    <p class="section-sub">Start from Easy and work your way up. Each set has 25 questions with instant feedback and hints.</p>
+    <div class="level-grid">
+      <div class="lcard easy">
+        <div class="lcard-icon">🟢</div>
+        <div class="lcard-name">Easy Set</div>
+        <div class="lcard-desc">Basic grammar, simple vocabulary, short conversations, and easy reading passages. Great starting point!</div>
+        <div class="lcard-tags">
+          <span class="ltag">25 Questions</span>
+          <span class="ltag">4 Choices</span>
+          <span class="ltag">💡 Hints</span>
+        </div>
+        <button class="lcard-btn" onclick="startQuiz('easy')">Start Easy →</button>
+      </div>
+      <div class="lcard medium">
+        <div class="lcard-icon">🔵</div>
+        <div class="lcard-name">Medium Set</div>
+        <div class="lcard-desc">Mixed grammar, vocabulary in context, daily conversations, and inference reading questions.</div>
+        <div class="lcard-tags">
+          <span class="ltag">25 Questions</span>
+          <span class="ltag">4 Choices</span>
+          <span class="ltag">💡 Hints</span>
+        </div>
+        <button class="lcard-btn" onclick="startQuiz('medium')">Start Medium →</button>
+      </div>
+      <div class="lcard hard">
+        <div class="lcard-icon">🔴</div>
+        <div class="lcard-name">Hard Set</div>
+        <div class="lcard-desc">Challenging grammar, longer passages, implied meaning, connectors, and advanced vocabulary.</div>
+        <div class="lcard-tags">
+          <span class="ltag">25 Questions</span>
+          <span class="ltag">4 Choices</span>
+          <span class="ltag">💡 Hints</span>
+        </div>
+        <button class="lcard-btn" onclick="startQuiz('hard')">Start Hard →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feat-row">
+      <div class="feat"><div class="feat-ico">⚡</div><div class="feat-name">Instant Feedback</div><div class="feat-txt">See the correct answer right away with a clear explanation</div></div>
+      <div class="feat"><div class="feat-ico">💡</div><div class="feat-name">Hint Button</div><div class="feat-txt">Thai meaning, Thai pronunciation &amp; English meaning</div></div>
+      <div class="feat"><div class="feat-ico">📊</div><div class="feat-name">Score Summary</div><div class="feat-txt">See your score, percentage, and encouraging message</div></div>
+      <div class="feat"><div class="feat-ico">🔍</div><div class="feat-name">Review Answers</div><div class="feat-txt">Review every question and explanation after finishing</div></div>
+      <div class="feat"><div class="feat-ico">📱</div><div class="feat-name">Mobile Friendly</div><div class="feat-txt">Works great on phones, tablets, and iPads</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ QUIZ ══════════ -->
+<div id="page-quiz" class="page">
+  <div class="quiz-wrap">
+    <div class="quiz-topbar">
+      <span id="q-level-chip" class="q-level-chip chip-easy">Easy</span>
+      <span id="q-skill-chip" class="q-skill-chip">Grammar</span>
+      <span id="q-counter" class="q-counter">1 / 25</span>
+      <span id="q-score-chip" class="q-score">Score: 0</span>
+    </div>
+    <div class="progress-bar-wrap">
+      <div id="q-progress" class="progress-bar-fill" style="width:4%"></div>
+    </div>
+    <div id="q-card-area"></div>
+    <div class="quiz-nav">
+      <button class="btn btn-ghost btn-sm" id="btn-prev" onclick="prevQ()">← Previous</button>
+      <button class="btn btn-ghost btn-sm" onclick="goHome()">🏠 Home</button>
+      <button class="btn btn-blue btn-sm" id="btn-next" onclick="nextQ()">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ RESULTS ══════════ -->
+<div id="page-results" class="page">
+  <div class="results-wrap">
+    <div id="res-trophy" class="res-trophy">🏆</div>
+    <div id="res-title" class="res-title">Quiz Complete!</div>
+    <div id="res-sub" class="res-sub">Easy Set</div>
+    <div class="score-card">
+      <div id="res-score" class="score-big">0 / 25</div>
+      <div id="res-pct" class="score-pct">0%</div>
+      <div class="score-lbl">Your Score</div>
+    </div>
+    <div id="res-breakdown" class="breakdown"></div>
+    <div id="res-enc" class="enc-msg"></div>
+    <div id="res-enc-sub" class="enc-sub"></div>
+    <div class="result-actions">
+      <button class="btn btn-ghost" id="res-retry">🔄 Try Again</button>
+      <button class="btn btn-outline" onclick="showReview()">🔍 Review Answers</button>
+      <button class="btn btn-blue" onclick="goHome()">🏠 Home</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ REVIEW ══════════ -->
+<div id="page-review" class="page">
+  <div class="review-wrap">
+    <div class="review-header">
+      <span class="review-title">📋 Answer Review</span>
+      <button class="btn btn-ghost btn-sm" onclick="showPage('results')">← Back to Results</button>
+    </div>
+    <div id="review-body"></div>
+    <div style="text-align:center;margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-ghost" id="rev-retry">🔄 Try Again</button>
+      <button class="btn btn-blue" onclick="goHome()">🏠 Home</button>
+    </div>
+  </div>
+</div>
+
+<footer><strong>© Bright EngMath.</strong> All rights reserved. | Grade 6 English Entrance Exam Quiz</footer>
+
+<script>
+// ══════════════════════════════════════════════
+//  75 QUESTIONS  (Easy 25 · Medium 25 · Hard 25)
+// ══════════════════════════════════════════════
+const QUIZ = {
+
+// ─── EASY ──────────────────────────────────────────────────────────────────
+easy:[
+ {skill:"Grammar",
+  q:"She ____ to school every day.",
+  ch:["go","goes","going","gone"],cor:1,
+  exp:'"Goes" is correct. In Present Simple, we add -s or -es when the subject is he / she / it.',
+  hint:{word:"every day",thai:"ทุกวัน",pron:"ทุก-วัน",eng:"each day without missing"}},
+
+ {skill:"Grammar",
+  q:"I saw ____ elephant at the zoo yesterday.",
+  ch:["a","an","the","–"],cor:1,
+  exp:'"An" is used before words starting with a vowel sound. "Elephant" begins with the vowel /ɛ/.',
+  hint:{word:"elephant",thai:"ช้าง",pron:"เอ-ลิ-เฟ่นท์",eng:"a very large grey animal with a long trunk"}},
+
+ {skill:"Vocabulary",
+  q:"The opposite of 'expensive' is ____.",
+  ch:["large","light","cheap","slow"],cor:2,
+  exp:'"Cheap" means not costing much money — the direct opposite of "expensive."',
+  hint:{word:"expensive",thai:"ราคาแพง",pron:"เอ็กซ์-เพ็น-ซิฟ",eng:"costing a lot of money"}},
+
+ {skill:"Conversation",
+  q:'"How are you?" — "____"',
+  ch:["I am Tom.","I am fine, thank you.","I go to school.","I like reading."],cor:1,
+  exp:'"I am fine, thank you." is the standard polite answer to "How are you?"'},
+
+ {skill:"Grammar",
+  q:"Look! The dog ____ in the garden right now.",
+  ch:["run","runs","is running","ran"],cor:2,
+  exp:'"Look!" signals something happening NOW. Use Present Continuous: am/is/are + verb-ing.',
+  hint:{word:"garden",thai:"สวน",pron:"การ์-เดิน",eng:"an outdoor area where plants or grass grow"}},
+
+ {skill:"Vocabulary",
+  q:"We use this to write on a whiteboard. It is called a ____.",
+  ch:["pencil","chalk","marker","crayon"],cor:2,
+  exp:'A "marker" (dry-erase marker) is used on whiteboards. "Chalk" is for blackboards.',
+  hint:{word:"whiteboard",thai:"กระดานไวท์บอร์ด",pron:"ไวท์-บอร์ด",eng:"a smooth white surface you write on with special pens"}},
+
+ {skill:"Grammar",
+  q:"She ____ her homework last night.",
+  ch:["do","does","did","doing"],cor:2,
+  exp:'"Did" is the Past Simple of "do." "Last night" tells us the action is finished.',
+  hint:{word:"last night",thai:"คืนที่แล้ว",pron:"ลาสท์-ไนท์",eng:"the night before today"}},
+
+ {skill:"Conversation",
+  q:'"Can you help me, please?" — "____"',
+  ch:["No, I don\'t.","Of course!","I am happy today.","Yes, I go."],cor:1,
+  exp:'"Of course!" is the natural, friendly way to say you are happy to help.'},
+
+ {skill:"Grammar",
+  q:"Tom and I went to the park. ____ played football there.",
+  ch:["He","They","We","She"],cor:2,
+  exp:'"Tom and I" means two people including the speaker. The correct pronoun is "We."',
+  hint:{word:"pronoun",thai:"คำสรรพนาม",pron:"โพร-เนาน์",eng:"a word used instead of a noun (he, she, we, they)"}},
+
+ {skill:"Grammar",
+  q:"My bag is ____ than yours.",
+  ch:["heavy","heavier","heaviest","more heavy"],cor:1,
+  exp:'For one-syllable adjectives, add -er to compare two things: heavy → heavier. "More heavy" is incorrect.',
+  hint:{word:"compare",thai:"เปรียบเทียบ",pron:"คอม-แพร์",eng:"to look at two things and find differences"}},
+
+ {skill:"Grammar",
+  q:"The children ____ in the classroom now.",
+  ch:["is","was","are","has"],cor:2,
+  exp:'"Children" is plural → use "are." Subject-verb agreement: plural subject = are.',
+  hint:{word:"plural",thai:"พหูพจน์ (มากกว่าหนึ่ง)",pron:"พลู-รัล",eng:"more than one person or thing"}},
+
+ {skill:"Conversation",
+  q:'"What would you like to drink?" — "____"',
+  ch:["I would like some water, please.","I am thirsty.","Water is cold.","I drink every day."],cor:0,
+  exp:'"I would like some water, please." is the polite way to order a drink.',
+  hint:{word:"would like",thai:"อยากได้ / ต้องการ",pron:"วูด-ไลค์",eng:"a polite way to say 'want'"}},
+
+ {skill:"Grammar",
+  q:"You ____ wear a helmet when you ride a bicycle. It is dangerous without one.",
+  ch:["can","must","might","shall"],cor:1,
+  exp:'"Must" expresses a strong obligation — something very important or necessary to do.',
+  hint:{word:"helmet",thai:"หมวกกันน็อค",pron:"เฮล-เมท",eng:"a hard hat worn to protect the head"}},
+
+ {skill:"Reading",
+  passage:"Notice: The school library will be closed on Friday for cleaning. Please return all books by Thursday.",
+  q:"When must students return their books?",
+  ch:["On Friday","After cleaning","By Thursday","On Monday"],cor:2,
+  exp:'The notice says "Please return all books by Thursday" — before the Friday closure.',
+  hint:{word:"return",thai:"คืน / ส่งคืน",pron:"รี-เทิร์น",eng:"to give something back"}},
+
+ {skill:"Grammar",
+  q:"The cat is sitting ____ the chair.",
+  ch:["in","at","on","by"],cor:2,
+  exp:'"On" is the correct preposition for a surface. The cat is on top of the chair.',
+  hint:{word:"preposition",thai:"คำบุพบท",pron:"เพรพ-อะ-ซิ-ชัน",eng:"a word showing position or time (on, in, at, by)"}},
+
+ {skill:"Grammar",
+  q:'"____ did you go last weekend?"',
+  ch:["Who","What","Where","How"],cor:2,
+  exp:'"Where" asks about a place. "Where did you go?" asks about the destination.',
+  hint:{word:"weekend",thai:"วันหยุดสุดสัปดาห์",pron:"วีค-เอนด์",eng:"Saturday and Sunday"}},
+
+ {skill:"Conversation",
+  q:'Teacher: "Please open your books to page 10." Student: "____"',
+  ch:["I like books.","OK, teacher.","Books are big.","I read fast."],cor:1,
+  exp:'"OK, teacher." is the natural, polite response to a teacher\'s instruction.'},
+
+ {skill:"Grammar",
+  q:"The sun rises in ____ east.",
+  ch:["a","an","the","–"],cor:2,
+  exp:'We use "the" with unique things and compass directions: in the east, in the north.',
+  hint:{word:"east",thai:"ทิศตะวันออก",pron:"อีสท์",eng:"the direction where the sun rises each morning"}},
+
+ {skill:"Vocabulary",
+  q:"Which word means 'very big'?",
+  ch:["tiny","huge","flat","narrow"],cor:1,
+  exp:'"Huge" means extremely large. "Tiny" is the opposite — it means very small.',
+  hint:{word:"huge",thai:"ใหญ่มาก / มหึมา",pron:"ฮิวจ์",eng:"extremely large in size"}},
+
+ {skill:"Grammar",
+  q:"I need some ____ for the cake.",
+  ch:["sugars","sugar","a sugar","sugaring"],cor:1,
+  exp:'"Sugar" is uncountable. Do not add -s or use "a" with uncountable nouns. Use "some sugar."',
+  hint:{word:"uncountable noun",thai:"คำนามนับไม่ได้",pron:"อัน-เคาน์-ทะ-เบิล",eng:"a noun you cannot count individually (water, sugar, rice)"}},
+
+ {skill:"Reading",
+  passage:"NO FOOD OR DRINKS ALLOWED IN THE COMPUTER ROOM.",
+  q:"What is NOT allowed in the computer room?",
+  ch:["Using a computer","Eating or drinking","Talking to friends","Printing documents"],cor:1,
+  exp:'The sign says "No food or drinks allowed" — eating and drinking are not permitted.',
+  hint:{word:"allowed",thai:"อนุญาต",pron:"อะ-เลาด์",eng:"permitted; allowed to do something"}},
+
+ {skill:"Grammar",
+  q:"It looks very cloudy. I think it ____ rain soon.",
+  ch:["is","was","will","rains"],cor:2,
+  exp:'"Will" makes predictions about the future. "I think it will rain" = a belief about what will happen.',
+  hint:{word:"cloudy",thai:"มีเมฆมาก",pron:"เคลา-ดี",eng:"when the sky is covered with clouds"}},
+
+ {skill:"Conversation",
+  q:'"How much does this shirt cost?" — "____"',
+  ch:["It is blue.","It costs 250 baht.","It is very nice.","I like it."],cor:1,
+  exp:'When asked "how much?", give the price. "It costs 250 baht." answers the question correctly.',
+  hint:{word:"cost",thai:"ราคา / มีราคา",pron:"คอสท์",eng:"the price of something"}},
+
+ {skill:"Vocabulary",
+  q:"She went to the ____ to borrow a book.",
+  ch:["market","library","bakery","station"],cor:1,
+  exp:'A "library" is a place where you can borrow books for free.',
+  hint:{word:"borrow",thai:"ยืม",pron:"บอร์-โรว",eng:"to take something temporarily and return it later"}},
+
+ {skill:"Grammar",
+  q:"There ____ a lot of students in the hall this morning.",
+  ch:["is","was","are","were"],cor:3,
+  exp:'"Were" is the Past Simple plural of "be." "Students" is plural, and "this morning" is past.',
+  hint:{word:"hall",thai:"ห้องโถง / หอประชุม",pron:"ฮอล",eng:"a large room used for events or gatherings"}},
+],
+
+// ─── MEDIUM ────────────────────────────────────────────────────────────────
+medium:[
+ {skill:"Grammar",
+  q:"She ____ to Japan three times so far.",
+  ch:["goes","went","has been","is going"],cor:2,
+  exp:'"Has been" = Present Perfect for experiences. "So far" signals present relevance.',
+  hint:{word:"so far",thai:"จนถึงตอนนี้",pron:"โซ-ฟาร์",eng:"up to the present time"}},
+
+ {skill:"Vocabulary",
+  q:"The doctor told her to rest because she was feeling ____.",
+  ch:["excited","exhausted","jealous","curious"],cor:1,
+  exp:'"Exhausted" = extremely tired. A doctor advising rest is the key context clue.',
+  hint:{word:"exhausted",thai:"เหนื่อยมาก / หมดแรง",pron:"อิก-ซอส-ทิด",eng:"completely tired with no energy left"}},
+
+ {skill:"Grammar",
+  q:"If it rains tomorrow, we ____ stay at home.",
+  ch:["would","will","shall","should"],cor:1,
+  exp:'First conditional (real future possibility): If + present simple, WILL + base verb.',
+  hint:{word:"conditional",thai:"ประโยคเงื่อนไข",pron:"คอน-ดิ-ชัน-เนิล",eng:"a sentence with 'if' that shows one thing depends on another"}},
+
+ {skill:"Conversation",
+  q:'"Excuse me, how do I get to the post office?" — "____"',
+  ch:["The post office is very big.","Go straight and turn left at the corner.","I am from around here.","It opens at 8 a.m."],cor:1,
+  exp:'Giving directions requires movement instructions: go straight, turn left/right.',
+  hint:{word:"post office",thai:"ที่ทำการไปรษณีย์",pron:"โพสท์-อ็อฟ-ฟิส",eng:"a place where you send letters and packages"}},
+
+ {skill:"Grammar",
+  q:"The cake ____ by my mother yesterday.",
+  ch:["baked","is baked","was baked","bakes"],cor:2,
+  exp:'Passive voice (past): was/were + past participle. "Baked" is V3 of "bake." "Yesterday" = past.',
+  hint:{word:"passive",thai:"ประโยคกรรมวาจก",pron:"แพส-ซิฟ",eng:"when the subject receives the action (the cake was baked)"}},
+
+ {skill:"Vocabulary",
+  q:"Tom looked ____ when he heard the bad news. He didn't smile at all.",
+  ch:["excited","surprised","happy","upset"],cor:3,
+  exp:'"Upset" = unhappy or disturbed. "Didn\'t smile" after "bad news" = upset.',
+  hint:{word:"upset",thai:"เสียใจ / ไม่พอใจ",pron:"อัพ-เซท",eng:"feeling unhappy or troubled about something"}},
+
+ {skill:"Grammar",
+  q:"I wanted to buy the jacket, ____ it was too expensive.",
+  ch:["so","but","because","and"],cor:1,
+  exp:'"But" connects two contrasting ideas. She wanted it BUT it was too expensive.',
+  hint:{word:"contrast",thai:"ความตรงข้าม",pron:"คอน-ทราสท์",eng:"showing two opposite or different things together"}},
+
+ {skill:"Reading",
+  passage:"Hi Mia, I can't come to your birthday party on Saturday because I have a swimming competition. I am really sorry. Let's meet next weekend instead. — Lisa",
+  q:"Why can't Lisa come to the party?",
+  ch:["She is sick.","She forgot the date.","She has a competition.","She doesn't like parties."],cor:2,
+  exp:'Lisa clearly states: "I can\'t come... because I have a swimming competition."',
+  hint:{word:"competition",thai:"การแข่งขัน",pron:"คอม-พี-ทิ-ชัน",eng:"an event where people try to win against each other"}},
+
+ {skill:"Grammar",
+  q:"A whale is much ____ than a dolphin.",
+  ch:["big","bigger","biggest","more big"],cor:1,
+  exp:'Comparative for one-syllable adjectives: add -er. "More big" is non-standard.',
+  hint:{word:"whale",thai:"วาฬ",pron:"เวล",eng:"the largest animal in the ocean"}},
+
+ {skill:"Vocabulary",
+  q:"She is very ____. She always finishes her homework before dinner.",
+  ch:["lazy","noisy","responsible","careless"],cor:2,
+  exp:'"Responsible" = takes duties seriously. Always finishing homework early shows responsibility.',
+  hint:{word:"responsible",thai:"รับผิดชอบ",pron:"รี-สปอน-ซิ-เบิล",eng:"doing your duties properly and reliably"}},
+
+ {skill:"Grammar",
+  q:"The festival starts ____ the 20th of December.",
+  ch:["in","at","on","by"],cor:2,
+  exp:'"On" is used with specific dates and days: on the 20th, on Monday, on New Year\'s Day.',
+  hint:{word:"festival",thai:"งานเทศกาล",pron:"เฟส-ติ-เวิล",eng:"a special celebration or cultural event"}},
+
+ {skill:"Conversation",
+  q:'"Would you like to come to my house this Saturday?" — "____"',
+  ch:["I would love to!","Saturday is a holiday.","My house is far.","I am very busy."],cor:0,
+  exp:'"I would love to!" is the most natural, enthusiastic positive response to an invitation.',
+  hint:{word:"invitation",thai:"คำเชิญ",pron:"อิน-วิ-เท-ชัน",eng:"asking someone to come somewhere or join an event"}},
+
+ {skill:"Grammar",
+  q:"You look tired. You ____ go to bed early tonight.",
+  ch:["must","shall","should","will"],cor:2,
+  exp:'"Should" gives advice or a suggestion. It is softer than "must."',
+  hint:{word:"advice",thai:"คำแนะนำ",pron:"แอด-ไวซ์",eng:"suggestions that help someone make a good decision"}},
+
+ {skill:"Reading",
+  passage:"SCHOOL SPORTS DAY — All Grade 4–6 students must wear their PE uniform and bring a water bottle. The event will be on the football field. Students who feel unwell should inform their class teacher.",
+  q:"What should students who feel sick do?",
+  ch:["Stay at home","Tell their class teacher","Wear PE uniform","Bring extra water"],cor:1,
+  exp:'The notice says: "Students who feel unwell should inform their class teacher."',
+  hint:{word:"unwell",thai:"ไม่สบาย",pron:"อัน-เวล",eng:"feeling ill or sick"}},
+
+ {skill:"Grammar",
+  q:"____ hasn't done their homework yet?",
+  ch:["Whose","What","Who","Which"],cor:2,
+  exp:'"Who" asks about a person as the subject. "Who hasn\'t done...?" = which person.',
+  hint:{word:"subject",thai:"ประธานของประโยค",pron:"ซับ-จิคท์",eng:"the person or thing that does the action"}},
+
+ {skill:"Vocabulary",
+  q:"The new shopping mall is very ____. It has five floors and hundreds of shops.",
+  ch:["tiny","narrow","enormous","simple"],cor:2,
+  exp:'"Enormous" = extremely large. Five floors and hundreds of shops is the context clue.',
+  hint:{word:"enormous",thai:"ใหญ่โตมาก",pron:"อิ-นอร์-มัส",eng:"extremely large in size"}},
+
+ {skill:"Conversation",
+  q:'"Excuse me, may I go to the bathroom?" — "____"',
+  ch:["Yes, of course.","Good morning.","Be careful.","That\'s fine, I think."],cor:0,
+  exp:'"Yes, of course." is the polite and appropriate teacher\'s response.',
+  hint:{word:"may I",thai:"ขอ... ได้ไหมครับ/ค่ะ",pron:"เม-ไอ",eng:"a polite way to ask for permission"}},
+
+ {skill:"Grammar",
+  q:"Look at those dark clouds! It ____ rain very soon.",
+  ch:["will","is going to","goes","shall"],cor:1,
+  exp:'"Is going to" is used when there is present evidence (dark clouds) that something will happen.',
+  hint:{word:"evidence",thai:"หลักฐาน / สัญญาณ",pron:"เอ-วิ-เดิน-ซ์",eng:"signs or clues that point to something"}},
+
+ {skill:"Error",
+  q:'Find the error: "She don\'t like eating vegetables for lunch."',
+  ch:["She","don't","eating","for lunch"],cor:1,
+  exp:'"She" is third person singular → must use "doesn\'t," not "don\'t."',
+  hint:{word:"third person singular",thai:"บุรุษที่ 3 เอกพจน์ (he/she/it)",pron:"เธิร์ด-เพอร์-สัน-ซิง-กิว-ลาร์",eng:"he, she, or it — always adds -s/-es to the verb"}},
+
+ {skill:"Vocabulary",
+  q:'A "bookshelf" is a piece of furniture used to ____.',
+  ch:["buy books","read stories","store books","write notes"],cor:2,
+  exp:'A bookshelf is where you keep and store books neatly.',
+  hint:{word:"furniture",thai:"เฟอร์นิเจอร์",pron:"เฟอร์-นิ-เจอร์",eng:"large objects in a room such as tables, chairs, and shelves"}},
+
+ {skill:"Grammar",
+  q:"My father is ____ engineer.",
+  ch:["a","an","the","–"],cor:1,
+  exp:'"Engineer" starts with a vowel sound /ɛ/ → use "an." My father is an engineer.',
+  hint:{word:"engineer",thai:"วิศวกร",pron:"เอน-จิ-เนียร์",eng:"a person who designs machines, roads, or bridges"}},
+
+ {skill:"Reading",
+  passage:"Every morning, Anna wakes up at 6 a.m. She makes her bed, brushes her teeth, and eats breakfast before going to school. She never misses the school bus.",
+  q:"What does Anna do FIRST after waking up?",
+  ch:["Eats breakfast","Makes her bed","Brushes her teeth","Catches the bus"],cor:1,
+  exp:'The passage lists the order: first she makes her bed, then brushes her teeth, then eats breakfast.'},
+
+ {skill:"Grammar",
+  q:"By the time we arrived, the show had already ____.",
+  ch:["start","starts","started","start up"],cor:2,
+  exp:'Past Perfect: had + past participle (V3). "Started" is V3 of "start." One past action happened before another.',
+  hint:{word:"past perfect",thai:"อดีตกาลสมบูรณ์",pron:"พาสท์-เพอร์-เฟ็กท์",eng:"used when one past action happened before another past action"}},
+
+ {skill:"Sentence",
+  q:"She studied very hard, ____ she passed the exam with a high score.",
+  ch:["but","so","although","unless"],cor:1,
+  exp:'"So" shows a result. She studied hard → so she passed. "But" shows contrast, not result.',
+  hint:{word:"result",thai:"ผลลัพธ์",pron:"รี-ซัลท์",eng:"what happens because of something else"}},
+
+ {skill:"Sentence",
+  q:"Choose the sentence that is CORRECT.",
+  ch:["She has go to the market.","She have gone to the market.","She has went to the market.","She has gone to the market."],cor:3,
+  exp:'Present Perfect: has + past participle. V3 of "go" = "gone." With "she," always use "has."',
+  hint:{word:"past participle",thai:"กริยาช่อง 3",pron:"พาสท์-พาร์-ทิ-ซิ-เพิล",eng:"the third form of a verb (go → went → gone)"}},
+],
+
+// ─── HARD ──────────────────────────────────────────────────────────────────
+hard:[
+ {skill:"Grammar",
+  q:'"I will come tomorrow," he said. → He said that he ____ come ____.',
+  ch:["will / tomorrow","would / the next day","shall / tomorrow","will / the day before"],cor:1,
+  exp:'Reported speech changes: will → would, tomorrow → the next day.',
+  hint:{word:"reported speech",thai:"คำพูดทางอ้อม",pron:"รี-พอร์-ทิด-สพีช",eng:"repeating what someone said using a different structure"}},
+
+ {skill:"Vocabulary",
+  passage:'"The scientist\'s discovery was so groundbreaking that it changed the entire field of medicine."',
+  q:"What does 'groundbreaking' most likely mean?",
+  ch:["very old","widely known","revolutionary","complicated"],cor:2,
+  exp:'"Changed the entire field" is the clue. Something that changes everything is "revolutionary."',
+  hint:{word:"groundbreaking",thai:"ล้ำยุค / ปฏิวัติวงการ",pron:"เกราวด์-เบรก-กิง",eng:"completely new and changing the way people think"}},
+
+ {skill:"Sentence",
+  q:"He practiced every day for a year; ____, he failed the audition.",
+  ch:["however","therefore","moreover","otherwise"],cor:0,
+  exp:'"However" shows an unexpected contrast. He worked hard, but unexpectedly still failed.',
+  hint:{word:"audition",thai:"การออดิชัน / ทดสอบการแสดง",pron:"อ็อ-ดิ-ชัน",eng:"a short performance to test if someone is good enough for a role"}},
+
+ {skill:"Reading",
+  passage:"Scientists have found that plants communicate through chemicals released in the air and through underground networks of fungi. When a tree is attacked by insects, it releases chemicals that warn nearby trees. The neighboring trees then produce more tannins, making their leaves bitter and harder for insects to eat. This system works slowly but effectively.",
+  q:"What do neighboring trees do when they receive a chemical warning?",
+  ch:["They attack the insects directly.","They produce more tannins.","They release chemicals underground.","They grow new leaves faster."],cor:1,
+  exp:'The passage states: "The neighboring trees then produce more tannins, making their leaves bitter."',
+  hint:{word:"tannins",thai:"สารแทนนิน (ทำให้รสขม)",pron:"แทน-นินส์",eng:"natural chemicals in plants that make things taste bitter"}},
+
+ {skill:"Error",
+  q:'Find the error: "Each of the students have to bring their own pencil case."',
+  ch:["Each","have","to bring","their own"],cor:1,
+  exp:'"Each" is always singular → "has," not "have." Each of the students HAS to bring...',
+  hint:{word:"each",thai:"แต่ละ (เอกพจน์เสมอ)",pron:"อีช",eng:"every one considered individually — always singular"}},
+
+ {skill:"Grammar",
+  q:"The girl ____ won first prize is my classmate.",
+  ch:["who","whom","which","whose"],cor:0,
+  exp:'"Who" is the relative pronoun for people as subjects. "The girl who won..." — who did the winning.',
+  hint:{word:"relative clause",thai:"อนุประโยค relative",pron:"เรล-ะ-ทิฟ-คลอส",eng:"a part of a sentence giving more information about a noun"}},
+
+ {skill:"Vocabulary",
+  q:"Which word has the most NEGATIVE meaning?",
+  ch:["slim","slender","thin","scrawny"],cor:3,
+  exp:'"Scrawny" describes someone as unattractively or unhealthily thin. The others are more neutral.',
+  hint:{word:"scrawny",thai:"ผอมโซ / ผอมแห้ง",pron:"สครอ-นี",eng:"unpleasantly thin and weak-looking"}},
+
+ {skill:"Reading",
+  passage:"Scientists have found that plants communicate through chemicals released in the air and through underground networks of fungi. When a tree is attacked by insects, it releases chemicals that warn nearby trees. The neighboring trees then produce more tannins, making their leaves bitter and harder for insects to eat. This system works slowly but effectively.",
+  q:"What is the MAIN idea of this passage?",
+  ch:["Insects eat tree leaves.","Plants have a way of communicating with each other.","Fungi live underground.","Tannins are dangerous chemicals."],cor:1,
+  exp:'The whole passage describes how plants communicate. That is the central topic.'},
+
+ {skill:"Grammar",
+  q:"I can't swim. I wish I ____ swim.",
+  ch:["can","could","will","would"],cor:1,
+  exp:'"Wish" + past simple expresses a wish about something that is NOT true now. "Could" is the past of "can."',
+  hint:{word:"wish",thai:"ปรารถนา / อยากได้",pron:"วิช",eng:"to want something that is not real or not possible now"}},
+
+ {skill:"Conversation",
+  q:'"Don\'t you think it\'s getting a bit cold in here?" What does the speaker most likely want?',
+  ch:["To know the temperature","To turn on the air conditioner","To close the window or door","To go outside"],cor:2,
+  exp:'The speaker is making an indirect suggestion — it\'s cold, so they want someone to close the window or door.',
+  hint:{word:"indirect",thai:"อ้อมค้อม / ไม่พูดตรงๆ",pron:"อิน-ได-เร็คท์",eng:"not saying something directly, but hinting at it"}},
+
+ {skill:"Grammar",
+  q:"This work ____ finished by tomorrow morning.",
+  ch:["must","has to","must be","will"],cor:2,
+  exp:'Passive modal: modal + "be" + past participle. "Must be finished" = passive obligation.',
+  hint:{word:"passive voice",thai:"กรรมวาจก",pron:"แพส-ซิฟ-วอยซ์",eng:"the subject receives the action (The work must be finished)"}},
+
+ {skill:"Reading",
+  passage:"Dr. Smith gave his students a challenging project. They had to research a topic of their choice and present it to the class. Most of them chose science-related topics.",
+  q:"What does 'them' refer to in the last sentence?",
+  ch:["Dr. Smith","The class","The students","The topics"],cor:2,
+  exp:'"Most of them" refers to "the students" who were given the project.',
+  hint:{word:"pronoun reference",thai:"การอ้างถึงของ pronoun",pron:"โพร-เนาน์-เรฟ-เฟอ-เรินซ์",eng:"finding what word a pronoun (he/she/they) is replacing"}},
+
+ {skill:"Vocabulary",
+  q:"The prefix 'dis-' in the word 'disagree' means:",
+  ch:["again","not / opposite","before","too much"],cor:1,
+  exp:'"Dis-" means not or the opposite. Disagree = not agree. Disappear = not appear. Dislike = not like.',
+  hint:{word:"prefix",thai:"คำนำหน้า",pron:"พรี-ฟิกซ์",eng:"letters added to the start of a word to change its meaning"}},
+
+ {skill:"Grammar",
+  q:"If she ____ studied harder, she ____ passed the exam.",
+  ch:["had / would have","has / will have","would / could","studied / will"],cor:0,
+  exp:'Third conditional: if + had + V3, would have + V3. Imagining a different past.',
+  hint:{word:"third conditional",thai:"เงื่อนไขสมมุติในอดีต",pron:"เธิร์ด-คอน-ดิ-ชัน-เนิล",eng:"imagining a different outcome in the past (If I had studied, I would have passed)"}},
+
+ {skill:"Reading",
+  passage:"The restaurant was full. People were waiting outside with numbers in their hands. The smell of fresh bread filled the street.",
+  q:"What can we INFER about the restaurant?",
+  ch:["It is expensive.","It is very popular.","It is very small.","It just opened recently."],cor:1,
+  exp:'People waiting outside with numbers = high demand = the restaurant is very popular.',
+  hint:{word:"infer",thai:"อนุมาน / สรุปเอา",pron:"อิน-เฟอร์",eng:"to understand something that is not directly stated"}},
+
+ {skill:"Grammar",
+  q:"She suggested ____ to the cinema that evening.",
+  ch:["to go","going","go","went"],cor:1,
+  exp:'"Suggest" is always followed by a gerund (verb-ing). Never say "suggest to go."',
+  hint:{word:"gerund",thai:"กริยานาม (verb + ing)",pron:"เจอ-รันด์",eng:"a verb form used as a noun, ending in -ing (swimming, going, reading)"}},
+
+ {skill:"Error",
+  q:'Find the error: "The news are very shocking to all of us."',
+  ch:["The","are","shocking","to all of us"],cor:1,
+  exp:'"News" looks plural but is uncountable. It always takes a singular verb: "The news IS shocking."',
+  hint:{word:"uncountable noun",thai:"คำนามนับไม่ได้",pron:"อัน-เคาน์-ทะ-เบิล",eng:"nouns always treated as singular (news, information, advice, furniture)"}},
+
+ {skill:"Vocabulary",
+  passage:"Although the weather forecast predicted sunshine, the hikers found themselves caught in a sudden downpour halfway up the mountain.",
+  q:"What does 'downpour' most likely mean?",
+  ch:["strong wind","heavy rain","thick fog","loud thunder"],cor:1,
+  exp:'A downpour is a very heavy fall of rain. The hikers needed shelter from it.',
+  hint:{word:"forecast",thai:"การพยากรณ์",pron:"ฟอร์-คาสท์",eng:"a prediction about what will happen (especially weather)"}},
+
+ {skill:"Sentence",
+  q:"____ the heavy traffic, she arrived on time.",
+  ch:["Despite","Although","However","Because"],cor:0,
+  exp:'"Despite" + noun or noun phrase. "Although" needs a full clause. "Despite the heavy traffic" is correct.',
+  hint:{word:"despite",thai:"ทั้งๆ ที่ / แม้จะมี",pron:"ดิ-สไปท์",eng:"used to say something happened even though it was difficult"}},
+
+ {skill:"Reading",
+  passage:"Most schools in Thailand hold their annual sports day in November or December when the weather is cooler. Students compete in track events, team sports, and traditional Thai games. The event usually ends with an award ceremony where students receive trophies and certificates.",
+  q:"According to the passage, when is Sports Day usually held?",
+  ch:["January or February","March or April","November or December","June or July"],cor:2,
+  exp:'Directly stated: "in November or December when the weather is cooler."',
+  hint:{word:"annual",thai:"ประจำปี",pron:"แอน-นิว-เอิล",eng:"happening once every year"}},
+
+ {skill:"Grammar",
+  q:"She hasn't called you yet, ____?",
+  ch:["has she","hasn't she","does she","is she"],cor:0,
+  exp:'Question tags: negative statement → positive tag. "Hasn\'t" → "has she?"',
+  hint:{word:"question tag",thai:"tag question / คำถามท้ายประโยค",pron:"เควส-ชัน-แท็ก",eng:"a short question added at the end of a sentence (isn't it? / has she?)"}},
+
+ {skill:"Sentence",
+  q:"She was exhausted; ____, she continued working until midnight.",
+  ch:["so","therefore","nevertheless","otherwise"],cor:2,
+  exp:'"Nevertheless" = even so / in spite of that. She was tired, but continued anyway — unexpected.',
+  hint:{word:"nevertheless",thai:"อย่างไรก็ตาม / ถึงกระนั้น",pron:"เนฟ-เวอร์-เธอ-เลส",eng:"despite what was just said; even so"}},
+
+ {skill:"Reading",
+  passage:"Many young people today prefer to communicate through text messages rather than talking face to face. While this is convenient, experts worry that it may reduce people's ability to understand emotions and read facial expressions correctly.",
+  q:"What is the MAIN concern of the experts in this passage?",
+  ch:["People text too much.","Technology is too expensive.","Digital communication may weaken social skills.","Face-to-face meetings are old-fashioned."],cor:2,
+  exp:'"Reduce people\'s ability to understand emotions" = weakening social skills. That is the main concern.',
+  hint:{word:"facial expressions",thai:"การแสดงออกทางใบหน้า",pron:"เฟ-เชิล-เอ็กซ์-เพรส-ชันส์",eng:"movements of the face that show emotions (smiling, frowning)"}},
+
+ {skill:"Grammar",
+  q:"That was ____ film I have ever seen.",
+  ch:["the more exciting","the most exciting","most exciting","more exciting"],cor:1,
+  exp:'Superlative + "ever": the + most + adjective. "The most exciting film I have ever seen."',
+  hint:{word:"superlative",thai:"ขั้นสุด",pron:"ซู-เพอร์-เลอ-ทิฟ",eng:"the highest degree: the tallest, the most beautiful, the best"}},
+
+ {skill:"Error",
+  q:'Find the error: "Despite of his illness, he went to school and tried his best."',
+  ch:["Despite","of","went","tried"],cor:1,
+  exp:'"Despite" is NEVER followed by "of." Correct: "Despite his illness..." or use "Because of his illness."',
+  hint:{word:"despite",thai:"แม้จะมี (ไม่ต้องการ 'of')",pron:"ดิ-สไปท์",eng:"'Despite' is directly followed by a noun — never 'of'"}},
+]
+}; // end QUIZ
+
+// ══════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════
+let CUR_LEVEL='easy', CUR_IDX=0, SCORE=0;
+let ANSWERS=[], QUESTIONS=[];
+let HINT_OPEN=false;
+
+// ══════════════════════════════════════════════
+//  NAVIGATION
+// ══════════════════════════════════════════════
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function goHome(){ showPage('home'); }
+
+// ══════════════════════════════════════════════
+//  START
+// ══════════════════════════════════════════════
+function startQuiz(level){
+  CUR_LEVEL=level; CUR_IDX=0; SCORE=0;
+  QUESTIONS=QUIZ[level];
+  ANSWERS=QUESTIONS.map(q=>({chosen:null,correct:q.cor,answered:false}));
+  showPage('quiz');
+  renderQ();
+}
+
+// ══════════════════════════════════════════════
+//  RENDER QUESTION
+// ══════════════════════════════════════════════
+function renderQ(){
+  const q=QUESTIONS[CUR_IDX], ans=ANSWERS[CUR_IDX], total=QUESTIONS.length;
+  const pct=Math.round((CUR_IDX+1)/total*100);
+  const lbl={easy:'Easy Set',medium:'Medium Set',hard:'Hard Set'}[CUR_LEVEL];
+  const cc={easy:'chip-easy',medium:'chip-medium',hard:'chip-hard'}[CUR_LEVEL];
+
+  document.getElementById('q-level-chip').textContent=lbl;
+  document.getElementById('q-level-chip').className='q-level-chip '+cc;
+  document.getElementById('q-skill-chip').textContent=q.skill;
+  document.getElementById('q-counter').textContent=(CUR_IDX+1)+' / '+total;
+  document.getElementById('q-score-chip').textContent='Score: '+SCORE;
+  document.getElementById('q-progress').style.width=pct+'%';
+  document.getElementById('btn-prev').disabled=(CUR_IDX===0);
+  document.getElementById('btn-next').textContent=(CUR_IDX===total-1)?'📊 Results':'Next →';
+
+  const letters=['A','B','C','D'];
+  let html='<div class="q-card">';
+  html+='<div class="q-num">Question '+(CUR_IDX+1)+' of '+total+'</div>';
+  html+='<div class="q-skill-tag tag-'+q.skill+'">'+q.skill+'</div>';
+
+  if(q.passage) html+='<div class="passage-box">'+q.passage+'</div>';
+
+  if(q.hint){
+    html+='<button class="hint-btn" onclick="toggleHint()">💡 Hint — '+q.hint.word+'</button>';
+    html+='<div class="hint-box" id="hint-box">'
+      +'<div class="hint-word">📘 "'+q.hint.word+'"</div>'
+      +'<div class="hint-line">🇹🇭 <strong>Thai:</strong> '+q.hint.thai+'</div>'
+      +'<div class="hint-line">🔊 <strong>Pronunciation:</strong> <span>'+q.hint.pron+'</span></div>'
+      +'<div class="hint-line">🔤 <strong>English:</strong> '+q.hint.eng+'</div>'
+      +'</div>';
+  }
+
+  html+='<div class="q-text">'+q.q+'</div>';
+  html+='<div class="choices">';
+  q.ch.forEach((c,i)=>{
+    let cls='';
+    if(ans.answered){
+      if(i===q.cor) cls=(ans.chosen===i)?'c-correct':'c-reveal';
+      else if(i===ans.chosen) cls='c-wrong';
+    }
+    const dis=ans.answered?'disabled':'';
+    html+='<button class="choice-btn '+cls+'" onclick="checkAns('+i+')" '+dis+'>'
+      +'<span class="cletter">'+letters[i]+'</span>'+c+'</button>';
+  });
+  html+='</div>';
+
+  if(ans.answered){
+    const ok=ans.chosen===q.cor;
+    html+='<div class="feedback show '+(ok?'fb-c':'fb-w')+'">'
+      +'<div class="fb-status">'+(ok?'✅ Correct!':'❌ Not quite!')+'</div>'
+      +'<div class="fb-ans"><strong>Correct answer:</strong> '+letters[q.cor]+'. '+q.ch[q.cor]+'</div>'
+      +'<div class="fb-exp">'+q.exp+'</div></div>';
+  } else {
+    html+='<div class="feedback" id="fb"></div>';
+  }
+
+  html+='</div>';
+  document.getElementById('q-card-area').innerHTML=html;
+  HINT_OPEN=false;
+}
+
+// ══════════════════════════════════════════════
+//  HINT
+// ══════════════════════════════════════════════
+function toggleHint(){
+  const b=document.getElementById('hint-box');
+  if(!b) return;
+  HINT_OPEN=!HINT_OPEN;
+  b.classList.toggle('show',HINT_OPEN);
+}
+
+// ══════════════════════════════════════════════
+//  CHECK ANSWER
+// ══════════════════════════════════════════════
+function checkAns(idx){
+  const ans=ANSWERS[CUR_IDX];
+  if(ans.answered) return;
+  ans.answered=true; ans.chosen=idx;
+  const q=QUESTIONS[CUR_IDX];
+  const ok=idx===q.cor;
+  if(ok) SCORE++;
+  document.getElementById('q-score-chip').textContent='Score: '+SCORE;
+
+  const letters=['A','B','C','D'];
+  document.querySelectorAll('.choice-btn').forEach((btn,i)=>{
+    btn.disabled=true;
+    if(i===q.cor){
+      btn.classList.add(idx!==i?'c-reveal':'c-correct');
+      btn.querySelector('.cletter').style.cssText='background:#10b981;color:#fff;border-color:#10b981';
+    } else if(i===idx&&!ok){
+      btn.classList.add('c-wrong');
+      btn.querySelector('.cletter').style.cssText='background:#ef4444;color:#fff;border-color:#ef4444';
+    }
+  });
+
+  const fb=document.getElementById('fb');
+  if(fb){
+    fb.className='feedback show '+(ok?'fb-c':'fb-w');
+    fb.innerHTML='<div class="fb-status">'+(ok?'✅ Correct!':'❌ Not quite!')+'</div>'
+      +'<div class="fb-ans"><strong>Correct answer:</strong> '+letters[q.cor]+'. '+q.ch[q.cor]+'</div>'
+      +'<div class="fb-exp">'+q.exp+'</div>';
+  }
+}
+
+// ══════════════════════════════════════════════
+//  NAVIGATION
+// ══════════════════════════════════════════════
+function nextQ(){
+  if(CUR_IDX<QUESTIONS.length-1){ CUR_IDX++; renderQ(); window.scrollTo(0,0); }
+  else showResults();
+}
+function prevQ(){
+  if(CUR_IDX>0){ CUR_IDX--; renderQ(); window.scrollTo(0,0); }
+}
+
+// ══════════════════════════════════════════════
+//  RESULTS
+// ══════════════════════════════════════════════
+function showResults(){
+  const total=QUESTIONS.length, pct=Math.round(SCORE/total*100);
+  const lbl={easy:'Easy Set 🟢',medium:'Medium Set 🔵',hard:'Hard Set 🔴'}[CUR_LEVEL];
+  let trophy,msg,sub;
+  if(pct>=88){trophy='🏆';msg='Outstanding! Excellent Work!';sub='You are fully ready for the entrance exam. Bright EngMath is proud of you! ⭐';}
+  else if(pct>=72){trophy='🌟';msg='Great Job! Well Done!';sub='Solid result! Review a few questions and you will be at the very top.';}
+  else if(pct>=52){trophy='👍';msg='Good Effort! Keep Going!';sub='You\'re on the right track. Review the questions and try again.';}
+  else{trophy='💪';msg='Keep Practicing — You Can Do It!';sub='Every mistake helps you learn. Read the questions carefully and try again!';}
+
+  document.getElementById('res-trophy').textContent=trophy;
+  document.getElementById('res-title').textContent='Quiz Complete!';
+  document.getElementById('res-sub').textContent='Level: '+lbl;
+  document.getElementById('res-score').textContent=SCORE+' / '+total;
+  document.getElementById('res-pct').textContent=pct+'%';
+  document.getElementById('res-enc').textContent=msg;
+  document.getElementById('res-enc-sub').textContent=sub;
+
+  // Skill breakdown
+  const skillMap={};
+  QUESTIONS.forEach((q,i)=>{
+    const s=q.skill;
+    if(!skillMap[s]) skillMap[s]={right:0,total:0};
+    skillMap[s].total++;
+    if(ANSWERS[i].answered && ANSWERS[i].chosen===q.cor) skillMap[s].right++;
+  });
+  const colors={Grammar:'#3b82f6',Vocabulary:'#f59e0b',Conversation:'#10b981',Reading:'#8b5cf6',Error:'#ef4444',Sentence:'#ec4899'};
+  let bkHtml='<div class="breakdown-title">Score by Skill</div>';
+  Object.entries(skillMap).forEach(([skill,data])=>{
+    const p=Math.round(data.right/data.total*100);
+    bkHtml+=`<div class="bk-row">
+      <span class="bk-label" style="font-size:.8rem">${skill}</span>
+      <div class="bk-bar-wrap"><div class="bk-bar-fill" style="width:${p}%;background:${colors[skill]||'#6b7280'}"></div></div>
+      <span class="bk-count">${data.right}/${data.total}</span>
+    </div>`;
+  });
+  document.getElementById('res-breakdown').innerHTML=bkHtml;
+
+  document.getElementById('res-retry').onclick=()=>startQuiz(CUR_LEVEL);
+  document.getElementById('rev-retry').onclick=()=>startQuiz(CUR_LEVEL);
+  showPage('results');
+}
+
+// ══════════════════════════════════════════════
+//  REVIEW
+// ══════════════════════════════════════════════
+function showReview(){
+  const letters=['A','B','C','D'];
+  let html='';
+  QUESTIONS.forEach((q,i)=>{
+    const ans=ANSWERS[i];
+    let badge,yours='';
+    if(!ans.answered){badge='<span class="rev-badge rb-s">Skipped</span>';}
+    else if(ans.chosen===q.cor){badge='<span class="rev-badge rb-c">✓ Correct</span>';}
+    else{badge='<span class="rev-badge rb-w">✗ Wrong</span>';
+      yours='<div class="rev-yours">Your answer: '+(ans.chosen!==null?letters[ans.chosen]+'. '+q.ch[ans.chosen]:'—')+'</div>';}
+    html+=`<div class="review-item">
+      ${badge}
+      <div class="rev-q"><strong>Q${i+1}.</strong> ${q.q}</div>
+      <div class="rev-correct">✅ ${letters[q.cor]}. ${q.ch[q.cor]}</div>
+      ${yours}
+      <div class="rev-exp">💡 ${q.exp}</div>
+    </div>`;
+  });
+  document.getElementById('review-body').innerHTML=html;
+  showPage('review');
+}
+
+showPage('home');
+</script>
+</body>
+</html>
